@@ -1,0 +1,45 @@
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
+local BASE = 'https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/games/'
+
+local games = {
+    [9190691]    = 'anime-squadron.lua',
+    [896806231]  = 'axe-rng.lua',
+    [759293173]  = 'reign-piece.lua',
+    [973045631]  = 'anime-card-farm.lua',
+    [104489519]  = 'defend-ur-base-with-anime.lua',
+    [446405201]  = 'merge-a-nuke.lua',
+    [5028964]    = 'saber-simulator.lua',
+    [561990553]  = 'survive-zombie-arena.lua',
+    [35906875]   = 'anime-story-2.lua',
+    [33910482]   = 'anime-world-fighters.lua',
+    [895955624]  = 'anime-rng.lua',
+    [168519468]  = 'anime-astral-simulator.lua',
+    [1006239440] = 'anime-battle-rng.lua',
+    [572660282]  = 'anime-ultraon-simulator.lua',
+    [2568838]    = 'tree-rng.lua',
+    [15504927]   = 'launch-a-wheel.lua',
+    [4651630]    = 'lineage-piece.lua',
+    [2823500]    = 'untitled-melee-rng.lua',
+    [889770537]  = 'farm-rng.lua',
+    [432538536]  = 'grow-a-garden-2.lua',
+    [10353739]   = 'loot-rng.lua',
+    [654102831]  = 'bomb-fishing.lua',
+    [32001182]   = 'merge-vs-mobs.lua',
+    [719390069]  = 'lucky-block-rush.lua',
+    [374857141]  = 'pickaxe-tycoon.lua',
+    [15904375]   = 'rng-heroes.lua',
+    [1105128955] = 'click-simulator.lua',
+    [51129361]   = 'scale-slimy-fish.lua',
+    [711432426]  = 'world-cup-manager.lua',
+    [665060893]  = 'evomon.lua',
+    [861213399]  = 'roll-to-defend.lua',
+}
+
+local file = games[game.CreatorId]
+if file then
+    task.wait(math.random())
+    loadstring(game:HttpGet(BASE .. file))()
+end
