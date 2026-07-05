@@ -36,6 +36,7 @@ local games = {
     [711432426]  = 'world-cup-manager.lua',
     [665060893]  = 'evomon.lua',
     [861213399]  = 'roll-to-defend.lua',
+    [115808762898625] = 'anime-rng-defense.lua',
 }
 
 local file = games[game.CreatorId]
