@@ -39,6 +39,7 @@ local games = {
     [33724194] = 'anime-rng-defense.lua',
     [831907229] = 'spin-a-car.lua',
     [36093006] = 'animesouls.lua',
+    [742438713] = 'rollanime.lua',
 }
 
 local file = games[game.CreatorId]
