@@ -25,6 +25,8 @@ local PlaytimeClaim = Remotes:WaitForChild("PlaytimeClaim")
 local RebirthRequest = Remotes:WaitForChild("RebirthRequest")
 local RebirthBuyUpgrade = Remotes:WaitForChild("RebirthBuyUpgrade")
 local RebirthBuyItem = Remotes:WaitForChild("RebirthBuyItem")
+local HarvestCrop = Remotes:WaitForChild("HarvestCrop")
+local CropSpeedup = Remotes:WaitForChild("CropSpeedup")
 
 local Modules = ReplicatedStorage:WaitForChild("Modules")
 local SeedData = require(Modules:WaitForChild("SeedData"))
@@ -391,13 +393,9 @@ task.spawn(function()
             local _, growing = ownedBedSlots()
             for _, slot in ipairs(growing) do
                 if Library.Unloaded or not Toggles.AutoGrow.Value then break end
-                local pad = slot:FindFirstChild("ClickPad", true)
-                local click = pad and pad:FindFirstChildOfClass("ClickDetector")
-                if click then
-                    for _ = 1, Options.GrowClicks.Value do
-                        if slot:GetAttribute("Ripe") == true then break end
-                        pcall(function() fireclickdetector(click) end)
-                    end
+                for _ = 1, Options.GrowClicks.Value do
+                    if slot:GetAttribute("Ripe") == true then break end
+                    pcall(function() CropSpeedup:FireServer(slot) end)
                 end
             end
         end
@@ -411,11 +409,8 @@ task.spawn(function()
             local _, _, ripe = ownedBedSlots()
             for _, slot in ipairs(ripe) do
                 if Library.Unloaded or not Toggles.AutoHarvest.Value then break end
-                local prompt = slot:FindFirstChild("HarvestPrompt")
-                if prompt then
-                    pcall(function() fireproximityprompt(prompt) end)
-                    task.wait(0.05)
-                end
+                pcall(function() HarvestCrop:FireServer(slot) end)
+                task.wait(0.05)
             end
         end
     end
