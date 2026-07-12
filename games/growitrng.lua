@@ -82,6 +82,14 @@ local decorNames, decorIdByName, decorPriceByName = buildShopEntries(DecorationD
 local gearNames, gearIdByName, gearPriceByName = buildShopEntries(GearData.List)
 local crateNames, crateIdByName, cratePriceByName = buildShopEntries(CrateData.List)
 
+local sprinklerList = {}
+for _, v in ipairs(DecorationData.List) do
+    if string.find(v.name, "Sprinkler") then
+        table.insert(sprinklerList, v)
+    end
+end
+local sprinklerNames, sprinklerIdByName, sprinklerPriceByName = buildShopEntries(sprinklerList)
+
 local playtimeMinutes = {}
 local playtimeCfg = ReplicatedStorage:FindFirstChild("PlaytimeRewardsConfig")
 if playtimeCfg then
@@ -316,6 +324,15 @@ CosmeticBox:AddDropdown("BuyDecorations", {
     Values = decorNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
     Text = "Decorations to buy",
 })
+
+local SprinklerBox = Tabs.Shop:AddLeftGroupbox("Sprinklers", "droplets")
+SprinklerBox:AddToggle("AutoBuySprinklers", { Text = "Auto Buy Sprinklers", Default = false })
+SprinklerBox:AddDropdown("BuySprinklers", {
+    Values = sprinklerNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
+    Text = "Sprinklers to buy",
+})
+SprinklerBox:AddSlider("SprinklerAmount", { Text = "Buys per cycle", Default = 1, Min = 1, Max = 20, Rounding = 0 })
+SprinklerBox:AddSlider("SprinklerInterval", { Text = "Sprinkler interval", Default = 1, Min = 0.2, Max = 10, Rounding = 1, Suffix = "s" })
 
 local CrateBox = Tabs.Shop:AddRightGroupbox("Crates", "package")
 CrateBox:AddToggle("AutoBuyCrates", { Text = "Auto Buy Crates", Default = false })
@@ -624,6 +641,25 @@ task.spawn(function()
                         bought = bought + 1
                         task.wait(0.1)
                     end
+                end
+            end
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait(Options.SprinklerInterval.Value) do
+        if Library.Unloaded then break end
+        if Toggles.AutoBuySprinklers.Value then
+            local bought = 0
+            for label in pairs(Options.BuySprinklers.Value) do
+                if Library.Unloaded or not Toggles.AutoBuySprinklers.Value then break end
+                if bought >= Options.SprinklerAmount.Value then break end
+                local id = sprinklerIdByName[label]
+                if id and affordable(sprinklerPriceByName[label] or 0) then
+                    pcall(function() BuyStructure:InvokeServer("Decoration", id) end)
+                    bought = bought + 1
+                    task.wait(0.1)
                 end
             end
         end
