@@ -1,5 +1,15 @@
 local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
 local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
+
+if getgenv()._GrowItRNG_Unload then
+    pcall(getgenv()._GrowItRNG_Unload)
+end
+getgenv()._GrowItRNG_Unload = function()
+    if Library and not Library.Unloaded then
+        Library:Unload()
+    end
+end
+
 local ThemeManager = loadstring(game:HttpGet(repo .. "addons/ThemeManager.lua"))()
 local SaveManager = loadstring(game:HttpGet(repo .. "addons/SaveManager.lua"))()
 
@@ -24,10 +34,6 @@ local QuestClaim = Remotes:WaitForChild("QuestClaim")
 local PlaytimeClaim = Remotes:WaitForChild("PlaytimeClaim")
 local RebirthRequest = Remotes:WaitForChild("RebirthRequest")
 local RebirthBuyUpgrade = Remotes:WaitForChild("RebirthBuyUpgrade")
-local RebirthBuyItem = Remotes:WaitForChild("RebirthBuyItem")
-local HarvestCrop = Remotes:WaitForChild("HarvestCrop")
-local CropSpeedup = Remotes:WaitForChild("CropSpeedup")
-
 local Modules = ReplicatedStorage:WaitForChild("Modules")
 local SeedData = require(Modules:WaitForChild("SeedData"))
 local PetData = require(Modules:WaitForChild("PetData"))
@@ -352,6 +358,38 @@ local shopCategories = {
     { kind = "Decoration", option = "BuyDecorations", ids = decorIdByName, prices = decorPriceByName },
 }
 
+local function rootPart()
+    local character = LocalPlayer.Character
+    return character and character:FindFirstChild("HumanoidRootPart")
+end
+
+local function safeFarmLoop(slots, maxDist, shouldContinueFunc, getInteractableFunc, actionFunc)
+    local root = rootPart()
+    if not root then return end
+    local originalCFrame = root.CFrame
+    local moved = false
+    
+    for _, slot in ipairs(slots) do
+        if Library.Unloaded or not shouldContinueFunc() then break end
+        
+        local target = getInteractableFunc(slot)
+        if target then
+            if (root.Position - slot.Position).Magnitude > maxDist then
+                root.CFrame = slot.CFrame + Vector3.new(0, 3, 0)
+                moved = true
+                task.wait(0.15)
+            end
+            
+            if Library.Unloaded or not shouldContinueFunc() then break end
+            actionFunc(slot, target)
+        end
+    end
+    
+    if moved then
+        root.CFrame = originalCFrame
+    end
+end
+
 -- ===== Loops =====
 
 task.spawn(function()
@@ -391,13 +429,14 @@ task.spawn(function()
         if Library.Unloaded then break end
         if Toggles.AutoGrow.Value then
             local _, growing = ownedBedSlots()
-            for _, slot in ipairs(growing) do
-                if Library.Unloaded or not Toggles.AutoGrow.Value then break end
+            safeFarmLoop(growing, 14, function() return Toggles.AutoGrow.Value end, function(slot)
+                return slot:FindFirstChild("SpeedupClick", true) or slot:FindFirstChildOfClass("ClickDetector", true)
+            end, function(slot, target)
                 for _ = 1, Options.GrowClicks.Value do
                     if slot:GetAttribute("Ripe") == true then break end
-                    pcall(function() CropSpeedup:FireServer(slot) end)
+                    pcall(function() fireclickdetector(target) end)
                 end
-            end
+            end)
         end
     end
 end)
@@ -407,11 +446,12 @@ task.spawn(function()
         if Library.Unloaded then break end
         if Toggles.AutoHarvest.Value then
             local _, _, ripe = ownedBedSlots()
-            for _, slot in ipairs(ripe) do
-                if Library.Unloaded or not Toggles.AutoHarvest.Value then break end
-                pcall(function() HarvestCrop:FireServer(slot) end)
+            safeFarmLoop(ripe, 6, function() return Toggles.AutoHarvest.Value end, function(slot)
+                return slot:FindFirstChild("HarvestPrompt", true)
+            end, function(slot, target)
+                pcall(function() fireproximityprompt(target) end)
                 task.wait(0.05)
-            end
+            end)
         end
     end
 end)
@@ -518,11 +558,6 @@ task.spawn(function()
         end
     end
 end)
-
-local function rootPart()
-    local character = LocalPlayer.Character
-    return character and character:FindFirstChild("HumanoidRootPart")
-end
 
 task.spawn(function()
     while task.wait(Options.CatchInterval.Value) do
