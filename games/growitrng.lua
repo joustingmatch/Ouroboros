@@ -98,6 +98,14 @@ for _, v in ipairs(DecorationData.List) do
 end
 local sprinklerNames, sprinklerIdByName, sprinklerPriceByName = buildShopEntries(sprinklerList)
 
+local wateringCanList = {}
+for _, v in ipairs(GearData.List) do
+    if string.find(v.name, "Watering Can") then
+        table.insert(wateringCanList, v)
+    end
+end
+local wateringCanNames, wateringCanIdByName, wateringCanPriceByName = buildShopEntries(wateringCanList)
+
 local playtimeMinutes = {}
 local playtimeCfg = ReplicatedStorage:FindFirstChild("PlaytimeRewardsConfig")
 if playtimeCfg then
@@ -341,6 +349,15 @@ SprinklerBox:AddDropdown("BuySprinklers", {
 })
 SprinklerBox:AddSlider("SprinklerAmount", { Text = "Buys per cycle", Default = 1, Min = 1, Max = 20, Rounding = 0 })
 SprinklerBox:AddSlider("SprinklerInterval", { Text = "Sprinkler interval", Default = 1, Min = 0.2, Max = 10, Rounding = 1, Suffix = "s" })
+
+local WateringCanBox = Tabs.Shop:AddLeftGroupbox("Watering Cans", "droplet")
+WateringCanBox:AddToggle("AutoBuyWateringCans", { Text = "Auto Buy Watering Cans", Default = false })
+WateringCanBox:AddDropdown("BuyWateringCans", {
+    Values = wateringCanNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
+    Text = "Watering cans to buy",
+})
+WateringCanBox:AddSlider("WateringCanAmount", { Text = "Buys per cycle", Default = 1, Min = 1, Max = 20, Rounding = 0 })
+WateringCanBox:AddSlider("WateringCanInterval", { Text = "Watering can interval", Default = 1, Min = 0.2, Max = 10, Rounding = 1, Suffix = "s" })
 
 local CrateBox = Tabs.Shop:AddRightGroupbox("Crates", "package")
 CrateBox:AddToggle("AutoBuyCrates", { Text = "Auto Buy Crates", Default = false })
@@ -688,6 +705,25 @@ task.spawn(function()
                 local id = sprinklerIdByName[label]
                 if id and affordable(sprinklerPriceByName[label] or 0) then
                     pcall(function() BuyStructure:InvokeServer("Decoration", id) end)
+                    bought = bought + 1
+                    task.wait(0.1)
+                end
+            end
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait(Options.WateringCanInterval.Value) do
+        if Library.Unloaded then break end
+        if Toggles.AutoBuyWateringCans.Value then
+            local bought = 0
+            for label in pairs(Options.BuyWateringCans.Value) do
+                if Library.Unloaded or not Toggles.AutoBuyWateringCans.Value then break end
+                if bought >= Options.WateringCanAmount.Value then break end
+                local id = wateringCanIdByName[label]
+                if id and affordable(wateringCanPriceByName[label] or 0) then
+                    pcall(function() BuyStructure:InvokeServer("Gear", id) end)
                     bought = bought + 1
                     task.wait(0.1)
                 end
