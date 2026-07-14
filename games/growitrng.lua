@@ -53,13 +53,14 @@ local DecorationData = require(Modules:WaitForChild("DecorationData"))
 local GearData = require(Modules:WaitForChild("GearData"))
 local CrateData = require(Modules:WaitForChild("CrateData"))
 
-local seedNames, seedIdByName, seedNameById, seedDisplayNameById = {}, {}, {}, {}
+local seedNames, seedIdByName, seedNameById, seedDisplayNameById, seedTierById = {}, {}, {}, {}, {}
 for _, v in ipairs(SeedData.List) do
     local label = string.format("%s (t%s)", v.name, tostring(v.tier))
     table.insert(seedNames, label)
     seedIdByName[label] = v.id
     seedNameById[v.id] = label
     seedDisplayNameById[v.id] = v.name
+    seedTierById[v.id] = tonumber(v.tier) or 0
 end
 
 local petNames = {}
@@ -217,8 +218,8 @@ local growRevision = 0
 local placingOwnedItem = false
 
 local Window = Library:CreateWindow({
-    Title = "Ouroboros | Grow It RNG",
-    Footer = "version: 1.12",
+    Title = "Ouroboros Hub",
+    Footer = "https://discord.gg/ehKVq7pf7v | Grow it RNG",
     Icon = 18657887261,
     NotifySide = "Right",
     ShowCustomCursor = false,
@@ -272,6 +273,18 @@ end
 local PlantBox = Tabs.Main:AddLeftGroupbox("Auto Plant", "shovel")
 PlantBox:AddToggle("AutoPlant", { Text = "Auto Plant Seeds", Default = false })
 PlantBox:AddSlider("PlantInterval", { Text = "Plant interval", Default = 0.5, Min = 0.1, Max = 5, Rounding = 1, Suffix = "s" })
+PlantBox:AddDropdown("PlantSeedLogic", {
+    Values = { "Highest Weight", "Highest Tier", "Closest to Target Weight", "Lowest Weight", "Lowest Tier", "Random", "Inventory Order" },
+    Default = 1,
+    Text = "Auto Plant Seed Logic",
+})
+PlantBox:AddDropdown("PlantSeeds", {
+    Values = seedNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
+    Text = "Seeds allowed (none = all)",
+})
+PlantBox:AddInput("PlantMinWeight", { Text = "Minimum seed weight (g, 0 = off)", Default = "0", Numeric = true, Finished = true })
+PlantBox:AddInput("PlantMaxWeight", { Text = "Maximum seed weight (g, 0 = off)", Default = "0", Numeric = true, Finished = true })
+PlantBox:AddInput("PlantTargetWeight", { Text = "Target seed weight (g)", Default = "5", Numeric = true, Finished = true })
 PlantBox:AddDivider()
 PlantBox:AddToggle("AutoPlaceShopItems", { Text = "Auto Place Shop Items", Default = false })
 PlantBox:AddDropdown("PlaceShopItems", {
@@ -437,6 +450,13 @@ UseBox:AddDropdown("UseSprinklers", {
     Text = "Sprinklers to use (none = all)",
 })
 UseBox:AddSlider("UseSprinklerInterval", { Text = "Sprinkler use interval", Default = 1, Min = 0.2, Max = 10, Rounding = 1, Suffix = "s" })
+UseBox:AddDivider()
+UseBox:AddToggle("AutoUseWateringCans", { Text = "Auto Use Watering Cans", Default = false })
+UseBox:AddDropdown("UseWateringCans", {
+    Values = wateringCanNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
+    Text = "Watering cans to use (none = all)",
+})
+UseBox:AddSlider("UseWateringCanInterval", { Text = "Watering can use interval", Default = 0.5, Min = 0.2, Max = 10, Rounding = 1, Suffix = "s" })
 
 local MovementBox = Tabs.Player:AddLeftGroupbox("Movement")
 MovementBox:AddToggle("WalkSpeedEnabled", { Text = "Walk Speed", Default = false })
@@ -710,6 +730,15 @@ end
 
 local totemLabelById = labelsById(totemIdByName)
 local sprinklerLabelById = labelsById(sprinklerIdByName)
+local wateringCanLabelById = labelsById(wateringCanIdByName)
+local activeWateringCan
+
+Toggles.AutoUseWateringCans:OnChanged(function()
+    if not Toggles.AutoUseWateringCans.Value and activeWateringCan then
+        pcall(function() activeWateringCan:Deactivate() end)
+        activeWateringCan = nil
+    end
+end)
 
 local function itemModel(tool)
     local itemId = tool:GetAttribute("ItemId")
@@ -1046,7 +1075,43 @@ end)
 
 local function plantSlot(slot, revision)
     if organizingBase or revision ~= farmRevision or not Toggles.AutoPlant.Value then return end
-    local seed = ownedToolsOfKind("Seed")[1]
+    local candidates = {}
+    local selectedSeeds = Options.PlantSeeds.Value
+    local minWeight = tonumber(Options.PlantMinWeight.Value) or 0
+    local maxWeight = tonumber(Options.PlantMaxWeight.Value) or 0
+    for _, tool in ipairs(ownedToolsOfKind("Seed")) do
+        local itemId = tool:GetAttribute("ItemId")
+        local weight = tonumber(tool:GetAttribute("SeedWeight")) or 0
+        local allowed = next(selectedSeeds) == nil or selectedSeeds[seedNameById[itemId]] == true
+        if allowed and (minWeight <= 0 or weight >= minWeight) and (maxWeight <= 0 or weight <= maxWeight) then
+            table.insert(candidates, tool)
+        end
+    end
+    if #candidates == 0 then return end
+    local logic = Options.PlantSeedLogic.Value
+    if logic == "Random" then
+        local randomIndex = math.random(1, #candidates)
+        candidates[1], candidates[randomIndex] = candidates[randomIndex], candidates[1]
+    elseif logic ~= "Inventory Order" then
+        local targetWeight = tonumber(Options.PlantTargetWeight.Value) or 0
+        table.sort(candidates, function(a, b)
+            local aWeight = tonumber(a:GetAttribute("SeedWeight")) or 0
+            local bWeight = tonumber(b:GetAttribute("SeedWeight")) or 0
+            local aTier = seedTierById[a:GetAttribute("ItemId")] or 0
+            local bTier = seedTierById[b:GetAttribute("ItemId")] or 0
+            if logic == "Highest Tier" then
+                return aTier == bTier and aWeight > bWeight or aTier > bTier
+            elseif logic == "Lowest Tier" then
+                return aTier == bTier and aWeight > bWeight or aTier < bTier
+            elseif logic == "Lowest Weight" then
+                return aWeight < bWeight
+            elseif logic == "Closest to Target Weight" then
+                return math.abs(aWeight - targetWeight) < math.abs(bWeight - targetWeight)
+            end
+            return aWeight > bWeight
+        end)
+    end
+    local seed = candidates[1]
     if not seed then return end
     equipTool(seed)
     if organizingBase or revision ~= farmRevision or not Toggles.AutoPlant.Value then return end
@@ -1474,6 +1539,29 @@ task.spawn(function()
     end
 end)
 
+task.spawn(function()
+    while task.wait(Options.UseWateringCanInterval.Value) do
+        if Library.Unloaded then break end
+        if Toggles.AutoUseWateringCans.Value then
+            for _, tool in ipairs(ownedToolsOfKind("Gear")) do
+                local itemId = tool:GetAttribute("ItemId")
+                local waterLeft = tonumber(tool:GetAttribute("WaterLeft")) or 0
+                if wateringCanLabelById[itemId] and waterLeft > 0 and selectionContainsItem(Options.UseWateringCans.Value, itemId, wateringCanLabelById) then
+                    activeWateringCan = tool
+                    equipTool(tool)
+                    task.wait(0.1)
+                    if Library.Unloaded or not Toggles.AutoUseWateringCans.Value or not tool.Parent then break end
+                    pcall(function() tool:Activate() end)
+                    task.wait(math.min(0.4, Options.UseWateringCanInterval.Value))
+                    pcall(function() tool:Deactivate() end)
+                    activeWateringCan = nil
+                    break
+                end
+            end
+        end
+    end
+end)
+
 -- ===== Settings =====
 
 Tabs.Settings:AddLeftGroupbox("Anti-AFK"):AddToggle("AntiAFK", { Text = "Anti-AFK", Default = true })
@@ -1496,6 +1584,10 @@ MenuGroup:AddButton("Unload", function()
 end)
 
 Library:OnUnload(function()
+    if activeWateringCan then
+        pcall(function() activeWateringCan:Deactivate() end)
+        activeWateringCan = nil
+    end
     restoreWalkSpeed()
     restoreNoclip()
     stopFlying()
