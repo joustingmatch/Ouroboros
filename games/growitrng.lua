@@ -22,6 +22,9 @@ local LocalPlayer = Players.LocalPlayer
 local Remotes = ReplicatedStorage:WaitForChild("Remotes")
 
 local PlantSeed = Remotes:WaitForChild("PlantSeed")
+local PlaceBed = Remotes:WaitForChild("PlaceBed")
+local PlaceSellTable = Remotes:WaitForChild("PlaceSellTable")
+local PlaceCrate = Remotes:WaitForChild("PlaceCrate")
 local DepositCrop = Remotes:WaitForChild("DepositCrop")
 local CustomerOffer = Remotes:WaitForChild("CustomerOffer")
 local CustomerOfferClear = Remotes:WaitForChild("CustomerOfferClear")
@@ -34,6 +37,9 @@ local QuestClaim = Remotes:WaitForChild("QuestClaim")
 local PlaytimeClaim = Remotes:WaitForChild("PlaytimeClaim")
 local RebirthRequest = Remotes:WaitForChild("RebirthRequest")
 local RebirthBuyUpgrade = Remotes:WaitForChild("RebirthBuyUpgrade")
+local TrashHeld = Remotes:WaitForChild("TrashHeld")
+local PlaceTotem = Remotes:WaitForChild("PlaceTotem")
+local PlaceDecoration = Remotes:WaitForChild("PlaceDecoration")
 local Modules = ReplicatedStorage:WaitForChild("Modules")
 local SeedData = require(Modules:WaitForChild("SeedData"))
 local PetData = require(Modules:WaitForChild("PetData"))
@@ -45,11 +51,12 @@ local DecorationData = require(Modules:WaitForChild("DecorationData"))
 local GearData = require(Modules:WaitForChild("GearData"))
 local CrateData = require(Modules:WaitForChild("CrateData"))
 
-local seedNames, seedIdByName = {}, {}
+local seedNames, seedIdByName, seedNameById = {}, {}, {}
 for _, v in ipairs(SeedData.List) do
     local label = string.format("%s (t%s)", v.name, tostring(v.tier))
     table.insert(seedNames, label)
     seedIdByName[label] = v.id
+    seedNameById[v.id] = label
 end
 
 local petNames = {}
@@ -89,6 +96,22 @@ local totemNames, totemIdByName, totemPriceByName = buildShopEntries(TotemData.L
 local decorNames, decorIdByName, decorPriceByName = buildShopEntries(DecorationData.List)
 local gearNames, gearIdByName, gearPriceByName = buildShopEntries(GearData.List)
 local crateNames, crateIdByName, cratePriceByName = buildShopEntries(CrateData.List)
+
+local placeShopNames, placeShopLabelByKey = {}, {}
+local function addPlaceShopEntries(kind, names, ids)
+    for _, name in ipairs(names) do
+        local displayKind = kind == "SellTable" and "Sell Table" or kind
+        local label = displayKind .. " | " .. name
+        local itemId = ids[name]
+        table.insert(placeShopNames, label)
+        placeShopLabelByKey[kind .. ":" .. tostring(itemId)] = label
+    end
+end
+addPlaceShopEntries("Bed", bedNames, bedIdByName)
+addPlaceShopEntries("SellTable", tableNames, tableIdByName)
+addPlaceShopEntries("Totem", totemNames, totemIdByName)
+addPlaceShopEntries("Decoration", decorNames, decorIdByName)
+addPlaceShopEntries("Crate", crateNames, crateIdByName)
 
 local sprinklerList = {}
 for _, v in ipairs(DecorationData.List) do
@@ -184,9 +207,15 @@ local function emptyTableSlots()
     return result
 end
 
+local organizeBase
+local organizingBase = false
+local farmRevision = 0
+local growRevision = 0
+local placingOwnedItem = false
+
 local Window = Library:CreateWindow({
     Title = "Ouroboros | Grow It RNG",
-    Footer = "version: 1.3",
+    Footer = "version: 1.11",
     Icon = 18657887261,
     NotifySide = "Right",
     ShowCustomCursor = false,
@@ -201,18 +230,24 @@ local Tabs = {
 
 local DISCORD_INVITE = "https://discord.gg/ehKVq7pf7v"
 
-local function AddDiscordButton(Tab)
-    Tab:AddLeftGroupbox("Discord", "message-circle", true, false, true):AddButton({
+local function AddDiscordButton(Tab, addOrganize)
+    local DiscordBox = Tab:AddLeftGroupbox("Discord", "message-circle", true, false, true)
+    DiscordBox:AddButton({
         Text = "Join Discord For Dupe",
         Func = function()
             setclipboard(DISCORD_INVITE)
             Library:Notify("Copied Discord invite to clipboard")
         end,
     })
+    if addOrganize then
+        DiscordBox:AddButton("Organize Base", function()
+            if organizeBase then task.spawn(organizeBase) end
+        end)
+    end
 end
 
-for _, Tab in Tabs do
-    AddDiscordButton(Tab)
+for name, Tab in Tabs do
+    AddDiscordButton(Tab, name == "Main")
 end
 
 local Toggles = Library.Toggles
@@ -233,6 +268,13 @@ end
 local PlantBox = Tabs.Main:AddLeftGroupbox("Auto Plant", "shovel")
 PlantBox:AddToggle("AutoPlant", { Text = "Auto Plant Seeds", Default = false })
 PlantBox:AddSlider("PlantInterval", { Text = "Plant interval", Default = 0.5, Min = 0.1, Max = 5, Rounding = 1, Suffix = "s" })
+PlantBox:AddDivider()
+PlantBox:AddToggle("AutoPlaceShopItems", { Text = "Auto Place Shop Items", Default = false })
+PlantBox:AddDropdown("PlaceShopItems", {
+    Values = placeShopNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
+    Text = "Shop items to place",
+})
+PlantBox:AddSlider("PlaceShopInterval", { Text = "Shop item place interval", Default = 1, Min = 0.2, Max = 10, Rounding = 1, Suffix = "s" })
 
 -- Auto Buy Seeds (separate)
 local BuyBox = Tabs.Main:AddLeftGroupbox("Auto Buy Seeds", "shopping-cart")
@@ -246,8 +288,9 @@ BuyBox:AddSlider("BuyInterval", { Text = "Buy interval", Default = 0.5, Min = 0.
 
 -- Grow & Harvest
 local GrowBox = Tabs.Main:AddLeftGroupbox("Grow & Harvest", "sun")
-GrowBox:AddToggle("AutoGrow", { Text = "Auto Grow Rush (tap speed)", Default = false })
-GrowBox:AddSlider("GrowClicks", { Text = "Rush taps per cycle", Default = 10, Min = 1, Max = 40, Rounding = 0 })
+GrowBox:AddToggle("AutoGrow", { Text = "Auto Grow Rush", Default = false })
+GrowBox:AddSlider("GrowClicks", { Text = "Rush taps per crop", Default = 10, Min = 1, Max = 40, Rounding = 0 })
+GrowBox:AddSlider("GrowTapDelay", { Text = "Rush tap delay", Default = 0.05, Min = 0.03, Max = 0.2, Rounding = 2, Suffix = "s" })
 GrowBox:AddSlider("GrowInterval", { Text = "Grow rush interval", Default = 0.3, Min = 0.1, Max = 5, Rounding = 1, Suffix = "s" })
 GrowBox:AddDivider()
 GrowBox:AddToggle("AutoHarvest", { Text = "Auto Harvest", Default = false })
@@ -367,6 +410,30 @@ CrateBox:AddDropdown("BuyCrates", {
 })
 CrateBox:AddSlider("CrateInterval", { Text = "Crate interval", Default = 2, Min = 0.5, Max = 15, Rounding = 1, Suffix = "s" })
 
+local TrashBox = Tabs.Main:AddRightGroupbox("Auto Trash", "trash-2")
+TrashBox:AddToggle("AutoTrash", { Text = "Auto Trash Seeds", Default = false })
+TrashBox:AddDropdown("TrashSeeds", {
+    Values = seedNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
+    Text = "Seeds to trash",
+})
+TrashBox:AddInput("KeepWeight", { Text = "Keep at or above weight (g, 0 = off)", Default = "0", Numeric = true, Finished = true })
+TrashBox:AddSlider("TrashInterval", { Text = "Trash interval", Default = 0.5, Min = 0.1, Max = 5, Rounding = 1, Suffix = "s" })
+
+local UseBox = Tabs.Shop:AddRightGroupbox("Use Items", "package-open")
+UseBox:AddToggle("AutoPlaceTotems", { Text = "Auto Place Totems", Default = false })
+UseBox:AddDropdown("PlaceTotems", {
+    Values = totemNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
+    Text = "Totems to place (none = all)",
+})
+UseBox:AddSlider("TotemPlaceInterval", { Text = "Totem place interval", Default = 1, Min = 0.2, Max = 10, Rounding = 1, Suffix = "s" })
+UseBox:AddDivider()
+UseBox:AddToggle("AutoUseSprinklers", { Text = "Auto Use Sprinklers", Default = false })
+UseBox:AddDropdown("UseSprinklers", {
+    Values = sprinklerNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
+    Text = "Sprinklers to use (none = all)",
+})
+UseBox:AddSlider("UseSprinklerInterval", { Text = "Sprinkler use interval", Default = 1, Min = 0.2, Max = 10, Rounding = 1, Suffix = "s" })
+
 local shopCategories = {
     { kind = "Bed", option = "BuyBeds", ids = bedIdByName, prices = bedPriceByName },
     { kind = "SellTable", option = "BuySellTables", ids = tableIdByName, prices = tablePriceByName },
@@ -378,6 +445,165 @@ local shopCategories = {
 local function rootPart()
     local character = LocalPlayer.Character
     return character and character:FindFirstChild("HumanoidRootPart")
+end
+
+local function selectionContainsItem(selection, itemId, labelsById)
+    if next(selection) == nil then return true end
+    local label = labelsById[itemId]
+    return label ~= nil and selection[label] == true
+end
+
+local function labelsById(ids)
+    local result = {}
+    for label, id in pairs(ids) do
+        result[id] = label
+    end
+    return result
+end
+
+local totemLabelById = labelsById(totemIdByName)
+local sprinklerLabelById = labelsById(sprinklerIdByName)
+
+local function itemModel(tool)
+    local itemId = tool:GetAttribute("ItemId")
+    local kind = tool:GetAttribute("ToolKind")
+    if kind == "Bed" then
+        local data = BedData.getById(itemId)
+        local folder = ReplicatedStorage.Models:FindFirstChild("Beds")
+        return data and folder and folder:FindFirstChild(data.modelName or "")
+    end
+    if kind == "SellTable" then
+        local data = SellTableData.getById(itemId)
+        local folder = ReplicatedStorage.Models:FindFirstChild("SellTables")
+        return data and folder and folder:FindFirstChild(data.modelName or "")
+    end
+    if kind == "Totem" then
+        local data = TotemData.getById(itemId)
+        local folder = ReplicatedStorage.Models:FindFirstChild("Totems")
+        return data and folder and folder:FindFirstChild(data.modelName or "")
+    end
+    if kind == "Crate" then
+        local data = CrateData.getById(itemId)
+        local folder = ReplicatedStorage.Models:FindFirstChild("Crates")
+        return data and folder and folder:FindFirstChild(data.modelName or "")
+    end
+    local data = DecorationData.getById(itemId)
+    local folder = ReplicatedStorage.Models:FindFirstChild("Decorations")
+    return data and folder and folder:FindFirstChild(data.modelName or "")
+end
+
+local function placementCandidates(tool)
+    local plot = myPlot()
+    local floor = plot and plot:FindFirstChild("InteriorFloor")
+    local model = itemModel(tool)
+    if not floor or not model then return {} end
+    local boxCFrame, boxSize = model:GetBoundingBox()
+    local pivotOffset = model:GetPivot().Position.Y - (boxCFrame.Position.Y - boxSize.Y / 2)
+    local y = floor.Position.Y + floor.Size.Y / 2 + pivotOffset
+    local candidates = {}
+    local seen = {}
+    local nature = plot:FindFirstChild("Nature")
+    local halfX = boxSize.X / 2 + 0.5
+    local halfZ = boxSize.Z / 2 + 0.5
+    local function locked(x, z)
+        if not nature then return false end
+        for _, region in ipairs(nature:GetChildren()) do
+            if region:GetAttribute("Price") ~= nil and not region:GetAttribute("Unlocked") then
+                local centerX = region:GetAttribute("CenterX")
+                local centerZ = region:GetAttribute("CenterZ")
+                local regionHalfX = region:GetAttribute("HalfX") or 15
+                local regionHalfZ = region:GetAttribute("HalfZ") or 15
+                if centerX and centerZ and math.abs(x - centerX) < halfX + regionHalfX and math.abs(z - centerZ) < halfZ + regionHalfZ then
+                    return true
+                end
+            end
+        end
+        return false
+    end
+    local function occupied(x, z)
+        for _, tag in ipairs({ "GardenBed", "SellTable", "Totem", "PlacedCrate" }) do
+            for _, placed in ipairs(CollectionService:GetTagged(tag)) do
+                if placed:IsA("Model") and placed:GetAttribute("OwnerUserId") == LocalPlayer.UserId then
+                    local placedCFrame, placedSize = placed:GetBoundingBox()
+                    if math.abs(x - placedCFrame.X) < halfX + placedSize.X / 2 - 0.3 and math.abs(z - placedCFrame.Z) < halfZ + placedSize.Z / 2 - 0.3 then
+                        return true
+                    end
+                end
+            end
+        end
+        return false
+    end
+    local function add(x, z)
+        local key = string.format("%.1f:%.1f", x, z)
+        if not seen[key] and not locked(x, z) and not occupied(x, z) and math.abs(x - floor.Position.X) <= floor.Size.X / 2 - halfX and math.abs(z - floor.Position.Z) <= floor.Size.Z / 2 - halfZ then
+            seen[key] = true
+            table.insert(candidates, CFrame.new(x, y, z))
+        end
+    end
+    local kind = tool:GetAttribute("ToolKind")
+    if kind == "Totem" or kind == "Decoration" then
+        local _, growing, ripe = ownedBedSlots()
+        for _, slot in ipairs(growing) do
+            for _, offset in ipairs({ Vector3.new(5, 0, 0), Vector3.new(-5, 0, 0), Vector3.new(0, 0, 5), Vector3.new(0, 0, -5) }) do
+                add(slot.Position.X + offset.X, slot.Position.Z + offset.Z)
+            end
+        end
+        for _, slot in ipairs(ripe) do
+            for _, offset in ipairs({ Vector3.new(5, 0, 0), Vector3.new(-5, 0, 0), Vector3.new(0, 0, 5), Vector3.new(0, 0, -5) }) do
+                add(slot.Position.X + offset.X, slot.Position.Z + offset.Z)
+            end
+        end
+    end
+    local footprint = math.max(boxSize.X, boxSize.Z)
+    local margin = math.ceil(footprint / 2) + 1
+    local step = math.max(5, math.ceil(footprint + 1))
+    for x = -math.floor(floor.Size.X / 2) + margin, math.floor(floor.Size.X / 2) - margin, step do
+        for z = -math.floor(floor.Size.Z / 2) + margin, math.floor(floor.Size.Z / 2) - margin, step do
+            add(floor.Position.X + x, floor.Position.Z + z)
+        end
+    end
+    local root = rootPart()
+    if root then
+        table.sort(candidates, function(a, b)
+            return (a.Position - root.Position).Magnitude < (b.Position - root.Position).Magnitude
+        end)
+    end
+    return candidates
+end
+
+local function placeOwnedTool(tool, remote, shouldContinue)
+    if placingOwnedItem then return false end
+    placingOwnedItem = true
+    equipTool(tool)
+    task.wait(0.1)
+    for _, cframe in ipairs(placementCandidates(tool)) do
+        if Library.Unloaded or not shouldContinue() or not tool.Parent then break end
+        remote:FireServer(tool, cframe)
+        task.wait(0.3)
+        if not tool.Parent then
+            placingOwnedItem = false
+            return true
+        end
+    end
+    placingOwnedItem = false
+    return false
+end
+
+local placeRemoteByKind = {
+    Bed = PlaceBed,
+    SellTable = PlaceSellTable,
+    Totem = PlaceTotem,
+    Decoration = PlaceDecoration,
+    Crate = PlaceCrate,
+}
+
+local function shouldTrash(tool)
+    if tool:GetAttribute("ToolKind") ~= "Seed" then return false end
+    local seedLabel = seedNameById[tool:GetAttribute("ItemId")]
+    if not seedLabel or not Options.TrashSeeds.Value[seedLabel] then return false end
+    local keepWeight = tonumber(Options.KeepWeight.Value) or 0
+    if keepWeight > 0 and (tonumber(tool:GetAttribute("SeedWeight")) or 0) >= keepWeight then return false end
+    return true
 end
 
 local function safeFarmLoop(slots, maxDist, shouldContinueFunc, getInteractableFunc, actionFunc)
@@ -407,19 +633,210 @@ local function safeFarmLoop(slots, maxDist, shouldContinueFunc, getInteractableF
     end
 end
 
+local function structureModel(tool)
+    local kind = tool:GetAttribute("ToolKind")
+    local itemId = tool:GetAttribute("ItemId")
+    if kind == "Bed" then
+        local data = BedData.getById(itemId)
+        return data and ReplicatedStorage.Models.Beds:FindFirstChild(data.modelName or "")
+    end
+    if kind == "SellTable" then
+        local data = SellTableData.getById(itemId)
+        return data and ReplicatedStorage.Models.SellTables:FindFirstChild(data.modelName or "")
+    end
+end
+
+local function structureCFrame(tool, x, z, floor)
+    local model = structureModel(tool)
+    if not model then return nil end
+    local boxCFrame, boxSize = model:GetBoundingBox()
+    local pivotOffset = model:GetPivot().Position.Y - (boxCFrame.Position.Y - boxSize.Y / 2)
+    return CFrame.new(x, floor.Position.Y + floor.Size.Y / 2 + pivotOffset, z), boxSize
+end
+
+local function touchesLockedExpansion(plot, cframe, size)
+    local nature = plot:FindFirstChild("Nature")
+    if not nature then return false end
+    local halfX = size.X / 2 + 0.5
+    local halfZ = size.Z / 2 + 0.5
+    for _, region in ipairs(nature:GetChildren()) do
+        if region:GetAttribute("Price") ~= nil and not region:GetAttribute("Unlocked") then
+            local centerX = region:GetAttribute("CenterX")
+            local centerZ = region:GetAttribute("CenterZ")
+            local regionHalfX = region:GetAttribute("HalfX") or 15
+            local regionHalfZ = region:GetAttribute("HalfZ") or 15
+            if centerX and centerZ and math.abs(cframe.X - centerX) < halfX + regionHalfX and math.abs(cframe.Z - centerZ) < halfZ + regionHalfZ then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+local function structureCandidates(tool, plot, floor)
+    local candidates = {}
+    local minX = floor.Position.X - floor.Size.X / 2 + 7
+    local maxX = floor.Position.X + floor.Size.X / 2 - 7
+    local minZ = floor.Position.Z - floor.Size.Z / 2 + 7
+    local maxZ = floor.Position.Z + floor.Size.Z / 2 - 7
+    for z = minZ, maxZ, 12 do
+        for x = minX, maxX, 12 do
+            local cframe, size = structureCFrame(tool, x, z, floor)
+            if cframe and not touchesLockedExpansion(plot, cframe, size) then
+                table.insert(candidates, cframe)
+            end
+        end
+    end
+    return candidates
+end
+
+organizeBase = function()
+    if organizingBase or Library.Unloaded then return end
+    organizingBase = true
+    farmRevision = farmRevision + 1
+    local plot = myPlot()
+    local floor = plot and plot:FindFirstChild("InteriorFloor")
+    local root = rootPart()
+    if not plot or not floor or not root then
+        organizingBase = false
+        Library:Notify("Unable to find your plot")
+        return
+    end
+    local originalCFrame = root.CFrame
+    local inventoryBefore = {}
+    for _, kind in ipairs({ "Bed", "SellTable" }) do
+        for _, tool in ipairs(ownedToolsOfKind(kind)) do
+            local key = kind .. ":" .. tostring(tool:GetAttribute("ItemId"))
+            inventoryBefore[key] = (inventoryBefore[key] or 0) + 1
+        end
+    end
+    local structures = {}
+    for _, tag in ipairs({ "GardenBed", "SellTable" }) do
+        for _, model in ipairs(CollectionService:GetTagged(tag)) do
+            if model:IsA("Model") and model:GetAttribute("OwnerUserId") == LocalPlayer.UserId then
+                table.insert(structures, model)
+            end
+        end
+    end
+    table.sort(structures, function(a, b)
+        local aBed = CollectionService:HasTag(a, "GardenBed")
+        local bBed = CollectionService:HasTag(b, "GardenBed")
+        if aBed ~= bBed then return aBed end
+        return (a:GetAttribute("ItemId") or 0) < (b:GetAttribute("ItemId") or 0)
+    end)
+    for _, model in ipairs(structures) do
+        if Library.Unloaded then break end
+        local prompt = model:FindFirstChild("PickupPrompt", true)
+        local target = prompt and prompt.Parent
+        if prompt and target and target:IsA("BasePart") then
+            root = rootPart()
+            if not root then break end
+            root.CFrame = target.CFrame + Vector3.new(0, 3, 0)
+            task.wait(0.1)
+            fireproximityprompt(prompt)
+            local deadline = os.clock() + 2
+            repeat task.wait(0.05) until not model.Parent or os.clock() >= deadline or Library.Unloaded
+        end
+    end
+    task.wait(0.5)
+    local tools = {}
+    local inventoryAfter = {}
+    for _, kind in ipairs({ "Bed", "SellTable" }) do
+        for _, tool in ipairs(ownedToolsOfKind(kind)) do
+            local key = kind .. ":" .. tostring(tool:GetAttribute("ItemId"))
+            inventoryAfter[key] = (inventoryAfter[key] or 0) + 1
+            if inventoryAfter[key] > (inventoryBefore[key] or 0) then
+                table.insert(tools, tool)
+            end
+        end
+    end
+    table.sort(tools, function(a, b)
+        local aBed = a:GetAttribute("ToolKind") == "Bed"
+        local bBed = b:GetAttribute("ToolKind") == "Bed"
+        if aBed ~= bBed then return aBed end
+        return (a:GetAttribute("ItemId") or 0) < (b:GetAttribute("ItemId") or 0)
+    end)
+    local occupied = {}
+    local placed = 0
+    for _, tool in ipairs(tools) do
+        if Library.Unloaded then break end
+        local remote = tool:GetAttribute("ToolKind") == "Bed" and PlaceBed or PlaceSellTable
+        equipTool(tool)
+        for _, cframe in ipairs(structureCandidates(tool, plot, floor)) do
+            if Library.Unloaded or not tool.Parent then break end
+            local key = string.format("%.1f:%.1f", cframe.X, cframe.Z)
+            if not occupied[key] then
+                remote:FireServer(tool, cframe)
+                task.wait(0.2)
+                if not tool.Parent then
+                    occupied[key] = true
+                    placed = placed + 1
+                    break
+                end
+            end
+        end
+    end
+    root = rootPart()
+    if root then root.CFrame = originalCFrame end
+    organizingBase = false
+    farmRevision = farmRevision + 1
+    Library:Notify(string.format("Organized %d beds and tables", placed))
+end
+
 -- ===== Loops =====
 
+Toggles.AutoPlant:OnChanged(function()
+    farmRevision = farmRevision + 1
+end)
+
+Toggles.AutoHarvest:OnChanged(function()
+    farmRevision = farmRevision + 1
+end)
+
+Toggles.AutoGrow:OnChanged(function()
+    growRevision = growRevision + 1
+end)
+
+local function plantSlot(slot, revision)
+    if organizingBase or revision ~= farmRevision or not Toggles.AutoPlant.Value then return end
+    local seed = ownedToolsOfKind("Seed")[1]
+    if not seed then return end
+    equipTool(seed)
+    if organizingBase or revision ~= farmRevision or not Toggles.AutoPlant.Value then return end
+    pcall(function() PlantSeed:InvokeServer(slot, seed) end)
+end
+
 task.spawn(function()
-    while task.wait(Options.PlantInterval.Value) do
+    local nextPlant = 0
+    local nextHarvest = 0
+    while task.wait(0.05) do
         if Library.Unloaded then break end
-        if Toggles.AutoPlant.Value then
-            for _, slot in ipairs((ownedBedSlots())) do
-                if Library.Unloaded or not Toggles.AutoPlant.Value then break end
-                local seed = ownedToolsOfKind("Seed")[1]
-                if not seed then break end
-                equipTool(seed)
-                pcall(function() PlantSeed:InvokeServer(slot, seed) end)
-                task.wait(0.1)
+        if not organizingBase then
+            local now = os.clock()
+            local revision = farmRevision
+            if Toggles.AutoHarvest.Value and now >= nextHarvest then
+                nextHarvest = now + Options.HarvestInterval.Value
+                local _, _, ripe = ownedBedSlots()
+                safeFarmLoop(ripe, 6, function()
+                    return not organizingBase and revision == farmRevision and Toggles.AutoHarvest.Value
+                end, function(slot)
+                    return slot:FindFirstChild("HarvestPrompt", true)
+                end, function(slot, target)
+                    if revision ~= farmRevision or not Toggles.AutoHarvest.Value then return end
+                    pcall(function() fireproximityprompt(target) end)
+                    task.wait(0.05)
+                end)
+            end
+            if Toggles.AutoPlant.Value and now >= nextPlant then
+                nextPlant = now + Options.PlantInterval.Value
+                local empty, _, ripe = ownedBedSlots()
+                if not Toggles.AutoHarvest.Value or #ripe == 0 then
+                    for _, slot in ipairs(empty) do
+                        if Library.Unloaded or organizingBase or revision ~= farmRevision or not Toggles.AutoPlant.Value then break end
+                        plantSlot(slot, revision)
+                        task.wait(0.05)
+                    end
+                end
             end
         end
     end
@@ -442,32 +859,25 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    while task.wait(Options.GrowInterval.Value) do
+    local nextRush = 0
+    while task.wait(0.05) do
         if Library.Unloaded then break end
-        if Toggles.AutoGrow.Value then
+        local now = os.clock()
+        if not organizingBase and Toggles.AutoGrow.Value and now >= nextRush then
+            nextRush = now + Options.GrowInterval.Value
+            local revision = growRevision
             local _, growing = ownedBedSlots()
-            safeFarmLoop(growing, 14, function() return Toggles.AutoGrow.Value end, function(slot)
+            safeFarmLoop(growing, 14, function()
+                return not organizingBase and revision == growRevision and Toggles.AutoGrow.Value
+            end, function(slot)
                 return slot:FindFirstChild("SpeedupClick", true) or slot:FindFirstChildOfClass("ClickDetector", true)
             end, function(slot, target)
                 for _ = 1, Options.GrowClicks.Value do
-                    if slot:GetAttribute("Ripe") == true then break end
+                    if Library.Unloaded or organizingBase or revision ~= growRevision or not Toggles.AutoGrow.Value then break end
+                    if slot:GetAttribute("Ripe") == true or (slot:GetAttribute("SeedId") or 0) == 0 or not target.Parent then break end
                     pcall(function() fireclickdetector(target) end)
+                    task.wait(Options.GrowTapDelay.Value)
                 end
-            end)
-        end
-    end
-end)
-
-task.spawn(function()
-    while task.wait(Options.HarvestInterval.Value) do
-        if Library.Unloaded then break end
-        if Toggles.AutoHarvest.Value then
-            local _, _, ripe = ownedBedSlots()
-            safeFarmLoop(ripe, 6, function() return Toggles.AutoHarvest.Value end, function(slot)
-                return slot:FindFirstChild("HarvestPrompt", true)
-            end, function(slot, target)
-                pcall(function() fireproximityprompt(target) end)
-                task.wait(0.05)
             end)
         end
     end
@@ -742,6 +1152,75 @@ task.spawn(function()
                 if id and affordable(cratePriceByName[label] or 0) then
                     pcall(function() OpenCrateCash:InvokeServer(id) end)
                     task.wait(0.2)
+                end
+            end
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait(Options.TrashInterval.Value) do
+        if Library.Unloaded then break end
+        if Toggles.AutoTrash.Value then
+            for _, tool in ipairs(ownedToolsOfKind("Seed")) do
+                if Library.Unloaded or not Toggles.AutoTrash.Value then break end
+                if shouldTrash(tool) then
+                    equipTool(tool)
+                    task.wait(0.05)
+                    if tool.Parent == LocalPlayer.Character then
+                        TrashHeld:FireServer(tool)
+                    end
+                    task.wait(0.1)
+                end
+            end
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait(Options.TotemPlaceInterval.Value) do
+        if Library.Unloaded then break end
+        if Toggles.AutoPlaceTotems.Value then
+            for _, tool in ipairs(ownedToolsOfKind("Totem")) do
+                if selectionContainsItem(Options.PlaceTotems.Value, tool:GetAttribute("ItemId"), totemLabelById) then
+                    placeOwnedTool(tool, PlaceTotem, function() return Toggles.AutoPlaceTotems.Value end)
+                    break
+                end
+            end
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait(Options.PlaceShopInterval.Value) do
+        if Library.Unloaded then break end
+        if Toggles.AutoPlaceShopItems.Value and next(Options.PlaceShopItems.Value) ~= nil then
+            local placed = false
+            for _, kind in ipairs({ "Bed", "SellTable", "Totem", "Decoration", "Crate" }) do
+                for _, tool in ipairs(ownedToolsOfKind(kind)) do
+                    if Library.Unloaded or not Toggles.AutoPlaceShopItems.Value then break end
+                    local label = placeShopLabelByKey[kind .. ":" .. tostring(tool:GetAttribute("ItemId"))]
+                    if label and Options.PlaceShopItems.Value[label] then
+                        placeOwnedTool(tool, placeRemoteByKind[kind], function() return Toggles.AutoPlaceShopItems.Value end)
+                        placed = true
+                        break
+                    end
+                end
+                if placed or Library.Unloaded or not Toggles.AutoPlaceShopItems.Value then break end
+            end
+        end
+    end
+end)
+
+task.spawn(function()
+    while task.wait(Options.UseSprinklerInterval.Value) do
+        if Library.Unloaded then break end
+        if Toggles.AutoUseSprinklers.Value then
+            for _, tool in ipairs(ownedToolsOfKind("Decoration")) do
+                local itemId = tool:GetAttribute("ItemId")
+                if sprinklerLabelById[itemId] and selectionContainsItem(Options.UseSprinklers.Value, itemId, sprinklerLabelById) then
+                    placeOwnedTool(tool, PlaceDecoration, function() return Toggles.AutoUseSprinklers.Value end)
+                    break
                 end
             end
         end
