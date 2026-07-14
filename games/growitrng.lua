@@ -17,6 +17,8 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local CollectionService = game:GetService("CollectionService")
 local VirtualUser = game:GetService("VirtualUser")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
 
 local LocalPlayer = Players.LocalPlayer
 local Remotes = ReplicatedStorage:WaitForChild("Remotes")
@@ -51,12 +53,13 @@ local DecorationData = require(Modules:WaitForChild("DecorationData"))
 local GearData = require(Modules:WaitForChild("GearData"))
 local CrateData = require(Modules:WaitForChild("CrateData"))
 
-local seedNames, seedIdByName, seedNameById = {}, {}, {}
+local seedNames, seedIdByName, seedNameById, seedDisplayNameById = {}, {}, {}, {}
 for _, v in ipairs(SeedData.List) do
     local label = string.format("%s (t%s)", v.name, tostring(v.tier))
     table.insert(seedNames, label)
     seedIdByName[label] = v.id
     seedNameById[v.id] = label
+    seedDisplayNameById[v.id] = v.name
 end
 
 local petNames = {}
@@ -215,7 +218,7 @@ local placingOwnedItem = false
 
 local Window = Library:CreateWindow({
     Title = "Ouroboros | Grow It RNG",
-    Footer = "version: 1.11",
+    Footer = "version: 1.12",
     Icon = 18657887261,
     NotifySide = "Right",
     ShowCustomCursor = false,
@@ -225,6 +228,7 @@ local Window = Library:CreateWindow({
 local Tabs = {
     Main = Window:AddTab("Main Tab", "sprout"),
     Shop = Window:AddTab("Shop", "store"),
+    Player = Window:AddTab("Player", "user"),
     Settings = Window:AddTab("Settings", "settings"),
 }
 
@@ -434,6 +438,18 @@ UseBox:AddDropdown("UseSprinklers", {
 })
 UseBox:AddSlider("UseSprinklerInterval", { Text = "Sprinkler use interval", Default = 1, Min = 0.2, Max = 10, Rounding = 1, Suffix = "s" })
 
+local MovementBox = Tabs.Player:AddLeftGroupbox("Movement")
+MovementBox:AddToggle("WalkSpeedEnabled", { Text = "Walk Speed", Default = false })
+MovementBox:AddSlider("WalkSpeed", { Text = "Walk speed", Default = 16, Min = 16, Max = 300, Rounding = 0 })
+MovementBox:AddToggle("Fly", { Text = "Fly", Default = false })
+MovementBox:AddSlider("FlySpeed", { Text = "Fly speed", Default = 60, Min = 10, Max = 300, Rounding = 0 })
+MovementBox:AddToggle("Noclip", { Text = "Noclip", Default = false })
+MovementBox:AddToggle("InfiniteJump", { Text = "Infinite Jump", Default = false })
+
+local ESPBox = Tabs.Player:AddRightGroupbox("ESP")
+ESPBox:AddToggle("SeedSizeESP", { Text = "Seed Size ESP", Default = false })
+ESPBox:AddToggle("PetESP", { Text = "Pet ESP", Default = false })
+
 local shopCategories = {
     { kind = "Bed", option = "BuyBeds", ids = bedIdByName, prices = bedPriceByName },
     { kind = "SellTable", option = "BuySellTables", ids = tableIdByName, prices = tablePriceByName },
@@ -446,6 +462,237 @@ local function rootPart()
     local character = LocalPlayer.Character
     return character and character:FindFirstChild("HumanoidRootPart")
 end
+
+local flyVelocity
+local flyUp = false
+local flyDown = false
+local collisionStates = {}
+local walkSpeedOriginals = {}
+local seedEspObjects = {}
+local petEspObjects = {}
+local playerConnections = {}
+
+local function humanoid()
+    local character = LocalPlayer.Character
+    return character and character:FindFirstChildOfClass("Humanoid")
+end
+
+local function restoreWalkSpeed()
+    for hum, speed in pairs(walkSpeedOriginals) do
+        if hum.Parent then
+            hum.WalkSpeed = speed
+        end
+        walkSpeedOriginals[hum] = nil
+    end
+end
+
+local function restoreNoclip()
+    for part, canCollide in pairs(collisionStates) do
+        if part.Parent then
+            part.CanCollide = canCollide
+        end
+        collisionStates[part] = nil
+    end
+end
+
+local function stopFlying()
+    if flyVelocity then
+        flyVelocity:Destroy()
+        flyVelocity = nil
+    end
+    flyUp = false
+    flyDown = false
+end
+
+local function makeEspLabel(adornee, text, color)
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "_OuroborosESP"
+    billboard.Adornee = adornee
+    billboard.AlwaysOnTop = true
+    billboard.MaxDistance = 1000
+    billboard.Size = UDim2.fromOffset(220, 32)
+    billboard.StudsOffset = Vector3.new(0, 3, 0)
+    billboard.Parent = adornee
+
+    local label = Instance.new("TextLabel")
+    label.BackgroundTransparency = 1
+    label.Size = UDim2.fromScale(1, 1)
+    label.Font = Enum.Font.GothamBold
+    label.Text = text
+    label.TextColor3 = color
+    label.TextSize = 14
+    label.TextStrokeColor3 = Color3.new(0, 0, 0)
+    label.TextStrokeTransparency = 0
+    label.Parent = billboard
+    return billboard, label
+end
+
+local function clearSeedEsp()
+    for slot, entry in pairs(seedEspObjects) do
+        if entry.gui then entry.gui:Destroy() end
+        seedEspObjects[slot] = nil
+    end
+end
+
+local function clearPetEsp()
+    for pet, entry in pairs(petEspObjects) do
+        if entry.gui then entry.gui:Destroy() end
+        if entry.highlight then entry.highlight:Destroy() end
+        petEspObjects[pet] = nil
+    end
+end
+
+local function updateSeedEsp()
+    local seen = {}
+    for _, slot in ipairs(CollectionService:GetTagged("GardenBedSlot")) do
+        local seedId = slot:GetAttribute("SeedId") or 0
+        if slot:IsDescendantOf(workspace) and seedId ~= 0 and slot:IsA("BasePart") then
+            seen[slot] = true
+            local entry = seedEspObjects[slot]
+            if not entry or not entry.gui.Parent then
+                if entry and entry.gui then entry.gui:Destroy() end
+                local gui, label = makeEspLabel(slot, "", Color3.fromRGB(95, 255, 150))
+                entry = { gui = gui, label = label }
+                seedEspObjects[slot] = entry
+            end
+            local weight = tonumber(slot:GetAttribute("SeedWeight")) or 0
+            entry.label.Text = string.format("%s | %.1fg", seedDisplayNameById[seedId] or "Seed", weight)
+        end
+    end
+    for slot, entry in pairs(seedEspObjects) do
+        if not seen[slot] then
+            if entry.gui then entry.gui:Destroy() end
+            seedEspObjects[slot] = nil
+        end
+    end
+end
+
+local function updatePetEsp()
+    local runtime = workspace:FindFirstChild("PetsRuntime")
+    local seen = {}
+    if runtime then
+        for _, pet in ipairs(runtime:GetChildren()) do
+            local part = pet:IsA("Model") and (pet.PrimaryPart or pet:FindFirstChildWhichIsA("BasePart", true))
+            if part then
+                seen[pet] = true
+                local entry = petEspObjects[pet]
+                if not entry or not entry.gui.Parent then
+                    if entry then
+                        if entry.gui then entry.gui:Destroy() end
+                        if entry.highlight then entry.highlight:Destroy() end
+                    end
+                    local gui, label = makeEspLabel(part, pet.Name, Color3.fromRGB(255, 190, 80))
+                    local highlight = Instance.new("Highlight")
+                    highlight.Name = "_OuroborosPetESP"
+                    highlight.Adornee = pet
+                    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                    highlight.FillColor = Color3.fromRGB(255, 190, 80)
+                    highlight.FillTransparency = 0.8
+                    highlight.OutlineColor = Color3.fromRGB(255, 235, 170)
+                    highlight.OutlineTransparency = 0
+                    highlight.Parent = pet
+                    entry = { gui = gui, label = label, highlight = highlight }
+                    petEspObjects[pet] = entry
+                end
+                entry.label.Text = pet.Name
+            end
+        end
+    end
+    for pet, entry in pairs(petEspObjects) do
+        if not seen[pet] then
+            if entry.gui then entry.gui:Destroy() end
+            if entry.highlight then entry.highlight:Destroy() end
+            petEspObjects[pet] = nil
+        end
+    end
+end
+
+table.insert(playerConnections, UserInputService.InputBegan:Connect(function(input, processed)
+    if processed or Library.Unloaded or not Toggles.Fly.Value then return end
+    if input.KeyCode == Enum.KeyCode.Space then
+        flyUp = true
+    elseif input.KeyCode == Enum.KeyCode.LeftControl then
+        flyDown = true
+    end
+end))
+
+table.insert(playerConnections, UserInputService.InputEnded:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.Space then
+        flyUp = false
+    elseif input.KeyCode == Enum.KeyCode.LeftControl then
+        flyDown = false
+    end
+end))
+
+table.insert(playerConnections, UserInputService.JumpRequest:Connect(function()
+    if Library.Unloaded or not Toggles.InfiniteJump.Value then return end
+    local hum = humanoid()
+    if hum then hum:ChangeState(Enum.HumanoidStateType.Jumping) end
+end))
+
+table.insert(playerConnections, RunService.Heartbeat:Connect(function()
+    if Library.Unloaded then return end
+    local character = LocalPlayer.Character
+    local hum = humanoid()
+    local root = rootPart()
+
+    if Toggles.WalkSpeedEnabled.Value and hum then
+        if walkSpeedOriginals[hum] == nil then walkSpeedOriginals[hum] = hum.WalkSpeed end
+        hum.WalkSpeed = Options.WalkSpeed.Value
+    end
+
+    if Toggles.Noclip.Value and character then
+        for _, part in ipairs(character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                if collisionStates[part] == nil then collisionStates[part] = part.CanCollide end
+                part.CanCollide = false
+            end
+        end
+    end
+
+    if Toggles.Fly.Value and root and hum then
+        if not flyVelocity or not flyVelocity.Parent then
+            if flyVelocity then flyVelocity:Destroy() end
+            flyVelocity = Instance.new("BodyVelocity")
+            flyVelocity.Name = "_OuroborosFly"
+            flyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+            flyVelocity.P = 1250
+            flyVelocity.Parent = root
+        end
+        local vertical = (flyUp and 1 or 0) - (flyDown and 1 or 0)
+        flyVelocity.Velocity = hum.MoveDirection * Options.FlySpeed.Value + Vector3.new(0, vertical * Options.FlySpeed.Value, 0)
+    elseif flyVelocity then
+        stopFlying()
+    end
+end))
+
+Toggles.WalkSpeedEnabled:OnChanged(function()
+    if not Toggles.WalkSpeedEnabled.Value then restoreWalkSpeed() end
+end)
+
+Toggles.Noclip:OnChanged(function()
+    if not Toggles.Noclip.Value then restoreNoclip() end
+end)
+
+Toggles.Fly:OnChanged(function()
+    if not Toggles.Fly.Value then stopFlying() end
+end)
+
+Toggles.SeedSizeESP:OnChanged(function()
+    if not Toggles.SeedSizeESP.Value then clearSeedEsp() end
+end)
+
+Toggles.PetESP:OnChanged(function()
+    if not Toggles.PetESP.Value then clearPetEsp() end
+end)
+
+task.spawn(function()
+    while task.wait(0.25) do
+        if Library.Unloaded then break end
+        if Toggles.SeedSizeESP.Value then updateSeedEsp() end
+        if Toggles.PetESP.Value then updatePetEsp() end
+    end
+end)
 
 local function selectionContainsItem(selection, itemId, labelsById)
     if next(selection) == nil then return true end
@@ -1249,6 +1496,14 @@ MenuGroup:AddButton("Unload", function()
 end)
 
 Library:OnUnload(function()
+    restoreWalkSpeed()
+    restoreNoclip()
+    stopFlying()
+    clearSeedEsp()
+    clearPetEsp()
+    for _, connection in ipairs(playerConnections) do
+        connection:Disconnect()
+    end
     print("[Grow It RNG] Unloaded")
 end)
 
