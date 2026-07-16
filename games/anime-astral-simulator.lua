@@ -1,1 +1,2034 @@
-local AE = {}; local AB; local pH; local qo; local po; local p5; local pN; local qu; local pu; local qb; local pT; local qA; local pA; local qh; local pZ; local qG; local pG; local qn; local pn; local p4; local pM; local qt; local pt; local qa; local pS; local qz; local pz; local qg; local pY; local qF; local qm; local pm; local p3; local pL; local qs; local ps; local p9; local pR; local qf; local pX; local qE; local pE; local ql; local pl; local p2; local pK; local qr; local pr; local p8; local pQ; local px; local qe; local pW; local qD; local pD; local qk; local pk; local p1; local pJ; local qq; local pq; local p7; local qw; local qC; local pC; local qj; local p0; local qI; local pI; local qp; local pp; local pO; local qv; local pv; local qc; local pU; local qB; local pB; local qi; local p_; local qH; AB = { "yvhcekdvx", "Index", 3136, "crapvkqq", "vkdd", function() local y4, y5, y6, y7, y8, za, zb, zc, ze = nil, nil, nil, nil, nil, nil, nil, nil, nil; local y9 = nil; y9 = 12.; while true do y9 = 3342. - y9; do if y9 < 3333. then if y9 < 3325 then if y9 < 3324. then if y9 < 3320 then if y9 < 3318. then if y9 < 3317 then if y9 < 3243. then break elseif y9 < 3316 then break elseif y9 == 3316 then y5 = AB[129.]; y9 = 13 else y9 = 3324.; continue end else y9 = 2 end elseif y9 < 3319 then if y9 == 3318. then y4 = nil; y9 = 9. else y9 = 3336.; continue end elseif y9 == 3319 then y9 = 7 else y9 = 390.; continue end elseif y9 < 3322 then if y9 < 3321. then y8 = y5; y9 = 21. elseif y9 == 3321. then y9 = if y8 then 14 else 20 else y9 = 3325; continue end elseif y9 < 3323 then if y9 == 3322 then y9 = 9. else y9 = 7564; continue end elseif y9 == 3323 then y5 = qu[AB[1104.]]; y9 = 11 else y9 = 3335; continue end else y9 = if true then 17 else 25 end elseif y9 < 3329 then if y9 < 3327. then if y9 < 3326 then y9 = if ps[AB[360.]] then 0. else 8 else y9 = if y6 then 26 else 13 end elseif y9 < 3328 then y7 = y5; y9 = 4 else qu[AB[1104.]]:Fire(y6); y4 = y6; y9 = 20 end elseif y9 < 3331 then if y9 < 3330. then y9 = if not y5 then 3. else 1 elseif y9 == 3330. then y4 = nil; y9 = 7 else y9 = 16047.; continue end elseif y9 < 3332 then y9 = if y5 then 5 else 24. else break end elseif y9 < 3339. then if y9 < 3336. then if y9 < 3334 then local AF = AB[542][AB[493]]; AB[1084](AB[965]); y9 = 23 elseif y9 < 3335 then if y9 == 3334 then y5 = qF[AB[760]][AB[1082]]; y9 = if y5 then 19 else 11 else y9 = 3339.; continue end else y9 = if true then 18. else 2 end elseif y9 < 3338 then if y9 < 3337 then if y9 == 3336. then y6 = qF[AB[1015]][AB[1082]]; y9 = 16 else y9 = 3321.; continue end else y5 = qs; y6 = not y5; y9 = if y6 then 6. else 16 end else y5 = y6 ~= y4; y8 = y7; y9 = if y8 then 22 else 21. end elseif y9 < 3341 then if y9 < 3340 then y5 = AB[992]; y9 = 1 else y9 = 10 end elseif y9 < 7093 then if y9 < 3342. then if y9 == 3341 then y6 = nil; zb = false; for jW, jX in AB[499](qG) do zc = jW; ze = jX; local zd = zc; local zf = ze; local za = nil; za = AB[587]; while true do if za < 2 then if za < 1 then zb = true; za = AB[927.] else y6 = qD(qI[zf[AB[2]]], pr); za = AB[22] end elseif za < 3. then za = AB[927.] elseif za < 4 then za = if zf[AB[113]] == y5 then AB[965] else AB[318.] else break end end; if zb then break end end; y5 = y6 ~= AB[70]; y7 = y6; y9 = if y7 then 15. else 4 else y9 = 16047.; continue end elseif y9 == 3342. then y9 = 2 else break end else break end end end end, function() local w5, w7, w8, w9 = nil, nil, nil, nil; local w6 = nil; w6 = 3.; while true do w6 = 13806. - w6; do if w6 < 5632 then break elseif w6 < 13804 then if w6 < 10977. then break elseif w6 < 13803. then break else local AG = AB; w5 = pG(AG[890]); w9 = if w5 then AG[965] else AG[22]; w7 = AG[420.] * w9 + AG[809] * (AG[965] - w9); w8 = AG[755] * w9 + AG[711.] * (AG[965] - w9); w6 = if (w7 * AG[381.] + w8 * AG[1093] + w7 * w8) % AG[261.] == AG[135.] then 0. else 1 end elseif w6 < 13806. then if w6 < 13805 then break else w6 = 2 end elseif w6 < 15952 then if w6 == 13806. then w5:Connect(function(gg, gh, gi) local wS, wT, wU, wV, wX, wY, wZ, w_, w0, w1, w3 = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local wW = nil; wW = 11; while true do wW = 1781 - wW; do if wW < 5071 then if wW < 1777 then if wW < 1771 then if wW < 1768 then if wW < 1766 then break elseif wW < 1767. then wU = { gi }; wV = wS; wW = if wV then 8 else 3. elseif wW == 1767. then wS = type(gi) == AB[447.]; wW = 10 else wW = 170; continue end elseif wW < 1769 then wW = if not qF[AB[11]][AB[1082]] then 7 else 9. elseif wW < 1770. then wS = tostring(gi[AB[137]]); wW = 6. else wS = gg; wZ = if wS then AB[965] else AB[22]; wX = AB[612.] * wZ + AB[490] * (AB[965] - wZ); wY = AB[675.] * wZ + AB[679] * (AB[965] - wZ); wW = if (wX * AB[23] + wY * AB[786.] + wX * wY) % AB[261.] == AB[333.] then 14 else 10 end elseif wW < 1774 then if wW < 1772 then if wW == 1771 then wW = if not wS then 4 else 13 else wW = 1780; continue end elseif wW < 1773. then if wW == 1772 then wS = qn:GetGacha(gi[AB[137]]); wT = wS; wW = if wT then 5 else 1 else wW = 1770.; continue end elseif wW == 1773. then wS = wV; w0 = false; for gu, gv in AB[499](wS) do w1 = gu; w3 = gv; local w2 = w1; local w4 = w3; local w_ = nil; w_ = AB[22]; while true do if w_ < 5 then if w_ < 2 then if w_ < 1 then wS = type(w4) == AB[447.]; w_ = if wS then AB[318.] else AB[232] else w_ = AB[964] end elseif w_ < 3. then wS = w4[AB[764]] == AB[797]; w_ = AB[232] elseif w_ < 4 then wS = AB[797]; w_ = AB[262] else w0 = true; w_ = AB[964] end elseif w_ < 8 then if w_ < 6. then wU = wS[AB[41]]; w_ = AB[968] elseif w_ < 7 then wS = w4[AB[275]]; wU = wS; w_ = if wU then AB[1009] else AB[968] else wU = wS; pN({ AB[793], AB[934] .. wT, AB[234.] .. wU, AB[1042] }); w_ = AB[927.] end elseif w_ < 9. then w_ = if wS then AB[1073] else AB[965] elseif w_ < 10 then break else wS = wU; w_ = if wS then AB[262] else AB[587] end end; if w0 then break end end; wW = 0. else wW = 1772; continue end elseif wW < 1775 then return elseif wW < 1776. then wT = wS; wS = type(gi[AB[907]]) == AB[447.]; wW = if wS then 2 else 15. elseif wW == 1776. then wT = wS[AB[41]]; wW = 1 else wW = 1778; continue end elseif wW < 1779. then if wW < 1778 then return elseif wW == 1778 then wV = wU; wW = 8 else wW = 1777; continue end elseif wW < 1780 then wS = gi[AB[907]]; wW = 15. elseif wW < 1781 then if wW == 1780 then wS = wT; wZ = if wS then AB[965] else AB[22]; wX = AB[827] * wZ + AB[632] * (AB[965] - wZ); wY = AB[456.] * wZ + AB[592] * (AB[965] - wZ); wW = if (wX * AB[1095.] + wY * AB[494] + wX * wY) % AB[261.] == AB[77] then 6. else 12. else wW = 1769; continue end else break end else break end end end end); w6 = 1 else break end else break end end end end, 19, "veqfadpmd", function() ps:Unload() end, "WebhookOnDivineGacha", "RaidArenas", "TeleportController", "lzmlz", "Headers", "Kills before next - ", "mlcf", "vdo", "Active", function(cP, cQ, cR) local uo, up, uq, ur, ut, uu, uv, ux = nil, nil, nil, nil, nil, nil, nil, nil; local us = nil; us = 1; while true do us = 3064 - us; do if us < 3578 then if us < 3064 then if us < 2182 then break elseif us < 2648 then break elseif us < 3063. then break elseif us == 3063. then up, uo = nil, nil; uu = false; for cV, cW in qq(cP) do uv = cV; ux = cW; local uw = uv; local uy = ux; local ut = nil; ut = AB[22]; while true do if ut < 5 then if ut < 2 then if ut < 1 then uq = not cR; ut = if uq then AB[965] else AB[964] else ut = if uq then AB[262] else AB[232] end elseif ut < 3. then uu = true; ut = AB[1009] elseif ut < 4 then uq = ur < uo; ut = AB[927.] else ut = if uq then AB[1073] else AB[968] end elseif ut < 8 then if ut < 6. then break elseif ut < 7 then up = uy; uo = ur; ut = AB[968] else uq = uy:FindFirstChild(AB[1000]); ur = (uq[AB[52]] - cQ[AB[52]])[AB[843.]]; uq = not uo; ut = if uq then AB[927.] else AB[587] end elseif ut < 9. then ut = AB[1009] elseif ut < 10 then uq = cR[uy[AB[41]]]; ut = AB[965] else ut = AB[232] end end; if uu then break end end; return up else us = 7947.; continue end else break end else break end end end end, 956, 0., 2825, "ekqyn", "yvnyty", "dvtmbwvzivhe", "Character", "Select Gacha", "DefenseJoin", "Sibling", 2252, "sec", "State", "Callback", "Join Discord For Dupe", "AutoFarm", "Nearest", "%H:%M", "FireServer", "swords", "Name", "- Reason: ", "TimeTrialLeave", "getConfig", "Luck", 70, "kvok", "Auto Fuse All Swords", "Gachas", "RoundRobinWorlds", "xgvvrktfnpj", "Position", 103, 2608, "CanAutoJoinActiveRaid", pairs, "dtupozoa", "zhprqhydzoo", 1895960456, 1451, 1534, 266, "ydsp", "hmaoztu", 3538, function(ax) local sN = nil; local sO = nil; sO = 4; while true do sO = 6025 - sO; do if sO < 6256 then if sO < 6021. then if sO < 6018. then break elseif sO < 6019 then if sO == 6018. then sN = ax[AB[961]]:match(AB[1072]); sO = 5 else sO = 9229; continue end elseif sO < 6020 then return elseif sO == 6020 then pn[ax[AB[585.]]] = { [AB[1079]] = sN, [AB[898]] = ax[AB[898]] }; sO = 1 else sO = 11534; continue end elseif sO < 6023 then if sO < 6022 then if sO == 6021. then sN = type(ax) ~= AB[447.]; sO = if sN then 2 else 0. else sO = 6256; continue end elseif sO == 6022 then sN = nil; sO = if type(ax[AB[961]]) == AB[680] then 7 else 5 else sO = 11084; continue end elseif sO < 6024. then sO = if sN then 6. else 3. elseif sO < 6025 then break elseif sO == 6025 then sN = type(ax[AB[585.]]) ~= AB[680]; sO = 2 else break end else break end end end end, "", "settings", "ymmteqp", "None", "ihitt", "InputBegan", "xvksbogn", "Auto Claim Time/Week Reward", "nrepxxdfprr", 172, 10912628, "ErrorMessage", 2407660407., "Time Trial Leave At Floor", 672., " | ", ">", "SelectText", "yqvwwupqaq", "GetAllTrials", "Titans", "Auto Equip Best Swords", 85, 1511192175., 8586245, "Swap At Normal Farm", function(ca, cb) return pz(ca, cb)[AB[965]] end, "Suffix", "kertfhvxzu", "FarmTitle", "tkezh", "bokk", "noh", "RaidState", "TimeTrialConfig", 888., "TimeTrialJoin", 3907, 104191169, "frame", "Swap At Star Summon", 13839891., "ktphqixd", 405., "Auto Unlock Next Affordable World", "czz", "Mode", 66., "EnemyDead", "Raid Farm", 100, function() local u0, u1, u2, u4, u5, u6, u7, u8, u9, vb = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local u3 = nil; u3 = 3.; while true do u3 = 6453. - u3; do if u3 < 6534. then if u3 < 6452 then if u3 < 5652. then break elseif u3 < 6450. then break elseif u3 < 6451 then u0 = qI[AB[507.]]; u6 = if u0 then AB[965] else AB[22]; u4 = AB[720.] * u6 + AB[345.] * (AB[965] - u6); u5 = AB[981.] * u6 + AB[832] * (AB[965] - u6); u3 = if (u4 * AB[521] + u5 * AB[611] + u4 * u5) % AB[261.] == AB[637] then 1 else 0. else break end elseif u3 < 6453. then if u3 == 6452 then u0 = qI[AB[507.]][AB[1082]]; u3 = 0. else u3 = 14511.; continue end elseif u3 == 6453. then u1 = u0; u8 = false; for dT, dU in AB[499](qB) do u9 = dT; vb = dU; local va = u9; local vc = vb; local u7 = nil; u7 = AB[22]; while true do if u7 < 3. then if u7 < 1 then u0 = qI[AB[276.] .. vc]; u7 = if u0 then AB[587] else AB[965] elseif u7 < 2 then u7 = AB[927.] else u0:SetVisible(u2); u7 = AB[965] end elseif u7 < 5 then if u7 < 4 then u2 = type(u1) == AB[447.]; u7 = if u2 then AB[1009] else AB[318.] else break end elseif u7 < 6. then u2 = u1[vc] == true; u7 = AB[318.] else u8 = true; u7 = AB[927.] end end; if u8 then break end end; u3 = 2 else break end else break end end end end, "zibqulkvio", "AutoFuseSwords", "NotifySide", 63., 387., 3926, function() local xn = nil; local xo = nil; xo = 4; while true do xo = 14079. - xo; do if xo < 10656. then break elseif xo < 14076. then if xo < 13958 then break elseif xo < 14074 then break elseif xo < 14075 then xn = not qF[AB[422]][AB[1082]]; xo = 2 else xn = qo; xo = if xn then 2 else 5 end elseif xo < 14078 then if xo < 14077 then break else xo = if xn then 0. else 1 end elseif xo < 14079. then if xo == 14078 then qo = true; pD:Toggle(false); xo = 3. else xo = 13896.; continue end elseif xo < 15744. then if xo == 14079. then return else break end else break end end end end, "gkvtirzkatj", "Unloaded!", 3664, "StarSummon", "Auto Open Star", "Priority", "UserInputType", 42., "Body", 7714130, "DungeonMapReady", "GachaKey", "Round Robin Farm", "kikobstcmdft", 2777, "Idled", 1128., "ShowMobileButtons", "SetAutoRankUp", 8729989, "raisi", "AntiAFK", "<@", "Auto Equip Best Titan", "crmudmyusg", "AutoLeave", function(hi) local xs = nil; local xt = nil; xt = 5; while true do xt = 14953 - xt; do if xt < 14950 then if xt < 13285 then break elseif xt < 14948 then break elseif xt < 14949. then xs = hi[AB[132.]] ~= AB[157][AB[132.]][AB[391]]; xt = if xs then 0. else 1 else break end elseif xt < 14953 then if xt < 14951 then if xt == 14950 then return else xt = 14951; continue end elseif xt < 14952. then if xt == 14951 then pA = hi; px = false; pv = hi[AB[52]]; pt = pI[AB[52]]; xt = 4 else xt = 15070; continue end else xt = if xs then 3. else 2 end elseif xt < 15070 then if xt == 14953 then xs = hi[AB[132.]] ~= AB[157][AB[132.]][AB[731]]; xt = 1 else xt = 14952.; continue end else break end end end end, 25, 6038687, 14549622., 71, Enum, "min", "Farm Mode", "AutoClaimRewards", "[", "Health", 68, "Auto Farm Trial", "Y", "zhmfevziwgl", "EquipBestTitan", "Select Defenses", "DungeonArenas", "AutoEquipPets", "vqzgxiwatu", "inline", "embeds", "Auto leave At Defense Floor", "Items", "PaddingRight", function(bA) local AC = table.insert; local tg, th, ti, tj, tk, tl, tm, to, tp, tq, ts, tu, tv, tw, ty, tA, tC = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local tn = nil; tn = 0.; while true do tn = 12903. - tn; do if tn < 12903. then break elseif tn < 14105 then if tn == 12903. then tg = {}; th = {}; tp = false; for bD, bE in AB[499](bA) do tq = bD; ts = bE; local tr = tq; local tt = ts; local to = nil; to = AB[965]; while true do if to < 2 then if to < 1 then tp = true; to = AB[587] else ti = pL:GetEnemiesByWorld(tt); to = if ti then AB[927.] else AB[318.] end elseif to < 3. then to = AB[587] elseif to < 4 then break else tv = false; for bH, bI in AB[56](ti) do tw = bH; ty = bI; local tx = tw; local tz = ty; local tu = nil; tu = AB[587]; while true do if tu < 6. then if tu < 3. then if tu < 1 then tv = true; tu = AB[232] elseif tu < 2 then tm = #qH + AB[965]; tu = AB[318.] else tk(th, { [AB[913]] = ti, [AB[41]] = tl, [AB[1079]] = tm, [AB[1083.]] = tt }); tu = AB[964] end elseif tu < 4 then ti = tz; tu = if ti then AB[431] else AB[534.] elseif tu < 5 then ti = AB[1076]; tu = AB[1073] else tg[ti] = tz[AB[41]]; tk = AC; tl = tz[AB[41]]; tm = qE[tj]; tu = if tm then AB[318.] else AB[965] end elseif tu < 9. then if tu < 7 then tj = tostring(ti); ti = tz[AB[41]] .. AB[82] .. tj; tu = if not tg[ti] then AB[1009] else AB[964] elseif tu < 8 then ti = tz[AB[453.]]; tu = if ti then AB[1073] else AB[927.] else break end elseif tu < 11 then if tu < 10 then tu = AB[968] else tu = AB[232] end elseif tu < 12. then ti = tz[AB[41]]; tu = AB[534.] else tu = if ti then AB[262] else AB[968] end end; if tv then break end end; to = AB[318.] end end; if tp then break end end; table.sort(th, function(bP, bQ) local td, te, tf = nil, nil, nil; local tc = nil; tc = 4; while true do tc = 14217. - tc; do if tc < 14210 then break elseif tc < 14214. then if tc < 14212 then if tc < 14211. then break elseif tc == 14211. then tc = if (td * AB[602] + te * AB[179] + td * te) % AB[261.] == AB[669.] then 3. else 0. else tc = 1551.; continue end elseif tc < 14213 then if tc == 14212 then return bP[AB[41]] < bQ[AB[41]] else tc = 5368; continue end else local AH = AB; tf = if bP[AH[1079]] ~= bQ[AH[1079]] then AH[965] else AH[22]; td = AH[864.] * tf + AH[361] * (AH[965] - tf); tc = 2 end elseif tc < 14216 then if tc < 14215 then if tc == 14214. then return bP[AB[1079]] < bQ[AB[1079]] else tc = 1551.; continue end else te = AB[718] * tf + AB[425] * (AB[965] - tf); tc = 6. end elseif tc < 14217. then return bP[AB[1083.]] < bQ[AB[1083.]] elseif tc < 15929 then if tc == 14217. then tc = if bP[AB[1083.]] ~= bQ[AB[1083.]] then 1 else 5 else break end else break end end end end); ti = {}; tv = false; for bS, bT in AB[499](th) do tA = bS; tC = bT; local tB = tA; local tD = tC; local tu = nil; tu = AB[965]; while true do if tu < 1 then break elseif tu < 2 then AC(ti, tD[AB[913]]); tu = AB[22] else tv = true; tu = AB[22] end end; if tv then break end end; return ti, tg else break end else break end end end end, 22, 685, "Side Quest", 33., "imhoku", "GateRanks", "Swap At Trial", "RaidJoin", print, function() local uR, uS, uT, uV, uW, uX, uZ = nil, nil, nil, nil, nil, nil, nil; local uU = nil; uU = 2; while true do uU = 7734. - uU; do if uU < 7734. then if uU < 7733 then if uU < 4578. then break elseif uU < 7731. then break elseif uU < 7732 then if uU == 7731. then qI[AB[507.]]:SetValues(uT); uU = 1 else uU = 9336.; continue end else uR = {}; uW = false; for dA, dB in AB[499](pz(qI[AB[50]], p5)) do uX = dA; uZ = dB; local uY = uX; local u_ = uZ; local uV = nil; uV = AB[318.]; while true do if uV < 1 then uW = true; uV = AB[965] elseif uV < 2 then break else table.insert(uR, p_[u_]); uV = AB[965] end end; if uW then break end end; uT, uS = pH(uR); p9 = uS; uU = if qI[AB[507.]] then 3. else 1 end elseif uU == 7733 then p4(); uU = 0. else uU = 7732; continue end else break end end end end, "Time Trial", "webhook", "AutoRollSword", "ttzzq", "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/", "name", "Color", 57., "RequestChangeWorld", "Values", "Image", "ahdxvvy", "Parent", "- Time: ", 782, "FarmMob", function() local tO, tP = nil, nil; local tQ = nil; tQ = 5; while true do tQ = 10572. - tQ; do if tQ < 10569. then if tQ < 7658 then break elseif tQ < 10567 then break elseif tQ < 10568 then if tQ == 10567 then tO = qI[AB[525.]]; tQ = if tO then 4 else 1 else tQ = 14197; continue end elseif tQ == 10568 then tO = qI[AB[525.]][AB[1082]]; tQ = 1 else tQ = 10570; continue end elseif tQ < 13214 then if tQ < 10571 then if tQ < 10570 then if tQ == 10569. then tO = p_[tP]; tQ = 0. else tQ = 985; continue end else break end elseif tQ < 10572. then if tQ == 10571 then tP = tO; tO = tP; tQ = if tO then 3. else 0. else tQ = 7658; continue end elseif tQ == 10572. then return tO else break end else break end end end end, "Hard", "Footer", "PriorityEnabled", 49, "AutoRankUp", 41, " in ", "DungeonState", "assvbp", 3950, "Auto Side Quest", "ScreenGui", "1 = Highest Priority, 7 = Lowest Priority", "CFrame", 2621, "Swords", "kjguplcwt", 2964., "Yen", "fzxzgmgt", 73, "TimeTrialMapReady", 2272, "AutoLeaveText", 2465, "AutoButtonColor", "ftbn", 8, "ootfzthhg", "- Power: ", "BackgroundColor3", "Searchable", "ToggleKeybind", "Menu", "InputEnded", "Trial", "AutoClaimAchievements", "Auto Farm", "Webhook URL", "Toggle", "Menu bind", function(W) local sE, sF, sH, sI, sJ, sL = nil, nil, nil, nil, nil, nil; local sG = nil; sG = 0.; while true do sG = 5804 - sG; do if sG < 5804 then break elseif sG < 10259 then if sG == 5804 then sE = {}; sF = {}; sI = false; for Z, aa in AB[56](W) do sJ = Z; sL = aa; local sK = sJ; local sM = sL; local sH = nil; sH = AB[22]; while true do if sH < 1 then table.insert(sF, sM[AB[41]]); sE[sM[AB[41]]] = sK; sH = AB[318.] elseif sH < 2 then sI = true; sH = AB[318.] else break end end; if sI then break end end; table.sort(sF); return sF, sE else break end else break end end end end, 235, function(kw) local zT, zU, zW, zX, zY = nil, nil, nil, nil, nil; local zV = nil; zV = 6.; while true do zV = 11145. - zV; do if zV < 11140 then if zV < 8104 then break elseif zV < 11138 then break elseif zV < 11139. then if zV == 11138 then return true else zV = 11143; continue end elseif zV == 11139. then local AI = AB; zY = if not kw[AI[200]] then AI[965] else AI[22]; zW = AI[219.] * zY + AI[591.] * (AI[965] - zY); zX = AI[703] * zY + AI[533] * (AI[965] - zY); zV = if (zW * AI[699.] + zX * AI[367] + zW * zX) % AI[261.] == AI[108.] then 7 else 0. else zV = 10156; continue end elseif zV < 11144 then if zV < 11142. then if zV < 11141 then if zV == 11140 then zT = kw:FindFirstChildOfClass(AB[1053.]); zU = zT ~= nil; zV = if zU then 2 else 3. else zV = 11145.; continue end else break end elseif zV < 11143 then if zV == 11142. then return zU else zV = 11138; continue end else zU = zT[AB[162.]] <= AB[22]; zV = 3. end elseif zV < 12708. then if zV < 11145. then return true elseif zV == 11145. then zV = if kw:GetAttribute(AB[115]) == true then 1 else 5 else break end else break end end end end, 1336, "vhmegfpywp", "jwyc", "Players", "spawn", function() local tR, tS, tT, tV, tW, tX, tY, tZ, t_, t1 = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local tU = nil; tU = 6.; while true do tU = 11287 - tU; do if tU < 11286. then if tU < 11284 then if tU < 8715. then break elseif tU < 11281 then if tU < 11280. then break else tU = if (tV * AB[61] + tW * AB[660.] + tV * tW) % AB[261.] == AB[873.] then 4 else 0. end elseif tU < 11282 then tR = {}; tS = qI[AB[203]]; tU = if tS then 3. else 5 elseif tU < 11283. then if tU == 11282 then tT = tS; local AJ = AB; tX = if type(tT) ~= AJ[447.] then AJ[965] else AJ[22]; tV = AJ[792.] * tX + AJ[291.] * (AJ[965] - tX); tU = 1 else tU = 11286.; continue end else return tR end elseif tU < 11285 then if tU == 11284 then tS = qI[AB[203]][AB[1082]]; tU = 5 else tU = 11280.; continue end else break end elseif tU < 12672. then if tU < 11287 then if tU == 11286. then tW = AB[60.] * tX + AB[497] * (AB[965] - tX); tU = 7 else tU = 11284; continue end elseif tU == 11287 then tZ = false; for co, cp in AB[56](tT) do t_ = co; t1 = cp; local t0 = t_; local t2 = t1; local tY = nil; local AJ = AB; tY = AJ[587]; while true do if tY < 3. then if tY < 1 then tY = if tS then AJ[1073] else AJ[927.] elseif tY < 2 then tZ = true; tY = AJ[318.] else break end elseif tY < 5 then if tY < 4 then tS = t2; tY = if tS then AJ[1009] else AJ[22] else tY = AJ[318.] end elseif tY < 6. then tS = pK[t0]; tY = AJ[22] else tR[pK[t0]] = true; tY = AJ[927.] end end; if tZ then break end end; return tR else tU = 11280.; continue end else break end end end end, 809, "AutoNextWorldQuest", "Toggles", "Swap At Defense", "color", "eetrmel", 16777213, 7, 946, "zomhldrfb", "jhqy", "HttpService", "new", 3939., "SideQuest", "Result", "lynz", "X", "Random Tier", "VeryEasy", "RolledItem", "RoundRobinKills_", task.spawn, "eyppwq", "kbmjkzgeu", "AutoEquipAvatars", 2450, "TimeTrialArenas", "AutoSpinGacha", function(br, bs) return br[AB[405.]] < bs[AB[405.]] end, 1739, "Right", "Raid", "Anime Astral Simulator", 46, 13, 2368, 102., "abylqhamjiq", 54., "MiniBoss", "RaidController", "AutoUnlockWorld", "AutoEquipSwords", "zjmawzuu", 1548., 2566, "Names", "GachaSelect", "footer", "fcarqxasxqaa", 999., 4100426640., 1505, "AllowNull", 2223., "zxo", 9., 2288035154, 35, "fjmqsomc", 4038., 2599, 2, "TimeTrialState", "lsde", "MouseMovement", "SwapTrial", 104, function() local AD = table.insert; local zn, zo, zp, zq, zr, zs, zt, zu, zv, zx, zy, zz, zB, zD, zE, zF, zH, zJ, zK, zL, zN, zP, zR = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local zw = nil; zw = 1; while true do zw = 3508 - zw; do if zw < 4072 then if zw < 3508 then if zw < 3359 then break elseif zw < 3507. then break elseif zw == 3507. then zn = {}; zy = false; for kc, kd in AB[499](pz(qI[AB[50]], p5)) do zz = kc; zB = kd; local zA = zz; local zC = zB; local zx = nil; zx = AB[927.]; while true do if zx < 2 then if zx < 1 then zx = AB[587] else zy = true; zx = AB[587] end elseif zx < 3. then zr = {}; zK = false; for kl, km in AB[56](zq) do zL = kl; zN = km; local zM = zL; local zO = zN; local zJ = nil; zJ = AB[927.]; while true do if zJ < 6. then if zJ < 3. then if zJ < 1 then zq = zO[AB[41]]; zJ = AB[968] elseif zJ < 2 then zs = tostring(zq); zq = AD; zt = zO[AB[41]]; zu = zO[AB[41]] .. AB[82] .. zs; zv = qE[zs]; zJ = if zv then AB[262] else AB[318.] else zv = #qH + AB[965]; zJ = AB[262] end elseif zJ < 4 then break elseif zJ < 5 then zq = zO; zJ = if zq then AB[22] else AB[968] else zJ = if zq then AB[232] else AB[431] end elseif zJ < 9. then if zJ < 7 then zq = zp[zO[AB[41]]]; zJ = AB[1009] elseif zJ < 8 then zq(zr, { [AB[1083.]] = zo, [AB[41]] = zt, [AB[913]] = zu, [AB[1079]] = zv }); zJ = AB[431] else zq = zO[AB[453.]]; zJ = if zq then AB[965] else AB[534.] end elseif zJ < 11 then if zJ < 10 then zK = true; zJ = AB[587] else zJ = if zq then AB[1073] else AB[1009] end elseif zJ < 12. then zJ = AB[587] else zq = AB[1076]; zJ = AB[965] end end; if zK then break end end; table.sort(zr, function(kq, kr) local zm = nil; zm = 0.; while true do zm = 9191 - zm; do if zm < 9189. then if zm < 6281 then break elseif zm < 6785 then break elseif zm < 9188 then break elseif zm == 9188 then return kq[AB[1079]] < kr[AB[1079]] else zm = 6785; continue end elseif zm < 9191 then if zm < 9190 then break elseif zm == 9190 then return kq[AB[41]] < kr[AB[41]] else zm = 13267; continue end elseif zm < 13267 then if zm == 9191 then zm = if kq[AB[1079]] ~= kr[AB[1079]] then 3. else 1 else break end else break end end end end); zK = false; for ks, kt in AB[499](zr) do zP = ks; zR = kt; local zQ = zP; local zS = zR; local zJ = nil; zJ = AB[318.]; while true do if zJ < 1 then break elseif zJ < 2 then zK = true; zJ = AB[22] else AD(zn, zS); zJ = AB[22] end end; if zK then break end end; zx = AB[22] elseif zx < 4 then break else zo = p_[zC]; zp = {}; zE = false; for kg, kh in AB[56](qI[AB[507.]][AB[1082]]) do zF = kg; zH = kh; local zG = zF; local zI = zH; local zD = nil; zD = AB[318.]; while true do if zD < 3. then if zD < 1 then break elseif zD < 2 then zD = if zq then AB[1073] else AB[1009] else zq = zI; zD = if zq then AB[927.] else AB[965] end elseif zD < 5 then if zD < 4 then zE = true; zD = AB[22] else zq = p9[zG]; zD = AB[965] end elseif zD < 6. then zD = AB[22] else zp[p9[zG]] = true; zD = AB[1009] end end; if zE then break end end; zq = pL:GetEnemiesByWorld(zo); zx = if zq then AB[318.] else AB[22] end end; if zy then break end end; return zn else zw = 3508; continue end else break end else break end end end end, "kwtcdevpml", 74, 1275., "ltbtd", UDim, "Leave", function() qs = nil end, "Settings", 262727, "rsshrwm", 72., "RaidAnnouncement", 3190, CFrame, 3719, 13134675., "mimwtq", 600., "Loaded", "TeleportBeforeFarm", 866, "Selected", "SwordConfig", "Dungeon", "zptbsnlhnw", "ResetOnSpawn", "DefenseLeave", "SideQuestConfig", "PaddingBottom", 157840827., "jnechhcm", "Library.lua", "RoundRobinSeconds", "Auto Hatch", 2756412276., "Unloaded", 2903, "SwordBanner", "application/json", 34, "psayqjdlx", "clock", 2228, "qtnxwbzjrur", 823, "blqul", "discord.gg/f3dJhDgyTq", 94751423, 2177, "mrb", 2268., function(el, em) local vs, vt, vu, vv, vx, vy, vz, vA, vB, vC, vE = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local vw = nil; vw = 7; while true do vw = 14444 - vw; do if vw < 14441 then if vw < 14437 then if vw < 5654 then break elseif vw < 11967. then break elseif vw < 14435 then break elseif vw < 14436. then if vw == 14435 then vw = if (vx * AB[54.] + vy * AB[3.] + vx * vy) % AB[261.] == AB[824] then 1 else 4 else vw = 14438; continue end elseif vw == 14436. then vt = vs:FindFirstChild(em); vw = 6. else vw = 1818.; continue end elseif vw < 14439. then if vw < 14438 then vs = AB[862]:FindFirstChild(el[AB[455]]); vt = vs; vw = if vt then 8 else 6. else vs = vt; vt = vs; vw = if vt then 2 else 5 end elseif vw < 14440 then vs = vt; vz = if not vs then AB[965] else AB[22]; vx = AB[645.] * vz + AB[401] * (AB[965] - vz); vw = 0. elseif vw == 14440 then vt = {}; vB = false; for et, eu in vs:GetChildren() do vC = et; vE = eu; local vD = vC; local vF = vE; local vA = nil; vA = AB[965]; while true do if vA < 4 then if vA < 2 then if vA < 1 then break else vs = vF:FindFirstChildOfClass(AB[1053.]); vu = vF:FindFirstChild(AB[1000]); vv = vs; vA = if vv then AB[262] else AB[927.] end elseif vA < 3. then table.insert(vt, vF); vA = AB[232] else vB = true; vA = AB[22] end elseif vA < 6. then if vA < 5 then vA = if vv then AB[1009] else AB[1073] else vv = vF:GetAttribute(AB[115]) ~= true; vA = AB[1073] end elseif vA < 7 then vA = if vv then AB[318.] else AB[232] elseif vA < 8 then vv = vu; vA = AB[927.] else vA = AB[22] end end; if vB then break end end; return vt else vw = 1818.; continue end elseif vw < 14442. then break elseif vw < 14444 then if vw < 14443 then if vw == 14442. then vt = vs:FindFirstChild(AB[563]); vw = 5 else vw = 15244; continue end else return {} end elseif vw < 15244 then if vw == 14444 then vy = AB[255.] * vz + AB[810.] * (AB[965] - vz); vw = 9. else break end else break end end end end, "WebhookOnSpawn", "rbxassetid://18657887261", "Client", "addons/SaveManager.lua", 2267, "fpfyfjs", 3076344., "arlbfydx", "sparkles", "fyyo", "EnableSidebarResize", 0.45, 1703, "UIStroke", "MouseButton1", 0.1, "lkpnzp", "Webhook", "Spawned - ", "gesbpomaben", "wlkiubylocu", 62, "SwapDungeon", "Highest HP", 898, "Gacha", "GetAllDefenses", "DefenseMapReady", "Id", "SimpleWorld", "Ended", 960., function(eg, eh) local vp, vq = nil, nil; local vr = nil; vr = 1; while true do vr = 7860. - vr; do if vr < 8051 then if vr < 7858 then break elseif vr < 7859 then vq = vp:FindFirstChild(eh); vr = 0. elseif vr < 7860. then if vr == 7859 then vp = AB[862]:FindFirstChild(eg[AB[455]]); vq = vp; vr = if vq then 2 else 0. else vr = 8051; continue end elseif vr == 7860. then return vq ~= nil else break end else break end end end end, "Auto Claim Achievements", "ErrorPrompt", "Auto Rank Up", 30., "fdtonqb", 128482903, "Raid Leave At Wave", "zliufknaafl", "upzkfqpwul", 44, 580, "RaidMapReady", "AutoHideUI", DateTime, 505, 772, "eqogipbsvd", "mzlmmi", "SwapStarSummon", 1538555019., "DisplayOrder", 11, "fields", "LocalPlayer", "WebhookOnDisconnect", 1019, debug.traceback, "zkojq", 67, 300., "Auto Swap LoadOut", "RaidLeave", "uvfqgxmnsc", "wexh", "hsoicnpdlgx", "mvjdht", "text", "table", "Quest", "Select Dungeons", "pwalsvkfnc", "axgsahoiu", 1113., "Type", "CoreGui", "Arenas", 1987, "TitansConfig", "AutoRollPassive", "uympzb", "lysbpuqgn", "GateRankValues", "NoUI", "Sword", "Defense", "AutoMainQuest", "TotalRooms", "All", "TotalField", 1448, 79764919, "Auto Farm Defense", "qzmtktx", utf8.offset, "sqhougvlguee", 3636., 223, 761, 43, 39., "Passive", 2877., Vector2.new, "lhjcbrd", 1939, "nbsjkpcld", "axuwnhhujkn", "Titan", "wxea", "https://discord.com/api/webhooks/...", 121, 18657887261, "yzsmpshdtz", "wait", 1366, "Multi", "Placeholder", 1387, function() local uM, uN, uO, uP = nil, nil, nil, nil; local uQ = nil; uQ = 1; while true do uQ = 9651. - uQ; do if uQ < 9647 then if uQ < 9200 then break elseif uQ < 9645. then if uQ < 9644 then break else uO = uM; uQ = 2 end elseif uQ < 9646 then uQ = 4 else uM = {}; uO = uP; uQ = if uO then 2 else 7 end elseif uQ < 9651. then if uQ < 9649 then if uQ < 9648. then break elseif uQ == 9648. then uP = uO; uQ = 5 else uQ = 7255; continue end elseif uQ < 9650 then if uQ == 9649 then uN:SetValues(pW(uO)); uQ = 6. else uQ = 9651.; continue end elseif uQ == 9650 then uQ = if qI[AB[203]] then 0. else 6. else uQ = 9648.; continue end elseif uQ < 11448. then if uQ < 11057 then if uQ == 9651. then uM = qi(); uN = qI[AB[203]]; uO = { uM }; uP = uM; uQ = if uP then 3. else 5 else uQ = 9200; continue end else break end else break end end end end, ipairs, "LeaveTitle", Vector2, "iixrjwzbyv", "Select Raids", 101985483., "date", 168., "RoundRobinMobs", 3914, "AutoClaimAchievementsSet", 65535., "nyja", 38, "vhnryavtlyxn", 381., "Damage", 3624., "promptOverlay", "DefenseController", "Quests", "UserInputService", 2988., "npllmu", 15., "LastState", "FarmWorld", function() p4() end, "ImageColor3", 3332, "irgegpyf", game, "DefaultQuestId", "- Tier: ", 1181, 12., function() local v4, v5, v6, v7, v9, wa, wb = nil, nil, nil, nil, nil, nil, nil; local v8 = nil; v8 = 4; while true do v8 = 4378 - v8; do if v8 < 6586 then if v8 < 4375 then if v8 < 4373 then break elseif v8 < 4374. then if v8 == 4373 then v8 = if (v9 * AB[375.] + wa * AB[310] + v9 * wa) % AB[261.] == AB[977] then 3. else 2 else v8 = 7046; continue end else v4, v5 = AB[549.](function() return pQ:IsLoading() end); v6 = v5 == true; v7 = v4; wb = if v7 then AB[965] else AB[22]; v9 = AB[484] * wb + AB[625] * (AB[965] - wb); v8 = 1 end elseif v8 < 4377. then if v8 < 4376 then if v8 == 4375 then v7 = v6; v8 = 2 else v8 = 10022; continue end else return v7 end elseif v8 < 4378 then if v8 == 4377. then wa = AB[142] * wb + AB[1030] * (AB[965] - wb); v8 = 5 else v8 = 4374.; continue end else break end else break end end end end, function() local Ay, Az = nil, nil; local AA = nil; AA = 11; while true do AA = 9463 - AA; do if AA < 9456. then if AA < 9452 then if AA < 9450. then if AA < 9449 then if AA < 4332. then break elseif AA < 6718 then break elseif AA < 9448 then break elseif AA == 9448 then local AK = AB[542][AB[493]]; AB[1084](AB[342.]); AA = if ps[AB[360.]] then 12. else 10 else AA = 9454; continue end elseif AA == 9449 then AA = 4 else AA = 9453.; continue end elseif AA < 9451 then AA = if true then 7 else 4 else AA = 4 end elseif AA < 9455 then if AA < 9454 then if AA < 9453. then AA = 13 elseif AA == 9453. then Ay = qt[AB[27.]]; Az = Ay; AA = if Az then 3. else 1 else AA = 9449; continue end else AA = if Az then 5 else 6. end elseif AA == 9455 then Az = Ay[AB[162.]] > AB[22]; AA = 9. else AA = 9462.; continue end elseif AA < 9461 then if AA < 9458 then if AA < 9457 then AA = if true then 15. else 14 else AA = 0. end elseif AA < 9459. then if AA == 9458 then Ay:ChangeState(AB[157][AB[1065.]][AB[752]]); AA = 6. else AA = 9449; continue end elseif AA < 9460 then AA = 2 else Az = Ay:FindFirstChildOfClass(AB[1053.]); AA = 1 end elseif AA < 12019 then if AA < 9463 then if AA < 9462. then break else Ay = Az; Az = Ay; AA = if Az then 8 else 9. end elseif AA == 9463 then AA = 13 else AA = 9459.; continue end else break end end end end, "Finished", "ReplicatedStorage", 20263491., "aqkdv", "Auto leave At Time Trial Floor", task, "Fast Auto Click", function() AB[186.](AB[127]) end, "oovgilerrh", "umiv", "aulvqcynxb", "mismlcchux", pcall, "getBridge", "yuhycgdgyu", "dmoaben", 2111, "request", "ZIndexBehavior", "WebhookPingId", "rjxcegcm", "Time Trial Farm", function(an, ao) return an[AB[41]] < ao[AB[41]] end, "ImageButton", "AutoEquipTitan", "hjeucm", "Enemies", "GachaConfig", "Target", "fjyjvzhf", "Medium", "CanAutoJoinActiveDefense", "fyesueb", 2829., "tvmlnb", "rdymr", "xouzgcjoud", "Send When Disconnected", "(.)", "uescakjgujso", "PlayerPassiveRoll", "Select", "rqbu", 3457, "RoundRobinFarm", "izdmhsyncw", CFrame.new, "ljovhxf", "Key", 61, 3., function() local xN, xO, xP, xQ, xS, xT, xU, xW = nil, nil, nil, nil, nil, nil, nil, nil; local xR = nil; xR = 3.; while true do xR = 14057 - xR; do if xR < 14056 then if xR < 9121 then break elseif xR < 14054 then break elseif xR < 14055. then xR = if pq then 1 else 2 else xO, xN = nil, nil; xT = false; for hZ, h_ in AB[499](po) do xU = hZ; xW = h_; local xV = xU; local xX = xW; local xS = nil; xS = AB[262]; while true do if xS < 4 then if xS < 2 then if xS < 1 then xO, xN = xX[AB[405.]], xP; xS = AB[1009] else xP = qI[AB[131] .. xX[AB[405.]]][AB[1082]]; xQ = not xN; xS = if xQ then AB[1073] else AB[232] end elseif xS < 3. then break else xS = AB[318.] end elseif xS < 6. then if xS < 5 then xT = true; xS = AB[318.] else xS = AB[587] end elseif xS < 7 then xS = if xQ then AB[22] else AB[1009] elseif xS < 8 then xS = if qz(xX[AB[405.]]) then AB[965] else AB[587] else xQ = xP < xN; xS = AB[1073] end end; if xT then break end end; return xO end elseif xR < 14702 then if xR < 14057 then return pq[AB[405.]] else break end else break end end end end, "uyxjxbamrrgw", "Unload", 2044, 737, "s", "SwapDefense", DateTime.now, "ActiveGachas", "saqlsyqj", "qchkxodyg", "GlobalQuestClaimAll", "hymnyz", 1600, 3940, "Send When Gamemode Spawns", 1856, "Content-Type", "klm", "Auto Farm Raid", "Create", "kcjarpfr", "FastAutoClick", 487, "GetAllDungeons", 1567, "HasEnoughForRaid", "STATE_READY", 6569565., "PaddingLeft", "Entries", "yxutz", 2323007847., "TextLabel", 27., "ScaleType", "Copied Discord invite to clipboard", 1042, 76, "secretKey", 26, "title", "DefenseEnded", "Ouroboros Hub", 60., 0.25, "bnayrzda", 51., "GetAllRaids", 10260769, 36., "dirxurcypo", function(d_) local ve = nil; ve = 0.; while true do ve = 15197 - ve; do if ve < 13883 then break elseif ve < 15195. then break elseif ve < 15196 then qu[AB[847]]:Fire(AB[144.], d_); ve = 1 elseif ve < 15197 then ve = 3. else ve = if qu[AB[847]] then 2 else 1 end end end end, function() local xp, xq = nil, nil; local xr = nil; xr = 3.; while true do xr = 1229 - xr; do if xr < 5487. then if xr < 1227. then if xr < 1225 then if xr == 1224. then pI[AB[1016]] = xq; xr = 4 else break end elseif xr < 1226 then break elseif xr == 1226 then xp = ps[AB[802]]; xr = if xp then 0. else 2 else xr = 9514; continue end elseif xr < 1229 then if xr < 1228 then xq = xp; xr = if xq then 5 else 1 elseif xr == 1228 then xq = AB[388]; xr = 5 else xr = 1224.; continue end elseif xr < 4079 then if xr == 1229 then xp = AB[22]; xr = 2 else xr = 10775; continue end else break end else break end end end end, 2138, "mnustcmt", "ymszu", 2439., "olq", "Auto Hide UI", "%1%1", "aywulhv", function() local xa, xb, xc, xd, xe, xf, xh, xi, xj, xl = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local xg = nil; xg = 7; while true do xg = 7149. - xg; do if xg < 7147 then if xg < 7145 then if xg < 7142 then if xg < 4179. then break elseif xg < 6621. then break elseif xg < 7140. then break elseif xg < 7141 then xg = 1 elseif xg == 7141 then xg = 1 else xg = 7147; continue end elseif xg < 7143. then if xg == 7142 then xa = {}; xg = 0. else xg = 7149.; continue end elseif xg < 7144 then if xg == 7143. then xg = if ps[AB[360.]] then 9. else 3. else xg = 7147; continue end elseif xg == 7144 then xg = if true then 6. else 8 else xg = 11999; continue end elseif xg < 7146. then break elseif xg == 7146. then xb = os[AB[505]](AB[814])[AB[158]]; xi = false; for gG, gH in AB[499](p8) do xj = gG; xl = gH; local xk = xj; local xm = xl; local xh = nil; xh = AB[262]; while true do if xh < 6. then if xh < 3. then if xh < 1 then break elseif xh < 2 then xh = AB[587] else xh = AB[965] end elseif xh < 4 then xh = AB[22] elseif xh < 5 then xi = true; xh = AB[22] else xd = qb[xm[AB[405.]]]; xh = if xd then AB[968] else AB[431] end elseif xh < 9. then if xh < 7 then xa[xm[AB[405.]]] = xb; xh = if qF[AB[377]][AB[1082]] then AB[964] else AB[318.] elseif xh < 8 then xc = pY[xm[AB[405.]]]; xh = if xc then AB[1009] else AB[587] else xd = xa[xm[AB[405.]]] ~= xb; xh = AB[534.] end elseif xh < 11 then if xh < 10 then pN({ AB[395] .. xm[AB[405.]], AB[532] .. tostring(xc[xb]), AB[201.] .. os[AB[505]](AB[38]) }); xh = AB[318.] else xf, xe = pB(xm[AB[405.]]); xd:SetText(xm[AB[405.]] .. AB[1067] .. tostring(xe) .. AB[211] .. qk(xf)); xh = AB[431] end elseif xh < 12. then xd = xc[xb]; xh = if xd then AB[232] else AB[534.] else xh = if xd then AB[1073] else AB[965] end end; if xi then break end end; local AL = AB[542][AB[493]]; AB[1084](AB[965]); xg = 2 else xg = 564.; continue end elseif xg < 7149. then if xg < 7148 then if xg == 7147 then xg = 0. else xg = 9551; continue end else xg = 4 end elseif xg < 9551 then if xg == 7149. then xg = if true then 5 else 1 else xg = 13886; continue end else break end end end end, "yptj", 3158, "Click", 0.15, 59, Instance.new, function(cC) local ud, ue, uf, ug, ui, uj, uk, um = nil, nil, nil, nil, nil, nil, nil, nil; local uh = nil; uh = 5; while true do uh = 9040 - uh; do if uh < 9035 then if uh < 9033. then break elseif uh < 9034 then if uh == 9033. then ue = ud:FindFirstChild(tostring(cC)); uh = 0. else uh = 8466.; continue end else ue = {}; uj = false; for cJ, cK in ud:GetChildren() do uk = cJ; um = cK; local ul = uk; local un = um; local ui = nil; ui = AB[1009]; while true do if ui < 4 then if ui < 2 then if ui < 1 then ug = uf; ui = AB[232] else break end elseif ui < 3. then ui = AB[965] else table.insert(ue, un); ui = AB[318.] end elseif ui < 6. then if ui < 5 then ui = if ug then AB[587] else AB[318.] else ud = un:FindFirstChildOfClass(AB[1053.]); uf = un:FindFirstChild(AB[1000]); ug = ud; ui = if ug then AB[22] else AB[232] end elseif ui < 7 then ug = un:GetAttribute(AB[115]) ~= true; ui = AB[927.] elseif ui < 8 then uj = true; ui = AB[965] else ui = if ug then AB[1073] else AB[927.] end end; if uj then break end end; return ue end elseif uh < 9039. then if uh < 9037 then if uh < 9036. then ud = AB[862]:FindFirstChild(AB[1043]); ue = ud; uh = if ue then 7 else 0. elseif uh == 9036. then return {} else uh = 6112; continue end elseif uh < 9038 then if uh == 9037 then ue = ud:FindFirstChild(AB[563]); uh = 1 else uh = 9035; continue end else break end elseif uh < 11447 then if uh < 9040 then if uh == 9039. then ud = ue; uh = if not ud then 4 else 6. else uh = 14714; continue end elseif uh < 9889 then if uh == 9040 then ud = ue; ue = ud; uh = if ue then 3. else 1 else uh = 8595.; continue end else break end else break end end end end, 18370683., 32, 1154, 31, "GetPlayerData", 2270, "afonyi", "World", 45., 3600., "dmdnedhnkvgo", 9579687., "OpenEgg", "baoaroca", "1 = \u{1AF}u ti\u{EA}n cao nh\u{1EA5}t, 7 = \u{1AF}u ti\u{EA}n th\u{1EA5}p nh\u{1EA5}t", "Size", "Auto Roll Sword Banner", 3135., "ajmfrhgpy", "content", "aobupu", 171., "string", "Auto Main Quest", 255., "value", "mvuhtb", "WorldConfig", 2838292765, "kglqgpxlgtc", "Mob", "bqpusr", "AutoActionController", 3948., "BorderSizePixel", "EquipBest", 3516., "Dungeon Leave At Wave", "xvlwrbdgb", "RaidConfig", "FarmMode", 2509, "Min", "Star", function(fD, fE) local wu, wv, ww, wy, wz, wA, wB, wC, wD, wF = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local wx = nil; wx = 7; while true do wx = 8724. - wx; do if wx < 8722 then if wx < 8715. then if wx < 7977. then break elseif wx < 8713 then break elseif wx < 8714 then if wx == 8713 then ww = wu[AB[1079]]; wx = 8 else wx = 8719; continue end else wC = false; for fL, fM in AB[499](wv) do wD = fL; wF = fM; local wE = wD; local wG = wF; local wB = nil; wB = AB[22]; while true do if wB < 2 then if wB < 1 then wB = if wG == wu[AB[1079]] then AB[587] else AB[318.] else wC = true; wB = AB[927.] end elseif wB < 3. then wB = AB[927.] elseif wB < 4 then return true else break end end; if wC then break end end; return false end elseif wx < 8718. then if wx < 8716 then return true elseif wx < 8717 then if wx == 8716 then wx = if not ww then 6. else 10 else wx = 8717; continue end else wx = if not fE[AB[183.]] then 9. else 2 end elseif wx < 8720 then if wx < 8719 then if wx == 8718. then return false else wx = 8717; continue end elseif wx == 8719 then wu = pn[fE[AB[585.]]]; ww = wu; wx = if ww then 11 else 8 else wx = 8724.; continue end elseif wx < 8721. then ww = wv; wx = 3. elseif wx == 8721. then wv = pz(wu, ww); wA = if #wv == AB[22] then AB[965] else AB[22]; wy = AB[214] * wA + AB[601] * (AB[965] - wA); wz = AB[475] * wA + AB[285.] * (AB[965] - wA); wx = if (wy * AB[776] + wz * AB[369.] + wy * wz) % AB[261.] == AB[616] then 0. else 5 else wx = 8720; continue end elseif wx < 8724. then if wx < 8723 then if wx == 8722 then wu = qI[fD[AB[405.]] .. AB[748]]; wv = {}; ww = fD[AB[461]]; wx = if ww then 3. else 4 else wx = 8719; continue end else break end elseif wx < 12856 then if wx < 8807 then if wx == 8724. then return true else break end else break end else break end end end end, 1498, function(d6) local vg = nil; vg = 1; while true do vg = 8942 - vg; do if vg < 8510 then break elseif vg < 8942 then if vg < 8940. then if vg < 8939 then break else vg = 2 end elseif vg < 8941 then break else vg = if qu[AB[872]] then 0. else 3. end elseif vg < 11993 then if vg < 8967. then if vg == 8942 then qu[AB[872]]:Fire(d6); vg = 3. else vg = 2846; continue end else break end else break end end end end, 21., "Secondary", "DefenseActiveStatus", "wuahtmb", 3249493539., "Auto leave At Raid Floor", 3185, "Select Trials", "Auto Next World Quest", "Auto Roll Titan Banner", "bjzl", "gfvoi", "Ping ID", 657., "wnwqrfwtrxn", 2568., "xtwaptwzwlw", "rhxogh", 52, function() local zg, zh, zi, zj, zk = nil, nil, nil, nil, nil; local zl = nil; zl = 29; while true do zl = 10258 - zl; do if zl < 10231 then if zl < 10217 then if zl < 10210 then if zl < 10206. then if zl < 10204 then if zl < 9464 then break elseif zl < 10203. then break else zk = zh; zl = 35 end elseif zl < 10205 then if zl == 10204 then zl = if ps[AB[360.]] then 37 else 18. else zl = 10225; continue end elseif zl == 10205 then zj = zh; zl = 22 else zl = 10239.; continue end elseif zl < 10209. then if zl < 10208 then if zl < 10207 then break elseif zl == 10207 then zk = pC(zi, zg); zl = 42. else zl = 6730; continue end elseif zl == 10208 then zh = zk:FindFirstChild(AB[1000]); zl = if zh then 49 else 47 else zl = 10214; continue end else local AM = AB[338][AB[576.]]; zg[AB[218]] = zh[AB[218]] * AB[583](AB[22], AB[22], AB[1009]); zl = 47 end elseif zl < 10214 then if zl < 10212. then if zl < 10211 then if zl == 10210 then zg = zi; zl = if zg then 23 else 33. else zl = 80; continue end else zl = 15. end elseif zl < 10213 then if zl == 10212. then zh = zg; zg = qF[AB[610]][AB[1082]]; zi = zh; zl = if zi then 48. else 40 else zl = 10208; continue end else zh = qi(); zi = pl(); zj = qF[AB[344]][AB[1082]]; zl = if zj then 4 else 34 end elseif zl < 10216 then if zl < 10215. then if zl == 10214 then zl = 42. else zl = 10246; continue end else qu[AB[196]]:Fire(zh); local AN = AB[542][AB[493]]; AB[1084](AB[318.]); zi = pl(); zl = 10 end elseif zl == 10216 then zl = 21. else zl = 10224.; continue end elseif zl < 10224. then if zl < 10221. then if zl < 10219 then if zl < 10218. then zk = zh[math.random(AB[965], #zh)]; zl = 44 else zi = zg; zl = 48. end elseif zl < 10220 then zl = 27. elseif zl == 10220 then zg = pm(AB[726.]); zl = 46 else zl = 10243; continue end elseif zl < 10223 then if zl < 10222 then if zl == 10221. then zl = 9. else zl = 10216; continue end elseif zl == 10222 then zh = AB[37]; zl = 3. else zl = 10242.; continue end elseif zl == 10223 then zl = if zk then 16 else 13 else zl = 10237; continue end elseif zl < 10227. then if zl < 10226 then if zl < 10225 then zk = zj; zl = if zk then 55 else 35 else zl = if zg then 17 else 7 end else zh = AB[988]; zl = 25 end elseif zl < 10229 then if zl < 10228 then if zl == 10227. then zl = 2 else zl = 10212.; continue end elseif zl == 10228 then zl = 9. else zl = 10217; continue end elseif zl < 10230. then if zl == 10229 then zl = 2 else zl = 10237; continue end else zh = qI[AB[698]][AB[1082]]; zl = if zh then 3. else 36. end elseif zl < 10245. then if zl < 10238 then if zl < 10235 then if zl < 10233. then if zl < 10232 then qu[AB[653]]:Fire(); zl = 14 else zl = if zj == AB[467] then 24. else 51. end elseif zl < 10234 then if zl == 10233. then zi = zh; zl = if zi then 20 else 8 else zl = 10258; continue end elseif zl == 10234 then zh = qq(zi); zl = if #zh > AB[22] then 41 else 44 else zl = 10224.; continue end elseif zl < 10237 then if zl < 10236. then if zl == 10235 then zg = qu[AB[653]]; zl = 33. else zl = 10220; continue end else zi = zj; zl = if zi then 28 else 39. end elseif zl == 10237 then zl = if zk then 50 else 15. else zl = 13960; continue end elseif zl < 10242. then if zl < 10240 then if zl < 10239. then zg(zi); zl = 31 elseif zl == 10239. then zg = not qF[AB[581]][AB[1082]]; zl = 0. else zl = 10226; continue end elseif zl < 10241 then zg = qF[AB[36.]][AB[1082]]; zl = if zg then 19 else 0. else zg = pu(); zl = if zg then 5 else 14 end elseif zl < 10244 then if zl < 10243 then zl = if zi ~= zh then 43 else 10 else zl = 39. end else zl = 7 end elseif zl < 10253 then if zl < 10249 then if zl < 10247 then if zl < 10246 then if zl == 10245. then zj = zi; zl = if zj then 22 else 53 else zl = 10226; continue end elseif zl == 10246 then zl = 21. else zl = 10216; continue end elseif zl < 10248. then if zl == 10247 then zl = if true then 54. else 30. else zl = 10203.; continue end elseif zl == 10248. then zl = 13 else zl = 10241; continue end elseif zl < 10252 then if zl < 10251. then if zl < 10250 then if zl == 10249 then zl = 52 else zl = 10246; continue end elseif zl == 10250 then zi = AB[654.]; zl = 20 else zl = 10219; continue end else zg = AB[542][AB[493]]; zh = qF[AB[610]][AB[1082]]; zl = if zh then 32 else 25 end elseif zl == 10252 then zh = pT(); zl = if AB[853](zh) then 1 else 12. else zl = 10250; continue end elseif zl < 10257. then if zl < 10255 then if zl < 10254. then if zl == 10253 then zl = if zh then 45. else 27. else zl = 10211; continue end elseif zl == 10254. then zj = qu[AB[196]]; zl = 34 else zl = 11979.; continue end elseif zl < 10256 then if zl == 10255 then zj = zh; zk = nil; zl = if zj == AB[42.] then 6. else 26 else zl = 10247; continue end elseif zl == 10256 then zl = if true then 11 else 9. else zl = 10218.; continue end elseif zl < 11979. then if zl < 10258 then if zl == 10257. then zk = pC(zi, zg, zh); zl = 12. else zl = 10210; continue end elseif zl == 10258 then zl = if zg then 38 else 46 else zl = 10227.; continue end else break end end end end, "Title", "Farm", 901, "dices", "ocp", "now", "Touch", "ygkmeduimr", "Config", 3048., 2623, "exfewhx", 23, "EquipBestSword", "kdtxcpovgsf", 2808387192., "%02d:%02d", "castle", "QuestCollect", "lfugovxdu", "InputChanged", "AutoFarmText", "Disconnected", "GateRank", 14, 47, 4045244, "Jumping", "Auto Equip Best Avatars", "DungeonEnded", 2595., "dvsivsfwclg", "Auto Farm Dungeon", "Getter", 197258, "AutoSwapLoadout", "giqrmzvc", "Counter", "OuroborosHub", "RolledRarity", "xst", "Auto Equip Best Pets", "Network", 1913, "Gate", "\n", "xrlzjda", "DungeonJoin", 1105246587., "Text", "zleaca", 1517, "Auto Roll Passive", "RaidActiveStatus", "TitanBanner", 28, "Max Seconds Per Target", 4087, 1522, 2593, "Select Banner", 348., "DungeonLeave", "Max", function(c1, c2, c3) local uz, uA, uB, uC, uD, uE, uG, uH, uI, uK = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local uF = nil; uF = 0.; while true do uF = 9351. - uF; do if uF < 9351. then break elseif uF < 10014. then if uF == 9351. then uA, uz = nil, nil; uH = false; for c6, c7 in AB[499](c1) do uI = c6; uK = c7; local uJ = uI; local uL = uK; local uG = nil; uG = AB[22]; while true do if uG < 8 then if uG < 4 then if uG < 2 then if uG < 1 then uB = uL:FindFirstChild(AB[1000]); uC = uL:FindFirstChildOfClass(AB[1053.]); uD = uB; uG = if uD then AB[232] else AB[968] else break end elseif uG < 3. then uG = if uB then AB[534.] else AB[262] else uB = not uz; uG = if uB then AB[318.] else AB[964] end elseif uG < 6. then if uG < 5 then uE = (uB[AB[52]] - c2[AB[52]])[AB[843.]]; uG = if c3 ~= AB[1035.] then AB[749] else AB[290] else uE = uC[AB[162.]]; uG = AB[587] end elseif uG < 7 then uH = true; uG = AB[965] else uG = AB[431] end elseif uG < 12. then if uG < 10 then if uG < 9. then uD = uC; uG = AB[968] else uB = uE > uz; uG = AB[318.] end elseif uG < 11 then uG = if uD then AB[523] else AB[431] else uG = AB[965] end elseif uG < 14 then if uG < 13 then uA, uz = uL, uE; uG = AB[262] else uG = AB[587] end elseif uG < 15. then uE = -uE; uG = AB[290] else uE = nil; uG = if c3 == AB[400] then AB[1009] else AB[927.] end end; if uH then break end end; return uA else break end else break end end end end, "Boss", "evikjsutrnza", 3126., "Divine Gacha - Obtained", "Auto Equip", "Wave", 81., "Divine", "naesdrlhhwhe", ": --:--", "Defense Leave At Wave", 5793266, "Toggled", 371, "mqvl", 17771079., UDim2, 3976, function() pZ:Destroy() end, 2553., 2400., "yhwnvcvhax", 53, "Numeric", "*t", "Functions", "1 = Pinakamataas na Prayoridad, 7 = Pinakamababang Prayoridad", 29, 116361272, 18., 4760379., "Func", "nunhcuvbd", "Method", 10871087, Instance, "iyebit", 1813, 345., function() local yf, yg, yh, yj, yk, yl, yn, yp, yq, yr, yt, yv, yx = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local yi = nil; yi = 11; while true do yi = 12187 - yi; do if yi < 12169 then if yi < 12165. then if yi < 12161 then if yi < 12160 then if yi < 9391 then break elseif yi < 12157 then if yi < 12156. then break elseif yi == 12156. then yi = if ps[AB[360.]] then 27. else 30. else yi = 6470; continue end elseif yi < 12158 then if yi == 12157 then yf = qF[AB[283]][AB[1082]]; yi = if yf then 3. else 29 else yi = 12168.; continue end elseif yi < 12159. then if yi == 12158 then yi = if yf then 2 else 7 else yi = 12167; continue end else break end else yi = 15. end elseif yi < 12163 then if yi < 12162. then if yi == 12161 then yq = false; for iW, iX in AB[499](pz(qI[AB[362]], qv)) do yr = iW; yt = iX; local ys = yr; local yu = yt; local yp = nil; local AO = AB; yp = AO[318.]; while true do if yp < 1 then break elseif yp < 2 then yq = true; yp = AO[22] else qu[AO[897.]]:Fire(qp[yu]); yp = AO[22] end end; if yq then break end end; yi = 21. else yi = 12182; continue end else local AP = AB[542][AB[493]]; AB[1084](AB[965]); yi = 0. end elseif yi < 12164 then yi = 15. else yi = if true then 31 else 24. end elseif yi < 12167 then if yi < 12166 then yk = false; for iO, iP in AB[499](pz(qI[AB[303.]], pX)) do yl = iO; yn = iP; local ym = yl; local yo = yn; local yj = nil; local AO = AB; yj = AO[965]; while true do if yj < 3. then if yj < 1 then yj = AO[587] elseif yj < 2 then yf = pS[yo]; yg = yf; yj = if yg then AO[927.] else AO[1073] else yk = true; yj = AO[587] end elseif yj < 5 then if yj < 4 then break else yg = qc[yf] ~= pO[yf]; yj = AO[1073] end elseif yj < 6. then qu[AO[984.]]:Fire(yf); yj = AO[22] else yj = if yg then AO[1009] else AO[22] end end; if yk then break end end; yi = 7 elseif yi == 12166 then yf = qF[AB[1004]][AB[1082]]; yi = if yf then 5 else 17 else yi = 12158; continue end elseif yi < 12168. then yi = if yh then 16 else 14 elseif yi == 12168. then yi = if true then 23 else 15. else yi = 12159.; continue end elseif yi < 12179 then if yi < 12173 then if yi < 12171. then if yi < 12170 then yi = if yf then 1 else 25 elseif yi == 12170 then yi = if yf then 10 else 8 else yi = 12160; continue end elseif yi < 12172 then yh = type(yg[AB[596]]) == AB[447.]; yi = 14 elseif yi == 12172 then yi = 28 else yi = 12487; continue end elseif yi < 12176 then if yi < 12175 then if yi < 12174. then yi = if yh then 13 else 22 elseif yi == 12174. then qc = yg[AB[596]]; yi = 22 else yi = 12183.; continue end else yi = if yf then 26 else 21. end elseif yi < 12178 then if yi < 12177. then if yi == 12176 then yi = 19 else yi = 12161; continue end elseif yi == 12177. then yq = false; for i0, i1 in AB[499](pz(qI[AB[779]], qj)) do yv = i0; yx = i1; local yw = yv; local yy = yx; local yp = nil; local AO = AB; yp = AO[22]; while true do if yp < 1 then qu[AO[871]]:Fire(qg[yy]); yp = AO[318.] elseif yp < 2 then yq = true; yp = AO[318.] else break end end; if yq then break end end; yi = 8 else yi = 12182; continue end elseif yi == 12178 then yh = type(yg) == AB[447.]; yi = 20 else yi = 12170; continue end elseif yi < 12487 then if yi < 12187 then if yi < 12183. then if yi < 12181 then if yi < 12180. then if yi == 12179 then yf = qF[AB[458]][AB[1082]]; yi = if yf then 6. else 18. else yi = 12181; continue end elseif yi == 12180. then yf = qF[AB[190]][AB[1082]]; yi = if yf then 4 else 12. else yi = 12174.; continue end elseif yi < 12182 then if yi == 12181 then yf = qu[AB[577]]; yi = 18. else yi = 12174.; continue end elseif yi == 12182 then yf = qu[AB[871]]; yi = 17 else yi = 12163; continue end elseif yi < 12185 then if yi < 12184 then yf = qu[AB[897.]]; yi = 12. else yf = qu[AB[984.]]; yi = 29 end elseif yi < 12186. then if yi == 12185 then yf, yg = AB[549.](function() return qa[AB[397]][AB[815]][AB[662]]:InvokeServer() end); yh = yf; yi = if yh then 9. else 20 else yi = 12176; continue end else qu[AB[577]]:Fire(); yi = 25 end elseif yi == 12187 then yi = 19 else yi = 12168.; continue end else break end end end end, "Fit", 2026, 3883, 56, "tendvawykw", "Defense Farm", "chvxuqqvk", "Thickness", "POST", function(d1) local vf = nil; vf = 0.; while true do vf = 14430. - vf; do if vf < 13016 then break elseif vf < 14428 then if vf < 13531 then break elseif vf < 14427. then break elseif vf == 14427. then qu[AB[855.]]:Fire(d1); vf = 2 else vf = 12004; continue end elseif vf < 14430. then if vf < 14429 then vf = 1 else break end elseif vf < 14434 then if vf == 14430. then vf = if qu[AB[855.]] then 3. else 2 else vf = 13297; continue end else break end end end end, "CanJoinActive", 2885, 1103515245., "Magnitude", 720., "yauf", "vsszfm", "RankUp", "Auto Quest", "Discord", "Dungeon Farm", "Connection lost", "Total", next, function() local t6, t7, t8, ua, ub, uc = nil, nil, nil, nil, nil, nil; local t9 = nil; t9 = 1; while true do t9 = 16270 - t9; do if t9 < 13127 then break elseif t9 < 16266. then if t9 < 15175 then break elseif t9 < 16265 then break else t8 = t7; t9 = 3. end elseif t9 < 16268 then if t9 < 16267 then return tonumber(t7) elseif t9 == 16267 then t9 = if t8 then 4 else 2 else t9 = 13127; continue end elseif t9 < 16269. then if t9 == 16268 then return nil else t9 = 4876; continue end elseif t9 < 16270 then if t9 == 16269. then t6, t7 = AB[549.](function() return p1:GetCurrentWorld() end); t8 = t6; uc = if t8 then AB[965] else AB[22]; ua = AB[924.] * uc + AB[81.] * (AB[965] - uc); ub = AB[908] * uc + AB[1092.] * (AB[965] - uc); t9 = if (ua * AB[110] + ub * AB[946] + ua * ub) % AB[261.] == AB[340] then 5 else 3. else t9 = 8398; continue end else break end end end end, "AutoClaimRewardsSet", "rtgqdwz", "RobloxPromptGui", "Easy", 2666, "lrphlifose", "Swap At Dungeon", workspace, 1045473756., 1986., "diibezi", Color3, 3343, "WorldChanged", "Mint", 24., "TitanRoll", "AutoAvatarBuffSet", 11005564, function(e2) return string.format(AB[741.], math.floor(e2 / AB[632]), e2 % AB[632]) end, "wvihmepp", "ylcdbyxppjnl", "DungeonConfig", "OuroborosHub/astral-simulator", "leqice", "opsovo", function(hp) local xu = nil; local xv = nil; xv = 7; while true do xv = 10369 - xv; do if xv < 10365. then if xv < 10358 then break elseif xv < 10361 then if xv < 10359. then xv = 3. elseif xv < 10360 then if xv == 10359. then xu = hp[AB[132.]] ~= AB[157][AB[132.]][AB[731]]; xv = 2 else xv = 10363; continue end elseif xv == 10360 then return else xv = 9489.; continue end elseif xv < 10363 then if xv < 10362. then if xv == 10361 then px = true; xv = 5 else xv = 5013.; continue end else xv = if not pA then 0. else 4 end elseif xv < 10364 then pI[AB[52]] = AB[806][AB[1046]](pt[AB[272]][AB[886]] + xu[AB[272]], pt[AB[165.]][AB[886]] + xu[AB[165.]]); xv = 11 else xv = if px then 6. else 11 end elseif xv < 13264 then if xv < 10368. then if xv < 10366 then if xv == 10365. then xu = hp[AB[132.]] ~= AB[157][AB[132.]][AB[321.]]; xv = if xu then 10 else 2 else xv = 10358; continue end elseif xv < 10367 then break else xv = if xu then 9. else 1 end elseif xv < 10369 then if xv == 10368. then xu = hp[AB[52]] - pv; xv = if xu[AB[843.]] > AB[927.] then 8 else 5 else xv = 9489.; continue end elseif xv < 10480 then if xv == 10369 then return else xv = 6471.; continue end else break end else break end end end end, 1089., "bvy", "ShowCustomCursor", 4153908., "Offset", function(hK) local xB, xC, xE, xF, xG, xH, xI, xJ, xL = nil, nil, nil, nil, nil, nil, nil, nil, nil; local xD = nil; xD = 4; while true do xD = 3701 - xD; do if xD < 3691 then if xD < 3688 then if xD < 3686 then if xD < 3682 then break elseif xD < 3684. then if xD < 3683 then xB = qF[AB[256]][AB[1082]]; xD = 6. else xB = qF[AB[465.]][AB[1082]]; xD = if xB then 6. else 19 end elseif xD < 3685 then xD = 13 else xB = qF[AB[1099]][AB[1082]]; xD = 5 end elseif xD < 3687. then if xD == 3686 then local AQ = AB; xG = if hK == AQ[726.] then AQ[965] else AQ[22]; xE = AQ[841] * xG + AQ[342.] * (AQ[965] - xG); xF = AQ[337] * xG + AQ[831.] * (AQ[965] - xG); xD = if (xE * AQ[481] + xF * AQ[803] + xE * xF) % AQ[261.] == AQ[1074.] then 8 else 17 else xD = 10501; continue end else break end elseif xD < 3689 then if xD == 3688 then xD = 10 else xD = 2864; continue end elseif xD < 3690. then if xD == 3689 then xB = qF[AB[581]][AB[1082]]; xD = 0. else xD = 3687.; continue end else xI = false; for hR, hS in AB[499](p8) do xJ = hR; xL = hS; local xK = xJ; local xM = xL; local xH = nil; local AQ = AB; xH = AQ[927.]; while true do if xH < 2 then if xH < 1 then xI = true; xH = AQ[587] else xH = AQ[587] end elseif xH < 3. then return #pk(xM) > AQ[22] elseif xH < 4 then break else xH = if xM[AQ[405.]] == hK then AQ[318.] else AQ[965] end end; if xI then break end end; return false end elseif xD < 3701 then if xD < 3696. then if xD < 3693. then if xD < 3692 then if xD == 3691 then xB = qF[hK .. AB[36.]]; xC = xB; xD = if xC then 1 else 2 else xD = 16383.; continue end elseif xD == 3692 then xD = if hK == AB[701] then 3. else 15. else xD = 16383.; continue end elseif xD < 3694 then xB = qF[AB[36.]][AB[1082]]; xD = if xB then 0. else 12. elseif xD < 3695 then return false elseif xD == 3695 then xD = if xB then 5 else 16 else xD = 3699.; continue end elseif xD < 3698 then if xD < 3697 then if xD == 3696. then return xB else xD = 3695; continue end elseif xD == 3697 then xD = if hK == AB[448] then 18. else 9. else xD = 3686; continue end elseif xD < 3699. then return qF[AB[1015]][AB[1082]] elseif xD < 3700 then if xD == 3699. then xD = if not xC then 7 else 11 else xD = 9510.; continue end else xC = xB[AB[1082]]; xD = 2 end elseif xD < 11418. then if xD < 8217. then if xD < 4109 then if xD == 3701 then return xB else xD = 10501; continue end else break end else break end else break end end end end, 65, "EnemyConfig", "GachaResult", 4877092, "Secret", 3266, "Auto Spin Gacha", "ydfvyfzfwgau", "ljbdpsze", "SwordRoll", "GateTeleport", function() local yJ, yK, yL, yM, yN, yO, yP, yQ, yR, yS, yU, yV, yW, yY, y_, y0, y1, y2, y3 = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local yT = nil; yT = 4; while true do yT = 3134 - yT; do if yT < 3129. then if yT < 3127 then if yT < 3126. then if yT < 2697. then break elseif yT < 3125 then break elseif yT == 3125 then yV = false; for jj, jk in AB[499](p8) do yW = jj; yY = jk; local yX = yW; local yZ = yY; local yU = nil; yU = AB[438.]; while true do if yU < 38 then if yU < 19 then if yU < 9. then if yU < 4 then if yU < 2 then if yU < 1 then yU = AB[114.] else yR = not yN; yS = yQ; yU = if yS then AB[523] else AB[156.] end elseif yU < 3. then yQ = qu[yZ[AB[1071.]]]; yU = AB[965] else pq = nil; yU = AB[289] end elseif yU < 6. then if yU < 5 then yO = (p3()); yU = if yO then AB[1073] else AB[153.] else yK = not p3(); yU = AB[413] end elseif yU < 7 then yU = if yO then AB[705.] else AB[933.] elseif yU < 8 then yM = #yL > AB[22]; yU = AB[1008.] else yN = yP; yU = AB[225.] end elseif yU < 14 then if yU < 11 then if yU < 10 then qu[AB[653]]:Fire(); yU = AB[290] else yL = yM:FindFirstChild(AB[1000]); yU = if yL then AB[431] else AB[833] end elseif yU < 12. then local AR = AB[338][AB[576.]]; yK[AB[218]] = yL[AB[218]] * AB[583](AB[22], AB[22], AB[1009]); yU = AB[833] elseif yU < 13 then yK = pu(); yL = pR(yZ, pq[AB[585.]]); yM = os[AB[366.]]() - pq[AB[524]] > p7; yU = if yM then AB[973] else AB[819.] else yU = AB[749] end elseif yU < 16 then if yU < 15. then yU = AB[335] else yS = yR; yU = AB[156.] end elseif yU < 17 then break elseif yU < 18. then yU = if yJ then AB[479] else AB[1007] else yU = if yM then AB[587] else AB[635] end elseif yU < 28 then if yU < 23 then if yU < 21. then if yU < 20 then yU = if yK then AB[1009] else AB[413] else yK = not pq; yU = if yK then AB[208] else AB[8] end elseif yU < 22 then pq = { [AB[405.]] = yZ[AB[405.]], [AB[585.]] = yM[AB[585.]], [AB[524]] = os[AB[366.]]() }; ql[yZ[AB[405.]]] = yK + AB[965]; yU = AB[723.] else yU = if yP then AB[916] else AB[780.] end elseif yU < 25 then if yU < 24. then yK = pq[AB[405.]] == yZ[AB[405.]]; yU = AB[586] else yN = AB[1071.]; yP = not yO; yQ = yZ[AB[978.]]; yU = if yQ then AB[628] else AB[364] end elseif yU < 26 then yO = qf(yZ, yM[AB[585.]]); yU = AB[1073] elseif yU < 27. then yQ = yP; yU = AB[364] else y3 = y2; yK = (yL - AB[965] + y3) % #yJ + AB[965]; yM = yJ[yK]; yN = yZ[AB[978.]]; yU = if yN then AB[398] else AB[1034] end elseif yU < 33. then if yU < 30. then if yU < 29 then yU = if yP then AB[326] else AB[659] else yV = true; yU = AB[958] end elseif yU < 31 then yU = if yK then AB[666.] else AB[750.] elseif yU < 32 then yK = ql[yZ[AB[405.]]]; yU = if yK then AB[512] else AB[989] else yP = nil; yU = if yZ[AB[978.]] then AB[482] else AB[163] end elseif yU < 35 then if yU < 34 then y1 += AB[965]; yU = AB[314] else yU = if yQ then AB[638] else AB[998] end elseif yU < 36. then yU = if y1 <= y_ then AB[888.] else AB[632] elseif yU < 37 then yN = AB[608]; yU = AB[998] else yO = yN; yN = qh[yZ[AB[405.]]][yM[AB[585.]]] == true; yP = yN; yU = if yP then AB[655] else AB[178] end elseif yU < 57. then if yU < 47 then if yU < 42. then if yU < 40 then if yU < 39. then yL = yK; yU = if yL > #yJ then AB[195.] else AB[626] else yJ = pk(yZ); yK = pq; yU = if yK then AB[737] else AB[586] end elseif yU < 41 then yP = not qf(yZ, yM[AB[585.]]); yU = AB[780.] else yU = AB[181] end elseif yU < 44 then if yU < 43 then yP = qw(yZ, yM[AB[585.]], yO); yU = AB[122] else yM = qm(yL, yK, qI[yZ[AB[405.]] .. AB[565]][AB[1082]]); yU = if yM then AB[968] else AB[749] end elseif yU < 45. then yU = if true then AB[1017.] else AB[723.] elseif yU < 46 then yK = not pJ(); yU = AB[750.] else yU = AB[114.] end elseif yU < 52 then if yU < 49 then if yU < 48. then yU = if yK then AB[661] else AB[22] else yU = AB[958] end elseif yU < 50 then yK = #yJ > AB[22]; yU = AB[8] elseif yU < 51. then yU = if os[AB[366.]]() < yN then AB[927.] else AB[812] else yM = yK; yU = if yM then AB[262] else AB[1008.] end elseif yU < 54. then if yU < 53 then yU = AB[632] else yU = AB[723.] end elseif yU < 55 then yU = AB[419] elseif yU < 56 then yU = if yM then AB[478] else AB[335] else yU = if qu[AB[653]] then AB[964] else AB[290] end elseif yU < 67 then if yU < 62 then if yU < 59 then if yU < 58 then yL = AB[965]; yU = AB[626] else yK = AB[965]; yU = AB[512] end elseif yU < 60. then yP = not yZ[AB[978.]]; yU = AB[178] elseif yU < 61 then yU = AB[22] else yU = if yK then AB[534.] else AB[1025] end elseif yU < 64 then if yU < 63. then yN = qr[yZ[AB[405.]]][yM[AB[585.]]] == true; yU = AB[1034] else yQ = (pE(yZ, yM)); yU = if yQ then AB[318.] else AB[965] end elseif yU < 65 then qu[yZ[AB[1071.]]]:Fire(yN, yM[AB[585.]]); yN = os[AB[366.]]() + p2; yU = AB[419] elseif yU < 66. then y2 = y1; yU = AB[94] else yU = AB[1007] end elseif yU < 72. then if yU < 69. then if yU < 68 then yJ = qF[yZ[AB[405.]] .. AB[36.]][AB[1082]]; yU = if yJ then AB[46] else AB[1001] else yP = qf(yZ, yM[AB[585.]]); yU = AB[122] end elseif yU < 70 then yM = not p3(); yU = AB[819.] elseif yU < 71 then yJ = pm(yZ[AB[405.]]); yU = AB[1001] else yN = yS; yU = if yN then AB[232] else AB[225.] end elseif yU < 74 then if yU < 73 then yU = AB[289] else yU = if yN then AB[870.] else AB[210.] end elseif yU < 75. then qh[yZ[AB[405.]]][yM[AB[585.]]] = nil; yN = false; yU = AB[659] elseif yU < 76 then local AS = AB[542][AB[493]]; AB[1084](AB[633.]); yU = AB[294.] else yK = #yJ - AB[965]; y1 = AB[22]; y_ = yK; yU = AB[314] end end; if yV then break end end; local AT = AB[542][AB[493]]; AB[1084](AB[392]); yT = 5 else yT = 3130; continue end else yT = 7 end elseif yT < 3128 then if yT == 3127 then yT = 6. else yT = 3133; continue end else break end elseif yT < 3132. then if yT < 3130 then if yT == 3129. then yT = 3. else yT = 11251; continue end elseif yT < 3131 then if yT == 3130 then yT = 3. else yT = 10772; continue end elseif yT == 3131 then yT = if true then 2 else 7 else yT = 3134; continue end elseif yT < 3133 then if yT == 3132. then yT = if true then 1 else 8 else yT = 3125; continue end elseif yT < 5616. then if yT < 3134 then yT = if ps[AB[360.]] then 0. else 9. elseif yT == 3134 then yT = 7 else break end else break end end end end, "Enable Priority System", 92, 2258496218, "] ", 1243710101, function(hx) local xw, xy, xz, xA = nil, nil, nil, nil; local xx = nil; xx = 4; while true do xx = 10416. - xx; do if xx < 10411 then if xx < 8103. then break elseif xx < 10409 then break elseif xx < 10410. then if xx == 10409 then xw = hx[AB[132.]] ~= pA[AB[132.]]; xx = 1 else xx = 10412; continue end else break end elseif xx < 10414 then if xx < 10412 then if xx == 10411 then ps:Toggle(); pp(); xx = 0. else xx = 10414; continue end elseif xx < 10413. then xw = not pA; xx = if xw then 1 else 7 else pA = nil; xx = if not px then 5 else 0. end elseif xx < 10416. then if xx < 10415 then return else xA = if xw then AB[965] else AB[22]; xy = AB[784] * xA + AB[339.] * (AB[965] - xA); xz = AB[389] * xA + AB[968] * (AB[965] - xA); xx = if (xy * AB[652] + xz * AB[301] + xy * xz) % AB[261.] == AB[759.] then 2 else 3. end elseif xx < 15730 then if xx == 10416. then xx = 6. else xx = 10410.; continue end else break end end end end, 2676., "Rolls", 3880, "fnmbd", "Controller", function(df) df:AddLeftGroupbox(AB[849.], nil, nil, nil, true):AddButton({ [AB[774.]] = AB[35], [AB[821]] = function() setclipboard(qA); ps:Notify(AB[624.]) end }) end, "Gamemodes", "Label", "DefenseArenas", "dlpjfxmjb", 40, 818057503, "1 = \u{E25}\u{E33}\u{E14}\u{E31}\u{E1A}\u{E04}\u{E27}\u{E32}\u{E21}\u{E2A}\u{E33}\u{E04}\u{E31}\u{E0D}\u{E2A}\u{E39}\u{E07}\u{E2A}\u{E38}\u{E14}, 7 = \u{E25}\u{E33}\u{E14}\u{E31}\u{E1A}\u{E04}\u{E27}\u{E32}\u{E21}\u{E2A}\u{E33}\u{E04}\u{E31}\u{E0D}\u{E15}\u{E48}\u{E33}\u{E2A}\u{E38}\u{E14}", Color3.fromRGB, "bpg", 3036., "MenuKeybind", "Mobs", 759., "upmlkme", "TotalWaves", 4, "Visible", function(bV) local bX, bY = pH(bV); pK = bY; return bX end, 1575., "Star Hatch", "Load Out Swap", 75., "- Gacha: ", "nccqulk", function(d9) local vh, vj, vk, vl, vn = nil, nil, nil, nil, nil; local vi = nil; vi = 0.; while true do vi = 11272 - vi; do if vi < 11272 then break elseif vi < 13563. then if vi == 11272 then vh = {}; vk = false; for ed, ee in AB[499](pz(qI[d9[AB[405.]] .. AB[578]], d9[AB[302]])) do vl = ed; vn = ee; local vm = vl; local vo = vn; local vj = nil; vj = AB[22]; while true do if vj < 1 then table.insert(vh, d9[AB[1066]][vo]); vj = AB[318.] elseif vj < 2 then vk = true; vj = AB[318.] else break end end; if vk then break end end; return vh else vi = 13563.; continue end else break end end end end, "hrmvebnva", "RaidEnded", "Menu keybind", 3623, "bwwfdx", "dsjtiappk", "qntwtckpvij", "SwapNormalFarm", 194540655., 2547., "nspvmmun", "Swap At Raid", "wxytmmxjchpt", "RightShift", "VirtualUser", 3679, "list-ordered", "Anti-AFK", "Round Robin Auto Farm", 91, "Main", 16, 1074., "lnrk", "Description", function() local Ax = nil; Ax = 3.; while true do Ax = 6078. - Ax; do if Ax < 6076 then if Ax < 6073 then break elseif Ax < 6074 then return elseif Ax < 6075. then qC:CaptureController(); qC:ClickButton2(AB[501.][AB[576.]]()); Ax = 0. elseif Ax == 6075. then Ax = if ps[AB[360.]] then 5 else 1 else Ax = 6078.; continue end elseif Ax < 10724 then if Ax < 6077 then return elseif Ax < 6078. then Ax = if not qI[AB[147.]][AB[1082]] then 2 else 4 else break end else break end end end end, 3867., 9., 1, "kecedp", "XP", 10, "timestamp", "oymcsjbnjmvw", function(dY) local vd = nil; vd = 1; while true do vd = 12789. - vd; do if vd < 12786. then break elseif vd < 12788 then if vd < 12787 then if vd == 12786. then vd = 0. else vd = 12789.; continue end elseif vd == 12787 then qu[AB[509]]:Fire(dY); vd = 3. else vd = 12788; continue end elseif vd < 12789. then if vd == 12788 then vd = if qu[AB[509]] then 2 else 3. else vd = 3212; continue end else break end end end end, "est", 69., 4859183, "Url", "Teleport To World Before Farm", 9092388., "Status", "bcjdyf", "Select Mob Priority", 847, "jrgv", "ChildAdded", "GachaRoll", function() local v_, v0, v1, v2 = nil, nil, nil, nil; local v3 = nil; v3 = 1; while true do v3 = 3122 - v3; do if v3 < 6161 then if v3 < 3121 then if v3 < 3119 then break elseif v3 < 3120. then v2 = v1; v3 = 2 else return v2 end elseif v3 < 3122 then v_, v0 = AB[549.](function() return pQ:IsInGamemode() end); v1 = v0 == true; v2 = v_; v3 = if v2 then 3. else 2 else break end else break end end end end, "heqmoflrja", "Rounding", 0.05, 58, 3215, "Select Gate Rank", "NormalFarm", "OuroborosToggle", UDim2.new, 1385, function(b2, b3) local tE, tF, tG, tI, tJ, tK, tM = nil, nil, nil, nil, nil, nil, nil; local tH = nil; tH = 3.; while true do tH = 10901 - tH; do if tH < 10901 then if tH < 10899. then if tH < 8702 then break elseif tH < 10896. then break elseif tH < 10897 then if tH == 10896. then tE = b2[AB[1082]]; tH = 2 else tH = 8702; continue end elseif tH < 10898 then return tF elseif tH == 10898 then tE = b2; tF = {}; tH = if tE then 5 else 2 else tH = 8785; continue end elseif tH < 10900 then tG = tE; tH = if type(tG) ~= AB[447.] then 4 else 0. else break end elseif tH == 10901 then tJ = false; for b7, b8 in AB[499](b3) do tK = b7; tM = b8; local tL = tK; local tN = tM; local tI = nil; local AU = AB; tI = AU[927.]; while true do if tI < 2 then if tI < 1 then tJ = true; tI = AU[587] else table.insert(tF, tN); tI = AU[318.] end elseif tI < 3. then tI = AU[587] elseif tI < 4 then break else tI = if tG[tN] then AU[965] else AU[318.] end end; if tJ then break end end; return tF else tH = 10897; continue end end end end, "nubjckkjxkad", 64, function(h5) local xY = nil; xY = 1; while true do xY = 13250 - xY; do if xY < 10914. then break elseif xY < 13249 then if xY < 13247 then break elseif xY < 13248. then return true else break end elseif xY < 13790 then if xY < 13250 then if xY == 13249 then xY = if not qF[AB[207.]][AB[1082]] then 3. else 0. else xY = 1217; continue end elseif xY == 13250 then return pM() == h5 else break end else break end end end end, "HumanoidRootPart", 17, "Feature Priority", "zai", "AutoRollTitan", function(eK) local vG, vH, vJ, vK, vL = nil, nil, nil, nil, nil; local vI = nil; vI = 2; while true do vI = 15645. - vI; do if vI < 15645. then if vI < 15644 then if vI < 13358 then break elseif vI < 15642. then break elseif vI < 15643 then if vI == 15642. then return nil else vI = 9814; continue end elseif vI == 15643 then vG = pY[eK]; vI = if not vG then 3. else 0. else vI = 6748; continue end else break end else vH = {}; vK = false; for eO in AB[56](vG) do vL = eO; local vM = vL; local vJ = nil; vJ = AB[22]; while true do if vJ < 1 then table.insert(vH, vM); vJ = AB[318.] elseif vJ < 2 then vK = true; vJ = AB[318.] else break end end; if vK then break end end; table.sort(vH); return vH end end end end, "SideQuestAcceptRequest", 48., 55, 5, "https://discord.gg/f3dJhDgyTq | Anime Astral Simulator", "vvqdr", "Your Discord user ID", "dtacoivsubz", "ttm", "AutoHatch", "ImageTransparency", 50, function() local zZ, z_, z0, z1, z2, z3, z4, z5, z6 = nil, nil, nil, nil, nil, nil, nil, nil, nil; local z7 = nil; z7 = 1; while true do z7 = 12526 - z7; do if z7 < 12502 then if z7 < 12489. then if z7 < 12483. then if z7 < 12480. then if z7 < 12478 then if z7 < 12477. then break else z6 = z5 ~= z4[AB[1083.]]; z7 = 37 end elseif z7 < 12479 then if z7 == 12478 then z7 = if z_ > #z3 then 23 else 20 else z7 = 3104; continue end elseif z7 == 12479 then z_ += AB[965]; z0 = nil; z7 = 26 else z7 = 20; continue end elseif z7 < 12482 then if z7 < 12481 then if z7 == 12480. then z7 = if z5 then 47 else 26 else z7 = 12477.; continue end elseif z7 == 12481 then z5 = z3; z7 = 46 else z7 = 12492.; continue end elseif z7 == 12482 then z1 += AB[965]; z2 = nil; z7 = 41 else z7 = 12509; continue end elseif z7 < 12486. then if z7 < 12485 then if z7 < 12484 then z5 = p0(z2); z7 = 3. elseif z7 == 12484 then z3 = pu(); z5 = pl(); z6 = z3; z7 = if z6 then 49 else 37 else z7 = 12520; continue end else z5 = z3; z7 = if z5 then 18. else 34 end elseif z7 < 12488 then if z7 < 12487 then z7 = if z3 then 5 else 19 elseif z7 == 12487 then z7 = 11 else z7 = 12484; continue end else z3 = pm(AB[726.]); z7 = 40 end elseif z7 < 12495. then if z7 < 12492. then if z7 < 12491 then if z7 < 12490 then z7 = if z6 then 32 else 33. elseif z7 == 12490 then z3 = qe(); z7 = if #z3 > AB[22] then 48. else 39. else z7 = 12503; continue end elseif z7 == 12491 then z7 = 29 else z7 = 3104; continue end elseif z7 < 12494 then if z7 < 12493 then if z7 == 12492. then z6 = z5; z7 = if z6 then 9. else 15. else z7 = 20; continue end elseif z7 == 12493 then z7 = if z6 then 25 else 22 else z7 = 12491; continue end else z6 = qu[AB[196]]; z7 = 33. end elseif z7 < 12499 then if z7 < 12497 then if z7 < 12496 then if z7 == 12495. then z3 = qF[AB[581]][AB[1082]]; z7 = if z3 then 38 else 40 else z7 = 12484; continue end else z4 = AB[988]; z7 = 16 end elseif z7 < 12498. then if z7 == 12497 then z7 = 13 else z7 = 12516.; continue end else z7 = if ps[AB[360.]] then 35 else 31 end elseif z7 < 12501. then if z7 < 12500 then if z7 == 12499 then local AV = AB[338][AB[576.]]; z3[AB[218]] = z5[AB[218]] * AB[583](AB[22], AB[22], AB[1009]); z7 = 14 else z7 = 12501.; continue end elseif z7 == 12500 then z7 = 39. else z7 = 12505; continue end else qu[AB[196]]:Fire(z4[AB[1083.]]); local AW = AB[542][AB[493]]; AB[1084](AB[318.]); z5 = pl(); z7 = 22 end elseif z7 < 12515 then if z7 < 12508 then if z7 < 12505 then if z7 < 12504. then if z7 < 12503 then if z7 == 12502 then z7 = 29 else z7 = 20; continue end elseif z7 == 12503 then z_ = AB[965]; z7 = 20 else z7 = 12507.; continue end elseif z7 == 12504. then z5 = z2; z7 = if z5 then 43 else 3. else z7 = 12495.; continue end elseif z7 < 12507. then if z7 < 12506 then z7 = 6. elseif z7 == 12506 then z4 = z3[z_]; z3 = z4[AB[1083.]] .. AB[1051] .. z4[AB[41]]; z7 = if z3 ~= z0 then 17 else 42. else z7 = 12482; continue end elseif z7 == 12507. then z7 = if z3 then 36. else 11 else z7 = 12509; continue end elseif z7 < 12511 then if z7 < 12510. then if z7 < 12509 then z5 = pC(z4[AB[1083.]], z3, { [z4[AB[41]]] = true }); z7 = 34 else z0 = z3; zZ = os[AB[366.]](); z1 = AB[22]; z2 = nil; z7 = 42. end else z5 = z4; z7 = if z5 then 0. else 4 end elseif z7 < 12513. then if z7 < 12512 then if z7 == 12511 then z3 = qI[AB[276.] .. z4[AB[913]]]; z4 = z3; z7 = if z4 then 7 else 12. else z7 = 12524; continue end else qu[AB[653]]:Fire(); z7 = 15. end elseif z7 < 12514 then break else z3 = z4; z7 = if z3 then 10 else 2 end elseif z7 < 12521 then if z7 < 12518 then if z7 < 12517 then if z7 < 12516. then if z7 == 12515 then z3 = AB[542][AB[493]]; z4 = qF[AB[610]][AB[1082]]; z7 = if z4 then 30. else 16 else z7 = 12494; continue end elseif z7 == 12516. then z4 = z3; z3 = os[AB[366.]]() - zZ >= qI[AB[357.]][AB[1082]]; z5 = z1 >= z4; z7 = if z5 then 46 else 45. else z7 = 12477.; continue end elseif z7 == 12517 then z2 = z6; z5 = z6:FindFirstChild(AB[1000]); z7 = if z5 then 27. else 14 else z7 = 14830; continue end elseif z7 < 12520 then if z7 < 12519. then if z7 == 12518 then z7 = if true then 28 else 24. else z7 = 12513.; continue end else z4 = z3[AB[1082]]; z7 = 12. end elseif z7 == 12520 then z7 = if true then 8 else 29 else z7 = 12504.; continue end elseif z7 < 12524 then if z7 < 12523 then if z7 < 12522. then if z7 == 12521 then z3 = qu[AB[653]]; z7 = 19 else z7 = 12516.; continue end elseif z7 == 12522. then z5 = AB[654.]; z7 = 0. else z7 = 12480.; continue end else z7 = if z5 then 44 else 41 end elseif z7 < 12526 then if z7 < 12525. then if z7 == 12524 then z3 = AB[587]; z7 = 10 else z7 = 12508; continue end elseif z7 == 12525. then zZ = AB[22]; z_ = AB[965]; z0 = nil; z1 = AB[22]; z2 = nil; z7 = 6. else z7 = 12515; continue end elseif z7 < 14830 then if z7 == 12526 then z3(z5); z7 = 21. else z7 = 12489.; continue end else break end end end end, "UIPadding", "Room", 3337, "ossmhq", "jab", "tcdflhixtva", 20, "HasEnoughForDefense", "Automation", 9514095., "Auto leave At Dungeon Room", 2432, "ixrdyxttxp", "PaddingTop", 1670, 37, "Furthest", "DefenseConfig", "Spawn Schedule", "qoyps", "Order", "StarWorld", "hnqaozv", "- Rarity: Divine", "Worlds", 1771, function(eQ) local vN, vO, vP, vQ, vR, vS, vU, vV, vW, vY = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local vT = nil; vT = 2; while true do vT = 11317 - vT; do if vT < 11317 then if vT < 8686 then break elseif vT < 11315 then if vT < 11314 then break elseif vT == 11314 then return nil else vT = 3236; continue end elseif vT < 11316. then vN = pY[eQ]; vO = pU(eQ); vT = if not vO then 3. else 0. else break end elseif vT < 13773. then if vT == 11317 then local AX = AB; vP = os[AX[505]](AX[814]); vR, vQ = nil, nil; vV = false; for eY, eZ in AX[499](vO) do vW = eY; vY = eZ; local vX = vW; local vZ = vY; local vU = nil; vU = AX[262]; while true do if vU < 4 then if vU < 2 then if vU < 1 then vV = true; vU = AX[965] else break end elseif vU < 3. then vS = vO < vR; vU = AX[232] else vU = AX[965] end elseif vU < 6. then if vU < 5 then vO += AX[667]; vU = AX[1073] else vR, vQ = vO, vN[vZ]; vU = AX[587] end elseif vU < 7 then vS = not vR; vU = if vS then AX[232] else AX[318.] elseif vU < 8 then vO = (vZ - vP[AX[158]]) % AX[632] * AX[632] - vP[AX[32]]; vU = if vO <= AX[22] then AX[927.] else AX[1073] else vU = if vS then AX[1009] else AX[587] end end; if vV then break end end; return vR, vQ else break end else break end end end end, "fromOffset", NumberSequence, "kixa", "Library", "SwapRaid", "|", "Send When Divine Gacha", "Humanoid", 98733505, "qkddwuyvua", "klxcjjvf", -1, UDim.new, "TimeTrialEnded", "qcfw", "Rarity_Order", 2469., "WebhookUrl", 971792, "HumanoidStateType", "NameToEntry", ": ", function() local t3, t4 = nil, nil; local t5 = nil; t5 = 0.; while true do t5 = 14491 - t5; do if t5 < 12919 then break elseif t5 < 14489 then if t5 < 14488 then break elseif t5 == 14488 then t4 = t3:FindFirstChild(AB[1000]); t5 = 1 else t5 = 14491; continue end elseif t5 < 14490. then break elseif t5 < 14491 then return t4 elseif t5 == 14491 then t3 = qt[AB[27.]]; t4 = t3; t5 = if t4 then 3. else 1 else t5 = 475; continue end end end end, "Afford", 11290924, "Join", "Rank%s+(%a+)%s+Gate", 6., 1909572., "Power", "Unknown", "pisnez", "jgbggmqqykml", "Rank", "RaidGateTeleport", "fromRGB", "Value", "WorldId", task.wait, "addons/ThemeManager.lua", "Options", "Default", "lsk", 292, "Icon", 4137126468., 2375, 1886, "protect_gui", 2535., "https://discord.gg/ehKVq7pf7v", "DefenseState", "WorldController", "AutoSideQuest", "huvqgor", 1124, 2911, "mwdegvyj", "EquipBestLoadout", "rnhgdvrcn", "ickymyx", "BuyWorld", "FuseAllSwords", "Drop" }; pk = nil; pl = nil; pm = nil; pn = nil; po = nil; pp = nil; pq = nil; pr = nil; ps = nil; pt = nil; pu = nil; pv = nil; px = nil; pz = nil; pA = nil; pB = nil; pC = nil; pD = nil; pE = nil; pG = nil; pH = nil; pI = nil; pJ = nil; pK = nil; pL = nil; pM = nil; pN = nil; pO = nil; pQ = nil; pR = nil; pS = nil; pT = nil; pU = nil; pW = nil; pX = nil; pY = nil; pZ = nil; p_ = nil; p0 = nil; p1 = nil; p2 = nil; p3 = nil; p4 = nil; p5 = nil; local pw, py, pF, pP, pV, p6 = nil, nil, nil, nil, nil, nil; p7 = nil; p8 = nil; p9 = nil; qa = nil; qb = nil; qc = nil; qe = nil; qf = nil; qg = nil; qh = nil; qi = nil; qj = nil; qk = nil; ql = nil; qm = nil; qn = nil; qo = nil; qp = nil; qq = nil; qr = nil; qs = nil; qt = nil; qu = nil; qv = nil; qw = nil; qz = nil; qA = nil; qB = nil; qC = nil; qD = nil; qE = nil; qF = nil; qG = nil; qH = nil; qI = nil; local qd, qx, qy; qd = nil; qx = nil; qy = nil; AE[42.] = nil; AE[34] = nil; AE[21.] = nil; AE[14] = nil; AE[3.] = nil; AE[58] = nil; AE[45.] = nil; AE[37] = nil; AE[24.] = nil; AE[17] = nil; AE[6.] = nil; AE[60.] = nil; local qZ, q4, rc, re, rf, rg, ri, rk, rm, ro, rq, rs, ru, rv, rw, ry, rA, rB, rC, rD, rF, rH, rJ, rL, rN, rP, rR, rT, rV, rX, rZ, r_, r0, r1, r2, r3, r4, r6, r8, sa; AE[48.] = nil; AE[40] = nil; AE[26] = nil; qZ = nil; AE[61] = nil; AE[51.] = nil; AE[30.] = nil; q4 = nil; AE[2] = nil; AE[55] = nil; AE[35] = nil; AE[15.] = nil; rc = nil; re = nil; rf = nil; rg = nil; ri = nil; rk = nil; rm = nil; ro = nil; rq = nil; rs = nil; ru = nil; rv = nil; rw = nil; ry = nil; rA = nil; rB = nil; rC = nil; rD = nil; rF = nil; rH = nil; rJ = nil; rL = nil; rN = nil; rP = nil; rR = nil; rT = nil; rV = nil; rX = nil; rZ = nil; r_ = nil; r0 = nil; r1 = nil; r2 = nil; r3 = nil; r4 = nil; r6 = nil; r8 = nil; sa = nil; local sc, se, sg, si, sk, sm, so, sq, ss, su = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local qY = nil; qY = 255.; while true do qY = 7943 - qY; do if qY < 7560. then if qY < 7364 then if qY < 7270 then if qY < 7224. then if qY < 7201 then if qY < 7189 then if qY < 7183 then if qY < 7180 then if qY < 7179. then if qY < 7178 then break elseif qY == 7178 then qY = 520 else qY = 7588; continue end elseif qY == 7179. then qY = 292 else qY = 7842.; continue end elseif qY < 7182. then if qY < 7181 then AE[34] = (AE[34] + AB[1009]) % AB[534.]; qY = 38 else qY = if (AE[34] * AB[587] + AB[22]) % AB[927.] == AB[587] then 372. else 194 end elseif qY == 7182. then qY = if true then 640 else 304 else qY = 7835; continue end elseif qY < 7186 then if qY < 7185. then if qY < 7184 then if qY == 7183 then AE[42.] = (AE[42.] + AB[587]) % AB[958]; qY = 368 else qY = 7860.; continue end else AE[3.] = nil; local AY = AB; AE[3.] = AY[927.] - AY[587]; AE[3.] = AY[22] + AY[965]; AE[3.] = AY[1009] - AY[927.]; qY = 101 end elseif qY == 7185. then AE[42.] = AB[530]:GetService(AB[252.]); qY = 358 else qY = 7707.; continue end elseif qY < 7188. then if qY < 7187 then if qY == 7186 then local AY = AB; po[AY[72.]]:Connect(AY[152]); pI[AY[745]]:Connect(AY[881]); pI[AY[239]]:Connect(AY[905]); AE[21.]:OnUnload(AY[808]); ps:AddButton(AY[590], AY[10]); AE[21.]:OnUnload(AY[807.]); AE[14] = { { [AY[405.]] = AY[464], [AY[774.]] = AY[464] }, { [AY[405.]] = AY[448], [AY[774.]] = AY[848] }, { [AY[405.]] = AY[726.], [AY[774.]] = AY[242] }, { [AY[405.]] = AY[348.], [AY[774.]] = AY[348.] }, { [AY[405.]] = AY[240.], [AY[774.]] = AY[188] }, { [AY[405.]] = AY[701], [AY[774.]] = AY[130] }, { [AY[405.]] = AY[287], [AY[774.]] = AY[287] } }; qY = 536 else qY = 7288; continue end else qY = if (AE[34] * AB[587] + AB[965]) * AB[964] % AB[927.] == ((AE[34] * AB[587] + AB[965]) * AB[964] + (AB[232] + AB[965])) % AB[927.] then 57. else 548 end else local AY = AB; AE[6.]:AddDropdown(AY[50], { [AY[34]] = p5, [AY[1087]] = {}, [AY[774.]] = AY[1043], [AY[197]] = AE[60.], [AY[309.]] = true, [AY[236]] = true, [AY[495.]] = true }); AE[6.]:AddDropdown(AY[507.], { [AY[495.]] = true, [AY[34]] = AY[526], [AY[774.]] = AY[923], [AY[1087]] = {}, [AY[309.]] = true, [AY[236]] = true, [AY[197]] = {} }); AE[58] = {}; qY = 726. end elseif qY < 7195 then if qY < 7192 then if qY < 7191. then if qY < 7190 then if qY == 7189 then qY = 215 else qY = 7889; continue end elseif qY == 7190 then AE[42.] = (AE[42.] + AB[290]) % AB[916]; qY = 437 else qY = 7663; continue end elseif qY == 7191. then qY = if ((pV and not pV or pV and pV) and (not pV and not AE[21.] or not AE[21.] and AE[21.]) and (not AE[21.] and AE[21.] and (not AE[21.] or not AE[21.]) and (pV and not AE[21.] and (pV and AE[21.]))) or ((AE[21.] or AE[21.] or AE[21.] and not pV) and (pV and pV or (pV or not AE[21.])) or (not AE[21.] and not AE[21.] and (AE[21.] and AE[21.]) or AE[21.] and AE[21.] and (AE[21.] or AE[21.])))) and not ((pV and not pV or pV and pV) and (not pV and not AE[21.] or not AE[21.] and AE[21.]) and (not AE[21.] and AE[21.] and (not AE[21.] or not AE[21.]) and (pV and not AE[21.] and (pV and AE[21.]))) or ((AE[21.] or AE[21.] or AE[21.] and not pV) and (pV and pV or (pV or not AE[21.])) or (not AE[21.] and not AE[21.] and (AE[21.] and AE[21.]) or AE[21.] and AE[21.] and (AE[21.] or AE[21.])))) then 325 else 590 else qY = 7750; continue end elseif qY < 7194. then if qY < 7193 then qY = 233 else qY = 99. end elseif qY == 7194. then local AY = AB; AE[17] = { AY[846.], AY[451], AY[880], AY[264.], AY[597.], AY[966.], AY[579.], AY[986], AY[1103], AY[58], AY[643] }; local AZ = AE[42.]; AE[6.] = AE[17][AZ % AY[431] + AY[965]]; qY = if AE[6.]:len() <= AE[6.]:gsub(AY[575], AY[648.], AZ % AY[587] % AY[318.] + AY[965]):len() then 63. else 464 else qY = 7907; continue end elseif qY < 7198 then if qY < 7197. then if qY < 7196 then if qY == 7195 then qY = 393. else qY = 7273; continue end else local AY = AB; pZ:AddToggle(AY[422], { [AY[34]] = AE[14], [AY[774.]] = AY[647], [AY[1087]] = false }); AE[58] = AY[825.][AY[576.]](AY[216.]); qY = 356 end elseif qY == 7197. then qY = 30. else qY = 7630; continue end elseif qY < 7200. then if qY < 7199 then qY = if true then 401 else 495. elseif qY == 7199 then pG = {}; qY = 317 else qY = 7223; continue end elseif qY == 7200. then qY = 583 else qY = 7772; continue end elseif qY < 7213 then if qY < 7207 then if qY < 7204 then if qY < 7203. then if qY < 7202 then local AY = AB; AE[14] = (vector.create((AE[42.] * AY[1073] + AY[1073]) % AY[431] + AY[965], (AE[42.] * AY[262] + AY[318.]) % AY[290] + AY[965], (AE[42.] * AY[968] + AY[1009]) % AY[1001] + AY[965])); local A_ = vector.floor(AE[14]) + vector.ceil(AE[14] * AY[1057]); qY = if vector.dot(A_, A_) == AY[22] then 315. else 20 else qY = if (AE[34] * AB[587] + AB[318.]) * AB[290] % AB[927.] == ((AE[34] * AB[587] + AB[318.]) * AB[290] + (AB[232] + AB[587])) % AB[927.] then 434 else 87. end elseif qY == 7203. then qY = 732. else qY = 7231; continue end elseif qY < 7206. then if qY < 7205 then if qY == 7204 then qY = if AE[42.] * AB[105.] + AB[318.] + AB[587] >= AE[42.] * AB[105.] + AB[318.] + AB[587] + AB[318.] then 595 else 110 else qY = 7644.; continue end elseif qY == 7205 then qY = 35 else qY = 7245.; continue end elseif qY == 7206. then qY = if AE[37] <= AB[318.] then 441. else 614 else qY = 7626.; continue end elseif qY < 7210 then if qY < 7209. then if qY < 7208 then AE[42.] = (AE[42.] + AB[586]) % AB[998]; qY = 552. elseif qY == 7208 then qY = if AE[17] * AB[658] + AB[232] + AB[927.] <= AE[17] * AB[658] + AB[232] + AB[927.] + AB[965] then 303. else 78. else qY = 7740.; continue end elseif qY == 7209. then qY = if AE[37] <= AB[262] then 692 else 109 else qY = 7411; continue end elseif qY < 7212. then if qY < 7211 then if qY == 7210 then AE[34] = pG(AB[336.]); qY = 290 else qY = 7253; continue end elseif qY == 7211 then local AY = AB; AE[34] = (vector.create((AE[42.] * AY[1073] + AY[587]) % AY[431] + AY[965], (AE[42.] * AY[927.] + AY[587]) % AY[290] + AY[965], (AE[42.] * AY[965] + AY[587]) % AY[1001] + AY[965])); AE[21.] = (vector.create((AE[42.] * AY[318.] + AY[318.]) % AY[431] + AY[965], (AE[42.] * AY[1073] + AY[965]) % AY[290] + AY[965], (AE[42.] * AY[262] + AY[523]) % AY[1001] + AY[965])); AE[14] = (vector.create((AE[42.] * AY[927.] + AY[1073]) % AY[431] + AY[965], (AE[42.] * AY[1009] + AY[964]) % AY[290] + AY[965], (AE[42.] * AY[927.] + AY[1073]) % AY[1001] + AY[965])); qY = if vector.dot(vector.cross(AE[34], AE[21.]), AE[14]) == vector.dot(vector.cross(AE[21.], AE[14]), AE[34]) + AY[1009] then 717. else 371 else qY = 7449.; continue end elseif qY == 7212. then AE[42.] = nil; qY = 210. else qY = 7558; continue end elseif qY < 7219 then if qY < 7216 then if qY < 7215. then if qY < 7214 then if qY == 7213 then qY = if AE[58] <= AB[587] then 167 else 658 else qY = 7865; continue end elseif qY == 7214 then local AY = AB; AE[21.]:AddDropdown(AY[525.], { [AY[197]] = AE[60.], [AY[236]] = true, [AY[309.]] = true, [AY[34]] = AY[498.], [AY[1087]] = AE[60.][AY[965]], [AY[774.]] = AY[665] }); AE[21.]:AddDropdown(AY[203], { [AY[495.]] = true, [AY[1087]] = {}, [AY[774.]] = AY[688], [AY[309.]] = true, [AY[236]] = true, [AY[197]] = AE[17]({ AE[3.][AE[60.][AY[965]]] }) }); AE[21.]:AddDropdown(AY[698], { [AY[1087]] = AY[37], [AY[236]] = true, [AY[309.]] = true, [AY[197]] = p5, [AY[774.]] = AY[159.] }); AE[21.]:AddToggle(AY[344], { [AY[774.]] = AY[976], [AY[1087]] = true }); AE[21.]:AddToggle(AY[36.], { [AY[774.]] = AY[242], [AY[1087]] = false }); AE[21.]:AddToggle(AY[610], { [AY[774.]] = AY[543.], [AY[1087]] = false }); p_ = pW[AY[957.]]:AddLeftGroupbox(AY[138.]); qY = 375. else qY = 7797.; continue end elseif qY == 7215. then qY = 402. else qY = 7399; continue end elseif qY < 7218. then if qY < 7217 then qY = 92 else AE[42.] = (AE[42.] + AB[181]) % AB[916]; qY = 506 end elseif qY == 7218. then qY = 505 else qY = 7538; continue end elseif qY < 7222 then if qY < 7221. then if qY < 7220 then if qY == 7219 then qY = 72. else qY = 7600; continue end elseif qY == 7220 then qY = if (AE[42.] * AB[431] + AB[262]) % AB[958] == AB[318.] then 41 else 501. else qY = 7487; continue end else qY = 132. end elseif qY < 7223 then qY = 433 else qY = 599 end elseif qY < 7248. then if qY < 7236. then if qY < 7230. then if qY < 7227. then if qY < 7226 then if qY < 7225 then if qY == 7224. then qY = 349 else qY = 7452.; continue end else qY = 580 end elseif qY == 7226 then local A0 = AB[542][AB[253]]; local AY = AB; AY[277](AY[1018]); A0 = AY[542][AY[253]]; AY[277](function() local Ab, Ac, Ae, Af, Ag, Ah, Ai, Aj, Al, An, Ao, Ap, Ar, At, Av = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local Ad = nil; Ad = 12.; while true do Ad = 2391. - Ad; do if Ad < 2359 then if Ad < 2352. then if Ad < 2343. then if Ad < 2340. then if Ad < 2339 then if Ad < 2338 then break elseif Ad == 2338 then Ab = qu[AB[693.]]; Ad = 37 else Ad = 2342; continue end elseif Ad == 2339 then Ab = qF[AB[170]][AB[1082]]; Ad = if Ab then 53 else 37 else Ad = 2362; continue end elseif Ad < 2341 then if Ad == 2340. then Ab = qu[AB[1108]]; Ad = 1 else Ad = 7307; continue end elseif Ad < 2342 then if Ad == 2341 then Ab = qF[AB[120.]][AB[1082]]; Ag = if Ab then AB[965] else AB[22]; Ae = AB[123.] * Ag + AB[124] * (AB[965] - Ag); Af = AB[859] * Ag + AB[952] * (AB[965] - Ag); Ad = if (Ae * AB[1102] + Af * AB[229] + Ae * Af) % AB[261.] == AB[145] then 51. else 1 else Ad = 2375; continue end else break end elseif Ad < 2348 then if Ad < 2346. then if Ad < 2345 then if Ad < 2344 then Ab = qu[AB[167]]; Ad = 19 else Ao = false; for li, lj in AB[499](pz(qI[AB[121]], p5)) do local z9, z8 = nil, nil; Ap = li; Ar = lj; local Aq = Ap; local As = Ar; local An = nil; An = AB[22]; while true do if An < 1 then z9 = AB[665] .. tostring(p_[As]); z8 = nil; AB[549.](function() z8 = pV:GetActionsForEgg(z9) end); qu[AB[670]]:Fire(z9, z8); An = AB[318.] elseif An < 2 then Ao = true; An = AB[318.] else break end end; if Ao then break end end; Ad = 2 end elseif Ad == 2345 then Ad = if Ab then 14 else 30. else Ad = 2351; continue end elseif Ad < 2347 then Ad = if Ac then 5 else 33. else Ac = qu[AB[1006]]; Ad = 29 end elseif Ad < 2350 then if Ad < 2349. then if Ad == 2348 then Ac = Ab; Ad = 31 else Ad = 2351; continue end else Ad = if Ac then 44 else 29 end elseif Ad < 2351 then Ad = if ps[AB[360.]] then 7 else 50 elseif Ad == 2351 then qu[AB[743]]:Fire(); Ad = 16 else Ad = 7307; continue end elseif Ad < 2354 then if Ad < 2353 then Ad = if true then 38 else 21. else Ad = if true then 41 else 23 end elseif Ad < 2357 then if Ad < 2356 then if Ad < 2355. then if Ad == 2354 then Ad = if Ab then 35 else 32 else Ad = 2377; continue end else qu[AB[167]]:Fire(); Ad = 8 end else qu[AB[693.]]:Fire(); Ad = 32 end elseif Ad < 2358. then local A1 = AB[542][AB[493]]; AB[1084](AB[965]); Ad = 13 else Ad = if Ac then 40 else 16 end elseif Ad < 2373. then if Ad < 2370. then if Ad < 2365 then if Ad < 2362 then if Ad < 2361. then if Ad < 2360 then if Ad == 2359 then Ab = qF[AB[298]][AB[1082]]; Ad = if Ab then 18. else 46 else Ad = 7307; continue end elseif Ad == 2360 then Ad = if Ac then 27. else 17 else Ad = 2384; continue end else Ab = qF[AB[561.]][AB[1082]]; Ad = if Ab then 48. else 19 end elseif Ad < 2364. then if Ad < 2363 then if Ad == 2362 then Ad = if Ac then 4 else 34 else Ad = 2782; continue end else Ac = Ab; Ad = 42. end elseif Ad == 2364. then Ac = qu[AB[599]]; Ad = 17 else Ad = 2389; continue end elseif Ad < 2368 then if Ad < 2367. then if Ad < 2366 then Ac = Ab; Ad = 45. else Ab = qu[AB[1107.]]; Ad = 3. end else qu[AB[599]]:Fire(); Ad = 10 end elseif Ad < 2369 then Ad = 21. else Ad = if Ab then 47 else 2 end elseif Ad < 2371 then if Ad == 2370. then Ad = 49 else Ad = 2368; continue end elseif Ad < 2372 then if Ad == 2371 then qu[AB[1108]]:Fire(); Ad = 6. else Ad = 2357; continue end elseif Ad == 2372 then Ad = if Ab then 36. else 8 else Ad = 2387; continue end elseif Ad < 2384 then if Ad < 2378 then if Ad < 2376. then if Ad < 2375 then if Ad < 2374 then if Ad == 2373. then Ab = qu[AB[738.]]; Ad = 46 else Ad = 13864; continue end else Ad = if Ac then 24. else 10 end elseif Ad == 2375 then Ac = qF[AB[256]][AB[1082]]; Ad = if Ac then 43 else 31 else Ad = 2353; continue end elseif Ad < 2377 then Ab = qu[AB[670]]; Ad = 22 elseif Ad == 2377 then qu[AB[738.]]:Fire(); Ad = 30. else Ad = 6069.; continue end elseif Ad < 2382. then if Ad < 2381 then if Ad < 2379. then Ad = 39. elseif Ad < 2380 then Ad = 39. else Ab = pm(AB[701]); Ad = 9. end elseif Ad == 2381 then Ac = qF[AB[1099]][AB[1082]]; Ad = if Ac then 28 else 42. else Ad = 2353; continue end elseif Ad < 2383 then Ad = if Ab then 15. else 22 elseif Ad == 2383 then Ab = qF[AB[1015]][AB[1082]]; Ad = if Ab then 11 else 9. else Ad = 2362; continue end elseif Ad < 2389 then if Ad < 2387 then if Ad < 2386 then if Ad < 2385. then Ad = 21. else Ab = qF[AB[297.]][AB[1082]]; Ad = if Ab then 25 else 3. end else Ac = qu[AB[743]]; Ad = 33. end elseif Ad < 2388. then Ao = false; for lw, lx in AB[499](pz(qI[AB[269]], pF)) do At = lw; Av = lx; local Au = At; local Aw = Av; local An = nil; An = AB[22]; while true do if An < 1 then qu[AB[1006]]:Fire(Aw); An = AB[965] elseif An < 2 then break else Ao = true; An = AB[965] end end; if Ao then break end end; Ad = 34 else Ad = if Ab then 0. else 52 end elseif Ad < 2782 then if Ad < 2391. then if Ad < 2390 then Ab = pm(AB[448]); Ac = qF[AB[465.]][AB[1082]]; Ad = if Ac then 26 else 45. else Ad = if Ab then 20 else 6. end elseif Ad == 2391. then Ai = false; for k3, k4 in AB[499](qx) do local Aa = nil; Aj = k3; Al = k4; local Ak = Aj; local Am = Al; local Ah = nil; Ah = AB[22]; while true do if Ah < 2 then if Ah < 1 then Aa = false; AB[549.](function() Aa = pQ:IsWorldUnlocked(Am[AB[405.]]) end); Ah = if not Aa then AB[318.] else AB[587] else break end elseif Ah < 3. then qu[AB[1107.]]:Fire(Am[AB[405.]]); Ah = AB[927.] elseif Ah < 4 then Ah = AB[965] else Ai = true; Ah = AB[965] end end; if Ai then break end end; Ad = 52 else Ad = 2374; continue end else break end end end end); AE[24.][AY[141.]]:Connect(AY[962]); A0 = AY[542][AY[253]]; AY[277](AY[536]); qt:SetLibrary(AE[37]); ps:SetLibrary(AE[37]); qt:SetFolder(AY[763]); ps:SetFolder(AY[878]); ps:IgnoreThemeSettings(); ps:SetIgnoreIndexes({ AY[922] }); qt:SaveDefault(AY[869]); qt:ApplyToTab(pp[AY[332]]); ps:BuildConfigSection(pp[AY[332]]); qt:LoadDefault(); ps:LoadAutoloadConfig(); AE[3.](); AE[58](); qY = 665 else qY = 7317.; continue end elseif qY < 7229 then if qY < 7228 then qY = if (AE[34] * AB[1001] + AB[749]) % AB[870.] == AB[587] then 443 else 104 else AE[42.] = (AE[42.] + AB[1001]) % AB[1025]; qY = 319 end elseif qY == 7229 then local A2 = bit32.rrotate(bit32.bxor(bit32.lrotate(AE[34], AB[94]), string.byte(tostring(pN))), AB[523]); qY = if bit32.bxor(bit32.lrotate(bit32.bxor(A2, AB[904]), AB[1073]), AB[313]) ~= bit32.lrotate(A2, AB[1073]) then 524 else 516. else qY = 7820; continue end elseif qY < 7233. then if qY < 7232 then if qY < 7231 then qY = if (AE[34] * AB[1009] + AB[927.]) % AB[232] == AB[1073] then 59 else 728 else AE[42.] = (AE[42.] + AB[587]) % AB[958]; qY = 278 end elseif qY == 7232 then qY = 384. else qY = 7431.; continue end elseif qY < 7235 then if qY < 7234 then qY = if (AE[42.] * AB[318.] + AB[1009]) * AB[290] % AB[587] == ((AE[42.] * AB[318.] + AB[1009]) * AB[290] + (AB[587] + AB[965])) % AB[587] then 47 else 650 else local AY = AB; AE[58] = AE[3.][AY[957.]]:AddRightGroupbox(AY[1027]); AE[58]:AddToggle(AY[241], { [AY[774.]] = AY[410], [AY[1087]] = false, [AY[34]] = AY[971] }); AE[58]:AddToggle(AY[209], { [AY[774.]] = AY[412], [AY[1087]] = false, [AY[34]] = AY[640] }); AE[58]:AddToggle(AY[297.], { [AY[774.]] = AY[111.], [AY[1087]] = false }); AE[58]:AddToggle(AY[160], { [AY[774.]] = AY[74], [AY[1087]] = false, [AY[34]] = AY[839] }); AE[58]:AddToggle(AY[120.], { [AY[774.]] = AY[48.], [AY[1087]] = false }); AE[21.] = AE[3.][AY[706]]:AddLeftGroupbox(AY[931]); AE[21.]:AddDropdown(AY[121], { [AY[197]] = p5, [AY[1087]] = { p5[AY[965]] }, [AY[495.]] = true, [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[701] }); AE[21.]:AddToggle(AY[1015], { [AY[774.]] = AY[358], [AY[1087]] = false }); AE[34] = AE[3.][AY[706]]:AddLeftGroupbox(AY[519.]); AE[34]:AddToggle(AY[256], { [AY[774.]] = AY[445], [AY[1087]] = false }); AE[34]:AddToggle(AY[465.], { [AY[774.]] = AY[681.], [AY[1087]] = false }); AE[34]:AddDropdown(AY[269], { [AY[197]] = pF, [AY[1087]] = { AE[45.][AY[531.]] }, [AY[495.]] = true, [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[180.] }); AE[34]:AddToggle(AY[1099], { [AY[774.]] = AY[215], [AY[1087]] = false }); AE[42.] = AE[3.][AY[706]]:AddRightGroupbox(AY[794]); AE[42.]:AddToggle(AY[170], { [AY[774.]] = AY[766], [AY[1087]] = false }); AE[42.]:AddToggle(AY[298], { [AY[774.]] = AY[88], [AY[1087]] = false }); AE[42.]:AddToggle(AY[280], { [AY[774.]] = AY[753.], [AY[1087]] = false, [AY[34]] = AY[704] }); AE[42.]:AddToggle(AY[561.], { [AY[774.]] = AY[149], [AY[1087]] = false }); pk = AY[936.]; qY = 597. end else qY = 310 end elseif qY < 7242. then if qY < 7239. then if qY < 7238 then if qY < 7237 then pG = function(t) local sz, sA, sB, sC = nil, nil, nil, nil; local sD = nil; sD = 4; while true do sD = 6647 - sD; do if sD < 6643 then if sD < 6640 then if sD < 6639. then if sD < 6529 then break elseif sD < 6638 then break else sD = 1 end else sD = if sC then 7 else 2 end elseif sD < 6641 then local A3 = AB[542][AB[493]]; AB[1084](AB[392]); sD = 9. elseif sD < 6642. then if sD == 6641 then return sz else sD = 6785; continue end else sC = os[AB[366.]]() < sB; sD = 8 end elseif sD < 6647 then if sD < 6646 then if sD < 6644 then sz = nil; sA = true; local A4 = AB[542][AB[253]]; AB[277](function() local sw, sx = nil, nil; local sy = nil; sy = 0.; while true do sy = 2026 - sy; do if sy < 7804 then if sy < 2026 then if sy < 2024 then break elseif sy < 2025. then sz = sx; sy = 1 else sA = false; sy = 3. end elseif sy < 4378 then if sy < 4243 then if sy == 2026 then sw, sx = AB[549.](qa[AB[550]], t); sy = if sw then 2 else 1 else sy = 4378; continue end else break end else break end else break end end end end); sB = os[AB[366.]]() + AB[1009]; sD = 1 elseif sD < 6645. then break else sD = 6. end else sD = if true then 0. else 6. end elseif sD < 6785 then if sD == 6647 then sC = sA; sD = if sC then 5 else 8 else sD = 6529; continue end else break end end end end; qu = { [AB[653]] = pG(AB[653]), [AB[847]] = pG(AB[847]), [AB[509]] = pG(AB[509]), [AB[855.]] = pG(AB[855.]), [AB[872]] = pG(AB[872]), [AB[1107.]] = pG(AB[1107.]), [AB[196]] = pG(AB[196]), [AB[1108]] = pG(AB[1108]), [AB[693.]] = pG(AB[693.]), [AB[738.]] = pG(AB[738.]), [AB[167]] = pG(AB[167]), [AB[670]] = pG(AB[670]), [AB[743]] = pG(AB[743]), [AB[599]] = pG(AB[599]), [AB[1006]] = pG(AB[1006]), [AB[1104.]] = pG(AB[1104.]), [AB[1080.]] = pG(AB[1080.]), [AB[984.]] = pG(AB[984.]), [AB[897.]] = pG(AB[897.]), [AB[871]] = pG(AB[871]), [AB[577]] = pG(AB[577]) }; qY = 379 else AE[34] = (AE[34] + AB[1009]) % AB[534.]; qY = 672. end else local AY = AB; AE[37] = { AY[460], AY[382], AY[765.], AY[450.], AY[75.], AY[716], AY[1056.], AY[57.], AY[112] }; local A5 = AE[42.]; AE[24.] = AE[37][A5 % AY[964] + AY[965]]; qY = if AE[24.]:len() <= AE[24.]:reverse():rep(A5 % AY[587] + AY[318.]):len() then 418 else 396. end elseif qY < 7241 then if qY < 7240 then if qY == 7239. then qY = 714. else qY = 7240; continue end else qY = if AE[58] <= AB[318.] then 750. else 252. end else pF = AB[929]; pW = {}; qY = 535 end elseif qY < 7245. then if qY < 7244 then if qY < 7243 then qY = 439 else qr = {}; ql = {}; qh = {}; qY = 102. end elseif qY == 7244 then qY = 600. else qY = 7323.; continue end elseif qY < 7246 then qY = 169 elseif qY < 7247 then AE[34] = AE[42.]; qY = if AE[34] then 8 else 345. else qY = if true then 162. else 24. end elseif qY < 7259 then if qY < 7254. then if qY < 7251. then if qY < 7250 then if qY < 7249 then local AY = AB; pZ[AY[200]] = pI; AE[34] = AY[825.][AY[576.]](AY[560]); qY = 553 elseif qY == 7249 then qY = 471. else qY = 7867; continue end else qY = 88 end elseif qY < 7253 then if qY < 7252 then qY = 511 else AE[34] = (AE[34] + AB[431]) % AB[870.]; qY = 399. end elseif qY == 7253 then qY = if AE[37] <= AB[1009] then 224 else 463 else qY = 7266.; continue end elseif qY < 7257. then if qY < 7256 then if qY < 7255 then if qY == 7254. then qY = 149 else qY = 7797.; continue end else local A6 = bit32.rrotate(bit32.bxor(bit32.lrotate(AE[34], AB[587]), string.byte(tostring(AE[58]))), AB[661]); qY = if bit32.bxor(bit32.bxor(bit32.bxor(bit32.bxor(bit32.band(A6, AB[709]), AB[917]), (bit32.bxor(bit32.band(A6, AB[863]), AB[773]))), AB[917]), AB[773]) ~= A6 then 680 else 254 end elseif qY == 7256 then qY = 603. else qY = 7268; continue end elseif qY < 7258 then AE[48.] = nil; AE[48.] = AB[1073] - AB[927.]; qY = 131 elseif qY == 7258 then local AY = AB; AE[37] = loadstring(AY[530]:HttpGet(ps .. AY[356]))(); qI = loadstring(AY[530]:HttpGet(ps .. AY[1085]))(); qF = loadstring(AY[530]:HttpGet(ps .. AY[380]))(); AE[34] = AE[37][AY[1086.]]; AE[24.] = AE[37][AY[257]]; qY = 197 else qY = 7486; continue end elseif qY < 7265 then if qY < 7262 then if qY < 7261 then if qY < 7260. then AE[42.] = nil; local AY = AB; AE[42.] = AY[318.] - AY[965]; AE[42.] = AY[22] + AY[965]; AE[42.] = AY[1009] - AY[927.]; AE[42.] = AY[22] + AY[965]; qY = 83 elseif qY == 7260. then qY = 549. else qY = 7470.; continue end else qk = AB[874]; qY = 563 end elseif qY < 7264 then if qY < 7263. then if qY == 7262 then qY = 208 else qY = 7815.; continue end elseif qY == 7263. then py = AB[985]; qY = 302 else qY = 7264; continue end elseif qY == 7264 then qA = {}; qY = 316 else qY = 7258; continue end elseif qY < 7268 then if qY < 7267 then if qY < 7266. then if qY == 7265 then AE[42.] = (AE[42.] + AB[431]) % AB[958]; qY = 135. else qY = 7661; continue end else AE[42.] = (AE[42.] + AB[812]) % AB[998]; qY = 182 end elseif qY == 7267 then local AY = AB; AE[14]:AddLabel(AY[245]):AddKeyPicker(AY[922], { [AY[1087]] = AY[950], [AY[462.]] = true, [AY[774.]] = AY[939.] }); AE[14]:AddToggle(AY[147.], { [AY[774.]] = AY[954.], [AY[1087]] = true }); qo = false; qY = 500 else qY = 7521.; continue end elseif qY < 7269. then if qY == 7268 then qY = 710 else qY = 7844; continue end elseif qY == 7269. then AE[17] = nil; local AY = AB; AE[17] = AY[1009] - AY[927.]; AE[17] = AY[22] + AY[965]; AE[17] = AY[318.] - AY[965]; AE[17] = AY[22] + AY[965]; AE[17] = AY[927.] - AY[587]; AE[17] = AY[22] + AY[965]; qY = 749 else qY = 7204; continue end elseif qY < 7318 then if qY < 7294 then if qY < 7282 then if qY < 7276 then if qY < 7273 then if qY < 7272. then if qY < 7271 then qY = 175 elseif qY == 7271 then qY = 213. else qY = 7325; continue end else qY = 30. end elseif qY < 7275. then if qY < 7274 then qY = 439 elseif qY == 7274 then qY = 280 else qY = 7202; continue end elseif qY == 7275. then pH = AB[177.]; qY = 359 else qY = 7731.; continue end elseif qY < 7279 then if qY < 7278. then if qY < 7277 then if qY == 7276 then pE = function(fh) local wc, wd, we, wf, wh, wi, wj = nil, nil, nil, nil, nil, nil, nil; local wg = nil; wg = 1; while true do wg = 7180 - wg; do if wg < 7174 then if wg < 7168 then if wg < 6042. then break elseif wg < 6289 then break elseif wg < 7167. then break elseif wg == 7167. then wc, wd = AB[549.](function() return require(p6[fh[AB[910]]]) end); we = fh[AB[405.]]; wf = wc; wj = if wf then AB[965] else AB[22]; wh = AB[104] * wj + AB[516.] * (AB[965] - wj); wg = 2 else wg = 7170.; continue end elseif wg < 7171 then if wg < 7169 then if wg == 7168 then wg = if (wh * AB[667] + wi * AB[783.] + wh * wi) % AB[261.] == AB[1028] then 4 else 10 else wg = 7171; continue end elseif wg < 7170. then if wg == 7169 then wc = py[fh[AB[405.]]]; wg = if wc then 6. else 3. else wg = 8051; continue end else wc = wf; wg = if wc then 8 else 5 end elseif wg < 7172 then if wg == 7171 then return nil else wg = 1809.; continue end elseif wg < 7173. then py[we] = wc; wg = 11 else break end elseif wg < 7179. then if wg < 7176. then if wg < 7175 then return wc elseif wg == 7175 then wc = false; wg = 8 else wg = 9241; continue end elseif wg < 7177 then wf = wd; wg = 10 elseif wg < 7178 then wc = nil; wg = 6. else wi = AB[31] * wj + AB[514] * (AB[965] - wj); wg = 12. end elseif wg < 9241 then if wg < 7180 then wg = if not fh[AB[910]] then 9. else 0. elseif wg < 8051 then if wg == 7180 then wg = if py[fh[AB[405.]]] == nil then 13 else 11 else wg = 7174; continue end else break end else break end end end end; pw = function(fp, fq, fr) local wl; local wk; wk = nil; wl = nil; local wm, wn, wo, wp, wr, ws, wt = nil, nil, nil, nil, nil, nil, nil; local wq = nil; wq = 11; while true do wq = 12233 - wq; do if wq < 12226 then if wq < 12222. then break elseif wq < 12224 then if wq < 12223 then if wq == 12222. then wk = pw(fp); wq = if not wk then 0. else 7 else wq = 7964; continue end else wl = wn; wq = if not wl then 2 else 5 end elseif wq < 12225. then if wq == 12224 then wn = fp[AB[1069]]; wq = 10 else wq = 12232; continue end else return wp end elseif wq < 12230 then if wq < 12228. then if wq < 12227 then wm = fr; wq = if wm then 4 else 3. else wp = wo; wq = 8 end elseif wq < 12229 then if wq == 12228. then wm, wn = AB[549.](function() return wk[wl](wk, fq) end); wo = wn == true; wp = not wm; wq = if wp then 8 else 6. else wq = 12224; continue end elseif wq == 12229 then wm = fp[AB[840.]]; wq = 3. else wq = 12225.; continue end elseif wq < 12232 then if wq < 12231. then wn = wm; wt = if wn then AB[965] else AB[22]; wr = AB[249.] * wt + AB[202] * (AB[965] - wt); ws = AB[867.] * wt + AB[570.] * (AB[965] - wt); wq = if (wr * AB[62] + ws * AB[963.] + wr * ws) % AB[261.] == AB[1064] then 10 else 9. elseif wq == 12231. then return true else wq = 12232; continue end elseif wq < 12233 then break elseif wq < 12639. then if wq == 12233 then return true else wq = 5326; continue end else break end end end end; qw = AB[702.]; qY = 348. else qY = 7910; continue end else pp = false; px = AB[641]; qY = 736 end else AE[42.] = (AE[42.] + AB[749]) % AB[870.]; qY = 249. end elseif qY < 7281. then if qY < 7280 then qY = if ((not qk or not pY or (not qk or AE[34])) and (AE[34] or not AE[21.] or not pY and AE[34]) and ((AE[21.] and not pY or pY and not pY) and (not AE[21.] and p7 and (not p2 and p2))) or ((AE[21.] or not qk) and (not p2 and not p7) and ((pY or not AE[21.]) and (not pY and AE[34])) or (AE[34] or qk or (not p2 or p2)) and (pY or p7 or not pY and pY))) and not ((not qk or not pY or (not qk or AE[34])) and (AE[34] or not AE[21.] or not pY and AE[34]) and ((AE[21.] and not pY or pY and not pY) and (not AE[21.] and p7 and (not p2 and p2))) or ((AE[21.] or not qk) and (not p2 and not p7) and ((pY or not AE[21.]) and (not pY and AE[34])) or (AE[34] or qk or (not p2 or p2)) and (pY or p7 or not pY and pY))) then 258. else 682 else qY = 260 end elseif qY == 7281. then qY = if true then 660. else 11 else qY = 7924; continue end elseif qY < 7288 then if qY < 7285 then if qY < 7284. then if qY < 7283 then qu = function(t) local sz, sA, sB, sC = nil, nil, nil, nil; local sD = nil; sD = 4; while true do sD = 6647 - sD; do if sD < 6643 then if sD < 6640 then if sD < 6639. then if sD < 6529 then break elseif sD < 6638 then break else sD = 1 end else sD = if sC then 7 else 2 end elseif sD < 6641 then local A7 = AB[542][AB[493]]; AB[1084](AB[392]); sD = 9. elseif sD < 6642. then if sD == 6641 then return sz else sD = 6785; continue end else sC = os[AB[366.]]() < sB; sD = 8 end elseif sD < 6647 then if sD < 6646 then if sD < 6644 then sz = nil; sA = true; local A8 = AB[542][AB[253]]; AB[277](function() local sw, sx = nil, nil; local sy = nil; sy = 0.; while true do sy = 2026 - sy; do if sy < 7804 then if sy < 2026 then if sy < 2024 then break elseif sy < 2025. then sz = sx; sy = 1 else sA = false; sy = 3. end elseif sy < 4378 then if sy < 4243 then if sy == 2026 then sw, sx = AB[549.](qa[AB[550]], t); sy = if sw then 2 else 1 else sy = 4378; continue end else break end else break end else break end end end end); sB = os[AB[366.]]() + AB[1009]; sD = 1 elseif sD < 6645. then break else sD = 6. end else sD = if true then 0. else 6. end elseif sD < 6785 then if sD == 6647 then sC = sA; sD = if sC then 5 else 8 else sD = 6529; continue end else break end end end end; pG = { [AB[872]] = qu(AB[872]), [AB[847]] = qu(AB[847]), [AB[743]] = qu(AB[743]), [AB[897.]] = qu(AB[897.]), [AB[509]] = qu(AB[509]), [AB[167]] = qu(AB[167]), [AB[693.]] = qu(AB[693.]), [AB[1104.]] = qu(AB[1104.]), [AB[196]] = qu(AB[196]), [AB[984.]] = qu(AB[984.]), [AB[1006]] = qu(AB[1006]), [AB[871]] = qu(AB[871]), [AB[855.]] = qu(AB[855.]), [AB[653]] = qu(AB[653]), [AB[1080.]] = qu(AB[1080.]), [AB[599]] = qu(AB[599]), [AB[577]] = qu(AB[577]), [AB[738.]] = qu(AB[738.]), [AB[1107.]] = qu(AB[1107.]), [AB[1108]] = qu(AB[1108]), [AB[670]] = qu(AB[670]) }; qY = 379 else local A9 = (AE[42.] * AB[965] + AB[22]) % AB[965] + AB[965]; qY = 742 end elseif qY == 7284. then qY = 389 else qY = 7581.; continue end elseif qY < 7287. then if qY < 7286 then AE[17] = nil; local AY = AB; AE[17] = AY[318.] - AY[965]; AE[17] = AY[22] + AY[965]; AE[17] = AY[587] - AY[965]; AE[17] = AY[22] + AY[318.]; AE[17] = AY[262] - AY[1009]; AE[17] = AY[965] + AY[965]; qY = 266 elseif qY == 7286 then qY = if AE[3.] <= AB[587] then 623 else 398 else qY = 7400; continue end elseif qY == 7287. then AE[24.] = nil; local AY = AB; AE[24.] = AY[318.] - AY[965]; AE[24.] = AY[22] + AY[965]; qY = 404 else qY = 7273; continue end elseif qY < 7291 then if qY < 7290. then if qY < 7289 then if qY == 7288 then local AY = AB; pM = AY[887]; pm = AY[588.]; qz = AY[999.]; qY = 95 else qY = 7610; continue end elseif qY == 7289 then AE[37] = (AE[42.] * AB[1009] + AB[1073]) % AB[964] + AB[965]; qY = 690. else qY = 7236.; continue end else qY = if AE[45.] <= AB[318.] then 192. else 397 end elseif qY < 7293. then if qY < 7292 then qY = 671 else qY = 114. end elseif qY == 7293. then AE[17] = AE[3.][AB[957.]]:AddLeftGroupbox(AB[726.]); qY = 753. else qY = 7259; continue end elseif qY < 7307 then if qY < 7301 then if qY < 7297 then if qY < 7296. then if qY < 7295 then AE[17] = nil; local AY = AB; AE[17] = AY[1009] - AY[587]; AE[17] = AY[1073] - AY[927.]; qY = 657. else local AY = AB; AE[37] = { AY[860], AY[279.], AY[1], AY[1013], AY[775], AY[1014.], AY[442], AY[979], AY[221], AY[437], AY[761], AY[119] }; local Ba = AE[34]; AE[24.] = AE[37][Ba % AY[534.] + AY[965]]; qY = if AE[24.]:len() <= AE[24.]:gsub(AY[575], AY[648.], Ba % AY[587] % AY[318.] + AY[965]):len() then 403 else 626 end elseif qY == 7296. then qY = 417. else qY = 7541; continue end elseif qY < 7299. then if qY < 7298 then break elseif qY == 7298 then qY = if AE[21.] <= AB[965] then 708. else 117. else qY = 7741; continue end elseif qY < 7300 then AE[42.] = gethui; qY = if AE[42.] then 90. else 697 else qY = 533 end elseif qY < 7304 then if qY < 7303 then if qY < 7302. then if qY == 7301 then qY = 66. else qY = 222.; continue end elseif qY == 7302. then AE[21.] = nil; local AY = AB; AE[21.] = AY[1009] - AY[927.]; AE[21.] = AY[22] + AY[965]; AE[21.] = AY[318.] - AY[965]; qY = 312. else qY = 7565; continue end else AE[3.] = (AE[42.] * AB[965] + AB[965]) % AB[927.] + AB[965]; qY = 253 end elseif qY < 7305. then if qY == 7304 then AE[17] = (AE[17] + AB[964]) % AB[958]; qY = 176 else qY = 7313; continue end elseif qY < 7306 then AE[2] = false; local AY = AB; for aE, aF in AY[499](p8) do rD = aE; rF = aF; AE[27.] = rD; local rG = rF; local q4 = nil; q4 = AY[22]; while true do if q4 < 3. then if q4 < 1 then qr[rG[AY[405.]]] = {}; qh[rG[AY[405.]]] = {}; AE[42.] = rG[AY[978.]]; q4 = if AE[42.] then AY[927.] else AY[587] elseif q4 < 2 then AE[2] = true; q4 = AY[1073] else AE[34]:Connect(function(aI) local sP, sQ, sS, sT, sU, sW, sY, sZ, s_, s1 = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local sR = nil; sR = 5; while true do sR = 6314 - sR; do if sR < 6312. then if sR < 6311 then if sR < 6310 then if sR < 3908 then break elseif sR < 6309. then break elseif sR == 6309. then sP = {}; sR = if type(aI) == AB[447.] then 3. else 2 else sR = 6310; continue end else break end else sT = false; for aK, aL in AB[56](aI) do sU = aK; sW = aL; local sV = sU; local sX = sW; local sS = nil; sS = AB[431]; while true do if sS < 6. then if sS < 3. then if sS < 1 then sS = AB[1073] elseif sS < 2 then sS = if sX == true then AB[587] else AB[232] else sQ = sX[AB[19]] ~= false; sS = AB[927.] end elseif sS < 4 then sP[sV] = true; sS = AB[1073] elseif sS < 5 then sS = if sQ then AB[968] else AB[22] else break end elseif sS < 9. then if sS < 7 then sS = AB[964] elseif sS < 8 then sT = true; sS = AB[1009] else sQ = type(sX) == AB[447.]; sS = if sQ then AB[318.] else AB[927.] end elseif sS < 10 then sS = AB[1009] elseif sS < 11 then sP[sV] = true; sS = AB[22] else sS = if type(sV) == AB[680] then AB[965] else AB[964] end end; if sT then break end end; sR = 2 end elseif sR < 6314 then if sR < 6313 then if sR == 6312. then qr[rG[AB[405.]]] = sP; sZ = false; for aQ in AB[56](qh[rG[AB[405.]]]) do s_ = aQ; local s0 = s_; local sY = nil; sY = AB[318.]; while true do if sY < 2 then if sY < 1 then break else sZ = true; sY = AB[22] end elseif sY < 3. then sY = if not sP[s0] then AB[927.] else AB[587] elseif sY < 4 then sY = AB[22] else qh[rG[AB[405.]]][s0] = nil; sY = AB[587] end end; if sZ then break end end; sR = if rG[AB[405.]] == AB[287] then 0. else 1 else sR = 13859; continue end else sR = 4 end elseif sR < 13859 then if sR == 6314 then sZ = false; for aS in AB[56](pn) do s1 = aS; local s2 = s1; local sY = nil; sY = AB[22]; while true do if sY < 2 then if sY < 1 then sY = if sP[s2] then AB[318.] else AB[965] else sY = AB[927.] end elseif sY < 3. then pn[s2] = nil; sY = AB[965] elseif sY < 4 then sZ = true; sY = AB[927.] else break end end; if sZ then break end end; sR = 1 else sR = 817; continue end else break end end end end); q4 = AY[1009] end elseif q4 < 5 then if q4 < 4 then AE[34] = AE[42.]; q4 = if AE[34] then AY[318.] else AY[1009] else AE[42.] = qu[rG[AY[978.]]]; q4 = AY[587] end elseif q4 < 6. then q4 = AY[1073] else break end end; if AE[2] then break end end; pr, AE[21.], AE[14], qH, qE, AE[42.] = nil, nil, nil, nil, nil, nil; AE[42.] = AY[964]; qY = 148 elseif qY == 7306 then qY = 662 else qY = 7207; continue end elseif qY < 7313 then if qY < 7310 then if qY < 7309 then if qY < 7308. then if qY == 7307 then pJ = AB[535]; py = {}; qY = 188 else qY = 7665.; continue end else AE[48.] = nil; local AY = AB; AE[48.] = AY[587] - AY[318.]; AE[48.] = AY[22] + AY[965]; AE[48.] = AY[927.] - AY[587]; AE[48.] = AY[22] + AY[965]; AE[48.] = AY[927.] - AY[587]; qY = 620 end elseif qY == 7309 then qY = 273. else qY = 7895; continue end elseif qY < 7312 then if qY < 7311. then qY = 273. else qt = AB[530]:GetService(AB[252.]); qY = 358 end else AE[6.] = AE[3.][AB[131]]:AddLeftGroupbox(AB[1002.]); qY = 566 end elseif qY < 7316 then if qY < 7315 then if qY < 7314. then if qY == 7313 then AE[34] = (AE[34] + AB[965]) % AB[232]; qY = 238 else qY = 7850; continue end elseif qY == 7314. then qY = 283 else qY = 7294; continue end else AE[3.] = AE[6.][AB[131]]:AddLeftGroupbox(AB[1002.]); qY = 566 end elseif qY < 7317. then if qY == 7316 then AE[42.] = (AE[42.] + AB[1001]) % AB[1025]; qY = 529 else qY = 7218.; continue end elseif qY == 7317. then local AY = AB; AE[3.](AY[348.], { AY[212], AY[136] }, AY[754]); AE[3.](AY[464], { AY[1097], AY[404] }, AY[630.]); AE[3.](AY[287], { AY[100], AY[421] }, AY[938]); AE[3.](AY[240.], { AY[319], AY[226] }, AY[1059.]); pG = AE[42.](AY[868]); qY = 763 else qY = 7397; continue end elseif qY < 7342 then if qY < 7330 then if qY < 7324 then if qY < 7321 then if qY < 7320. then if qY < 7319 then if qY == 7318 then qY = 669. else qY = 7605.; continue end elseif qY == 7319 then qY = if (AE[42.] * AB[964] + AB[534.]) % AB[958] == AB[965] then 301 else 423. else qY = 7356.; continue end elseif qY == 7320. then qY = 541 else qY = 7843; continue end elseif qY < 7323. then if qY < 7322 then if qY == 7321 then qY = if AE[37] <= AB[587] then 567. else 263 else qY = 7731.; continue end elseif qY == 7322 then local AY = AB; AE[3.] = { AY[393.], AY[715], AY[1041.], AY[598], AY[600.], AY[1022], AY[947], AY[488], AY[146], AY[571], AY[551], AY[736], AY[925], AY[1060] }; rC = if AE[3.][(AE[42.] * AY[89] + AY[1007]) % AY[749] + AY[965]] < AE[3.][(AE[42.] * AY[89] + AY[1007]) % AY[749] + AY[965]] then AY[965] else AY[22]; rA = AY[810.] * rC + AY[1101.] * (AY[965] - rC); rB = AY[140] * rC + AY[901] * (AY[965] - rC); qY = if (rA * AY[1033] + rB * AY[691] + rA * rB) % AY[261.] == AY[974] then 276. else 391 else qY = 7921; continue end elseif qY == 7323. then local AY = AB; AE[48.] = { AY[69.], AY[150.], AY[13], AY[865], AY[98], AY[696.], AY[1048], AY[540.], AY[1038.] }; qY = if AE[48.][(AE[42.] * AY[888.] + AY[53]) % AY[964] + AY[965]] < AE[48.][(AE[42.] * AY[888.] + AY[53]) % AY[964] + AY[965]] then 755 else 381. else qY = 7746.; continue end elseif qY < 7327 then if qY < 7326. then if qY < 7325 then if qY == 7324 then pn = nil; pq = {}; qY = 73 else qY = 7243; continue end elseif qY == 7325 then qY = 587 else qY = 7902.; continue end elseif qY == 7326. then qY = 638 else qY = 14606; continue end elseif qY < 7329. then if qY < 7328 then if qY == 7327 then qY = 74 else qY = 7183; continue end else qY = 689 end elseif qY == 7329. then AE[37] = nil; local AY = AB; AE[37] = AY[927.] - AY[587]; AE[37] = AY[1009] - AY[927.]; AE[37] = AY[927.] - AY[587]; qY = 457 else qY = 7197.; continue end elseif qY < 7336 then if qY < 7333 then if qY < 7332. then if qY < 7331 then qY = 616 else local AY = AB; AE[3.] = (vector.create((AE[34] * AY[1009] + AY[964]) % AY[431] + AY[965], (AE[34] * AY[1009] + AY[927.]) % AY[290] + AY[965], (AE[34] * AY[431] + AY[1073]) % AY[1001] + AY[965])); AE[58] = (vector.create((AE[34] * AY[927.] + AY[232]) % AY[431] + AY[965], (AE[34] * AY[927.] + AY[1009]) % AY[290] + AY[965], (AE[34] * AY[964] + AY[431]) % AY[1001] + AY[965])); local Bb = vector.cross(AE[3.], AE[58]); local Bc = vector.dot(AE[3.], AE[58]); qY = if vector.dot(Bb, Bb) + Bc * Bc == vector.dot(AE[3.], AE[3.]) * vector.dot(AE[58], AE[58]) + AY[927.] then 632 else 758 end else qY = 713 end elseif qY < 7335. then if qY < 7334 then if qY == 7333 then AE[42.] = AE[3.][AB[394]]:AddLeftGroupbox(AB[394]); qY = 0. else qY = 7269.; continue end else AE[42.] = (AE[42.] + AB[1001]) % AB[1025]; qY = 642. end else qY = 522. end elseif qY < 7339 then if qY < 7338. then if qY < 7337 then local AY = AB; AE[17]:AddDropdown(AY[525.], { [AY[197]] = p5, [AY[1087]] = p5[AY[965]], [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[665], [AY[34]] = AY[498.] }); AE[17]:AddDropdown(AY[203], { [AY[197]] = pW({ p_[p5[AY[965]]] }), [AY[1087]] = {}, [AY[495.]] = true, [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[688] }); AE[17]:AddDropdown(AY[698], { [AY[197]] = AE[21.], [AY[1087]] = AY[37], [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[159.] }); AE[17]:AddToggle(AY[344], { [AY[774.]] = AY[976], [AY[1087]] = true }); AE[17]:AddToggle(AY[36.], { [AY[774.]] = AY[242], [AY[1087]] = false }); AE[17]:AddToggle(AY[610], { [AY[774.]] = AY[543.], [AY[1087]] = false }); AE[60.] = AE[3.][AY[957.]]:AddLeftGroupbox(AY[138.]); qY = 375. elseif qY == 7337 then local AY = AB; AE[17] = (vector.create((AE[42.] * AY[1073] + AY[262]) % AY[431] + AY[965], (AE[42.] * AY[968] + AY[262]) % AY[290] + AY[965], (AE[42.] * AY[318.] + AY[318.]) % AY[1001] + AY[965])); AE[6.] = (vector.create((AE[42.] * AY[1073] + AY[318.]) % AY[431] + AY[965], (AE[42.] * AY[927.] + AY[262]) % AY[290] + AY[965], (AE[42.] * AY[431] + AY[523]) % AY[1001] + AY[965])); AE[60.] = (vector.create((AE[42.] * AY[1073] + AY[1009]) % AY[431] + AY[965], (AE[42.] * AY[431] + AY[431]) % AY[290] + AY[965], (AE[42.] * AY[523] + AY[290]) % AY[1001] + AY[965])); AE[48.] = (vector.create((AE[42.] * AY[965] + AY[1009]) % AY[1009] + AY[965], (AE[42.] * AY[1009] + AY[927.]) % AY[262] + AY[965], (AE[42.] * AY[1009] + AY[1009]) % AY[964] + AY[965])); qY = if vector.dot(vector.cross(AE[17], (vector.cross(AE[6.], AE[60.]))), AE[48.]) == vector.dot(AE[6.] * vector.dot(AE[17], AE[60.]) - AE[60.] * vector.dot(AE[17], AE[6.]), AE[48.]) then 407 else 143 else qY = 7711; continue end elseif qY == 7338. then local AY = AB; AE[21.][AY[194]] = AY[866][AY[1081]](AY[632], AY[632], AY[632]); AE[21.][AY[837.]] = AY[965]; AE[21.][AY[200]] = AE[45.]; pI = AY[530]:GetService(AY[520]); qY = 370 else qY = 7273; continue end elseif qY < 7341. then if qY < 7340 then if qY == 7339 then AE[42.], AE[21.], qC, qy, qt, AE[14], AE[34] = nil, nil, nil, nil, nil, nil, nil; AE[34] = AB[318.]; qY = 351. else qY = 7545.; continue end else qY = 554 end else qY = 611 end elseif qY < 7353. then if qY < 7348 then if qY < 7345 then if qY < 7344. then if qY < 7343 then qY = 243. elseif qY == 7343 then qY = if AE[21.] <= AB[318.] then 142 else 231. else qY = 7829; continue end else qY = 4 end elseif qY < 7347. then if qY < 7346 then qY = if AE[42.] * AB[1054] + AB[1009] + AB[1073] >= AE[42.] * AB[1054] + AB[1009] + AB[1073] + AB[965] then 605 else 547 else AE[17] = (AE[17] + AB[290]) % AB[958]; qY = 743 end else qY = 239 end elseif qY < 7351 then if qY < 7350. then if qY < 7349 then if qY == 7348 then table.sort(pu); local AY = AB; qD = AY[996.]; pz = AY[93.]; pF = AY[204.]; qi = AY[254]; pT = AY[1068.]; qY = 609. else qY = 7529; continue end else qY = if (AE[42.] * AB[262] + AB[659]) % AB[335] == AB[290] then 693. else 23 end elseif qY == 7350. then qY = 347 else qY = 7594; continue end elseif qY < 7352 then if qY == 7351 then qY = 347 else qY = 7935.; continue end else qY = if (not pC and qm or (not qm or AE[42.])) and ((not qm or not pC) and (not qm and not pC)) and ((pl or pl) and (pl or not qm) or (not pl or not qm) and (not pl or not AE[34])) or not ((not pC and qm or (not qm or AE[42.])) and ((not qm or not pC) and (not qm and not pC)) and ((pl or pl) and (pl or not qm) or (not pl or not qm) and (not pl or not AE[34]))) then 36. else 170 end elseif qY < 7359. then if qY < 7356. then if qY < 7355 then if qY < 7354 then if qY == 7353. then AE[58] = qa[AB[44]](AB[685]); qY = 342. else qY = 7371.; continue end elseif qY == 7354 then qY = if AE[3.] <= AB[318.] then 694 else 478 else qY = 7922; continue end else qY = 388 end elseif qY < 7358 then if qY < 7357 then if qY == 7356. then local AY = AB; AE[17] = (vector.create((AE[42.] * AY[318.] + AY[1073]) % AY[431] + AY[965], (AE[42.] * AY[968] + AY[431]) % AY[290] + AY[965], (AE[42.] * AY[232] + AY[232]) % AY[1001] + AY[965])); local Bd = vector.floor(AE[17]) + vector.ceil(AE[17] * AY[1057]); qY = if vector.dot(Bd, Bd) == AY[22] + AY[965] then 747. else 220 else qY = 7652; continue end else AE[42.] = nil; local AY = AB; AE[42.] = AY[1009] - AY[927.]; AE[42.] = AY[22] + AY[965]; AE[42.] = AY[1009] - AY[927.]; AE[42.] = AY[22] + AY[965]; AE[42.] = AY[1009] - AY[927.]; AE[42.] = AY[22] + AY[965]; qY = 756. end else qY = if AE[21.] <= AB[965] then 568 else 641 end elseif qY < 7362. then if qY < 7361 then if qY < 7360 then if qY == 7359. then r_ = AB[1021] * r0 + AB[768.] * (AB[965] - r0); qY = 395 else qY = 7837; continue end else qY = 5 end elseif qY == 7361 then qY = 428 else qY = 7816; continue end elseif qY < 7363 then if qY == 7362. then qY = 18. else qY = 7419.; continue end else qY = 105. end elseif qY < 7465 then if qY < 7413. then if qY < 7389. then if qY < 7376 then if qY < 7370 then if qY < 7367 then if qY < 7366 then if qY < 7365. then qY = 599 else qY = 12. end else qY = 412 end elseif qY < 7369 then if qY < 7368. then if qY == 7367 then AE[34] = (AE[34] + AB[8]) % AB[870.]; qY = 1 else qY = 7211; continue end elseif qY == 7368. then qY = if AE[34] <= AB[318.] then 454 else 112 else qY = 11157.; continue end else py = AB[535]; pJ = {}; qY = 188 end elseif qY < 7373 then if qY < 7372 then if qY < 7371. then if qY == 7370 then qY = 205 else qY = 14606; continue end elseif qY == 7371. then local AY = AB; AE[17] = (vector.create((AE[42.] * AY[318.] + AY[965]) % AY[431] + AY[965], (AE[42.] * AY[318.] + AY[587]) % AY[290] + AY[965], (AE[42.] * AY[534.] + AY[1001]) % AY[1001] + AY[965])); AE[6.] = (vector.create((AE[42.] * AY[965] + AY[965]) % AY[431] + AY[965], (AE[42.] * AY[1073] + AY[965]) % AY[290] + AY[965], (AE[42.] * AY[318.] + AY[262]) % AY[1001] + AY[965])); AE[60.] = (vector.create((AE[42.] * AY[1009] + AY[1009]) % AY[1009] + AY[965], (AE[42.] * AY[318.] + AY[1073]) % AY[262] + AY[965], (AE[42.] * AY[1009] + AY[1073]) % AY[964] + AY[965])); qY = if math.abs((vector.angle(AE[17], AE[6.], AE[60.]))) - math.abs((vector.angle(AE[6.], AE[17], AE[60.]))) == AY[22] then 424 else 486. else qY = 7571; continue end else qY = if true then 185 else 209 end elseif qY < 7375 then if qY < 7374. then local AY = AB; AE[48.] = (vector.create((AE[42.] * AY[1073] + AY[964]) % AY[431] + AY[965], (AE[42.] * AY[232] + AY[927.]) % AY[290] + AY[965], (AE[42.] * AY[318.] + AY[965]) % AY[1001] + AY[965])); AE[40] = (vector.create((AE[42.] * AY[318.] + AY[965]) % AY[431] + AY[965], (AE[42.] * AY[318.] + AY[318.]) % AY[290] + AY[965], (AE[42.] * AY[587] + AY[749]) % AY[1001] + AY[965])); AE[26] = (vector.create((AE[42.] * AY[262] + AY[927.]) % AY[431] + AY[965], (AE[42.] * AY[318.] + AY[587]) % AY[290] + AY[965], (AE[42.] * AY[431] + AY[232]) % AY[1001] + AY[965])); qY = if vector.dot(vector.cross(AE[48.], AE[40]), AE[26]) == vector.dot(vector.cross(AE[40], AE[26]), AE[48.]) + AY[1009] then 666. else 455 elseif qY == 7374. then qY = 237. else qY = 7178; continue end elseif qY == 7375 then qY = 28 else qY = 7784; continue end elseif qY < 7382 then if qY < 7379 then if qY < 7378 then if qY < 7377. then if qY == 7376 then qY = 155 else qY = 7317.; continue end else AE[42.] = (AE[42.] + AB[817]) % AB[998]; qY = 751 end elseif qY == 7378 then AE[37] = nil; local AY = AB; AE[37] = AY[587] - AY[318.]; AE[37] = AY[22] + AY[965]; AE[37] = AY[1009] - AY[927.]; AE[37] = AY[927.] - AY[587]; qY = 558. else qY = 7643; continue end elseif qY < 7381 then if qY < 7380. then AE[60.] = (AE[42.] * AB[1009] + AB[1009]) % AB[232] + AB[965]; qY = 226 else AE[34] = (AE[34] + AB[431]) % AB[534.]; qY = 578 end else table.sort(pX); local AY = AB; AE[42.] = AY[246.]; qv, qp = AE[42.](AE[3.][AY[220]]); qj, qg = AE[42.](AE[21.][AY[87.]]); qc = {}; qY = 206 end elseif qY < 7387 then if qY < 7386. then if qY < 7385 then if qY < 7383. then AE[34]:Connect(AB[66.]); qY = 521 elseif qY < 7384 then if qY == 7383. then AE[61] = false; for i, j in AE[21.]:GetChildren() do AE[51.] = i; AE[30.] = j; AE[41] = AE[51.]; AE[20] = AE[30.]; local qZ = nil; local AY = AB; qZ = AY[927.]; while true do if qZ < 2 then if qZ < 1 then break else qZ = AY[22] end elseif qZ < 3. then AE[14] = AE[20]; qZ = AY[587] elseif qZ < 4 then AE[61] = true; qZ = AY[22] else qZ = if AE[20][AY[41]] == AY[406] then AY[318.] else AY[965] end end; if AE[61] then break end end; qa, p6, p1, pV, pQ, AE[58], pL, AE[45.], qu, qn, AE[3.], AE[21.], AE[34], pG, AE[42.] = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; AE[42.] = AB[1009]; qY = 89 else qY = 7266.; continue end elseif qY == 7384 then AE[17] = nil; local AY = AB; AE[17] = AY[1009] - AY[587]; AE[17] = AY[22] + AY[318.]; qY = 475 else qY = 7626.; continue end elseif qY == 7385 then qY = if (AE[42.] * AB[965] + AB[587]) * AB[1001] % AB[927.] == ((AE[42.] * AB[965] + AB[587]) * AB[1001] + (AB[927.] + AB[965])) % AB[927.] then 97 else 530 else qY = 7535; continue end elseif qY == 7386. then qY = 25 else qY = 7506.; continue end elseif qY < 7388 then qY = if true then 46 else 21. elseif qY == 7388 then qY = 474. else qY = 7806.; continue end elseif qY < 7402 then if qY < 7395. then if qY < 7392. then if qY < 7391 then if qY < 7390 then if qY == 7389. then qY = 149 else qY = 7551.; continue end else AE[42.] = (AE[42.] + AB[817]) % AB[998]; qY = 69. end elseif qY == 7391 then qY = 106 else qY = 7822; continue end elseif qY < 7394 then if qY < 7393 then local AY = AB; qq = AY[854]; qm = AY[657.]; pl = AY[20]; pC = AY[789.]; qY = 145 else qY = 161 end elseif qY == 7394 then qY = 314 else qY = 7356.; continue end elseif qY < 7398. then if qY < 7397 then if qY < 7396 then if qY == 7395. then local AY = AB; p2 = AY[1073]; pY = { [AY[287]] = { [AY[22]] = AY[273.], [AY[968]] = AY[769], [AY[1025]] = AY[769], [AY[413]] = AY[273.], [AY[916]] = AY[769], [AY[1017.]] = AY[769] }, [AY[348.]] = { [AY[22]] = AY[858.], [AY[523]] = AY[567.], [AY[413]] = AY[858.], [AY[666.]] = AY[567.] }, [AY[240.]] = { [AY[22]] = AY[858.], [AY[523]] = AY[567.], [AY[413]] = AY[858.], [AY[666.]] = AY[567.] } }; pU = AY[1005.]; pB = AY[1045]; qY = 706 else qY = 7871; continue end elseif qY == 7396 then local AY = AB; AE[45.][AY[194]] = AY[866][AY[1081]](AY[632], AY[632], AY[632]); AE[45.][AY[837.]] = AY[965]; AE[45.][AY[200]] = pI; AE[21.] = AY[530]:GetService(AY[520]); qY = 370 else qY = 7473.; continue end else AE[14] = {}; qY = 760 end elseif qY < 7400 then if qY < 7399 then AE[48.] = nil; local AY = AB; AE[48.] = AY[927.] - AY[587]; AE[48.] = AY[587] - AY[318.]; AE[48.] = AY[22] + AY[965]; AE[48.] = AY[587] - AY[318.]; qY = 540. else qY = if (AE[42.] * AB[262] + AB[968]) % AB[1025] == AB[968] then 270. else 196 end elseif qY < 7401. then if qY == 7400 then AE[2] = false; for dk, dl in AE[3.] do rV = dk; rX = dl; AE[39.] = rV; AE[19] = rX; local q4 = nil; local AY = AB; q4 = AY[965]; while true do if q4 < 1 then AE[2] = true; q4 = AY[318.] elseif q4 < 2 then AE[34](AE[19]); q4 = AY[318.] else break end end; if AE[2] then break end end; AE[17], AE[60.], p9, p4, AE[6.], AE[58], AE[42.] = nil, nil, nil, nil, nil, nil, nil; AE[42.] = AB[870.]; qY = 219. else qY = 7740.; continue end else AE[42.] = (AE[42.] + AB[750.]) % AB[335]; qY = 593 end elseif qY < 7408 then if qY < 7405 then if qY < 7404. then if qY < 7403 then if qY == 7402 then qY = if AE[42.] * AB[539] + AB[964] + AB[1073] <= AE[42.] * AB[539] + AB[964] + AB[1073] + AB[587] then 223 else 373 else qY = 7693; continue end elseif qY == 7403 then qY = if (AE[42.] * AB[318.] + AB[232]) * AB[290] % AB[587] == ((AE[42.] * AB[318.] + AB[232]) * AB[290] + AB[587]) % AB[587] then 340 else 534. else qY = 7414; continue end else local AY = AB; AE[34] = (vector.create((AE[42.] * AY[1009] + AY[1073]) % AY[431] + AY[965], (AE[42.] * AY[965] + AY[262]) % AY[290] + AY[965], (AE[42.] * AY[431] + AY[290]) % AY[1001] + AY[965])); AE[3.] = (vector.create((AE[42.] * AY[262] + AY[587]) % AY[431] + AY[965], (AE[42.] * AY[318.] + AY[232]) % AY[290] + AY[965], (AE[42.] * AY[749] + AY[431]) % AY[1001] + AY[965])); local Be = vector.dot(AE[34], AE[3.]); qY = if Be * Be >= vector.dot(AE[34], AE[34]) * vector.dot(AE[3.], AE[3.]) + AY[965] then 527 else 250 end elseif qY < 7407. then if qY < 7406 then local Bf = bit32.rrotate(bit32.bxor(bit32.lrotate(AE[42.], AB[94]), string.byte(tostring(qA))), AB[587]); qY = if bit32.bxor(bit32.bxor(bit32.bxor(bit32.bxor(bit32.band(Bf, AB[354.]), AB[90.]), (bit32.bxor(bit32.band(Bf, AB[1091]), AB[818]))), AB[90.]), AB[818]) == Bf then 444. else 685 elseif qY == 7406 then AE[42.] = (AE[42.] + AB[1001]) % AB[1025]; qY = 720. else qY = 7297; continue end elseif qY == 7407. then AE[42.] = (AE[42.] + AB[1009]) % AB[998]; qY = 70 else qY = 7938.; continue end elseif qY < 7411 then if qY < 7410. then if qY < 7409 then AE[34] = (AE[34] + AB[958]) % AB[870.]; qY = 346 else local AY = AB; AE[45.][AY[1032.]] = AY[329][AY[576.]](AY[22], AY[968]); AE[45.][AY[353]] = AY[329][AY[576.]](AY[22], AY[968]); AE[45.][AY[617]] = AY[329][AY[576.]](AY[22], AY[968]); AE[45.][AY[176]] = AY[329][AY[576.]](AY[22], AY[968]); AE[45.][AY[200]] = AE[17]; pI = AY[825.][AY[576.]](AY[390.]); qY = 165. end else qY = if AE[3.] <= AB[965] then 328 else 503 end elseif qY < 7412 then if qY == 7411 then qY = 651. else qY = 7454; continue end else qY = 598 end elseif qY < 7441 then if qY < 7427 then if qY < 7420 then if qY < 7416. then if qY < 7415 then if qY < 7414 then AE[45.] = qa[AB[44]](AB[352]); qY = 159. else qY = 718 end elseif qY == 7415 then local AY = AB; AE[6.] = { AY[529], AY[546.], AY[771.], AY[545], AY[418], AY[64], AY[845], AY[1011.], AY[1106], AY[668], AY[732.], AY[396.], AY[293], AY[26] }; qY = if AE[6.][(AE[17] * AY[122] + AY[208]) % AY[749] + AY[965]] < AE[6.][(AE[17] * AY[122] + AY[208]) % AY[749] + AY[965]] then 476 else 390. else qY = 7932.; continue end elseif qY < 7419. then if qY < 7417 then if qY == 7416. then qE = { AB[858.], AB[567.], AB[790], AB[892], AB[295], AB[205], AB[307] }; qY = 678. else qY = 7250; continue end elseif qY < 7418 then if qY == 7417 then qY = if AE[34] then 262 else 470 else qY = 7812.; continue end elseif qY == 7418 then local AY = AB; AE[6.]:AddToggle(AY[207.], { [AY[774.]] = AY[900.], [AY[1087]] = true }); AE[6.]:AddLabel(AY[217], true); AE[6.]:AddLabel(AY[813.], true); AE[6.]:AddLabel(AY[918.], true); AE[6.]:AddLabel(AY[816.], true); qY = 677 else qY = 7196; continue end elseif qY == 7419. then AE[21.] = { { [AB[113]] = AB[348.], [AB[2]] = AB[399.], [AB[774.]] = AB[861.] }, { [AB[774.]] = AB[948.], [AB[113]] = AB[287], [AB[2]] = AB[1050.] }, { [AB[774.]] = AB[92], [AB[113]] = AB[992], [AB[2]] = AB[944] }, { [AB[113]] = AB[240.], [AB[774.]] = AB[184], [AB[2]] = AB[322] }, { [AB[2]] = AB[594.], [AB[113]] = AB[464], [AB[774.]] = AB[258.] }, { [AB[774.]] = AB[107], [AB[113]] = AB[129.], [AB[2]] = AB[428] } }; qY = 630. else qY = 7705; continue end elseif qY < 7424 then if qY < 7422. then if qY < 7421 then qY = 625 else qY = 670 end elseif qY < 7423 then if qY == 7422. then qr, ql, qh, AE[42.] = nil, nil, nil, nil; AE[42.] = AB[965]; qY = 208 else qY = 7554.; continue end elseif qY == 7423 then qY = if AE[42.] <= AB[965] then 724 else 297. else qY = 7506.; continue end elseif qY < 7426 then if qY < 7425. then if qY == 7424 then AE[3.]:Connect(AB[331]); qY = 274 else qY = 7443.; continue end elseif qY == 7425. then qY = 411. else qY = 7241; continue end else local AY = AB; AE[42.] = { AY[328], AY[260], AY[271], AY[191], AY[278], AY[522.], AY[346], AY[566] }; qY = if AE[42.][(AE[34] * AY[89] + AY[323]) % AY[232] + AY[965]] < AE[42.][(AE[34] * AY[89] + AY[323]) % AY[232] + AY[965]] then 187 else 140 end elseif qY < 7434. then if qY < 7430 then if qY < 7429 then if qY < 7428. then qG = { { [AB[2]] = AB[399.], [AB[774.]] = AB[861.], [AB[113]] = AB[348.] }, { [AB[2]] = AB[594.], [AB[774.]] = AB[258.], [AB[113]] = AB[464] }, { [AB[2]] = AB[428], [AB[774.]] = AB[107], [AB[113]] = AB[129.] }, { [AB[2]] = AB[1050.], [AB[774.]] = AB[948.], [AB[113]] = AB[287] }, { [AB[2]] = AB[322], [AB[774.]] = AB[184], [AB[113]] = AB[240.] }, { [AB[2]] = AB[944], [AB[774.]] = AB[92], [AB[113]] = AB[992] } }; qY = 630. else qY = 75. end else local AY = AB; qa = AE[21.][AY[44]](AY[347]); AE[3.] = AE[21.][AY[44]](AY[457]); qY = 261. end elseif qY < 7433 then if qY < 7432 then if qY < 7431. then AE[6.] = AE[42.]; qY = 491 else qY = 311 end elseif qY == 7432 then qY = if AE[37] <= AB[1073] then 244 else 22 else qY = 7770.; continue end else qY = if AE[60.] <= AB[262] then 425 else 184 end elseif qY < 7438 then if qY < 7437. then if qY < 7436 then if qY < 7435 then qY = 646 else qY = if AE[34] <= AB[587] then 596 else 686 end elseif qY == 7436 then qY = if AE[42.] <= AB[318.] then 765. else 684. else qY = 7613; continue end else qY = 669. end elseif qY < 7440. then if qY < 7439 then if qY == 7438 then qY = if AE[3.] then 519. else 274 else qY = 7230.; continue end else AE[42.] = (AE[42.] + AB[1009]) % AB[870.]; qY = 272 end elseif qY == 7440. then AE[17] = nil; local AY = AB; AE[17] = AY[587] - AY[318.]; AE[17] = AY[927.] - AY[587]; qY = 139 else qY = 7785.; continue end elseif qY < 7454 then if qY < 7447 then if qY < 7444 then if qY < 7443. then if qY < 7442 then if qY == 7441 then AE[42.] = (AE[42.] + AB[512]) % AB[916]; qY = 34 else qY = 7457; continue end else qY = 761 end else AE[42.] = (AE[42.] + AB[318.]) % AB[1025]; qY = 579. end elseif qY < 7446. then if qY < 7445 then if qY == 7444 then qY = 483. else qY = 7929.; continue end else AE[42.] = (AE[34] * AB[965] + AB[965]) % AB[318.] + AB[965]; qY = 77 end elseif qY == 7446. then AE[48.] = nil; local AY = AB; AE[48.] = AY[587] - AY[318.]; AE[48.] = AY[22] + AY[965]; AE[48.] = AY[927.] - AY[587]; AE[48.] = AY[22] + AY[965]; AE[48.] = AY[927.] - AY[587]; qY = 735. else qY = 7518.; continue end elseif qY < 7451 then if qY < 7450 then if qY < 7448 then qY = 651. elseif qY < 7449. then if qY == 7448 then AE[2] = false; local AY = AB; for ah, ai in AY[499](p8) do ri = ah; rk = ai; AE[50] = ri; AE[29] = rk; local q4 = nil; q4 = AY[927.]; while true do if q4 < 2 then if q4 < 1 then q4 = AY[318.] else qu[AE[29][AY[978.]]] = pG(AE[29][AY[978.]]); q4 = AY[22] end elseif q4 < 3. then break elseif q4 < 4 then AE[2] = true; q4 = AY[318.] else AE[42.] = qa[AY[44]](AE[29][AY[733]]); AE[34] = {}; rf = false; for al, am in AY[56](AE[42.][AE[29][AY[758]]](AE[42.])) do rm = al; ro = am; AE[10] = rm; AE[54.] = ro; local re = nil; re = AY[965]; while true do if re < 2 then if re < 1 then AE[3.] = AY[117.]; re = AY[927.] else AE[42.] = table.insert; AE[21.] = AE[54.][AY[41]]; AE[14] = tonumber(AE[54.][AY[1083.]]); AE[3.] = (tonumber(AE[54.][AE[29][AY[468.]]])); re = if AE[3.] then AY[927.] else AY[22] end elseif re < 3. then break elseif re < 4 then rf = true; re = AY[318.] else AE[42.](AE[34], { [AY[585.]] = AE[10], [AY[41]] = AE[21.], [AY[1083.]] = AE[14], [AY[852.]] = AE[3.], [AY[183.]] = AE[54.][AY[183.]] }); re = AY[318.] end end; if rf then break end end; table.sort(AE[34], AY[559]); AE[29][AY[618.]] = AE[34]; AE[29][AY[1066]] = {}; AE[29][AY[302]] = {}; rf = false; for ap, aq in AY[499](AE[34]) do rq = ap; rs = aq; AE[33.] = rq; AE[13] = rs; local re = nil; re = AY[318.]; while true do if re < 2 then if re < 1 then break else rf = true; re = AY[22] end elseif re < 3. then table.insert(AE[29][AY[302]], AE[13][AY[41]]); AE[29][AY[1066]][AE[13][AY[41]]] = AE[13]; re = if AE[13][AY[183.]] then AY[587] else AY[927.] elseif re < 4 then AE[42.] = {}; rv = false; for as, at in AY[499](AE[13][AY[183.]]) do rw = as; ry = at; AE[38] = rw; AE[18.] = ry; local ru = nil; ru = AY[318.]; while true do if ru < 1 then rv = true; ru = AY[965] elseif ru < 2 then break else table.insert(AE[42.], AE[18.][AY[1079]]); ru = AY[965] end end; if rv then break end end; AE[29][AY[461]] = AE[42.]; re = AY[927.] else re = AY[22] end end; if rf then break end end; qu[AE[29][AY[1071.]]] = pG(AE[29][AY[1071.]]); qu[AE[29][AY[330.]]] = pG(AE[29][AY[330.]]); qu[AE[29][AY[33.]]] = pG(AE[29][AY[33.]]); q4 = if AE[29][AY[978.]] then AY[965] else AY[22] end end; if AE[2] then break end end; pq, pn, AE[34], AE[42.] = nil, nil, nil, nil; AE[42.] = AY[431]; qY = 309. else qY = 7821.; continue end else qY = if AE[21.] <= AB[587] then 699. else 242 end else qY = 380 end elseif qY < 7452. then if qY == 7451 then qY = if AE[34] <= AB[587] then 569 else 432. else qY = 7809.; continue end elseif qY < 7453 then if qY == 7452. then pP, AE[21.], qG, pN, AE[34] = nil, nil, nil, nil, nil; AE[34] = AB[22]; qY = 402. else qY = 7244; continue end else pW = AB[177.]; qY = 359 end elseif qY < 7460 then if qY < 7457 then if qY < 7456 then if qY < 7455. then qY = 330. else local Bg = AB[542][AB[253]]; local AY = AB; AY[277](function() local x7, x9, ya, yb, yd = nil, nil, nil, nil, nil; local x8 = nil; x8 = 0.; while true do x8 = 588. - x8; do if x8 < 5490. then if x8 < 588. then break elseif x8 == 588. then ya = false; for h9, ia in AB[499](p8) do yb = h9; yd = ia; local yc = yb; local ye = yd; local x9 = nil; x9 = AB[1073]; while true do if x9 < 3. then if x9 < 1 then x9 = AB[1009] elseif x9 < 2 then x7 = qu[ye[AB[33.]]]; x9 = if x7 then AB[587] else AB[22] else x7:Connect(function() local xZ = nil; local x_ = nil; x_ = 5; while true do x_ = 15478 - x_; do if x_ < 15167 then break elseif x_ < 15475 then if x_ < 15472 then break elseif x_ < 15473 then if x_ == 15472 then qh[ye[AB[405.]]] = {}; x_ = 0. else x_ = 14241.; continue end elseif x_ < 15474. then x_ = if not ye[AB[978.]] then 6. else 0. elseif x_ == 15474. then xZ = pq[AB[405.]] == ye[AB[405.]]; x_ = 2 else x_ = 11254; continue end elseif x_ < 15477. then if x_ < 15476 then if x_ == 15475 then pq = nil; x_ = 1 else x_ = 15478; continue end elseif x_ == 15476 then x_ = if xZ then 3. else 1 else x_ = 14358.; continue end elseif x_ < 15478 then if x_ == 15477. then x_ = 7 else x_ = 894.; continue end elseif x_ < 15972. then if x_ == 15478 then xZ = pq; x_ = if xZ then 4 else 2 else break end else break end end end end); x9 = AB[965] end elseif x9 < 5 then if x9 < 4 then x7:Connect(function(io) local x0, x1, x2, x4, x5, x6 = nil, nil, nil, nil, nil, nil; local x3 = nil; x3 = 5; while true do x3 = 13545. - x3; do if x3 < 13532 then if x3 < 11455 then break elseif x3 < 13528 then break elseif x3 < 13530. then if x3 < 13529 then if x3 == 13528 then x0 = tonumber(io[ye[AB[762.]]]); x1 = qI[ye[AB[405.]] .. AB[330.] .. pq[AB[585.]]]; x2 = x0; x6 = if x2 then AB[965] else AB[22]; x4 = AB[263] * x6 + AB[452] * (AB[965] - x6); x5 = AB[508] * x6 + AB[247] * (AB[965] - x6); x3 = if (x4 * AB[308] + x5 * AB[930.] + x4 * x5) % AB[261.] == AB[1070] then 6. else 15. else x3 = 11399; continue end elseif x3 == 13529 then x0 = pq[AB[405.]] == ye[AB[405.]]; x3 = 10 else x3 = 13531; continue end elseif x3 < 13531 then if x3 == 13530. then x6 = if not x2 then AB[965] else AB[22]; x4 = AB[327.] * x6 + AB[694] * (AB[965] - x6); x5 = AB[506] * x6 + AB[102.] * (AB[965] - x6); x3 = if (x4 * AB[222.] + x5 * AB[21.] + x4 * x5) % AB[261.] == AB[885.] then 3. else 4 else x3 = 13528; continue end elseif x3 == 13531 then x0 = pq; x3 = if x0 then 16 else 10 else x3 = 13532; continue end elseif x3 < 13540 then if x3 < 13536. then if x3 < 13534 then if x3 < 13533. then if x3 == 13532 then pq[AB[524]] = os[AB[366.]](); x6 = if not qF[ye[AB[405.]] .. AB[151]][AB[1082]] then AB[965] else AB[22]; x4 = AB[735.] * x6 + AB[580] * (AB[965] - x6); x5 = AB[316] * x6 + AB[613] * (AB[965] - x6); x3 = if (x4 * AB[76] + x5 * AB[317] + x4 * x5) % AB[261.] == AB[820] then 12. else 17 else x3 = 13541; continue end elseif x3 == 13533. then return else x3 = 14039; continue end elseif x3 < 13535 then qu[ye[AB[330.]]]:Fire(); qh[ye[AB[405.]]][pq[AB[585.]]] = true; pq = nil; x3 = 7 else x3 = if not x0 then 0. else 13 end elseif x3 < 13538 then if x3 < 13537 then if x3 == 13536. then x3 = if x2 then 11 else 7 else x3 = 15504.; continue end elseif x3 == 13537 then x2 = qu[ye[AB[330.]]]; x3 = 9. else x3 = 801.; continue end elseif x3 < 13539. then x3 = 2 else x2 = x1; x3 = 15. end elseif x3 < 13544 then if x3 < 13542. then if x3 < 13541 then if x3 == 13540 then x3 = if type(io) ~= AB[447.] then 1 else 14 else x3 = 3364; continue end else x2 = x0 >= x1[AB[1082]]; x3 = if x2 then 8 else 9. end elseif x3 < 13543 then return else break end elseif x3 < 14039 then if x3 < 13545. then if x3 == 13544 then return else x3 = 15504.; continue end elseif x3 == 13545. then return else x3 = 13534; continue end else break end end end end); x9 = AB[22] else ya = true; x9 = AB[1009] end elseif x9 < 6. then break else x7 = pG(ye[AB[407]]); x9 = if x7 then AB[318.] else AB[965] end end; if ya then break end end; x8 = 1 else x8 = 12910; continue end else break end end end end); Bg = AY[542][AY[253]]; AY[277](AY[829]); Bg = AY[542][AY[253]]; AY[277](function() local yD; yD = nil; local yE, yF, yG, yH = nil, nil, nil, nil; local yI = nil; yI = 5; while true do yI = 2469. - yI; do if yI < 5020 then if yI < 2466. then if yI < 2464 then break elseif yI < 2465 then yD = AB[530]:GetService(AB[454]); yE, yF = AB[549.](function() return yD:WaitForChild(AB[857]):WaitForChild(AB[517]) end); yG = not yF; yH = not yE; yI = if yH then 0. else 3. else break end elseif yI < 2468 then if yI < 2467 then if yI == 2466. then yH = yG; yI = 0. else yI = 2465; continue end else yF[AB[983]]:Connect(function(i7) local yz, yA, yB = nil, nil, nil; local yC = nil; yC = 1; while true do yC = 2761 - yC; do if yC < 2757. then if yC < 2751. then if yC < 2748. then break elseif yC < 2749 then if yC == 2748. then yB = yA:IsA(AB[621.]); yC = 3. else yC = 2760.; continue end elseif yC < 2750 then if yC == 2749 then return else yC = 2755; continue end else yz = yA[AB[774.]]; yC = 9. end elseif yC < 2754. then if yC < 2752 then if yC == 2751. then yB = yA[AB[774.]] ~= AB[67]; yC = 7 else yC = 14675; continue end elseif yC < 2753 then if yC == 2752 then pN({ AB[747.], AB[856] .. yz }); yC = 8 else yC = 645.; continue end else break end elseif yC < 2755 then yC = if yB then 11 else 9. elseif yC < 2756 then if yC == 2755 then return else yC = 2758; continue end else yC = if not i7[AB[41]]:find(AB[411.]) then 12. else 2 end elseif yC < 4174 then if yC < 2760. then if yC < 2758 then if yC == 2757. then yC = if not qF[AB[434]][AB[1082]] then 6. else 5 else yC = 5062; continue end elseif yC < 2759 then if yC == 2758 then yC = if yB then 10 else 7 else yC = 2759; continue end else local Bh = AB; yz = Bh[851]; yA = i7:FindFirstChild(Bh[78.], true); yB = yA; yC = if yB then 13 else 3. end elseif yC < 2761 then yC = if ps[AB[360.]] then 0. else 4 elseif yC < 3788 then if yC == 2761 then return else yC = 2757.; continue end else break end else break end end end end); yI = 4 end elseif yI < 2469. then return elseif yI == 2469. then yI = if yH then 1 else 2 else yI = 2466.; continue end else break end end end end); Bg = AY[542][AY[253]]; AY[277](AY[899]); Bg = AY[542][AY[253]]; AY[277](AY[6.]); Bg = AY[542][AY[253]]; AY[277](AY[724]); p0 = AY[324.]; qe = AY[248]; qY = 504. end else AE[21.] = (AE[42.] * AB[965] + AB[965]) % AB[318.] + AB[965]; qY = 585. end elseif qY < 7459 then if qY < 7458. then local AY = AB; AE[14]:AddToggle(AY[760], { [AY[774.]] = AY[440], [AY[1087]] = false }); AE[21.][AY[237.]] = AE[3.][AY[922]]; ps = qI[AY[332]]:AddLeftGroupbox(AY[238]); qY = 627. elseif qY == 7458. then local AY = AB; AE[14] = pQ[AY[1049]][AY[379]]; pV = require(AE[14][AY[1098.]]); p1 = require(AE[14][AY[690.]]); p6 = require(AE[14][AY[970]]); qY = 133 else qY = 7821.; continue end elseif qY == 7459 then qY = 512 else qY = 7344.; continue end elseif qY < 7463 then if qY < 7462 then if qY < 7461. then if qY == 7460 then qY = 300. else qY = 7486; continue end elseif qY == 7461. then qY = 718 else qY = 7613; continue end else qY = 66. end elseif qY < 7464. then if qY == 7463 then AE[45.] = nil; local AY = AB; AE[45.] = AY[318.] - AY[965]; AE[45.] = AY[22] + AY[965]; AE[45.] = AY[318.] - AY[965]; AE[45.] = AY[22] + AY[965]; qY = 52 else qY = 7674.; continue end elseif qY == 7464. then qY = 119 else qY = 7582; continue end elseif qY < 7513 then if qY < 7489 then if qY < 7478 then if qY < 7471 then if qY < 7468 then if qY < 7467. then if qY < 7466 then AE[3.] = nil; local AY = AB; AE[3.] = AY[1009] - AY[927.]; AE[3.] = AY[22] + AY[965]; AE[3.] = AY[318.] - AY[965]; AE[3.] = AY[1009] - AY[927.]; qY = 612. elseif qY == 7466 then AE[42.] = (AE[42.] + AB[964]) % AB[958]; qY = 207. else qY = 7623.; continue end else local AY = AB; p4:AddSlider(AY[357.], { [AY[788]] = AY[439], [AY[774.]] = AY[781], [AY[700]] = AY[1009], [AY[441.]] = AY[593], [AY[987.]] = AY[22], [AY[1087]] = AY[632] }); p4:AddToggle(AY[581], { [AY[774.]] = AY[955], [AY[1087]] = false }); AE[60.] = AY[349]; qY = 639. end elseif qY < 7470. then if qY < 7469 then qY = if AE[45.] <= AB[927.] then 228. else 480. elseif qY == 7469 then qY = 544 else qY = 7232; continue end else AE[17] = (AE[17] + AB[965]) % AB[958]; qY = 449 end elseif qY < 7475 then if qY < 7473. then if qY < 7472 then AE[3.] = nil; local AY = AB; AE[3.] = AY[1009] - AY[927.]; AE[3.] = AY[22] + AY[965]; AE[3.] = AY[1009] - AY[927.]; AE[3.] = AY[22] + AY[965]; qY = 621. elseif qY == 7472 then qY = if AE[3.] <= AB[965] then 154 else 759. else qY = 7523; continue end elseif qY < 7474 then if qY == 7473. then local AY = AB; rC = if AE[34] then AY[965] else AY[22]; rA = AY[998] * rC + AY[604] * (AY[965] - rC); rB = AY[1062.] * rC + AY[882.] * (AY[965] - rC); qY = if (rA * AY[435.] + rB * AY[300.] + rA * rB) % AY[261.] == AY[751] then 440 else 644 else qY = 7422.; continue end elseif qY == 7474 then local AY = AB; qC = AY[530]:GetService(AY[951.]); qy = AY[530]:GetService(AY[266]); qt = AE[42.][AY[433]]; qY = 293 else qY = 7305.; continue end elseif qY < 7477 then if qY < 7476. then AE[34] = (AE[42.] * AB[318.] + AB[22]) % AB[1009] + AB[965]; qY = 508 elseif qY == 7476. then local AY = AB; AE[45.] = (vector.create((AE[42.] * AY[965] + AY[965]) % AY[431] + AY[965], (AE[42.] * AY[964] + AY[927.]) % AY[290] + AY[965], (AE[42.] * AY[587] + AY[1001]) % AY[1001] + AY[965])); AE[17] = (vector.create((AE[42.] * AY[927.] + AY[1009]) % AY[431] + AY[965], (AE[42.] * AY[318.] + AY[534.]) % AY[290] + AY[965], (AE[42.] * AY[318.] + AY[290]) % AY[1001] + AY[965])); local Bi = vector.dot(AE[45.], AE[17]); qY = if Bi * Bi <= vector.dot(AE[45.], AE[45.]) * vector.dot(AE[17], AE[17]) then 676 else 7 else qY = 7222; continue end else qY = if (AE[42.] * AB[318.] + AB[587]) * AB[927.] % AB[587] == ((AE[42.] * AB[318.] + AB[587]) * AB[927.] + AB[22]) % AB[587] then 320 else 525. end elseif qY < 7484 then if qY < 7481 then if qY < 7480 then if qY < 7479. then local AY = AB; AE[42.] = { AY[274], AY[646], AY[265], AY[25], AY[744.], AY[937], AY[511], AY[684.] }; qY = if AE[42.][(AE[34] * AY[89] + AY[956]) % AY[232] + AY[965]] <= AE[42.][(AE[34] * AY[89] + AY[956]) % AY[232] + AY[965]] then 386 else 289 else local AY = AB; AE[34][AY[41]] = AY[993.]; AE[34][AY[350]] = false; AE[34][AY[555.]] = AY[157][AY[555.]][AY[30.]]; AE[34][AY[430]] = AY[306.]; pZ = syn; qY = 387. end elseif qY == 7480 then AE[24.] = nil; local AY = AB; AE[24.] = AY[587] - AY[318.]; AE[24.] = AY[232] - AY[262]; AE[24.] = AY[318.] - AY[965]; AE[24.] = AY[22] + AY[965]; qY = 734 else qY = 7812.; continue end elseif qY < 7483 then if qY < 7482. then qY = 474. elseif qY == 7482. then local AY = AB; AE[48.] = { AY[182], AY[63.], AY[606.], AY[941], AY[826], AY[739], AY[713], AY[651.], AY[875], AY[492.], AY[557], AY[139] }; qY = if AE[48.][(AE[42.] * AY[661] + AY[796]) % AY[534.] + AY[965]] < AE[48.][(AE[42.] * AY[661] + AY[796]) % AY[534.] + AY[965]] then 447. else 222. else qY = 7654; continue end elseif qY == 7483 then local AY = AB; AE[3.] = (vector.create((AE[42.] * AY[1009] + AY[262]) % AY[431] + AY[965], (AE[42.] * AY[927.] + AY[262]) % AY[290] + AY[965], (AE[42.] * AY[318.] + AY[927.]) % AY[1001] + AY[965])); AE[37] = (vector.create((AE[42.] * AY[1073] + AY[232]) % AY[431] + AY[965], (AE[42.] * AY[318.] + AY[232]) % AY[290] + AY[965], (AE[42.] * AY[965] + AY[1001]) % AY[1001] + AY[965])); local Bj = vector.cross(AE[3.], AE[37]); local Bk = vector.dot(AE[3.], AE[37]); rC = if vector.dot(Bj, Bj) + Bk * Bk == vector.dot(AE[3.], AE[3.]) * vector.dot(AE[37], AE[37]) + AY[965] then AY[965] else AY[22]; rA = AY[1044.] * rC + AY[893] * (AY[965] - rC); rB = AY[477.] * rC + AY[921.] * (AY[965] - rC); qY = if (rA * AY[268] + rB * AY[828.] + rA * rB) % AY[261.] == AY[91] then 546. else 137 else qY = 7469; continue end elseif qY < 7487 then if qY < 7486 then if qY < 7485. then if qY == 7484 then qY = 205 else qY = 7876; continue end elseif qY == 7485. then local AY = AB; p6 = AE[14][AY[1049]][AY[379]]; p1 = require(p6[AY[1098.]]); pV = require(p6[AY[690.]]); pQ = require(p6[AY[970]]); qY = 133 else qY = 7517; continue end elseif qY == 7486 then qY = if AE[34] * AB[372.] + AB[964] + AB[1009] >= AE[34] * AB[372.] + AB[964] + AB[1009] + AB[927.] then 257 else 55 else qY = 7885; continue end elseif qY < 7488. then if qY == 7487 then qY = if (r1 * AB[558.] + r2 * AB[656] + r1 * r2) % AB[261.] == AB[155] then 468. else 177. else qY = 7602.; continue end else px = false; pp = AB[641]; qY = 736 end elseif qY < 7501 then if qY < 7495 then if qY < 7492 then if qY < 7491. then if qY < 7490 then if qY == 7489 then qY = 394 else qY = 7357; continue end elseif qY == 7490 then qY = 557 else qY = 7417; continue end elseif qY == 7491. then qY = 219. else qY = 7212.; continue end elseif qY < 7494. then if qY < 7493 then if qY == 7492 then local AY = AB; AE[34] = (vector.create((AE[42.] * AY[587] + AY[964]) % AY[431] + AY[965], (AE[42.] * AY[968] + AY[1009]) % AY[290] + AY[965], (AE[42.] * AY[749] + AY[958]) % AY[1001] + AY[965])); AE[21.] = (vector.create((AE[42.] * AY[318.] + AY[318.]) % AY[431] + AY[965], (AE[42.] * AY[318.] + AY[968]) % AY[290] + AY[965], (AE[42.] * AY[749] + AY[262]) % AY[1001] + AY[965])); local Bl = vector.dot(AE[34], AE[21.]); rC = if Bl * Bl >= vector.dot(AE[34], AE[34]) * vector.dot(AE[21.], AE[21.]) + AY[965] then AY[965] else AY[22]; rA = AY[227] * rC + AY[476] * (AY[965] - rC); rB = AY[424] * rC + AY[642.] * (AY[965] - rC); qY = if (rA * AY[727] + rB * AY[528.] + rA * rB) % AY[261.] == AY[891.] then 217 else 700 else qY = 7899.; continue end else qY = 306. end elseif qY == 7494. then qY = 450. else qY = 7729; continue end elseif qY < 7498 then if qY < 7497. then if qY < 7496 then if qY == 7495 then qY = 652 else qY = 7178; continue end elseif qY == 7496 then local AY = AB; AE[17][AY[41]] = AY[244]; AE[17][AY[673]] = AY[806][AY[1046]](AY[833], AY[833]); AE[17][AY[52]] = AY[806][AY[1046]](AY[1025], AY[1025]); AE[17][AY[235]] = AY[866][AY[1081]](AY[1025], AY[1025], AY[1025]); AE[17][AY[692]] = AY[22]; AE[17][AY[230]] = false; AE[17][AY[198.]] = AY[378.]; AE[17][AY[527]] = AY[866][AY[1081]](AY[682], AY[682], AY[682]); AE[17][AY[623]] = AY[157][AY[623]][AY[830]]; AE[17][AY[200]] = pI; pZ = AY[825.][AY[576.]](AY[1019]); qY = 51. else qY = 7455.; continue end elseif qY == 7497. then qY = 172 else qY = 7574; continue end elseif qY < 7500. then if qY < 7499 then if qY == 7498 then qY = 268 else qY = 7354; continue end elseif qY == 7499 then local AY = AB; ps = loadstring(AY[530]:HttpGet(AE[34] .. AY[356]))(); AE[24.] = loadstring(AY[530]:HttpGet(AE[34] .. AY[1085]))(); AE[37] = loadstring(AY[530]:HttpGet(AE[34] .. AY[380]))(); qI = ps[AY[1086.]]; qF = ps[AY[257]]; qY = 197 else qY = 7179.; continue end elseif qY == 7500. then qY = 209 else qY = 7930; continue end elseif qY < 7508 then if qY < 7505 then if qY < 7503. then if qY < 7502 then qY = if AE[60.] <= AB[1073] then 156. else 264. elseif qY == 7502 then qY = 62 else qY = 7721; continue end elseif qY < 7504 then syn[AB[1094]](pZ); qY = 644 else qY = 13 end elseif qY < 7507 then if qY < 7506. then if qY == 7505 then qY = 314 else qY = 7665.; continue end elseif qY == 7506. then qY = 393. else qY = 7735; continue end elseif qY == 7507 then AE[21.] = nil; local AY = AB; AE[21.] = AY[587] - AY[318.]; AE[21.] = AY[22] + AY[965]; AE[21.] = AY[927.] - AY[587]; qY = 171. else qY = 7893.; continue end elseif qY < 7511 then if qY < 7510 then if qY < 7509. then qY = 94 else table.sort(p_, AB[284]); qx = {}; p5 = {}; qY = 416 end else qY = if AE[60.] <= AB[965] then 364 else 68 end elseif qY < 7512. then AE[34] = nil; local AY = AB; AE[34] = AY[587] - AY[318.]; AE[34] = AY[22] + AY[965]; AE[34] = AY[587] - AY[318.]; AE[34] = AY[587] - AY[318.]; AE[34] = AY[22] + AY[965]; qY = 539 elseif qY == 7512. then local AY = AB; AE[60.] = { AY[95], AY[1040], AY[1100], AY[73], AY[414.], AY[320], AY[513.], AY[305], AY[99.], AY[634], AY[97] }; qY = if AE[60.][(AE[34] * AY[833] + AY[1073]) % AY[431] + AY[965]] < AE[60.][(AE[34] * AY[833] + AY[1073]) % AY[431] + AY[965]] then 248 else 108. else qY = 7258; continue end elseif qY < 7538 then if qY < 7526 then if qY < 7519 then if qY < 7516 then if qY < 7515. then if qY < 7514 then qY = 405. else qY = 45. end else qY = 719 end elseif qY < 7518. then if qY < 7517 then if qY == 7516 then qY = 16 else qY = 7648; continue end elseif qY == 7517 then qY = if (AE[42.] * AB[965] + AB[964]) * AB[1001] % AB[927.] == ((AE[42.] * AB[965] + AB[964]) * AB[1001] + AB[232]) % AB[927.] then 382 else 655 else qY = 7364; continue end elseif qY == 7518. then qY = 326 else qY = 7311.; continue end elseif qY < 7522 then if qY < 7521. then if qY < 7520 then if qY == 7519 then local AY = AB; AE[21.]:AddToggle(AY[760], { [AY[774.]] = AY[440], [AY[1087]] = false }); ps[AY[237.]] = qI[AY[922]]; AE[14] = AE[3.][AY[332]]:AddLeftGroupbox(AY[238]); qY = 627. else qY = 7287.; continue end else qY = 148 end else AE[6.] = nil; local AY = AB; AE[6.] = AY[587] - AY[318.]; AE[6.] = AY[587] - AY[318.]; AE[6.] = AY[22] + AY[965]; AE[6.] = AY[587] - AY[318.]; qY = 44 end elseif qY < 7525 then if qY < 7524. then if qY < 7523 then AE[42.] = syn[AB[554]]; qY = 513. else qY = if AE[21.] <= AB[1009] then 251 else 84. end elseif qY == 7524. then qY = 241 else qY = 7694; continue end else pL = qa[AB[44]](AB[889]); qY = 542 end elseif qY < 7533. then if qY < 7529 then if qY < 7528 then if qY < 7527. then qY = 446 elseif qY == 7527. then AE[34] = (AE[34] + AB[587]) % AB[927.]; qY = 762. else qY = 7684; continue end elseif qY == 7528 then local AY = AB; AE[21.] = AE[3.][AY[912.]]:AddLeftGroupbox(AY[1037]); qb = {}; p7 = AY[666.]; qY = 120. else qY = 7489; continue end elseif qY < 7531 then if qY < 7530. then local AY = AB; AE[3.] = qd[AY[402.]]:AddLeftGroupbox(AY[402.]); AE[3.]:AddDropdown(AY[303.], { [AY[309.]] = true, [AY[495.]] = true, [AY[197]] = qj, [AY[236]] = true, [AY[774.]] = AY[28], [AY[1087]] = {} }); AE[3.]:AddToggle(AY[283], { [AY[774.]] = AY[894.], [AY[1087]] = false }); AE[17] = qd[AY[402.]]:AddRightGroupbox(AY[463]); AE[17]:AddDropdown(AY[362], { [AY[236]] = true, [AY[1087]] = {}, [AY[309.]] = true, [AY[774.]] = AY[785], [AY[197]] = pX, [AY[495.]] = true }); AE[17]:AddToggle(AY[190], { [AY[774.]] = AY[674], [AY[1087]] = false }); qv = qd[AY[402.]]:AddRightGroupbox(AY[487]); qv:AddDropdown(AY[779], { [AY[774.]] = AY[785], [AY[236]] = true, [AY[197]] = AE[14], [AY[309.]] = true, [AY[495.]] = true, [AY[1087]] = {} }); qv:AddToggle(AY[1004], { [AY[774.]] = AY[714.], [AY[1087]] = false }); AE[58] = qd[AY[402.]]:AddRightGroupbox(AY[480.]); AE[58]:AddToggle(AY[458], { [AY[774.]] = AY[777.], [AY[1087]] = false }); AE[45.] = AY[371]; qY = 691 else AE[58] = (AE[42.] * AB[587] + AB[318.]) % AB[1009] + AB[965]; qY = 730 end elseif qY < 7532 then qY = if AE[34] then 561. else 521 else local AY = AB; AE[21.] = (vector.create((AE[34] * AY[965] + AY[927.]) % AY[431] + AY[965], (AE[34] * AY[262] + AY[927.]) % AY[290] + AY[965], (AE[34] * AY[534.] + AY[1001]) % AY[1001] + AY[965])); AE[60.] = (vector.create((AE[34] * AY[965] + AY[587]) % AY[431] + AY[965], (AE[34] * AY[927.] + AY[965]) % AY[290] + AY[965], (AE[34] * AY[523] + AY[1009]) % AY[1001] + AY[965])); AE[48.] = (vector.create((AE[34] * AY[927.] + AY[232]) % AY[431] + AY[965], (AE[34] * AY[1073] + AY[232]) % AY[290] + AY[965], (AE[34] * AY[1073] + AY[318.]) % AY[1001] + AY[965])); AE[40] = (vector.create((AE[34] * AY[1073] + AY[964]) % AY[431] + AY[965], (AE[34] * AY[1009] + AY[587]) % AY[290] + AY[965], (AE[34] * AY[262] + AY[965]) % AY[1001] + AY[965])); qY = if vector.dot(vector.cross(AE[21.], AE[60.]), (vector.cross(AE[48.], AE[40]))) == vector.dot(AE[21.], AE[48.]) * vector.dot(AE[60.], AE[40]) - vector.dot(AE[21.], AE[40]) * vector.dot(AE[60.], AE[48.]) then 636. else 574 end elseif qY < 7536. then if qY < 7535 then if qY < 7534 then if qY == 7533. then local Bm = bit32.rrotate(bit32.bxor(bit32.lrotate(AE[37], AB[523]), string.byte(tostring(qj))), AB[737]); qY = if bit32.bxor(bit32.bxor(bit32.bxor(bit32.bxor(bit32.band(Bm, AB[945.]), AB[902]), (bit32.bxor(bit32.band(Bm, AB[267.]), AB[59]))), AB[902]), AB[59]) ~= Bm then 138. else 562 else qY = 7418; continue end else qY = 225. end else qY = 332 end elseif qY < 7537 then AE[34] = AB[911]; qY = 715 elseif qY == 7537 then qA = AB[1096]; qY = 477. else qY = 7610; continue end elseif qY < 7549 then if qY < 7544 then if qY < 7541 then if qY < 7540 then if qY < 7539. then if qY == 7538 then local Bn = bit32.rrotate(bit32.bxor(bit32.lrotate(AE[42.], AB[1009]), string.byte(tostring(pQ))), AB[958]); qY = if bit32.bxor(bit32.bxor(bit32.bxor(bit32.bxor(bit32.band(Bn, AB[429.]), AB[686]), (bit32.bxor(bit32.band(Bn, AB[359]), AB[79]))), AB[686]), AB[79]) ~= Bn then 661 else 707 else qY = 7704.; continue end elseif qY == 7539. then qY = if AE[42.] * AB[504.] + AB[431] + AB[927.] >= AE[42.] * AB[504.] + AB[431] + AB[927.] + AB[1073] then 173 else 76 else qY = 7719.; continue end else local AY = AB; AE[42.](AY[348.], { AY[212], AY[136] }, AY[754]); AE[42.](AY[464], { AY[1097], AY[404] }, AY[630.]); AE[42.](AY[287], { AY[100], AY[421] }, AY[938]); AE[42.](AY[240.], { AY[319], AY[226] }, AY[1059.]); AE[3.] = pG(AY[868]); qY = 763 end elseif qY < 7543 then if qY < 7542. then qY = if true then 498. else 37 else AE[34] = (AE[37] * AB[965] + AB[965]) % AB[318.] + AB[965]; qY = 147. end elseif qY == 7543 then AE[58] = AB[125]; qY = 537. else qY = 7797.; continue end elseif qY < 7547 then if qY < 7546 then if qY < 7545. then if qY == 7544 then qY = 683 else qY = 7667; continue end elseif qY == 7545. then AE[3.] = nil; AE[3.] = AB[318.] - AB[965]; qY = 538 else qY = 7230.; continue end else AE[17] = nil; local AY = AB; AE[17] = AY[318.] - AY[965]; AE[17] = AY[927.] - AY[587]; qY = 572 end elseif qY < 7548. then if qY == 7547 then qa = pL[AB[44]](AB[889]); qY = 542 else qY = 7807; continue end else qY = if (rZ * AB[281] + r_ * AB[782] + rZ * r_) % AB[261.] == AB[383] then 675. else 259 end elseif qY < 7555 then if qY < 7552 then if qY < 7551. then if qY < 7550 then qY = if AE[34] <= AB[965] then 740 else 113 elseif qY == 7550 then qY = 484 else qY = 7349; continue end elseif qY == 7551. then qY = 509 else qY = 7921; continue end elseif qY < 7554. then if qY < 7553 then if qY == 7552 then pr = { AB[45.], AB[1109], AB[1075], AB[967], AB[515], AB[223], AB[70] }; qY = 712 else qY = 7921; continue end else local AY = AB; AE[60.]:AddSlider(AY[357.], { [AY[774.]] = AY[781], [AY[1087]] = AY[632], [AY[700]] = AY[1009], [AY[788]] = AY[439], [AY[987.]] = AY[22], [AY[441.]] = AY[593] }); AE[60.]:AddToggle(AY[581], { [AY[774.]] = AY[955], [AY[1087]] = false }); p4 = AY[349]; qY = 639. end else qY = if true then 121 else 526 end elseif qY < 7558 then if qY < 7557. then if qY < 7556 then if qY == 7555 then qY = if true then 294. else 260 else qY = 7408; continue end elseif qY == 7556 then AE[42.] = (AE[42.] + AB[534.]) % AB[1025]; qY = 489. else qY = 7511; continue end elseif qY == 7557. then pK = {}; qY = 576. else qY = 7386.; continue end elseif qY < 7559 then qf = AB[133]; qY = 85 else qY = if AE[37] <= AB[965] then 430 else 86 end elseif qY < 7752. then if qY < 7656. then if qY < 7608. then if qY < 7584. then if qY < 7572. then if qY < 7566. then if qY < 7563. then if qY < 7562 then if qY < 7561 then AE[37] = (AE[34] * AB[318.] + AB[318.]) % AB[587] + AB[965]; qY = 737 elseif qY == 7561 then local AY = AB; qz = AY[887]; pM = AY[588.]; pm = AY[999.]; qY = 95 else qY = 7872.; continue end elseif qY == 7562 then local AY = AB; AE[60.]:AddDropdown(AY[50], { [AY[197]] = p5, [AY[1087]] = {}, [AY[495.]] = true, [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[1043], [AY[34]] = AE[58] }); AE[60.]:AddDropdown(AY[507.], { [AY[197]] = {}, [AY[1087]] = {}, [AY[495.]] = true, [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[923], [AY[34]] = AY[526] }); AE[6.] = {}; qY = 726. else qY = 7577; continue end elseif qY < 7565 then if qY < 7564 then local AY = AB; AE[17] = { AY[804.], AY[562], AY[315.], AY[620], AY[417.], AY[834.], AY[589], AY[213.], AY[485], AY[552.], AY[443], AY[719], AY[472], AY[721], AY[126.] }; qY = if AE[17][(AE[42.] * AY[705.] + AY[1008.]) % AY[523] + AY[965]] < AE[17][(AE[42.] * AY[705.] + AY[1008.]) % AY[523] + AY[965]] then 322 else 286 elseif qY == 7564 then AE[42.] = (AE[42.] + AB[888.]) % AB[335]; qY = 49 else qY = 7356.; continue end else qY = 653 end elseif qY < 7569. then if qY < 7568 then if qY < 7567 then qY = 351. else qY = 522. end elseif qY == 7568 then AE[42.] = (AE[42.] + AB[780.]) % AB[916]; qY = 748 else qY = 7690; continue end elseif qY < 7571 then if qY < 7570 then if qY == 7569. then qY = if (AE[34] * AB[431] + AB[431]) % AB[534.] == AB[262] then 663. else 588. else qY = 7332.; continue end else ps = AB[192.]; qY = 15. end elseif qY == 7571 then qY = 24. else qY = 7346; continue end elseif qY < 7578. then if qY < 7575. then if qY < 7574 then if qY < 7573 then local Bo = AB[542][AB[253]]; local AY = AB; AY[277](AY[1018]); Bo = AY[542][AY[253]]; AY[277](function() local Ab, Ac, Ae, Af, Ag, Ah, Ai, Aj, Al, An, Ao, Ap, Ar, At, Av = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local Ad = nil; Ad = 12.; while true do Ad = 2391. - Ad; do if Ad < 2359 then if Ad < 2352. then if Ad < 2343. then if Ad < 2340. then if Ad < 2339 then if Ad < 2338 then break elseif Ad == 2338 then Ab = qu[AB[693.]]; Ad = 37 else Ad = 2342; continue end elseif Ad == 2339 then Ab = qF[AB[170]][AB[1082]]; Ad = if Ab then 53 else 37 else Ad = 2362; continue end elseif Ad < 2341 then if Ad == 2340. then Ab = qu[AB[1108]]; Ad = 1 else Ad = 7307; continue end elseif Ad < 2342 then if Ad == 2341 then Ab = qF[AB[120.]][AB[1082]]; Ag = if Ab then AB[965] else AB[22]; Ae = AB[123.] * Ag + AB[124] * (AB[965] - Ag); Af = AB[859] * Ag + AB[952] * (AB[965] - Ag); Ad = if (Ae * AB[1102] + Af * AB[229] + Ae * Af) % AB[261.] == AB[145] then 51. else 1 else Ad = 2375; continue end else break end elseif Ad < 2348 then if Ad < 2346. then if Ad < 2345 then if Ad < 2344 then Ab = qu[AB[167]]; Ad = 19 else Ao = false; for li, lj in AB[499](pz(qI[AB[121]], p5)) do local z9, z8 = nil, nil; Ap = li; Ar = lj; local Aq = Ap; local As = Ar; local An = nil; An = AB[22]; while true do if An < 1 then z9 = AB[665] .. tostring(p_[As]); z8 = nil; AB[549.](function() z8 = pV:GetActionsForEgg(z9) end); qu[AB[670]]:Fire(z9, z8); An = AB[318.] elseif An < 2 then Ao = true; An = AB[318.] else break end end; if Ao then break end end; Ad = 2 end elseif Ad == 2345 then Ad = if Ab then 14 else 30. else Ad = 2351; continue end elseif Ad < 2347 then Ad = if Ac then 5 else 33. else Ac = qu[AB[1006]]; Ad = 29 end elseif Ad < 2350 then if Ad < 2349. then if Ad == 2348 then Ac = Ab; Ad = 31 else Ad = 2351; continue end else Ad = if Ac then 44 else 29 end elseif Ad < 2351 then Ad = if ps[AB[360.]] then 7 else 50 elseif Ad == 2351 then qu[AB[743]]:Fire(); Ad = 16 else Ad = 7307; continue end elseif Ad < 2354 then if Ad < 2353 then Ad = if true then 38 else 21. else Ad = if true then 41 else 23 end elseif Ad < 2357 then if Ad < 2356 then if Ad < 2355. then if Ad == 2354 then Ad = if Ab then 35 else 32 else Ad = 2377; continue end else qu[AB[167]]:Fire(); Ad = 8 end else qu[AB[693.]]:Fire(); Ad = 32 end elseif Ad < 2358. then local Bp = AB[542][AB[493]]; AB[1084](AB[965]); Ad = 13 else Ad = if Ac then 40 else 16 end elseif Ad < 2373. then if Ad < 2370. then if Ad < 2365 then if Ad < 2362 then if Ad < 2361. then if Ad < 2360 then if Ad == 2359 then Ab = qF[AB[298]][AB[1082]]; Ad = if Ab then 18. else 46 else Ad = 7307; continue end elseif Ad == 2360 then Ad = if Ac then 27. else 17 else Ad = 2384; continue end else Ab = qF[AB[561.]][AB[1082]]; Ad = if Ab then 48. else 19 end elseif Ad < 2364. then if Ad < 2363 then if Ad == 2362 then Ad = if Ac then 4 else 34 else Ad = 2782; continue end else Ac = Ab; Ad = 42. end elseif Ad == 2364. then Ac = qu[AB[599]]; Ad = 17 else Ad = 2389; continue end elseif Ad < 2368 then if Ad < 2367. then if Ad < 2366 then Ac = Ab; Ad = 45. else Ab = qu[AB[1107.]]; Ad = 3. end else qu[AB[599]]:Fire(); Ad = 10 end elseif Ad < 2369 then Ad = 21. else Ad = if Ab then 47 else 2 end elseif Ad < 2371 then if Ad == 2370. then Ad = 49 else Ad = 2368; continue end elseif Ad < 2372 then if Ad == 2371 then qu[AB[1108]]:Fire(); Ad = 6. else Ad = 2357; continue end elseif Ad == 2372 then Ad = if Ab then 36. else 8 else Ad = 2387; continue end elseif Ad < 2384 then if Ad < 2378 then if Ad < 2376. then if Ad < 2375 then if Ad < 2374 then if Ad == 2373. then Ab = qu[AB[738.]]; Ad = 46 else Ad = 13864; continue end else Ad = if Ac then 24. else 10 end elseif Ad == 2375 then Ac = qF[AB[256]][AB[1082]]; Ad = if Ac then 43 else 31 else Ad = 2353; continue end elseif Ad < 2377 then Ab = qu[AB[670]]; Ad = 22 elseif Ad == 2377 then qu[AB[738.]]:Fire(); Ad = 30. else Ad = 6069.; continue end elseif Ad < 2382. then if Ad < 2381 then if Ad < 2379. then Ad = 39. elseif Ad < 2380 then Ad = 39. else Ab = pm(AB[701]); Ad = 9. end elseif Ad == 2381 then Ac = qF[AB[1099]][AB[1082]]; Ad = if Ac then 28 else 42. else Ad = 2353; continue end elseif Ad < 2383 then Ad = if Ab then 15. else 22 elseif Ad == 2383 then Ab = qF[AB[1015]][AB[1082]]; Ad = if Ab then 11 else 9. else Ad = 2362; continue end elseif Ad < 2389 then if Ad < 2387 then if Ad < 2386 then if Ad < 2385. then Ad = 21. else Ab = qF[AB[297.]][AB[1082]]; Ad = if Ab then 25 else 3. end else Ac = qu[AB[743]]; Ad = 33. end elseif Ad < 2388. then Ao = false; for lw, lx in AB[499](pz(qI[AB[269]], pF)) do At = lw; Av = lx; local Au = At; local Aw = Av; local An = nil; An = AB[22]; while true do if An < 1 then qu[AB[1006]]:Fire(Aw); An = AB[965] elseif An < 2 then break else Ao = true; An = AB[965] end end; if Ao then break end end; Ad = 34 else Ad = if Ab then 0. else 52 end elseif Ad < 2782 then if Ad < 2391. then if Ad < 2390 then Ab = pm(AB[448]); Ac = qF[AB[465.]][AB[1082]]; Ad = if Ac then 26 else 45. else Ad = if Ab then 20 else 6. end elseif Ad == 2391. then Ai = false; for k3, k4 in AB[499](qx) do local Aa = nil; Aj = k3; Al = k4; local Ak = Aj; local Am = Al; local Ah = nil; Ah = AB[22]; while true do if Ah < 2 then if Ah < 1 then Aa = false; AB[549.](function() Aa = pQ:IsWorldUnlocked(Am[AB[405.]]) end); Ah = if not Aa then AB[318.] else AB[587] else break end elseif Ah < 3. then qu[AB[1107.]]:Fire(Am[AB[405.]]); Ah = AB[927.] elseif Ah < 4 then Ah = AB[965] else Ai = true; Ah = AB[965] end end; if Ai then break end end; Ad = 52 else Ad = 2374; continue end else break end end end end); qt[AY[141.]]:Connect(AY[962]); Bo = AY[542][AY[253]]; AY[277](AY[536]); AE[24.]:SetLibrary(ps); AE[37]:SetLibrary(ps); AE[24.]:SetFolder(AY[763]); AE[37]:SetFolder(AY[878]); AE[37]:IgnoreThemeSettings(); AE[37]:SetIgnoreIndexes({ AY[922] }); AE[24.]:SaveDefault(AY[869]); AE[24.]:ApplyToTab(AE[3.][AY[332]]); AE[37]:BuildConfigSection(AE[3.][AY[332]]); AE[24.]:LoadDefault(); AE[37]:LoadAutoloadConfig(); AE[58](); pp(); qY = 665 elseif qY == 7573 then AE[42.] = (AE[42.] + AB[705.]) % AB[998]; qY = 19 else qY = 7506.; continue end else qY = 446 end elseif qY < 7577 then if qY < 7576 then if qY == 7575. then qY = 615. else qY = 7244; continue end elseif qY == 7576 then qY = 461 else qY = 7412; continue end elseif qY == 7577 then local AY = AB; AE[14] = { AY[42.], AY[467], AY[37] }; AE[21.] = { AY[1035.], AY[37], AY[400] }; qY = 211 else qY = 7859; continue end elseif qY < 7581. then if qY < 7580 then if qY < 7579 then if qY == 7578. then AE[34] = (AE[34] + AB[1009]) % AB[870.]; qY = 61 else qY = 7213; continue end else qY = 466 end else AE[42.] = nil; local AY = AB; AE[42.] = AY[927.] - AY[587]; AE[42.] = AY[22] + AY[965]; AE[42.] = AY[318.] - AY[965]; qY = 517 end elseif qY < 7583 then if qY < 7582 then AE[42.] = (AE[42.] + AB[290]) % AB[916]; qY = 14 elseif qY == 7582 then qY = 58 else qY = 7464.; continue end elseif qY == 7583 then local AY = AB; AE[17] = (vector.create((AE[42.] * AY[1073] + AY[964]) % AY[431] + AY[965], (AE[42.] * AY[1073] + AY[927.]) % AY[290] + AY[965], (AE[42.] * AY[523] + AY[964]) % AY[1001] + AY[965])); AE[6.] = (vector.create((AE[42.] * AY[927.] + AY[927.]) % AY[431] + AY[965], (AE[42.] * AY[968] + AY[587]) % AY[290] + AY[965], (AE[42.] * AY[587] + AY[1073]) % AY[1001] + AY[965])); local Bq = vector.cross(AE[17], AE[6.]); local Br = vector.dot(AE[17], AE[6.]); qY = if vector.dot(Bq, Bq) + Br * Br == vector.dot(AE[17], AE[17]) * vector.dot(AE[6.], AE[6.]) then 406 else 199 else qY = 7814; continue end elseif qY < 7596. then if qY < 7590. then if qY < 7587. then if qY < 7586 then if qY < 7585 then if qY == 7584. then AE[34] = (AE[34] + AB[178]) % AB[870.]; qY = 573. else qY = 7707.; continue end elseif qY == 7585 then AE[34] = (AE[34] + AB[927.]) % AB[870.]; qY = 746 else qY = 7182.; continue end else qY = if (AE[42.] * AB[1009] + AB[1073]) % AB[958] == AB[431] then 577 else 116 end elseif qY < 7589 then if qY < 7588 then if qY == 7587. then AE[42.] = (AE[42.] + AB[318.]) % AB[1025]; qY = 198. else qY = 7254.; continue end else qY = if AE[60.] <= AB[1009] then 531. else 183. end else pW = AB[929]; pF = {}; qY = 535 end elseif qY < 7593. then if qY < 7592 then if qY < 7591 then qY = if (AE[42.] * AB[262] + AB[318.]) % AB[232] == AB[965] then 157 else 637 elseif qY == 7591 then qY = 428 else qY = 7663; continue end elseif qY == 7592 then qY = if true then 153. else 560 else qY = 7540; continue end elseif qY < 7595 then if qY < 7594 then if qY == 7593. then qn = qa[AB[44]](AB[564.]); qY = 27. else qY = 7857.; continue end elseif qY == 7594 then qY = 594. else qY = 7249; continue end elseif qY == 7595 then AE[34] = (AE[34] + AB[1009]) % AB[870.]; qY = 107 else qY = 7404.; continue end elseif qY < 7602. then if qY < 7600 then if qY < 7598 then if qY < 7597 then qY = 582. else qY = 299 end elseif qY < 7599. then AE[34] = AB[530]:GetService(AB[454]); qY = 8 else qY = if AE[21.] <= AB[927.] then 518 else 436 end elseif qY < 7601 then if qY == 7600 then p4 = AB[187]; qY = 362 else qY = 7332.; continue end else AE[42.] = (AE[42.] + AB[318.]) % AB[335]; qY = 419 end elseif qY < 7606 then if qY < 7604 then if qY < 7603 then qY = 256 else local AY = AB; AE[17][AY[1032.]] = AY[329][AY[576.]](AY[22], AY[968]); AE[17][AY[353]] = AY[329][AY[576.]](AY[22], AY[968]); AE[17][AY[617]] = AY[329][AY[576.]](AY[22], AY[968]); AE[17][AY[176]] = AY[329][AY[576.]](AY[22], AY[968]); AE[17][AY[200]] = pI; AE[45.] = AY[825.][AY[576.]](AY[390.]); qY = 165. end elseif qY < 7605. then AE[42.] = syn; qY = if AE[42.] then 421 else 513. else qY = if AE[34] <= AB[965] then 17 else 39. end elseif qY < 7607 then qY = if AE[60.] <= AB[318.] then 721 else 181 elseif qY == 7607 then qY = 241 else qY = 7936; continue end elseif qY < 7632. then if qY < 7621 then if qY < 7615 then if qY < 7611. then if qY < 7610 then if qY < 7609 then if qY == 7608. then local Bs = (AE[42.] * AB[965] + AB[22]) % AB[965] + AB[965]; qY = 451 else qY = 7814; continue end else AE[3.] = AE[42.][AB[394]]:AddLeftGroupbox(AB[394]); qY = 0. end elseif qY == 7610 then AE[34] = (AE[42.] * AB[318.] + AB[965]) % AB[587] + AB[965]; qY = 575 else qY = 7478; continue end elseif qY < 7614. then if qY < 7613 then if qY < 7612 then if qY == 7611. then qY = if AE[6.] then 141. else 214 else qY = 11157.; continue end elseif qY == 7612 then qY = 337 else qY = 7420; continue end else qY = 482 end elseif qY == 7614. then local AY = AB; AE[24.] = { AY[909.], AY[24.], AY[1023.], AY[1055], AY[444.], AY[883], AY[251], AY[573.] }; local Bt = AE[42.]; AE[17] = AE[24.][Bt % AY[232] + AY[965]]; qY = if AE[17]:len() <= AE[17]:reverse():rep(Bt % AY[587] + AY[318.]):len() then 218 else 514 else qY = 7535; continue end elseif qY < 7618 then if qY < 7617. then if qY < 7616 then qY = 360. elseif qY == 7616 then AE[34] = (AE[42.] * AB[587] + AB[318.]) % AB[927.] + AB[965]; qY = 160 else qY = 7684; continue end elseif qY == 7617. then local AY = AB; AE[60.] = { AY[791], AY[128], AY[1078], AY[622], AY[5], AY[483.], AY[1088], AY[729.], AY[231.], AY[370], AY[4], AY[14], AY[997], AY[619] }; qY = if AE[60.][(AE[42.] * AY[523] + AY[958]) % AY[749] + AY[965]] <= AE[60.][(AE[42.] * AY[523] + AY[958]) % AY[749] + AY[965]] then 42. else 757 else qY = 7573; continue end elseif qY < 7620. then if qY < 7619 then if qY == 7618 then qa = AE[58][AB[44]](AB[685]); qY = 342. else qY = 7443.; continue end elseif qY == 7619 then qY = if (AE[42.] * AB[587] + AB[262]) * AB[1001] % AB[927.] == ((AE[42.] * AB[587] + AB[262]) * AB[1001] + AB[232]) % AB[927.] then 350 else 216. else qY = 7720; continue end elseif qY == 7620. then qY = 56 else qY = 7223; continue end elseif qY < 7627 then if qY < 7624 then if qY < 7623. then if qY < 7622 then if qY == 7621 then pD = { [AB[402.]] = AE[3.]:AddTab(AB[402.], AB[728]), [AB[706]] = AE[3.]:AddTab(AB[706], AB[385]), [AB[131]] = AE[3.]:AddTab(AB[131], AB[953]), [AB[332]] = AE[3.]:AddTab(AB[332], AB[68]), [AB[394]] = AE[3.]:AddTab(AB[394], AB[189.]), [AB[957.]] = AE[3.]:AddTab(AB[957.], AB[40]), [AB[912.]] = AE[3.]:AddTab(AB[912.], AB[742]) }; qY = 221 else qY = 7791.; continue end elseif qY == 7622 then local AY = AB; AE[21.] = { AY[822.], AY[18.], AY[678.], AY[639.], AY[664], AY[722], AY[609.], AY[502] }; local Bu = AE[34]; AE[60.] = AE[21.][Bu % AY[232] + AY[965]]; qY = if AE[60.]:len() >= AE[60.]:reverse():rep(Bu % AY[587] + AY[318.]):len() then 414. else 288. else qY = 7269.; continue end else local AY = AB; AE[6.]:AddToggle(AY[207.], { [AY[774.]] = AY[900.], [AY[1087]] = true }); AE[6.]:AddLabel(AY[217], true); AE[6.]:AddLabel(AY[813.], true); AE[6.]:AddLabel(AY[918.], true); AE[6.]:AddLabel(AY[816.], true); qY = 677 end elseif qY < 7626. then if qY < 7625 then qY = 79 elseif qY == 7625 then qY = if AE[37] <= AB[927.] then 515 else 656 else qY = 7726; continue end else AE[42.] = (AE[42.] + AB[431]) % AB[335]; qY = 247 end elseif qY < 7630 then if qY < 7629. then if qY < 7628 then AE[42.] = (AE[42.] + AB[1009]) % AB[958]; qY = 128 else pX = {}; pS = {}; pO = {}; qY = 245 end else qY = 96. end elseif qY < 7631 then if qY == 7630 then AE[24.] = nil; AE[24.] = AB[587] - AB[318.]; qY = 329 else qY = 7547; continue end else qY = if AE[42.] * AB[415] + AB[927.] + AB[965] <= AE[42.] * AB[415] + AB[927.] + AB[965] + AB[1009] then 733 else 103 end elseif qY < 7645 then if qY < 7638. then if qY < 7635. then if qY < 7634 then if qY < 7633 then qY = if (AE[42.] * AB[1001] + AB[958]) % AB[916] == AB[817] then 146 else 452 elseif qY == 7633 then local AY = AB; AE[60.] = (vector.create((AE[34] * AY[318.] + AY[1073]) % AY[431] + AY[965], (AE[34] * AY[262] + AY[1073]) % AY[290] + AY[965], (AE[34] * AY[232] + AY[534.]) % AY[1001] + AY[965])); AE[48.] = (vector.create((AE[34] * AY[1009] + AY[318.]) % AY[431] + AY[965], (AE[34] * AY[965] + AY[927.]) % AY[290] + AY[965], (AE[34] * AY[534.] + AY[523]) % AY[1001] + AY[965])); AE[40] = (vector.create((AE[34] * AY[1009] + AY[318.]) % AY[431] + AY[965], (AE[34] * AY[431] + AY[927.]) % AY[290] + AY[965], (AE[34] * AY[1009] + AY[523]) % AY[1001] + AY[965])); AE[26] = (vector.create((AE[34] * AY[1009] + AY[927.]) % AY[431] + AY[965], (AE[34] * AY[587] + AY[534.]) % AY[290] + AY[965], (AE[34] * AY[964] + AY[232]) % AY[1001] + AY[965])); qY = if vector.dot(vector.cross(AE[60.], AE[48.]), (vector.cross(AE[40], AE[26]))) == vector.dot(AE[60.], AE[40]) * vector.dot(AE[48.], AE[26]) - vector.dot(AE[60.], AE[26]) * vector.dot(AE[48.], AE[40]) + AY[587] then 334 else 610 else qY = 7893.; continue end else qY = if true then 487 else 412 end elseif qY < 7637 then if qY < 7636 then p9 = {}; qY = 502 else qY = 268 end elseif qY == 7637 then qY = 435. else qY = 7668.; continue end elseif qY < 7642 then if qY < 7641. then if qY < 7639 then if qY == 7638. then qY = 168. else qY = 7862; continue end elseif qY < 7640 then if qY == 7639 then AE[2] = false; local AY = AB; for bo, bp in AY[499](AE[58]:GetAllWorlds()) do rL = bo; rN = bp; AE[11] = rL; AE[56] = rN; local q4 = nil; q4 = AY[318.]; while true do if q4 < 2 then if q4 < 1 then AE[2] = true; q4 = AY[965] else break end elseif q4 < 3. then AE[42.] = tonumber(AE[56][AY[1039]]); q4 = if AE[42.] then AY[587] else AY[927.] elseif q4 < 4 then table.insert(qx, { [AY[405.]] = AE[42.], [AY[41]] = AE[56][AY[41]] }); q4 = AY[927.] else q4 = AY[965] end end; if AE[2] then break end end; p5, p_, AE[34] = nil, nil, nil; AE[34] = AY[318.]; qY = 696. else qY = 7211; continue end elseif qY == 7640 then pR = AB[376]; qY = 473 else qY = 7438; continue end else AE[34] = (AE[34] + AB[431]) % AB[870.]; qY = 125 end elseif qY < 7644. then if qY < 7643 then if qY == 7642 then qY = 29 else qY = 7639; continue end else qY = 683 end elseif qY == 7644. then qY = 459. else qY = 7263.; continue end elseif qY < 7651 then if qY < 7648 then if qY < 7647. then if qY < 7646 then if qY == 7645 then qY = if AE[60.] <= AB[587] then 367 else 545 else qY = 7354; continue end else AE[42.] = nil; local AY = AB; AE[42.] = AY[318.] - AY[965]; AE[42.] = AY[22] + AY[965]; AE[42.] = AY[927.] - AY[587]; AE[42.] = AY[22] + AY[965]; AE[42.] = AY[927.] - AY[587]; AE[42.] = AY[22] + AY[965]; qY = 465. end elseif qY == 7647. then local AY = AB; AE[21.] = { AY[42.], AY[37], AY[467] }; AE[14] = { AY[37], AY[400], AY[1035.] }; qY = 211 else qY = 7317.; continue end elseif qY < 7650. then if qY < 7649 then if qY == 7648 then r2 = AB[65] * r3 + AB[663.] * (AB[965] - r3); qY = 456. else qY = 7382; continue end elseif qY == 7649 then AE[42.] = (AE[34] * AB[318.] + AB[965]) % AB[587] + AB[965]; qY = 150. else qY = 7626.; continue end elseif qY == 7650. then AE[34] = (AE[34] + AB[927.]) % AB[870.]; qY = 448 else qY = 7538; continue end elseif qY < 7654 then if qY < 7653. then if qY < 7652 then qY = 701 elseif qY == 7652 then qY = if ((not AE[60.] or not AE[60.]) and (not AE[6.] and not p4) or not AE[58] and not p4 and (not AE[42.] or not AE[42.])) and (AE[58] and not AE[42.] or AE[6.] and AE[6.] or (not AE[58] or AE[6.] or (not AE[6.] or not AE[42.]))) or ((AE[60.] or AE[42.]) and (AE[6.] and AE[60.]) and (not AE[6.] or p4 or AE[58] and not AE[42.]) or (AE[60.] or not p4 or not AE[58] and not AE[42.] or (not AE[60.] and AE[58] or not AE[58] and not p4))) or not (((not AE[60.] or not AE[60.]) and (not AE[6.] and not p4) or not AE[58] and not p4 and (not AE[42.] or not AE[42.])) and (AE[58] and not AE[42.] or AE[6.] and AE[6.] or (not AE[58] or AE[6.] or (not AE[6.] or not AE[42.]))) or ((AE[60.] or AE[42.]) and (AE[6.] and AE[60.]) and (not AE[6.] or p4 or AE[58] and not AE[42.]) or (AE[60.] or not p4 or not AE[58] and not AE[42.] or (not AE[60.] and AE[58] or not AE[58] and not p4)))) then 115 else 343 else qY = 7589; continue end elseif qY == 7653. then AE[42.] = (AE[42.] + AB[431]) % AB[958]; qY = 323 else qY = 7869.; continue end elseif qY < 7655 then pW = {}; qY = 576. else local AY = AB; AE[17] = AE[3.][AY[402.]]:AddLeftGroupbox(AY[402.]); AE[17]:AddDropdown(AY[303.], { [AY[197]] = pX, [AY[1087]] = {}, [AY[495.]] = true, [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[28] }); AE[17]:AddToggle(AY[283], { [AY[774.]] = AY[894.], [AY[1087]] = false }); AE[45.] = AE[3.][AY[402.]]:AddRightGroupbox(AY[463]); AE[45.]:AddDropdown(AY[362], { [AY[197]] = qv, [AY[1087]] = {}, [AY[495.]] = true, [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[785] }); AE[45.]:AddToggle(AY[190], { [AY[774.]] = AY[674], [AY[1087]] = false }); AE[58] = AE[3.][AY[402.]]:AddRightGroupbox(AY[487]); AE[58]:AddDropdown(AY[779], { [AY[197]] = qj, [AY[1087]] = {}, [AY[495.]] = true, [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[785] }); AE[58]:AddToggle(AY[1004], { [AY[774.]] = AY[714.], [AY[1087]] = false }); AE[14] = AE[3.][AY[402.]]:AddRightGroupbox(AY[480.]); AE[14]:AddToggle(AY[458], { [AY[774.]] = AY[777.], [AY[1087]] = false }); qd = AY[371]; qY = 691 end elseif qY < 7705 then if qY < 7680. then if qY < 7668. then if qY < 7662. then if qY < 7659. then if qY < 7658 then if qY < 7657 then qY = 305 else AE[3.] = { [AB[957.]] = pD:AddTab(AB[957.], AB[40]), [AB[706]] = pD:AddTab(AB[706], AB[385]), [AB[912.]] = pD:AddTab(AB[912.], AB[742]), [AB[402.]] = pD:AddTab(AB[402.], AB[728]), [AB[131]] = pD:AddTab(AB[131], AB[953]), [AB[394]] = pD:AddTab(AB[394], AB[189.]), [AB[332]] = pD:AddTab(AB[332], AB[68]) }; qY = 221 end else local AY = AB; AE[3.] = p7[AY[912.]]:AddLeftGroupbox(AY[1037]); AE[21.] = {}; qb = AY[666.]; qY = 120. end elseif qY < 7661 then if qY < 7660 then AE[34] = {}; qY = 317 elseif qY == 7660 then qY = if (AE[42.] * AB[8] + AB[232]) % AB[870.] == AB[1001] then 392 else 738. else qY = 7646; continue end elseif qY == 7661 then local AY = AB; pl = AY[854]; qq = AY[657.]; pC = AY[20]; qm = AY[789.]; qY = 145 else qY = 7689.; continue end elseif qY < 7665. then if qY < 7664 then if qY < 7663 then if qY == 7662. then local AY = AB; AE[3.] = (vector.create((AE[34] * AY[1073] + AY[262]) % AY[431] + AY[965], (AE[34] * AY[1073] + AY[587]) % AY[290] + AY[965], (AE[34] * AY[232] + AY[262]) % AY[1001] + AY[965])); AE[58] = (vector.create((AE[34] * AY[1009] + AY[965]) % AY[431] + AY[965], (AE[34] * AY[965] + AY[431]) % AY[290] + AY[965], (AE[34] * AY[290] + AY[523]) % AY[1001] + AY[965])); AE[45.] = (vector.create((AE[34] * AY[262] + AY[262]) % AY[431] + AY[965], (AE[34] * AY[964] + AY[587]) % AY[290] + AY[965], (AE[34] * AY[262] + AY[587]) % AY[1001] + AY[965])); AE[37] = (vector.create((AE[34] * AY[927.] + AY[965]) % AY[1009] + AY[965], (AE[34] * AY[927.] + AY[965]) % AY[262] + AY[965], (AE[34] * AY[965] + AY[965]) % AY[964] + AY[965])); qY = if vector.dot(vector.cross(AE[3.], (vector.cross(AE[58], AE[45.]))), AE[37]) == vector.dot(AE[58] * vector.dot(AE[3.], AE[45.]) - AE[45.] * vector.dot(AE[3.], AE[58]), AE[37]) then 203 else 80 else qY = 7764.; continue end else qY = 512 end elseif qY == 7664 then local AY = AB; qt = AY[530]:GetService(AY[951.]); AE[42.] = AY[530]:GetService(AY[266]); qy = qC[AY[433]]; qY = 293 else qY = 7398.; continue end elseif qY < 7667 then if qY < 7666 then if qY == 7665. then qY = 615. else qY = 7681; continue end else qY = 705. end elseif qY == 7667 then AE[21.] = { AB[967], AB[1075], AB[223], AB[515], AB[1109], AB[45.], AB[70] }; qY = 712 else qY = 7679; continue end elseif qY < 7675 then if qY < 7672 then if qY < 7671. then if qY < 7669 then if qY == 7668. then qY = if AE[45.] <= AB[587] then 378. else 559 else qY = 7563.; continue end elseif qY < 7670 then AE[34], ps, AE[24.], AE[37], qI, qF, qA, qx, AE[42.] = nil, nil, nil, nil, nil, nil, nil, nil, nil; AE[42.] = AB[290]; qY = 761 elseif qY == 7670 then qY = 581 else qY = 7926.; continue end else qY = 629 end elseif qY < 7674. then if qY < 7673 then AE[58] = {}; qY = 502 else qY = 543. end elseif qY == 7674. then AE[58] = nil; local AY = AB; AE[58] = AY[318.] - AY[965]; AE[58] = AY[927.] - AY[587]; AE[58] = AY[927.] - AY[587]; AE[58] = AY[22] + AY[965]; qY = 591. else qY = 7199; continue end elseif qY < 7678 then if qY < 7677. then if qY < 7676 then if qY == 7675 then qY = 369. else qY = 7909; continue end elseif qY == 7676 then qY = if AE[45.] <= AB[965] then 618. else 674 else qY = 7496; continue end elseif qY == 7677. then qY = if AE[58] <= AB[927.] then 673 else 269 else qY = 7561; continue end elseif qY < 7679 then if qY == 7678 then qY = 450. else qY = 7914.; continue end elseif qY == 7679 then AE[48.] = nil; local AY = AB; AE[48.] = AY[927.] - AY[587]; AE[48.] = AY[262] - AY[1009]; AE[48.] = AY[965] + AY[965]; qY = 510. else qY = 7369; continue end elseif qY < 7694 then if qY < 7688 then if qY < 7685 then if qY < 7683. then if qY < 7681 then if qY == 7680. then AE[24.] = nil; AE[24.] = AB[1073] - AB[927.]; qY = 318. else qY = 7224.; continue end elseif qY < 7682 then if qY == 7681 then AE[34] = syn[AB[1094]]; qY = 470 else qY = 7809.; continue end elseif qY == 7682 then AE[42.] = (AE[42.] + AB[318.]) % AB[335]; qY = 376 else qY = 7695.; continue end elseif qY < 7684 then if qY == 7683. then AE[2] = false; local AY = AB; for e3, e4 in AY[499](p8) do sk = e3; sm = e4; AE[28] = sk; AE[9.] = sm; local q4 = nil; q4 = AY[965]; while true do if q4 < 2 then if q4 < 1 then break else q4 = if pY[AE[9.][AY[405.]]] then AY[587] else AY[318.] end elseif q4 < 3. then q4 = AY[22] elseif q4 < 4 then qb[AE[9.][AY[405.]]] = AE[21.]:AddLabel(AE[9.][AY[405.]] .. AY[799], true); q4 = AY[318.] else AE[2] = true; q4 = AY[22] end end; if AE[2] then break end end; py, AE[17], AE[45.], AE[58], AE[14], qd, AE[42.], AE[6.], p3, pJ, pw, qw, pE, AE[34] = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; AE[34] = AY[958]; qY = 225. else qY = 7511; continue end elseif qY == 7684 then AE[34] = nil; local AY = AB; AE[34] = AY[318.] - AY[965]; AE[34] = AY[22] + AY[965]; qY = 200 else qY = 7518.; continue end elseif qY < 7687 then if qY < 7686. then if qY == 7685 then AE[21.] = AB[874]; qY = 563 else qY = 7257.; continue end else AE[3.] = function(a1, a2, a3) local s4, s6, s7, s8, ta = nil, nil, nil, nil, nil; local s5 = nil; s5 = 1; while true do s5 = 14122 - s5; do if s5 < 14121. then if s5 < 14120 then if s5 < 11877. then break elseif s5 < 13608. then break elseif s5 < 14119 then break else s5 = 2 end else break end elseif s5 < 14122 then if s5 == 14121. then s7 = false; for a4, a5 in a2 do s8 = a4; ta = a5; local s9 = s8; local tb = ta; local s6 = nil; s6 = AB[318.]; while true do if s6 < 2 then if s6 < 1 then s4:Connect(function() qs = a1 end); s6 = AB[927.] else s7 = true; s6 = AB[587] end elseif s6 < 3. then s4 = pG(tb); s6 = if s4 then AB[22] else AB[927.] elseif s6 < 4 then break else s6 = AB[587] end end; if s7 then break end end; s4 = pG(a3); s5 = if s4 then 0. else 3. else s5 = 14443; continue end elseif s5 < 14443 then if s5 == 14122 then s4:Connect(function() local s3 = nil; s3 = 1; while true do s3 = 14183 - s3; do if s3 < 14180 then break elseif s3 < 14182 then if s3 < 14181. then break elseif s3 == 14181. then s3 = 3. else s3 = 11449; continue end elseif s3 < 14183 then if s3 == 14182 then s3 = if qs == a1 then 0. else 2 else s3 = 14180; continue end elseif s3 < 14624 then if s3 == 14183 then qs = nil; s3 = 2 else break end else break end end end end); s5 = 3. else break end else break end end end end; qY = 204. end else qY = if true then 564. else 161 end elseif qY < 7692. then if qY < 7691 then if qY < 7690 then if qY < 7689. then local AY = AB; AY[250], AY[445], AY[906.], AY[767], AY[620], AY[397], AY[713], AY[622], AY[1100], AY[426.], AY[865], AY[441.], AY[612.] = AY[441.], AY[713], AY[620], AY[612.], AY[397], AY[767], AY[445], AY[1100], AY[250], AY[865], AY[426.], AY[622], AY[906.]; AY[970], AY[349], AY[558.], AY[633.], AY[118], AY[128], AY[13], AY[856] = AY[13], AY[118], AY[128], AY[633.], AY[558.], AY[856], AY[970], AY[349]; AY[441.], AY[856], AY[1106], AY[94], AY[42.], AY[346], AY[224] = AY[94], AY[42.], AY[1106], AY[441.], AY[346], AY[224], AY[856]; AY[1007], AY[899] = AY[1007], AY[899]; AY[746], AY[482], AY[409], AY[432.], AY[133], AY[232], AY[1029.], AY[631] = AY[1029.], AY[133], AY[631], AY[432.], AY[409], AY[232], AY[482], AY[746]; AY[386], AY[576.], AY[672.], AY[307], AY[267.], AY[274], AY[807.], AY[544], AY[813.], AY[656], AY[1040], AY[121] = AY[813.], AY[267.], AY[656], AY[274], AY[307], AY[386], AY[544], AY[121], AY[672.], AY[807.], AY[576.], AY[1040]; qY = if not AY[530]:IsLoaded() then 152 else 604 else p3 = AB[985]; qY = 302 end elseif qY == 7690 then qY = if AE[3.] <= AB[318.] then 643 else 649 else qY = 7237; continue end elseif qY == 7691 then AE[17] = nil; local AY = AB; AE[17] = AY[1009] - AY[927.]; AE[17] = AY[927.] - AY[587]; AE[17] = AY[22] + AY[965]; AE[17] = AY[587] - AY[318.]; AE[17] = AY[22] + AY[965]; qY = 739 else qY = 7444; continue end elseif qY < 7693 then qY = 344 elseif qY == 7693 then qH = { AB[307], AB[858.], AB[567.], AB[205], AB[295], AB[790], AB[892] }; qY = 678. else qY = 7721; continue end elseif qY < 7700 then if qY < 7697 then if qY < 7696 then if qY < 7695. then if qY == 7694 then qY = 93. else qY = 7530.; continue end elseif qY == 7695. then local AY = AB; AE[6.]:AddInput(AY[1063], { [AY[1087]] = AY[67], [AY[774.]] = AY[243.], [AY[537.]] = true, [AY[496]] = AY[489.] }); AE[6.]:AddInput(AY[556], { [AY[386]] = true, [AY[774.]] = AY[717.], [AY[1087]] = AY[67], [AY[496]] = AY[1012], [AY[537.]] = true }); AE[6.]:AddToggle(AY[434], { [AY[774.]] = AY[574], [AY[1087]] = false }); AE[6.]:AddToggle(AY[11], { [AY[774.]] = AY[1052], [AY[1087]] = false }); AE[6.]:AddToggle(AY[377], { [AY[774.]] = AY[603.], [AY[1087]] = false }); AE[42.] = http_request; qY = 365 else qY = 7364; continue end else qY = 292 end elseif qY < 7699 then if qY < 7698. then if qY == 7697 then qY = 79 else qY = 7480; continue end elseif qY == 7698. then AE[42.] = (AE[42.] + AB[927.]) % AB[232]; qY = 353 else qY = 7823; continue end else qY = 227 end elseif qY < 7703 then if qY < 7702 then if qY < 7701. then if qY == 7700 then qY = if (qv and qc and (qc or AE[37]) or (AE[37] or qc) and (AE[37] or AE[37])) and not (qv and qc and (qc or AE[37]) or (AE[37] or qc) and (AE[37] or AE[37])) then 60. else 158 else qY = 7685; continue end elseif qY == 7701. then AE[60.] = nil; local AY = AB; AE[60.] = AY[1073] - AY[587]; AE[60.] = AY[22] + AY[587]; AE[60.] = AY[1009] - AY[318.]; AE[60.] = AY[965] + AY[318.]; AE[60.] = AY[262] - AY[1009]; AE[60.] = AY[965] + AY[965]; qY = 420. else qY = 7783; continue end elseif qY == 7702 then qY = 352 else qY = 7450; continue end elseif qY < 7704. then qY = 212 elseif qY == 7704. then qY = if AE[34] <= AB[318.] then 163 else 635 else qY = 7787; continue end elseif qY < 7728. then if qY < 7717 then if qY < 7711 then if qY < 7708 then if qY < 7707. then if qY < 7706 then qY = 611 elseif qY == 7706 then local AY = AB; AE[34] = { AY[1031], AY[9.], AY[334], AY[1024], AY[47], AY[876.], AY[798.], AY[920], AY[935], AY[426.], AY[171.], AY[572], AY[895], AY[836], AY[368], AY[1077.] }; qY = if AE[34][(AE[42.] * AY[94] + AY[178]) % AY[958] + AY[965]] < AE[34][(AE[42.] * AY[94] + AY[178]) % AY[958] + AY[965]] then 366. else 296 else qY = 7713.; continue end elseif qY == 7707. then local AY = AB; AE[37] = (vector.create((AE[34] * AY[927.] + AY[262]) % AY[431] + AY[965], (AE[34] * AY[968] + AY[262]) % AY[290] + AY[965], (AE[34] * AY[968] + AY[290]) % AY[1001] + AY[965])); AE[24.] = (vector.create((AE[34] * AY[1073] + AY[1009]) % AY[431] + AY[965], (AE[34] * AY[968] + AY[927.]) % AY[290] + AY[965], (AE[34] * AY[318.] + AY[534.]) % AY[1001] + AY[965])); local Bv = vector.cross(AE[37], AE[24.]); local Bw = vector.dot(AE[37], AE[24.]); qY = if vector.dot(Bv, Bv) + Bw * Bw == vector.dot(AE[37], AE[37]) * vector.dot(AE[24.], AE[24.]) + AY[318.] then 731 else 9. else qY = 7523; continue end elseif qY < 7710. then if qY < 7709 then qY = 652 else local AY = AB; AE[60.] = { AY[879.], AY[982], AY[427], AY[325], AY[569], AY[584], AY[459.], AY[811] }; local Bx = AE[42.]; AE[48.] = AE[60.][Bx % AY[232] + AY[965]]; qY = if AE[48.]:len() >= AE[48.]:reverse():rep(Bx % AY[587] + AY[318.]):len() then 628 else 631 end elseif qY == 7710. then qY = 307 else qY = 7430; continue end elseif qY < 7714 then if qY < 7713. then if qY < 7712 then qY = 629 elseif qY == 7712 then AE[60.] = nil; local AY = AB; AE[60.] = AY[318.] - AY[965]; AE[60.] = AY[22] + AY[965]; AE[60.] = AY[1009] - AY[927.]; AE[60.] = AY[587] - AY[318.]; AE[60.] = AY[22] + AY[965]; qY = 688 else qY = 1950.; continue end elseif qY == 7713. then qY = 56 else qY = 7747; continue end elseif qY < 7716. then if qY < 7715 then if qY == 7714 then pR = AB[133]; qY = 85 else qY = 7584.; continue end else qY = 467 end else local AY = AB; AE[24.] = { AY[644], AY[915.], AY[474.], AY[341], AY[486.], AY[756.], AY[355], AY[51.], AY[548], AY[949], AY[166] }; qY = if AE[24.][(AE[42.] * AY[326] + AY[666.]) % AY[431] + AY[965]] < AE[24.][(AE[42.] * AY[326] + AY[666.]) % AY[431] + AY[965]] then 485 else 458 end elseif qY < 7723 then if qY < 7720 then if qY < 7719. then if qY < 7718 then qY = if AE[60.] <= AB[927.] then 331 else 31 elseif qY == 7718 then qY = if true then 48. else 332 else qY = 7457; continue end else qY = 622 end elseif qY < 7722. then if qY < 7721 then if qY == 7720 then AE[34] = AB[192.]; qY = 15. else qY = 7441; continue end elseif qY == 7721 then local AY = AB; pI[AY[41]] = AY[244]; pI[AY[673]] = AY[806][AY[1046]](AY[833], AY[833]); pI[AY[52]] = AY[806][AY[1046]](AY[1025], AY[1025]); pI[AY[235]] = AY[866][AY[1081]](AY[1025], AY[1025], AY[1025]); pI[AY[692]] = AY[22]; pI[AY[230]] = false; pI[AY[198.]] = AY[378.]; pI[AY[527]] = AY[866][AY[1081]](AY[682], AY[682], AY[682]); pI[AY[623]] = AY[157][AY[623]][AY[830]]; pI[AY[200]] = pZ; AE[17] = AY[825.][AY[576.]](AY[1019]); qY = 51. else qY = 7396; continue end else AE[42.] = (AE[42.] + AB[534.]) % AB[1025]; qY = 246. end elseif qY < 7726 then if qY < 7725. then if qY < 7724 then local AY = AB; AE[14]:AddToggle(AY[422], { [AY[774.]] = AY[647], [AY[1087]] = false, [AY[34]] = AE[58] }); pZ = AY[825.][AY[576.]](AY[216.]); qY = 356 elseif qY == 7724 then local AY = AB; r3 = if true then AY[965] else AY[22]; r1 = AY[438.] * r3 + AY[734] * (AY[965] - r3); qY = 295 else qY = 7723; continue end else local AY = AB; AE[3.] = qa[AY[44]](AY[347]); AE[21.] = qa[AY[44]](AY[457]); qY = 261. end elseif qY < 7727 then if qY == 7726 then qh = {}; qr = {}; ql = {}; qY = 102. else qY = 7352; continue end else qa = qn[AB[44]](AB[564.]); qY = 27. end elseif qY < 7741 then if qY < 7736 then if qY < 7732 then if qY < 7731. then if qY < 7729 then if qY == 7728. then qY = if (AE[34] * AB[318.] + AB[927.]) * AB[262] % AB[587] == ((AE[34] * AB[318.] + AB[927.]) * AB[262] + AB[1073]) % AB[587] then 415 else 285. else qY = 7395.; continue end elseif qY < 7730 then if qY == 7729 then AE[6.] = request; qY = 141. else qY = 7272.; continue end elseif qY == 7730 then qY = 98 else qY = 7686.; continue end elseif qY == 7731. then qY = 647 else qY = 7387; continue end elseif qY < 7734. then if qY < 7733 then if qY == 7732 then AE[42.] = (AE[42.] + AB[587]) % AB[958]; qY = 687. else qY = 7312; continue end else AE[34] = (AE[34] + AB[232]) % AB[534.]; qY = 427 end elseif qY < 7735 then AE[2] = false; local AY = AB; for b0 in AY[56](AE[45.][AY[519.]]) do rT = b0; AE[59] = rT; local q4 = nil; q4 = AY[965]; while true do if q4 < 1 then break elseif q4 < 2 then table.insert(pF, AE[59]); q4 = AY[22] else AE[2] = true; q4 = AY[22] end end; if AE[2] then break end end; pD, AE[3.], pz, qD, qi, pT, pu, pl, qq, pC, qm, AE[34], AE[42.] = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; AE[42.] = AY[523]; qY = 174. else qY = if true then 335 else 638 end elseif qY < 7739 then if qY < 7738 then if qY < 7737. then qY = 429. elseif qY == 7737. then AE[37] = (AE[37] + AB[290]) % AB[958]; qY = 453. else qY = 7187; continue end else qY = 716 end elseif qY < 7740. then if qY == 7739 then AE[34] = (AE[34] + AB[232]) % AB[534.]; qY = 532 else qY = 7538; continue end else AE[21.] = AB[530]:GetService(AB[538]); qY = 126. end elseif qY < 7747 then if qY < 7744 then if qY < 7743. then if qY < 7742 then local By = AB[542][AB[253]]; local AY = AB; AY[277](function() local x7, x9, ya, yb, yd = nil, nil, nil, nil, nil; local x8 = nil; x8 = 0.; while true do x8 = 588. - x8; do if x8 < 5490. then if x8 < 588. then break elseif x8 == 588. then ya = false; for h9, ia in AB[499](p8) do yb = h9; yd = ia; local yc = yb; local ye = yd; local x9 = nil; x9 = AB[1073]; while true do if x9 < 3. then if x9 < 1 then x9 = AB[1009] elseif x9 < 2 then x7 = qu[ye[AB[33.]]]; x9 = if x7 then AB[587] else AB[22] else x7:Connect(function() local xZ = nil; local x_ = nil; x_ = 5; while true do x_ = 15478 - x_; do if x_ < 15167 then break elseif x_ < 15475 then if x_ < 15472 then break elseif x_ < 15473 then if x_ == 15472 then qh[ye[AB[405.]]] = {}; x_ = 0. else x_ = 14241.; continue end elseif x_ < 15474. then x_ = if not ye[AB[978.]] then 6. else 0. elseif x_ == 15474. then xZ = pq[AB[405.]] == ye[AB[405.]]; x_ = 2 else x_ = 11254; continue end elseif x_ < 15477. then if x_ < 15476 then if x_ == 15475 then pq = nil; x_ = 1 else x_ = 15478; continue end elseif x_ == 15476 then x_ = if xZ then 3. else 1 else x_ = 14358.; continue end elseif x_ < 15478 then if x_ == 15477. then x_ = 7 else x_ = 894.; continue end elseif x_ < 15972. then if x_ == 15478 then xZ = pq; x_ = if xZ then 4 else 2 else break end else break end end end end); x9 = AB[965] end elseif x9 < 5 then if x9 < 4 then x7:Connect(function(io) local x0, x1, x2, x4, x5, x6 = nil, nil, nil, nil, nil, nil; local x3 = nil; x3 = 5; while true do x3 = 13545. - x3; do if x3 < 13532 then if x3 < 11455 then break elseif x3 < 13528 then break elseif x3 < 13530. then if x3 < 13529 then if x3 == 13528 then x0 = tonumber(io[ye[AB[762.]]]); x1 = qI[ye[AB[405.]] .. AB[330.] .. pq[AB[585.]]]; x2 = x0; x6 = if x2 then AB[965] else AB[22]; x4 = AB[263] * x6 + AB[452] * (AB[965] - x6); x5 = AB[508] * x6 + AB[247] * (AB[965] - x6); x3 = if (x4 * AB[308] + x5 * AB[930.] + x4 * x5) % AB[261.] == AB[1070] then 6. else 15. else x3 = 11399; continue end elseif x3 == 13529 then x0 = pq[AB[405.]] == ye[AB[405.]]; x3 = 10 else x3 = 13531; continue end elseif x3 < 13531 then if x3 == 13530. then x6 = if not x2 then AB[965] else AB[22]; x4 = AB[327.] * x6 + AB[694] * (AB[965] - x6); x5 = AB[506] * x6 + AB[102.] * (AB[965] - x6); x3 = if (x4 * AB[222.] + x5 * AB[21.] + x4 * x5) % AB[261.] == AB[885.] then 3. else 4 else x3 = 13528; continue end elseif x3 == 13531 then x0 = pq; x3 = if x0 then 16 else 10 else x3 = 13532; continue end elseif x3 < 13540 then if x3 < 13536. then if x3 < 13534 then if x3 < 13533. then if x3 == 13532 then pq[AB[524]] = os[AB[366.]](); x6 = if not qF[ye[AB[405.]] .. AB[151]][AB[1082]] then AB[965] else AB[22]; x4 = AB[735.] * x6 + AB[580] * (AB[965] - x6); x5 = AB[316] * x6 + AB[613] * (AB[965] - x6); x3 = if (x4 * AB[76] + x5 * AB[317] + x4 * x5) % AB[261.] == AB[820] then 12. else 17 else x3 = 13541; continue end elseif x3 == 13533. then return else x3 = 14039; continue end elseif x3 < 13535 then qu[ye[AB[330.]]]:Fire(); qh[ye[AB[405.]]][pq[AB[585.]]] = true; pq = nil; x3 = 7 else x3 = if not x0 then 0. else 13 end elseif x3 < 13538 then if x3 < 13537 then if x3 == 13536. then x3 = if x2 then 11 else 7 else x3 = 15504.; continue end elseif x3 == 13537 then x2 = qu[ye[AB[330.]]]; x3 = 9. else x3 = 801.; continue end elseif x3 < 13539. then x3 = 2 else x2 = x1; x3 = 15. end elseif x3 < 13544 then if x3 < 13542. then if x3 < 13541 then if x3 == 13540 then x3 = if type(io) ~= AB[447.] then 1 else 14 else x3 = 3364; continue end else x2 = x0 >= x1[AB[1082]]; x3 = if x2 then 8 else 9. end elseif x3 < 13543 then return else break end elseif x3 < 14039 then if x3 < 13545. then if x3 == 13544 then return else x3 = 15504.; continue end elseif x3 == 13545. then return else x3 = 13534; continue end else break end end end end); x9 = AB[22] else ya = true; x9 = AB[1009] end elseif x9 < 6. then break else x7 = pG(ye[AB[407]]); x9 = if x7 then AB[318.] else AB[965] end end; if ya then break end end; x8 = 1 else x8 = 12910; continue end else break end end end end); By = AY[542][AY[253]]; AY[277](AY[829]); By = AY[542][AY[253]]; AY[277](function() local yD; yD = nil; local yE, yF, yG, yH = nil, nil, nil, nil; local yI = nil; yI = 5; while true do yI = 2469. - yI; do if yI < 5020 then if yI < 2466. then if yI < 2464 then break elseif yI < 2465 then yD = AB[530]:GetService(AB[454]); yE, yF = AB[549.](function() return yD:WaitForChild(AB[857]):WaitForChild(AB[517]) end); yG = not yF; yH = not yE; yI = if yH then 0. else 3. else break end elseif yI < 2468 then if yI < 2467 then if yI == 2466. then yH = yG; yI = 0. else yI = 2465; continue end else yF[AB[983]]:Connect(function(i7) local yz, yA, yB = nil, nil, nil; local yC = nil; yC = 1; while true do yC = 2761 - yC; do if yC < 2757. then if yC < 2751. then if yC < 2748. then break elseif yC < 2749 then if yC == 2748. then yB = yA:IsA(AB[621.]); yC = 3. else yC = 2760.; continue end elseif yC < 2750 then if yC == 2749 then return else yC = 2755; continue end else yz = yA[AB[774.]]; yC = 9. end elseif yC < 2754. then if yC < 2752 then if yC == 2751. then yB = yA[AB[774.]] ~= AB[67]; yC = 7 else yC = 14675; continue end elseif yC < 2753 then if yC == 2752 then pN({ AB[747.], AB[856] .. yz }); yC = 8 else yC = 645.; continue end else break end elseif yC < 2755 then yC = if yB then 11 else 9. elseif yC < 2756 then if yC == 2755 then return else yC = 2758; continue end else yC = if not i7[AB[41]]:find(AB[411.]) then 12. else 2 end elseif yC < 4174 then if yC < 2760. then if yC < 2758 then if yC == 2757. then yC = if not qF[AB[434]][AB[1082]] then 6. else 5 else yC = 5062; continue end elseif yC < 2759 then if yC == 2758 then yC = if yB then 10 else 7 else yC = 2759; continue end else local Bz = AB; yz = Bz[851]; yA = i7:FindFirstChild(Bz[78.], true); yB = yA; yC = if yB then 13 else 3. end elseif yC < 2761 then yC = if ps[AB[360.]] then 0. else 4 elseif yC < 3788 then if yC == 2761 then return else yC = 2757.; continue end else break end else break end end end end); yI = 4 end elseif yI < 2469. then return elseif yI == 2469. then yI = if yH then 1 else 2 else yI = 2466.; continue end else break end end end end); By = AY[542][AY[253]]; AY[277](AY[899]); By = AY[542][AY[253]]; AY[277](AY[6.]); By = AY[542][AY[253]]; AY[277](AY[724]); qe = AY[324.]; p0 = AY[248]; qY = 504. else qY = 560 end else local AY = AB; AE[34] = (vector.create((AE[42.] * AY[587] + AY[964]) % AY[431] + AY[965], (AE[42.] * AY[587] + AY[318.]) % AY[290] + AY[965], (AE[42.] * AY[1009] + AY[534.]) % AY[1001] + AY[965])); AE[48.] = (vector.create((AE[42.] * AY[927.] + AY[318.]) % AY[431] + AY[965], (AE[42.] * AY[965] + AY[318.]) % AY[290] + AY[965], (AE[42.] * AY[290] + AY[958]) % AY[1001] + AY[965])); AE[40] = (vector.create((AE[42.] * AY[965] + AY[318.]) % AY[1009] + AY[965], (AE[42.] * AY[965] + AY[262]) % AY[262] + AY[965], (AE[42.] * AY[927.] + AY[587]) % AY[964] + AY[965])); qY = if math.abs((vector.angle(AE[34], AE[48.], AE[40]))) - math.abs((vector.angle(AE[48.], AE[34], AE[40]))) == AY[22] then 607 else 729. end elseif qY < 7746. then if qY < 7745 then ps = AB[1096]; qY = 477. else qY = 330. end else AE[42.] = (AE[42.] + AB[290]) % AB[958]; qY = 634 end elseif qY < 7750 then if qY < 7749. then if qY < 7748 then if qY == 7747 then qY = 174. else qY = 7481; continue end elseif qY == 7748 then local AY = AB; AE[48.] = { AY[671], AY[224], AY[71], AY[942.], AY[1003], AY[299], AY[1105], AY[384.], AY[374], AY[972.] }; qY = if AE[48.][(AE[17] * AY[635] + AY[292]) % AY[968] + AY[965]] <= AE[48.][(AE[17] * AY[635] + AY[292]) % AY[968] + AY[965]] then 385 else 229 else qY = 7622; continue end elseif qY == 7749. then qY = 696. else qY = 7328; continue end elseif qY < 7751 then if qY == 7750 then qY = 526 else qY = 7640; continue end else qY = 267. end elseif qY < 7847 then if qY < 7801 then if qY < 7776. then if qY < 7764. then if qY < 7758. then if qY < 7755. then if qY < 7754 then if qY < 7753 then qY = if AE[6.] <= AB[318.] then 190 else 53 elseif qY == 7753 then qY = 32 else qY = 7503.; continue end else local AY = AB; AE[48.] = { AY[960.], AY[311], AY[676], AY[199], AY[649], AY[233], AY[689], AY[85] }; local BA = AE[42.]; AE[40] = AE[48.][BA % AY[232] + AY[965]]; qY = if AE[40]:len() >= AE[40]:gsub(AY[575], AY[648.], BA % AY[587] % AY[318.] + AY[965]):len() then 271 else 308 end elseif qY < 7757 then if qY < 7756 then if qY == 7755. then AE[34] = (AE[34] + AB[1009]) % AB[870.]; qY = 499 else qY = 7657; continue end elseif qY == 7756 then AE[21.] = AE[3.]; AE[6.] = function(fY) local wH, wI, wJ, wK, wL, wM, wN, wP, wQ, wR = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local wO = nil; wO = 14; while true do wO = 14348 - wO; do if wO < 14336 then if wO < 14330 then if wO < 12953 then break elseif wO < 13540 then break elseif wO < 14329 then break elseif wO == 14329 then wO = if (wP * AB[553] + wQ * AB[940] + wP * wQ) % AB[261.] == AB[154] then 13 else 8 else wO = 12953; continue end elseif wO < 14333 then if wO < 14331. then wN = type(wM) == AB[447.]; wO = 9. elseif wO < 14332 then if wO == 14331. then wL = wK; wO = 12. else wO = 14340.; continue end elseif wO == 14332 then wK = wH == AB[67]; wL = wJ; wO = if wL then 12. else 17 else wO = 7981; continue end elseif wO < 14334. then wN = wM[AB[1079]]; wO = 2 elseif wO < 14335 then wH = qI[AB[1063]][AB[1082]]; wJ = not pP; wO = if wJ then 16 else 4 elseif wO == 14335 then wK = AB[148] .. wJ .. AB[83]; wO = 8 else wO = 14342; continue end elseif wO < 14342 then if wO < 14339 then if wO < 14337. then wO = if wL then 3. else 7 elseif wO < 14338 then break else wR = if wM then AB[965] else AB[22]; wP = AB[1089.] * wR + AB[469] * (AB[965] - wR); wO = 1 end elseif wO < 14340. then if wO == 14339 then wO = if wN then 15. else 2 else wO = 14331.; continue end elseif wO < 14341 then wJ = qt[AB[41]]; wL, wM = AB[549.](function() return qa[AB[397]][AB[815]][AB[662]]:InvokeServer() end); wN = wL; wO = if wN then 18. else 9. elseif wO == 14341 then wJ = qI[AB[556]][AB[1082]]; wK = AB[67]; wL = wJ ~= AB[67]; wM = type(wJ) == AB[680]; wO = if wM then 6. else 10 else wO = 14340.; continue end elseif wO < 14345 then if wO < 14343. then wM = wL; wO = 10 elseif wO < 14344 then wJ = AB[161] .. tostring(wM[AB[1079]]) .. AB[903.] .. wJ; wO = 0. elseif wO == 14344 then wJ = type(wH) ~= AB[680]; wO = 16 else wO = 14333; continue end elseif wO < 14347 then if wO < 14346. then return elseif wO == 14346. then wO = if wN then 5 else 0. else wO = 14332; continue end elseif wO < 14348 then wQ = AB[995] * wR + AB[373] * (AB[965] - wR); wO = 19 else local BB = AB[423.][AB[730]]; wI = qy:JSONEncode({ [AB[677]] = wK, [AB[173]] = { { [AB[629]] = AB[288.], [AB[259]] = AB[801.], [AB[432.]] = { { [AB[193]] = AB[41], [AB[683]] = wJ, [AB[172]] = false }, { [AB[193]] = AB[270.], [AB[683]] = table.concat(fY, AB[770]), [AB[172]] = false } }, [AB[304]] = { [AB[446]] = qd }, [AB[969.]] = AB[595]():ToIsoDate() } } }); BB = AB[542][AB[253]]; AB[277](function() AB[549.](pP, { [AB[975.]] = wH, [AB[823]] = AB[838], [AB[15.]] = { [AB[605]] = AB[363.] }, [AB[134]] = wI }) end); wO = 11 end end end end; local BC = AB[542][AB[253]]; local AY = AB; AY[277](AY[7]); BC = AY[542][AY[253]]; AY[277](AY[650]); pP = pN[AY[706]]:AddRightGroupbox(AY[932]); qY = 67 else qY = 7610; continue end elseif qY == 7757 then pq = nil; pn = {}; qY = 73 else qY = 7873; continue end elseif qY < 7761. then if qY < 7760 then if qY < 7759 then AE[42.] = (AE[34] * AB[965] + AB[318.]) % AB[587] + AB[965]; qY = 507. else AE[60.] = nil; local AY = AB; AE[60.] = AY[587] - AY[318.]; AE[60.] = AY[22] + AY[965]; AE[60.] = AY[927.] - AY[587]; AE[60.] = AY[22] + AY[965]; qY = 234. end else AE[48.] = nil; AE[48.] = AB[587] - AB[318.]; qY = 570. end elseif qY < 7763 then if qY < 7762 then if qY == 7761. then qY = 240. else qY = 7756; continue end else AE[48.] = nil; local AY = AB; AE[48.] = AY[587] - AY[318.]; AE[48.] = AY[22] + AY[965]; AE[48.] = AY[587] - AY[318.]; AE[48.] = AY[1009] - AY[587]; qY = 298 end elseif qY == 7763 then qY = 132. else qY = 7700; continue end elseif qY < 7771 then if qY < 7768 then if qY < 7766 then if qY < 7765 then local AY = AB; AE[48.] = (vector.create((AE[42.] * AY[587] + AY[262]) % AY[431] + AY[965], (AE[42.] * AY[262] + AY[965]) % AY[290] + AY[965], (AE[42.] * AY[587] + AY[318.]) % AY[1001] + AY[965])); AE[40] = (vector.create((AE[42.] * AY[1073] + AY[1073]) % AY[431] + AY[965], (AE[42.] * AY[318.] + AY[318.]) % AY[290] + AY[965], (AE[42.] * AY[749] + AY[431]) % AY[1001] + AY[965])); AE[26] = (vector.create((AE[42.] * AY[318.] + AY[232]) % AY[431] + AY[965], (AE[42.] * AY[587] + AY[927.]) % AY[290] + AY[965], (AE[42.] * AY[965] + AY[587]) % AY[1001] + AY[965])); qY = if vector.dot(vector.cross(AE[48.], AE[40]), AE[26]) == vector.dot(vector.cross(AE[40], AE[26]), AE[48.]) + AY[587] then 695 else 33. else pZ = AB[125]; qY = 537. end elseif qY < 7767. then AE[2] = false; local AY = AB; for dK, dL in AY[499](qx) do r4 = dK; r6 = dL; AE[1] = r4; AE[43] = r6; local q4 = nil; q4 = AY[318.]; while true do if q4 < 1 then break elseif q4 < 2 then AE[2] = true; q4 = AY[22] else table.insert(AE[6.], AE[43][AY[405.]]); q4 = AY[22] end end; if AE[2] then break end end; qB = pH(AE[6.]); AE[2] = false; for dN, dO in AY[499](qB) do r8 = dN; sa = dO; AE[22] = r8; AE[4] = sa; local q4 = nil; q4 = AY[318.]; while true do if q4 < 1 then break elseif q4 < 2 then AE[2] = true; q4 = AY[22] else AE[60.]:AddSlider(AY[276.] .. AE[4], { [AY[774.]] = AY[16] .. AE[4], [AY[1087]] = AY[587], [AY[700]] = AY[965], [AY[788]] = AY[117.], [AY[987.]] = AY[22], [AY[928]] = false }); q4 = AY[22] end end; if AE[2] then break end end; AE[58], AE[21.], AE[34], AE[42.], pk, qf, pR, AE[17] = nil, nil, nil, nil, nil, nil, nil, nil; AE[17] = AY[1073]; qY = 556 else qY = 583 end elseif qY < 7770. then if qY < 7769 then if qY == 7768 then local AY = AB; AE[58] = (vector.create((AE[42.] * AY[587] + AY[232]) % AY[431] + AY[965], (AE[42.] * AY[232] + AY[965]) % AY[290] + AY[965], (AE[42.] * AY[262] + AY[290]) % AY[1001] + AY[965])); AE[17] = (vector.create((AE[42.] * AY[1073] + AY[262]) % AY[431] + AY[965], (AE[42.] * AY[431] + AY[968]) % AY[290] + AY[965], (AE[42.] * AY[431] + AY[749]) % AY[1001] + AY[965])); AE[6.] = (vector.create((AE[42.] * AY[927.] + AY[964]) % AY[431] + AY[965], (AE[42.] * AY[968] + AY[318.]) % AY[290] + AY[965], (AE[42.] * AY[587] + AY[958]) % AY[1001] + AY[965])); AE[60.] = (vector.create((AE[42.] * AY[262] + AY[587]) % AY[431] + AY[965], (AE[42.] * AY[587] + AY[964]) % AY[290] + AY[965], (AE[42.] * AY[318.] + AY[1073]) % AY[1001] + AY[965])); qY = if vector.dot(vector.cross(AE[58], AE[17]), (vector.cross(AE[6.], AE[60.]))) == vector.dot(AE[58], AE[6.]) * vector.dot(AE[17], AE[60.]) - vector.dot(AE[58], AE[60.]) * vector.dot(AE[17], AE[6.]) + AY[965] then 551 else 282. else qY = 7497.; continue end elseif qY == 7769 then qY = if true then 413 else 543. else qY = 7918; continue end elseif qY == 7770. then AE[14] = require(qa[AB[1049]]); qY = 134 else qY = 7835; continue end elseif qY < 7774 then if qY < 7773. then if qY < 7772 then if qY == 7771 then qY = if (AE[42.] * AB[750.] + AB[1009]) % AB[998] == AB[964] then 550 else 341 else qY = 7827.; continue end else local AY = AB; AE[21.] = (vector.create((AE[34] * AY[1073] + AY[964]) % AY[431] + AY[965], (AE[34] * AY[965] + AY[318.]) % AY[290] + AY[965], (AE[34] * AY[232] + AY[290]) % AY[1001] + AY[965])); AE[60.] = (vector.create((AE[34] * AY[927.] + AY[318.]) % AY[431] + AY[965], (AE[34] * AY[318.] + AY[587]) % AY[290] + AY[965], (AE[34] * AY[318.] + AY[232]) % AY[1001] + AY[965])); local BD = vector.cross(AE[21.], AE[60.]); local BE = vector.dot(AE[21.], AE[60.]); qY = if vector.dot(BD, BD) + BE * BE == vector.dot(AE[21.], AE[21.]) * vector.dot(AE[60.], AE[60.]) + AY[965] then 667 else 3. end else ps = pD:CreateWindow({ [AB[206]] = AB[1010], [AB[387.]] = true, [AB[1090]] = AB[491], [AB[884]] = false, [AB[143]] = false, [AB[544]] = AB[286], [AB[725]] = AB[409], [AB[673]] = AB[806][AB[1046]](AB[408.], AB[844]) }); qY = 71 end elseif qY < 7775 then if qY == 7774 then qY = if true then 383 else 505 else qY = 7282; continue end else qY = 43 end elseif qY < 7789 then if qY < 7782. then if qY < 7779. then if qY < 7778 then if qY < 7777 then qY = 703 else qY = if AE[37] <= AB[232] then 277 else 565 end else AE[42.] = (AE[42.] + AB[586]) % AB[998]; qY = 613 end elseif qY < 7781 then if qY < 7780 then if qY == 7779. then qY = 495. else qY = 7318; continue end else qY = 338 end else local BF = (AE[34] * AB[965] + AB[22]) % AB[965] + AB[965]; qY = 741. end elseif qY < 7786 then if qY < 7785. then if qY < 7784 then if qY < 7783 then if qY == 7782. then AE[2] = false; local AY = AB; for hH, hI in AY[499](po) do ss = hH; su = hI; AE[12.] = ss; AE[57.] = su; local q4 = nil; q4 = AY[318.]; while true do if q4 < 1 then AE[2] = true; q4 = AY[965] elseif q4 < 2 then break else AE[6.]:AddSlider(AY[131] .. AE[57.][AY[405.]], { [AY[774.]] = AE[57.][AY[774.]], [AY[1087]] = AE[12.], [AY[700]] = AY[965], [AY[788]] = #po, [AY[987.]] = AY[22] }); q4 = AY[965] end end; if AE[2] then break end end; qz, pM, pm, qe, p0, AE[42.] = nil, nil, nil, nil, nil, nil; AE[42.] = AY[523]; qY = 35 else qY = 7779.; continue end elseif qY == 7783 then qY = if AE[34] <= AB[318.] then 361 else 91 else qY = 7833.; continue end elseif qY == 7784 then AE[42.] = (AE[42.] + AB[888.]) % AB[335]; qY = 592 else qY = 7747; continue end else p8 = { { [AB[405.]] = AB[240.], [AB[455]] = AB[282.], [AB[733]] = AB[101], [AB[758]] = AB[86], [AB[468.]] = AB[466], [AB[762.]] = AB[1020.], [AB[1071.]] = AB[103], [AB[330.]] = AB[43], [AB[33.]] = AB[319], [AB[407]] = AB[1059.], [AB[96.]] = AB[118], [AB[500]] = AB[80], [AB[84.]] = AB[712], [AB[631]] = AB[164], [AB[228.]] = AB[541] }, { [AB[405.]] = AB[287], [AB[455]] = AB[12.], [AB[733]] = AB[697], [AB[758]] = AB[636.], [AB[468.]] = AB[926], [AB[762.]] = AB[795.], [AB[1071.]] = AB[185], [AB[330.]] = AB[250], [AB[33.]] = AB[100], [AB[407]] = AB[938], [AB[978.]] = AB[778], [AB[910]] = AB[296], [AB[1069]] = AB[614], [AB[840.]] = AB[55], [AB[96.]] = AB[116], [AB[500]] = AB[416], [AB[84.]] = AB[503], [AB[631]] = AB[607], [AB[228.]] = AB[710] }, { [AB[405.]] = AB[464], [AB[455]] = AB[914], [AB[733]] = AB[1036], [AB[758]] = AB[403], [AB[468.]] = AB[926], [AB[762.]] = AB[795.], [AB[1071.]] = AB[29], [AB[330.]] = AB[351.], [AB[33.]] = AB[1097], [AB[407]] = AB[630.], [AB[978.]] = AB[707], [AB[910]] = AB[518], [AB[1069]] = AB[1026.], [AB[840.]] = AB[568], [AB[96.]] = AB[835], [AB[500]] = AB[800], [AB[84.]] = AB[168.], [AB[631]] = AB[471.], [AB[228.]] = AB[174.] }, { [AB[405.]] = AB[348.], [AB[455]] = AB[169], [AB[733]] = AB[877], [AB[758]] = AB[767], [AB[468.]] = AB[466], [AB[762.]] = AB[1020.], [AB[1071.]] = AB[772], [AB[330.]] = AB[787], [AB[33.]] = AB[212], [AB[407]] = AB[754], [AB[96.]] = AB[850], [AB[500]] = AB[695], [AB[84.]] = AB[449], [AB[631]] = AB[757], [AB[228.]] = AB[746] } }; qY = 50 end elseif qY < 7788. then if qY < 7787 then qY = 11 else qY = 355 end else qY = if AE[37] <= AB[318.] then 711. else 313 end elseif qY < 7796 then if qY < 7793 then if qY < 7791. then if qY < 7790 then qY = 281 elseif qY == 7790 then AE[3.] = (AE[34] * AB[965] + AB[22]) % AB[587] + AB[965]; qY = 589 else qY = 7691; continue end elseif qY < 7792 then if qY == 7791. then AB[530][AB[343]]:Wait(); qY = 604 else qY = 7823; continue end else qY = 528. end elseif qY < 7795 then if qY < 7794. then qY = if AE[42.] <= AB[318.] then 479 else 111. else qY = 624. end else qY = if true then 327. else 29 end elseif qY < 7799 then if qY < 7798 then if qY < 7797. then if qY == 7796 then qY = if AE[34] <= AB[965] then 601 else 81. else qY = 7308.; continue end elseif qY == 7797. then qY = 177. else qY = 7417; continue end else AE[42.] = (AE[42.] + AB[318.]) % AB[1025]; qY = 180. end elseif qY < 7800. then qY = 556 elseif qY == 7800. then pD = AB[911]; qY = 715 else qY = 7711; continue end elseif qY < 7825 then if qY < 7814 then if qY < 7808 then if qY < 7805 then if qY < 7804 then if qY < 7802 then qY = 645. elseif qY < 7803. then if qY == 7802 then qY = if AE[6.] then 491 else 339. else qY = 7318; continue end else pP = AE[6.]; pN = function(fY) local wH, wI, wJ, wK, wL, wM, wN, wP, wQ, wR = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; local wO = nil; wO = 14; while true do wO = 14348 - wO; do if wO < 14336 then if wO < 14330 then if wO < 12953 then break elseif wO < 13540 then break elseif wO < 14329 then break elseif wO == 14329 then wO = if (wP * AB[553] + wQ * AB[940] + wP * wQ) % AB[261.] == AB[154] then 13 else 8 else wO = 12953; continue end elseif wO < 14333 then if wO < 14331. then wN = type(wM) == AB[447.]; wO = 9. elseif wO < 14332 then if wO == 14331. then wL = wK; wO = 12. else wO = 14340.; continue end elseif wO == 14332 then wK = wH == AB[67]; wL = wJ; wO = if wL then 12. else 17 else wO = 7981; continue end elseif wO < 14334. then wN = wM[AB[1079]]; wO = 2 elseif wO < 14335 then wH = qI[AB[1063]][AB[1082]]; wJ = not pP; wO = if wJ then 16 else 4 elseif wO == 14335 then wK = AB[148] .. wJ .. AB[83]; wO = 8 else wO = 14342; continue end elseif wO < 14342 then if wO < 14339 then if wO < 14337. then wO = if wL then 3. else 7 elseif wO < 14338 then break else wR = if wM then AB[965] else AB[22]; wP = AB[1089.] * wR + AB[469] * (AB[965] - wR); wO = 1 end elseif wO < 14340. then if wO == 14339 then wO = if wN then 15. else 2 else wO = 14331.; continue end elseif wO < 14341 then wJ = qt[AB[41]]; wL, wM = AB[549.](function() return qa[AB[397]][AB[815]][AB[662]]:InvokeServer() end); wN = wL; wO = if wN then 18. else 9. elseif wO == 14341 then wJ = qI[AB[556]][AB[1082]]; wK = AB[67]; wL = wJ ~= AB[67]; wM = type(wJ) == AB[680]; wO = if wM then 6. else 10 else wO = 14340.; continue end elseif wO < 14345 then if wO < 14343. then wM = wL; wO = 10 elseif wO < 14344 then wJ = AB[161] .. tostring(wM[AB[1079]]) .. AB[903.] .. wJ; wO = 0. elseif wO == 14344 then wJ = type(wH) ~= AB[680]; wO = 16 else wO = 14333; continue end elseif wO < 14347 then if wO < 14346. then return elseif wO == 14346. then wO = if wN then 5 else 0. else wO = 14332; continue end elseif wO < 14348 then wQ = AB[995] * wR + AB[373] * (AB[965] - wR); wO = 19 else local BG = AB[423.][AB[730]]; wI = qy:JSONEncode({ [AB[677]] = wK, [AB[173]] = { { [AB[629]] = AB[288.], [AB[259]] = AB[801.], [AB[432.]] = { { [AB[193]] = AB[41], [AB[683]] = wJ, [AB[172]] = false }, { [AB[193]] = AB[270.], [AB[683]] = table.concat(fY, AB[770]), [AB[172]] = false } }, [AB[304]] = { [AB[446]] = qd }, [AB[969.]] = AB[595]():ToIsoDate() } } }); BG = AB[542][AB[253]]; AB[277](function() AB[549.](pP, { [AB[975.]] = wH, [AB[823]] = AB[838], [AB[15.]] = { [AB[605]] = AB[363.] }, [AB[134]] = wI }) end); wO = 11 end end end end; local BH = AB[542][AB[253]]; local AY = AB; AY[277](AY[7]); BH = AY[542][AY[253]]; AY[277](AY[650]); AE[21.] = AE[3.][AY[706]]:AddRightGroupbox(AY[932]); qY = 67 end else qY = if (AE[42.] * AB[318.] + AB[587]) * AB[262] % AB[587] == ((AE[42.] * AB[318.] + AB[587]) * AB[262] + (AB[587] + AB[965])) % AB[587] then 679 else 54. end elseif qY < 7807 then if qY < 7806. then table.sort(qp); local AY = AB; pX = AY[246.]; qc, AE[21.] = pX(qv[AY[220]]); qg, AE[42.] = pX(qj[AY[87.]]); AE[3.] = {}; qY = 206 elseif qY == 7806. then qE = {}; qY = 760 else qY = 7904; continue end else qY = 616 end elseif qY < 7811 then if qY < 7810 then if qY < 7809. then if qY == 7808 then qY = 603. else qY = 7559; continue end else AE[42.] = (AE[42.] + AB[750.]) % AB[335]; qY = 764 end else AE[42.] = (AE[42.] + AB[318.]) % AB[335]; qY = 336. end elseif qY < 7813 then if qY < 7812. then if qY == 7811 then qY = 462. else qY = 7846; continue end else local AY = AB; r0 = if AE[34] <= AY[927.] then AY[965] else AY[22]; rZ = AY[959] * r0 + AY[990.] * (AY[965] - r0); qY = 584 end elseif qY == 7813 then qY = 21. else qY = 7764.; continue end elseif qY < 7820 then if qY < 7817 then if qY < 7816 then if qY < 7815. then if qY == 7814 then qY = if (AE[42.] * AB[587] + AB[587]) % AB[927.] == AB[965] then 617 else 681. else qY = 7354; continue end elseif qY == 7815. then qY = 429. else qY = 7205; continue end else qY = 195. end elseif qY < 7819 then if qY < 7818. then AE[34] = (AE[34] + AB[965]) % AB[870.]; qY = 235 else qY = 43 end else AE[37] = nil; local AY = AB; AE[37] = AY[318.] - AY[965]; AE[37] = AY[22] + AY[965]; AE[37] = AY[587] - AY[318.]; AE[37] = AY[22] + AY[965]; qY = 236 end elseif qY < 7823 then if qY < 7822 then if qY < 7821. then if qY == 7820 then qY = if (AE[34] * AB[737] + AB[964]) % AB[870.] == AB[178] then 201. else 377 else qY = 7192; continue end elseif qY == 7821. then qY = 460 else qY = 7874; continue end else AE[45.] = (AE[42.] * AB[587] + AB[318.]) % AB[1009] + AB[965]; qY = 275 end elseif qY < 7824. then if qY == 7823 then AE[34] = (AE[34] + AB[232]) % AB[534.]; qY = 6. else qY = 7392.; continue end elseif qY == 7824. then qY = if AE[42.] <= AB[965] then 754 else 586 else qY = 7717; continue end elseif qY < 7836. then if qY < 7831 then if qY < 7828 then if qY < 7827. then if qY < 7826 then local AY = AB; AE[45.] = AE[58][AY[957.]]:AddRightGroupbox(AY[1027]); AE[45.]:AddToggle(AY[241], { [AY[1087]] = false, [AY[774.]] = AY[410], [AY[34]] = AY[971] }); AE[45.]:AddToggle(AY[209], { [AY[34]] = AY[640], [AY[1087]] = false, [AY[774.]] = AY[412] }); AE[45.]:AddToggle(AY[297.], { [AY[774.]] = AY[111.], [AY[1087]] = false }); AE[45.]:AddToggle(AY[160], { [AY[1087]] = false, [AY[34]] = AY[839], [AY[774.]] = AY[74] }); AE[45.]:AddToggle(AY[120.], { [AY[774.]] = AY[48.], [AY[1087]] = false }); AE[42.] = AE[58][AY[706]]:AddLeftGroupbox(AY[931]); AE[42.]:AddDropdown(AY[121], { [AY[495.]] = true, [AY[1087]] = { AE[21.][AY[965]] }, [AY[309.]] = true, [AY[197]] = AE[21.], [AY[774.]] = AY[701], [AY[236]] = true }); AE[42.]:AddToggle(AY[1015], { [AY[774.]] = AY[358], [AY[1087]] = false }); AE[3.] = AE[58][AY[706]]:AddLeftGroupbox(AY[519.]); AE[3.]:AddToggle(AY[256], { [AY[774.]] = AY[445], [AY[1087]] = false }); AE[3.]:AddToggle(AY[465.], { [AY[774.]] = AY[681.], [AY[1087]] = false }); AE[3.]:AddDropdown(AY[269], { [AY[774.]] = AY[180.], [AY[236]] = true, [AY[197]] = pk, [AY[1087]] = { pF[AY[531.]] }, [AY[309.]] = true, [AY[495.]] = true }); AE[3.]:AddToggle(AY[1099], { [AY[774.]] = AY[215], [AY[1087]] = false }); AE[34] = AE[58][AY[706]]:AddRightGroupbox(AY[794]); AE[34]:AddToggle(AY[170], { [AY[774.]] = AY[766], [AY[1087]] = false }); AE[34]:AddToggle(AY[298], { [AY[774.]] = AY[88], [AY[1087]] = false }); AE[34]:AddToggle(AY[280], { [AY[774.]] = AY[753.], [AY[34]] = AY[704], [AY[1087]] = false }); AE[34]:AddToggle(AY[561.], { [AY[774.]] = AY[149], [AY[1087]] = false }); p5 = AY[936.]; qY = 597. elseif qY == 7826 then AE[60.] = nil; local AY = AB; AE[60.] = AY[318.] - AY[965]; AE[60.] = AY[1009] - AY[927.]; qY = 431 else qY = 7565; continue end elseif qY == 7827. then qY = 309. else qY = 7242.; continue end elseif qY < 7830. then if qY < 7829 then if qY == 7828 then AE[58] = AB[187]; qY = 362 else qY = 7437.; continue end else qY = if (AE[34] * AB[262] + AB[965]) % AB[534.] == AB[318.] then 725 else 698 end else AE[34] = nil; AE[34] = AB[318.] - AB[965]; qY = 426. end elseif qY < 7834 then if qY < 7833. then if qY < 7832 then AE[34] = nil; local AY = AB; AE[34] = AY[318.] - AY[965]; AE[34] = AY[22] + AY[965]; AE[34] = AY[318.] - AY[965]; AE[34] = AY[318.] - AY[965]; qY = 100 else AE[42.] = nil; local AY = AB; AE[42.] = AY[1009] - AY[927.]; AE[42.] = AY[318.] - AY[965]; AE[42.] = AY[22] + AY[965]; qY = 664 end elseif qY == 7833. then table.sort(pF); local AY = AB; pz = AY[996.]; qD = AY[93.]; qi = AY[204.]; pT = AY[254]; pu = AY[1068.]; qY = 609. else qY = 7849; continue end elseif qY < 7835 then if qY == 7834 then AE[24.] = nil; local AY = AB; AE[24.] = AY[927.] - AY[318.]; AE[24.] = AY[927.] - AY[318.]; AE[24.] = AY[927.] - AY[318.]; AE[24.] = AY[965] + AY[965]; qY = 166 else qY = 7779.; continue end else local AY = AB; AE[42.]:AddInput(AY[1063], { [AY[774.]] = AY[243.], [AY[1087]] = AY[67], [AY[496]] = AY[489.], [AY[537.]] = true }); AE[42.]:AddInput(AY[556], { [AY[774.]] = AY[717.], [AY[1087]] = AY[67], [AY[496]] = AY[1012], [AY[386]] = true, [AY[537.]] = true }); AE[42.]:AddToggle(AY[434], { [AY[774.]] = AY[574], [AY[1087]] = false }); AE[42.]:AddToggle(AY[11], { [AY[774.]] = AY[1052], [AY[1087]] = false }); AE[42.]:AddToggle(AY[377], { [AY[774.]] = AY[603.], [AY[1087]] = false }); AE[6.] = http_request; qY = 365 end elseif qY < 7842. then if qY < 7839. then if qY < 7838 then if qY < 7837 then qY = 483. elseif qY == 7837 then qY = 445 else qY = 7222; continue end elseif qY == 7838 then qY = 2 else qY = 7438; continue end elseif qY < 7841 then if qY < 7840 then qY = 571 else pG = AE[34](AB[336.]); qY = 290 end else AE[42.] = (AE[42.] + AB[965]) % AB[927.]; qY = 129. end elseif qY < 7845. then if qY < 7844 then if qY < 7843 then if qY == 7842. then local BI = bit32.rrotate(bit32.bxor(bit32.lrotate(AE[34], AB[587]), string.byte(tostring(AE[21.]))), AB[232]); qY = if bit32.bxor(bit32.lrotate(bit32.bxor(BI, AB[740]), AB[780.]), AB[906.]) == bit32.lrotate(BI, AB[780.]) then 469 else 279. else qY = 7337; continue end elseif qY == 7843 then local AY = AB; AE[34] = (vector.create((AE[42.] * AY[587] + AY[1009]) % AY[431] + AY[965], (AE[42.] * AY[927.] + AY[1009]) % AY[290] + AY[965], (AE[42.] * AY[318.] + AY[1009]) % AY[1001] + AY[965])); AE[21.] = (vector.create((AE[42.] * AY[1073] + AY[965]) % AY[431] + AY[965], (AE[42.] * AY[927.] + AY[290]) % AY[290] + AY[965], (AE[42.] * AY[431] + AY[968]) % AY[1001] + AY[965])); AE[14] = (vector.create((AE[42.] * AY[1009] + AY[1009]) % AY[431] + AY[965], (AE[42.] * AY[927.] + AY[232]) % AY[290] + AY[965], (AE[42.] * AY[290] + AY[290]) % AY[1001] + AY[965])); qY = if vector.dot(vector.cross(AE[34], AE[21.]), AE[14]) == vector.dot(vector.cross(AE[21.], AE[14]), AE[34]) + AY[587] then 488 else 202 else qY = 7618; continue end else qY = if AE[58] <= AB[965] then 493 else 10 end elseif qY < 7846 then qY = 12. else qa = AE[45.][AB[44]](AB[352]); qY = 159. end elseif qY < 7895 then if qY < 7872. then if qY < 7861 then if qY < 7854. then if qY < 7850 then if qY < 7849 then if qY < 7848. then qY = if (AE[34] * AB[737] + AB[958]) % AB[870.] == AB[534.] then 408. else 409 else AE[42.] = (AE[42.] + AB[1001]) % AB[870.]; qY = 64 end else qY = if (AE[17] * AB[1009] + AB[964]) % AB[958] == AB[587] then 130 else 144. end elseif qY < 7852 then if qY < 7851. then if qY == 7850 then qY = 232 else qY = 7297; continue end elseif qY == 7851. then qY = 608 else qY = 7571; continue end elseif qY < 7853 then if qY == 7852 then AE[3.] = nil; AE[3.] = AB[927.] - AB[587]; qY = 492. else qY = 7766; continue end else AE[42.] = gethui(); qY = 697 end elseif qY < 7858 then if qY < 7857. then if qY < 7855 then qY = if true then 654. else 88 elseif qY < 7856 then AE[2] = false; local AY = AB; for H, I in AY[499](qn[AY[1061]]) do AE[55] = H; AE[35] = I; AE[44] = AE[55]; AE[23] = AE[35]; local q4 = nil; q4 = AY[318.]; while true do if q4 < 1 then AE[2] = true; q4 = AY[965] elseif q4 < 2 then break else AE[34][AE[23]] = AE[44]; q4 = AY[965] end end; if AE[2] then break end end; pX, pS, pO, AE[42.] = nil, nil, nil, nil; AE[42.] = AY[1009]; qY = 662 elseif qY == 7856 then table.sort(qx, AB[284]); p5 = {}; p_ = {}; qY = 416 else qY = 7367; continue end else AE[24.] = nil; local AY = AB; AE[24.] = AY[1009] - AY[927.]; AE[24.] = AY[22] + AY[965]; AE[24.] = AY[587] - AY[318.]; AE[24.] = AY[22] + AY[965]; AE[24.] = AY[1009] - AY[927.]; qY = 324. end elseif qY < 7860. then if qY < 7859 then if qY == 7858 then AE[17] = (AE[17] + AB[1009]) % AB[958]; qY = 265 else qY = 7213; continue end else AE[21.] = nil; local AY = AB; AE[21.] = AY[318.] - AY[965]; AE[21.] = AY[22] + AY[965]; qY = 321. end elseif qY == 7860. then local AY = AB; AE[42.] = (vector.create((AE[34] * AY[318.] + AY[318.]) % AY[431] + AY[965], (AE[34] * AY[927.] + AY[965]) % AY[290] + AY[965], (AE[34] * AY[587] + AY[965]) % AY[1001] + AY[965])); AE[3.] = (vector.create((AE[34] * AY[927.] + AY[964]) % AY[431] + AY[965], (AE[34] * AY[965] + AY[431]) % AY[290] + AY[965], (AE[34] * AY[534.] + AY[534.]) % AY[1001] + AY[965])); AE[58] = (vector.create((AE[34] * AY[1009] + AY[587]) % AY[431] + AY[965], (AE[34] * AY[587] + AY[431]) % AY[290] + AY[965], (AE[34] * AY[1073] + AY[968]) % AY[1001] + AY[965])); qY = if vector.dot(vector.cross(AE[42.], AE[3.]), AE[58]) == vector.dot(vector.cross(AE[3.], AE[58]), AE[42.]) + AY[1009] then 490 else 668 else qY = 7940; continue end elseif qY < 7867 then if qY < 7864 then if qY < 7863. then if qY < 7862 then qY = if AE[6.] <= AB[587] then 151 else 422 else AE[34] = nil; local AY = AB; AE[34] = AY[1009] - AY[927.]; AE[34] = AY[22] + AY[965]; AE[34] = AY[587] - AY[318.]; AE[34] = AY[22] + AY[965]; qY = 410 end else qC = AB[530]:GetService(AB[538]); qY = 126. end elseif qY < 7866. then if qY < 7865 then if qY == 7864 then qY = 481 else qY = 7857.; continue end elseif qY == 7865 then p4 = AB[376]; qY = 473 else qY = 16159; continue end else qY = if AE[42.] <= AB[965] then 704 else 363. end elseif qY < 7870 then if qY < 7869. then if qY < 7868 then qa = require(AE[14][AB[1049]]); qY = 134 else qY = if qa and AE[58] and (pQ or not AE[58]) or (AE[58] or not qu) and (not qu and not pL) or not (qa and AE[58] and (pQ or not AE[58]) or (AE[58] or not qu) and (not qu and not pL)) then 284 else 744. end elseif qY == 7869. then qY = 647 else qY = 7522; continue end elseif qY < 7871 then AE[42.] = (AE[42.] + AB[431]) % AB[958]; qY = 230 elseif qY == 7871 then local AY = AB; AE[42.] = { AY[17], AY[109], AY[365], AY[582.], AY[547], AY[708.], AY[687.], AY[896], AY[943] }; local BJ = AE[34]; AE[3.] = AE[42.][BJ % AY[964] + AY[965]]; qY = if AE[3.]:len() >= AE[3.]:reverse():rep(BJ % AY[587] + AY[318.]):len() then 702. else 354. else qY = 7435; continue end elseif qY < 7884. then if qY < 7878. then if qY < 7875. then if qY < 7874 then if qY < 7873 then if qY == 7872. then AE[42.] = (AE[42.] + AB[1001]) % AB[1025]; qY = 722 else qY = 7792; continue end elseif qY == 7873 then qY = 233 else qY = 7433; continue end elseif qY == 7874 then qY = 240. else qY = 7836.; continue end elseif qY < 7877 then if qY < 7876 then AE[48.] = nil; local AY = AB; AE[48.] = AY[927.] - AY[587]; AE[48.] = AY[22] + AY[965]; qY = 179 else AE[34] = (AE[34] + AB[965]) % AB[232]; qY = 602 end elseif qY == 7877 then qY = 555. else qY = 7389.; continue end elseif qY < 7881. then if qY < 7880 then if qY < 7879 then qY = 648. else qY = 93. end elseif qY == 7880 then local AY = AB; pZ[AY[41]] = AY[993.]; pZ[AY[350]] = false; pZ[AY[555.]] = AY[157][AY[555.]][AY[30.]]; pZ[AY[430]] = AY[306.]; AE[34] = syn; qY = 387. else qY = 7277; continue end elseif qY < 7883 then if qY < 7882 then if qY == 7881. then qY = if AE[37] <= AB[965] then 65 else 124 else qY = 7555; continue end else qY = 305 end elseif qY == 7883 then qv = { { [AB[762.]] = AB[795.], [AB[758]] = AB[403], [AB[407]] = AB[630.], [AB[405.]] = AB[464], [AB[978.]] = AB[707], [AB[733]] = AB[1036], [AB[1069]] = AB[1026.], [AB[631]] = AB[471.], [AB[84.]] = AB[168.], [AB[1071.]] = AB[29], [AB[910]] = AB[518], [AB[33.]] = AB[1097], [AB[455]] = AB[914], [AB[228.]] = AB[174.], [AB[840.]] = AB[568], [AB[96.]] = AB[835], [AB[500]] = AB[800], [AB[468.]] = AB[926], [AB[330.]] = AB[351.] }, { [AB[733]] = AB[877], [AB[96.]] = AB[850], [AB[631]] = AB[757], [AB[330.]] = AB[787], [AB[407]] = AB[754], [AB[228.]] = AB[746], [AB[33.]] = AB[212], [AB[500]] = AB[695], [AB[1071.]] = AB[772], [AB[455]] = AB[169], [AB[84.]] = AB[449], [AB[468.]] = AB[466], [AB[762.]] = AB[1020.], [AB[405.]] = AB[348.], [AB[758]] = AB[767] }, { [AB[733]] = AB[697], [AB[978.]] = AB[778], [AB[468.]] = AB[926], [AB[762.]] = AB[795.], [AB[96.]] = AB[116], [AB[84.]] = AB[503], [AB[33.]] = AB[100], [AB[1071.]] = AB[185], [AB[910]] = AB[296], [AB[1069]] = AB[614], [AB[758]] = AB[636.], [AB[840.]] = AB[55], [AB[455]] = AB[12.], [AB[631]] = AB[607], [AB[405.]] = AB[287], [AB[228.]] = AB[710], [AB[500]] = AB[416], [AB[407]] = AB[938], [AB[330.]] = AB[250] }, { [AB[762.]] = AB[1020.], [AB[33.]] = AB[319], [AB[1071.]] = AB[103], [AB[407]] = AB[1059.], [AB[96.]] = AB[118], [AB[758]] = AB[86], [AB[84.]] = AB[712], [AB[500]] = AB[80], [AB[631]] = AB[164], [AB[405.]] = AB[240.], [AB[228.]] = AB[541], [AB[468.]] = AB[466], [AB[330.]] = AB[43], [AB[455]] = AB[282.], [AB[733]] = AB[101] } }; qY = 50 else qY = 7797.; continue end elseif qY < 7890. then if qY < 7887. then if qY < 7886 then if qY < 7885 then if qY == 7884. then qY = 37 else qY = 7265; continue end else qY = if AE[34] <= AB[965] then 122 else 472 end else local AY = AB; pY = AY[1073]; p2 = { [AY[348.]] = { [AY[413]] = AY[858.], [AY[523]] = AY[567.], [AY[22]] = AY[858.], [AY[666.]] = AY[567.] }, [AY[240.]] = { [AY[22]] = AY[858.], [AY[666.]] = AY[567.], [AY[413]] = AY[858.], [AY[523]] = AY[567.] }, [AY[287]] = { [AY[916]] = AY[769], [AY[1017.]] = AY[769], [AY[413]] = AY[273.], [AY[1025]] = AY[769], [AY[22]] = AY[273.], [AY[968]] = AY[769] } }; pB = AY[1005.]; pU = AY[1045]; qY = 706 end elseif qY < 7889 then if qY < 7888 then qY = 357. elseif qY == 7888 then AE[42.] = function(a1, a2, a3) local s4, s6, s7, s8, ta = nil, nil, nil, nil, nil; local s5 = nil; s5 = 1; while true do s5 = 14122 - s5; do if s5 < 14121. then if s5 < 14120 then if s5 < 11877. then break elseif s5 < 13608. then break elseif s5 < 14119 then break else s5 = 2 end else break end elseif s5 < 14122 then if s5 == 14121. then s7 = false; for a4, a5 in a2 do s8 = a4; ta = a5; local s9 = s8; local tb = ta; local s6 = nil; s6 = AB[318.]; while true do if s6 < 2 then if s6 < 1 then s4:Connect(function() qs = a1 end); s6 = AB[927.] else s7 = true; s6 = AB[587] end elseif s6 < 3. then s4 = pG(tb); s6 = if s4 then AB[22] else AB[927.] elseif s6 < 4 then break else s6 = AB[587] end end; if s7 then break end end; s4 = pG(a3); s5 = if s4 then 0. else 3. else s5 = 14443; continue end elseif s5 < 14443 then if s5 == 14122 then s4:Connect(function() local s3 = nil; s3 = 1; while true do s3 = 14183 - s3; do if s3 < 14180 then break elseif s3 < 14182 then if s3 < 14181. then break elseif s3 == 14181. then s3 = 3. else s3 = 11449; continue end elseif s3 < 14183 then if s3 == 14182 then s3 = if qs == a1 then 0. else 2 else s3 = 14180; continue end elseif s3 < 14624 then if s3 == 14183 then qs = nil; s3 = 2 else break end else break end end end end); s5 = 3. else break end else break end end end end; qY = 204. else qY = 7660; continue end else qx = {}; qY = 316 end elseif qY < 7893. then if qY < 7892 then if qY < 7891 then if qY == 7890. then AE[48.] = nil; local AY = AB; AE[48.] = AY[1073] - AY[927.]; AE[48.] = AY[965] + AY[965]; AE[48.] = AY[927.] - AY[318.]; AE[48.] = AY[22] + AY[318.]; AE[48.] = AY[1073] - AY[1009]; qY = 82 else qY = 7902.; continue end else qY = if AE[42.] * AB[805] + AB[534.] + AB[262] <= AE[42.] * AB[805] + AB[534.] + AB[262] + AB[965] then 400 else 178 end else AE[42.] = (AE[42.] + AB[666.]) % AB[998]; qY = 136 end elseif qY < 7894 then if qY == 7893. then AE[37] = (AE[37] + AB[964]) % AB[958]; qY = 40 else qY = 7371.; continue end else qY = 92 end elseif qY < 7919 then if qY < 7907 then if qY < 7901 then if qY < 7898 then if qY < 7897 then if qY < 7896. then AE[21.] = (AE[34] * AB[1009] + AB[22]) % AB[1073] + AB[965]; qY = 494 else AE[3.] = AE[17][AB[957.]]:AddLeftGroupbox(AB[726.]); qY = 753. end elseif qY == 7897 then AE[6.] = (AE[17] * AB[965] + AB[22]) % AB[927.] + AB[965]; qY = 191 else qY = 7210; continue end elseif qY < 7900 then if qY < 7899. then if qY == 7898 then qY = 18. else qY = 7591; continue end else local AY = AB; AE[6.] = (vector.create((AE[17] * AY[587] + AY[232]) % AY[431] + AY[965], (AE[17] * AY[1009] + AY[290]) % AY[290] + AY[965], (AE[17] * AY[318.] + AY[749]) % AY[1001] + AY[965])); AE[48.] = (vector.create((AE[17] * AY[965] + AY[1073]) % AY[431] + AY[965], (AE[17] * AY[965] + AY[1009]) % AY[290] + AY[965], (AE[17] * AY[431] + AY[1001]) % AY[1001] + AY[965])); local BK = vector.cross(AE[6.], AE[48.]); local BL = vector.dot(AE[6.], AE[48.]); qY = if vector.dot(BK, BK) + BL * BL == vector.dot(AE[6.], AE[6.]) * vector.dot(AE[48.], AE[48.]) then 709 else 118 end else qY = 438. end elseif qY < 7904 then if qY < 7903 then if qY < 7902. then local AY = AB; pI[AY[72.]]:Connect(AY[152]); AE[21.][AY[745]]:Connect(AY[881]); AE[21.][AY[239]]:Connect(AY[905]); ps:OnUnload(AY[808]); AE[14]:AddButton(AY[590], AY[10]); ps:OnUnload(AY[807.]); po = { { [AY[405.]] = AY[240.], [AY[774.]] = AY[188] }, { [AY[405.]] = AY[464], [AY[774.]] = AY[464] }, { [AY[405.]] = AY[287], [AY[774.]] = AY[287] }, { [AY[405.]] = AY[348.], [AY[774.]] = AY[348.] }, { [AY[405.]] = AY[448], [AY[774.]] = AY[848] }, { [AY[405.]] = AY[701], [AY[774.]] = AY[130] }, { [AY[405.]] = AY[726.], [AY[774.]] = AY[242] } }; qY = 536 elseif qY == 7902. then qY = 304 else qY = 7715; continue end elseif qY == 7903 then qY = 557 else qY = 7676; continue end elseif qY < 7905. then if qY == 7904 then AE[48.] = nil; local AY = AB; AE[48.] = AY[1009] - AY[927.]; AE[48.] = AY[22] + AY[965]; AE[48.] = AY[927.] - AY[587]; AE[48.] = AY[22] + AY[965]; qY = 291. else qY = 7465; continue end elseif qY < 7906 then qY = 16 else AE[2] = false; local AY = AB; for gV, gW in AY[499](qG) do so = gV; sq = gW; AE[53] = so; AE[32] = sq; local q4 = nil; q4 = AY[965]; while true do if q4 < 1 then AE[2] = true; q4 = AY[318.] elseif q4 < 2 then AE[21.]:AddDropdown(AE[32][AY[2]], { [AY[197]] = pr, [AY[1087]] = { AY[70] }, [AY[495.]] = true, [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AE[32][AY[774.]] }); q4 = AY[318.] else break end end; if AE[2] then break end end; AE[14], qo, pZ, AE[34], AE[58], AE[42.] = nil, nil, nil, nil, nil, nil; AE[42.] = AY[523]; qY = 389 end elseif qY < 7913 then if qY < 7910 then if qY < 7909 then if qY < 7908. then if qY == 7907 then pD = ps:CreateWindow({ [AB[725]] = AB[409], [AB[206]] = AB[1010], [AB[1090]] = AB[491], [AB[387.]] = true, [AB[544]] = AB[286], [AB[884]] = false, [AB[143]] = false, [AB[673]] = AB[806][AB[1046]](AB[408.], AB[844]) }); qY = 71 else qY = 7425.; continue end else qY = if true then 333. else 509 end elseif qY == 7909 then qY = 523 else qY = 7783; continue end elseif qY < 7912 then if qY < 7911. then local AY = AB; pZ[AY[200]] = AE[34]; pI = AY[825.][AY[576.]](AY[560]); qY = 553 else qY = if AE[6.] <= AB[965] then 127 else 497 end elseif qY == 7912 then AE[48.] = nil; local AY = AB; AE[48.] = AY[968] - AY[262]; AE[48.] = AY[22] + AY[587]; qY = 442 else qY = 7741; continue end elseif qY < 7917. then if qY < 7916 then if qY < 7914. then qY = 123. elseif qY < 7915 then if qY == 7914. then AE[2] = false; local AY = AB; for aY, aZ in AY[499](qH) do rH = aY; rJ = aZ; AE[52] = rH; AE[31] = rJ; local q4 = nil; q4 = AY[965]; while true do if q4 < 1 then break elseif q4 < 2 then qE[AE[31]] = AE[52]; q4 = AY[22] else AE[2] = true; q4 = AY[22] end end; if AE[2] then break end end; qs, AE[3.], AE[42.], AE[34] = nil, nil, nil, nil; AE[34] = AY[968]; qY = 169 else qY = 7494.; continue end elseif qY == 7915 then qY = if (AE[42.] * AB[587] + AB[1073]) * AB[964] % AB[927.] == ((AE[42.] * AB[587] + AB[1073]) * AB[964] + AB[232]) % AB[927.] then 186. else 619 else qY = 7317.; continue end else AE[42.] = (AE[42.] + AB[817]) % AB[335]; qY = 727 end elseif qY < 7918 then if qY == 7917. then qY = 745 else qY = 7822; continue end else qY = if (AE[37] * AB[964] + AB[965]) % AB[958] == AB[431] then 164 else 26 end elseif qY < 7932. then if qY < 7927 then if qY < 7924 then if qY < 7922 then if qY < 7921 then if qY < 7920. then AE[2] = false; local AY = AB; for bv, bw in AY[499](qx) do rP = bv; rR = bw; AE[36.] = rP; AE[16] = rR; local q4 = nil; q4 = AY[965]; while true do if q4 < 1 then break elseif q4 < 2 then AE[42.] = AE[16][AY[41]] .. AY[82] .. AE[16][AY[405.]]; table.insert(p5, AE[42.]); p_[AE[42.]] = AE[16][AY[405.]]; q4 = AY[22] else AE[2] = true; q4 = AY[22] end end; if AE[2] then break end end; pK, pF, pH, pW, AE[34] = nil, nil, nil, nil, nil; AE[34] = AY[1025]; qY = 571 else qY = 89 end elseif qY == 7921 then AE[24.] = nil; local AY = AB; AE[24.] = AY[318.] - AY[965]; AE[24.] = AY[318.] - AY[965]; qY = 752 else qY = 7534; continue end elseif qY < 7923. then if qY == 7922 then AE[2] = false; local AY = AB; for ey, ez in AY[499](p8) do sc = ey; se = ez; AE[46] = sc; AE[25] = se; local q4 = nil; q4 = AY[22]; while true do if q4 < 2 then if q4 < 1 then AE[42.] = AE[3.][AY[912.]]:AddLeftGroupbox(AE[25][AY[96.]]); AE[42.]:AddDropdown(AE[25][AY[405.]] .. AY[578], { [AY[197]] = AE[25][AY[302]], [AY[1087]] = {}, [AY[495.]] = true, [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AE[25][AY[84.]] }); q4 = if AE[25][AY[461]] then AY[965] else AY[318.] else AE[42.]:AddDropdown(AE[25][AY[405.]] .. AY[748], { [AY[197]] = AE[25][AY[461]], [AY[1087]] = {}, [AY[495.]] = true, [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[991] }); q4 = AY[318.] end elseif q4 < 3. then AE[42.]:AddDropdown(AE[25][AY[405.]] .. AY[565], { [AY[197]] = AE[14], [AY[1087]] = AE[14][AY[965]], [AY[236]] = true, [AY[309.]] = true, [AY[774.]] = AY[980] }); AE[42.]:AddToggle(AE[25][AY[405.]] .. AY[36.], { [AY[774.]] = AE[25][AY[631]], [AY[1087]] = false }); AE[42.] = AE[3.][AY[912.]]:AddRightGroupbox(AE[25][AY[500]]); rf = false; for eC, eD in AY[499](AE[25][AY[618.]]) do sg = eC; si = eD; AE[7] = sg; AE[49] = si; local re = nil; re = AY[965]; while true do if re < 1 then break elseif re < 2 then AE[42.]:AddSlider(AE[25][AY[405.]] .. AY[330.] .. AE[49][AY[585.]], { [AY[774.]] = AE[49][AY[41]], [AY[1087]] = AE[49][AY[852.]] + AY[965], [AY[700]] = AY[318.], [AY[788]] = AE[49][AY[852.]] + AY[965], [AY[987.]] = AY[22] }); re = AY[22] else rf = true; re = AY[22] end end; if rf then break end end; AE[42.]:AddToggle(AE[25][AY[405.]] .. AY[151], { [AY[774.]] = AE[25][AY[228.]], [AY[1087]] = false }); q4 = AY[587] elseif q4 < 4 then break else AE[2] = true; q4 = AY[587] end end; if AE[2] then break end end; AE[21.], qb, p7, p2, pY, pU, pB, qk, AE[34] = nil, nil, nil, nil, nil, nil, nil, nil, nil; AE[34] = AY[927.]; qY = 388 else qY = 7391; continue end elseif qY == 7923. then pO = {}; pX = {}; pS = {}; qY = 245 else qY = 7514; continue end elseif qY < 7926. then if qY < 7925 then qY = 106 else qY = 723. end else qY = 189. end elseif qY < 7930 then if qY < 7929. then if qY < 7928 then if qY == 7927 then qY = 496 else qY = 7900; continue end elseif qY == 7928 then AE[42.] = (AE[42.] + AB[964]) % AB[958]; qY = 633. else qY = 7938.; continue end else qY = 523 end elseif qY < 7931 then qY = 349 elseif qY == 7931 then qY = 374 else qY = 7514; continue end elseif qY < 7940 then if qY < 7937 then if qY < 7935. then if qY < 7934 then if qY < 7933 then if qY == 7932. then AE[2] = false; local AY = AB; for M, N in AY[56](qn[AY[49]]) do AE[15.] = M; rc = N; AE[5] = AE[15.]; AE[47] = rc; local q4 = nil; q4 = AY[587]; while true do if q4 < 2 then if q4 < 1 then AE[24.] = AE[37]; q4 = AY[927.] else break end elseif q4 < 3. then AE[2] = true; q4 = AY[965] elseif q4 < 4 then table.insert(pX, AE[47][AY[41]]); pS[AE[47][AY[41]]] = AE[5]; AE[14], AE[42.] = nil, nil; AE[37] = {}; AE[24.] = AE[47][AY[175]]; q4 = if AE[24.] then AY[927.] else AY[22] else rf = false; for Q in AY[56](AE[24.]) do rg = Q; AE[8] = rg; local re = nil; re = AY[262]; while true do if re < 4 then if re < 2 then if re < 1 then AE[14], AE[42.] = AE[8], AE[37]; re = AY[232] else AE[24.] = AE[17]; re = AY[318.] end elseif re < 3. then re = if AE[24.] then AY[22] else AY[232] else break end elseif re < 6. then if re < 5 then AE[17] = not AE[42.]; re = if AE[17] then AY[965] else AY[1009] else AE[17] = AE[37] > AE[42.]; re = AY[965] end elseif re < 7 then rf = true; re = AY[587] elseif re < 8 then AE[37] = AE[34][AE[8]]; AE[24.] = AE[37]; re = if AE[24.] then AY[927.] else AY[318.] else re = AY[587] end end; if rf then break end end; pO[AE[5]] = AE[14]; q4 = AY[965] end end; if AE[2] then break end end; qv, qp, qj, qg, qc, p8, AE[42.], AE[37] = nil, nil, nil, nil, nil, nil, nil, nil; AE[37] = AY[927.]; qY = 745 else qY = 7404.; continue end else AE[17] = nil; local AY = AB; AE[17] = AY[587] - AY[318.]; AE[17] = AY[1009] - AY[927.]; AE[17] = AY[22] + AY[965]; AE[17] = AY[587] - AY[318.]; qY = 606. end elseif qY == 7934 then qs = nil; qY = 210. else qY = 7641.; continue end elseif qY < 7936 then pI, AE[17], AE[45.], AE[21.], pA, px, pv, pt, po, AE[6.], pp, AE[42.] = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil; AE[42.] = AB[534.]; qY = 256 elseif qY == 7936 then local AY = AB; qo:AddLabel(AY[245]):AddKeyPicker(AY[922], { [AY[1087]] = AY[950], [AY[774.]] = AY[939.], [AY[462.]] = true }); qo:AddToggle(AY[147.], { [AY[774.]] = AY[954.], [AY[1087]] = true }); AE[14] = false; qY = 500 else qY = 7741; continue end elseif qY < 7939 then if qY < 7938. then qY = 213. elseif qY == 7938. then qY = 435. else qY = 7653.; continue end else qY = 105. end elseif qY < 7943 then if qY < 7942 then if qY < 7941. then pw = function(fh) local wc, wd, we, wf, wh, wi, wj = nil, nil, nil, nil, nil, nil, nil; local wg = nil; wg = 1; while true do wg = 7180 - wg; do if wg < 7174 then if wg < 7168 then if wg < 6042. then break elseif wg < 6289 then break elseif wg < 7167. then break elseif wg == 7167. then wc, wd = AB[549.](function() return require(p6[fh[AB[910]]]) end); we = fh[AB[405.]]; wf = wc; wj = if wf then AB[965] else AB[22]; wh = AB[104] * wj + AB[516.] * (AB[965] - wj); wg = 2 else wg = 7170.; continue end elseif wg < 7171 then if wg < 7169 then if wg == 7168 then wg = if (wh * AB[667] + wi * AB[783.] + wh * wi) % AB[261.] == AB[1028] then 4 else 10 else wg = 7171; continue end elseif wg < 7170. then if wg == 7169 then wc = py[fh[AB[405.]]]; wg = if wc then 6. else 3. else wg = 8051; continue end else wc = wf; wg = if wc then 8 else 5 end elseif wg < 7172 then if wg == 7171 then return nil else wg = 1809.; continue end elseif wg < 7173. then py[we] = wc; wg = 11 else break end elseif wg < 7179. then if wg < 7176. then if wg < 7175 then return wc elseif wg == 7175 then wc = false; wg = 8 else wg = 9241; continue end elseif wg < 7177 then wf = wd; wg = 10 elseif wg < 7178 then wc = nil; wg = 6. else wi = AB[31] * wj + AB[514] * (AB[965] - wj); wg = 12. end elseif wg < 9241 then if wg < 7180 then wg = if not fh[AB[910]] then 9. else 0. elseif wg < 8051 then if wg == 7180 then wg = if py[fh[AB[405.]]] == nil then 13 else 11 else wg = 7174; continue end else break end else break end end end end; qw = function(fp, fq, fr) local wl; local wk; wk = nil; wl = nil; local wm, wn, wo, wp, wr, ws, wt = nil, nil, nil, nil, nil, nil, nil; local wq = nil; wq = 11; while true do wq = 12233 - wq; do if wq < 12226 then if wq < 12222. then break elseif wq < 12224 then if wq < 12223 then if wq == 12222. then wk = pw(fp); wq = if not wk then 0. else 7 else wq = 7964; continue end else wl = wn; wq = if not wl then 2 else 5 end elseif wq < 12225. then if wq == 12224 then wn = fp[AB[1069]]; wq = 10 else wq = 12232; continue end else return wp end elseif wq < 12230 then if wq < 12228. then if wq < 12227 then wm = fr; wq = if wm then 4 else 3. else wp = wo; wq = 8 end elseif wq < 12229 then if wq == 12228. then wm, wn = AB[549.](function() return wk[wl](wk, fq) end); wo = wn == true; wp = not wm; wq = if wp then 8 else 6. else wq = 12224; continue end elseif wq == 12229 then wm = fp[AB[840.]]; wq = 3. else wq = 12225.; continue end elseif wq < 12232 then if wq < 12231. then wn = wm; wt = if wn then AB[965] else AB[22]; wr = AB[249.] * wt + AB[202] * (AB[965] - wt); ws = AB[867.] * wt + AB[570.] * (AB[965] - wt); wq = if (wr * AB[62] + ws * AB[963.] + wr * ws) % AB[261.] == AB[1064] then 10 else 9. elseif wq == 12231. then return true else wq = 12232; continue end elseif wq < 12233 then break elseif wq < 12639. then if wq == 12233 then return true else wq = 5326; continue end else break end end end end; pE = AB[702.]; qY = 348. elseif qY == 7941. then qY = if (AE[42.] * AB[262] + AB[958]) % AB[1025] == AB[431] then 193 else 659 else qY = 7368.; continue end elseif qY == 7942 then qY = 299 else qY = 7541; continue end elseif qY < 8806 then if qY == 7943 then AE[34] = (AE[34] + AB[737]) % AB[870.]; qY = 287 else break end else break end end end
+if not game:IsLoaded() then
+	game.Loaded:Wait()
+end
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local VirtualUser = game:GetService("VirtualUser")
+local HttpService = game:GetService("HttpService")
+
+local LocalPlayer = Players.LocalPlayer
+
+local SimpleWorld
+for _, child in ReplicatedStorage:GetChildren() do
+	if child.Name == "SimpleWorld" then
+		SimpleWorld = child
+		break
+	end
+end
+
+local Library = require(SimpleWorld.Library)
+local ClientFolder = SimpleWorld.Library.Client
+local WorldController = require(ClientFolder.WorldController)
+local AutoActionController = require(ClientFolder.AutoActionController)
+local TeleportController = require(ClientFolder.TeleportController)
+
+local WorldConfig = Library.getConfig("WorldConfig")
+local EnemyConfig = Library.getConfig("EnemyConfig")
+local SideQuestConfig = Library.getConfig("SideQuestConfig")
+
+local function getBridge(name)
+	local bridge
+	local pending = true
+	task.spawn(function()
+		local ok, result = pcall(Library.getBridge, name)
+		if ok then
+			bridge = result
+		end
+		pending = false
+	end)
+	local deadline = os.clock() + 5
+	while pending and os.clock() < deadline do
+		task.wait(0.1)
+	end
+	return bridge
+end
+
+local Bridges = {
+	Click = getBridge("Click"),
+	RankUp = getBridge("RankUp"),
+	AutoClaimAchievementsSet = getBridge("AutoClaimAchievementsSet"),
+	AutoClaimRewardsSet = getBridge("AutoClaimRewardsSet"),
+	AutoAvatarBuffSet = getBridge("AutoAvatarBuffSet"),
+	BuyWorld = getBridge("BuyWorld"),
+	RequestChangeWorld = getBridge("RequestChangeWorld"),
+	FuseAllSwords = getBridge("FuseAllSwords"),
+	EquipBest = getBridge("EquipBest"),
+	EquipBestSword = getBridge("EquipBestSword"),
+	EquipBestTitan = getBridge("EquipBestTitan"),
+	OpenEgg = getBridge("OpenEgg"),
+	QuestCollect = getBridge("QuestCollect"),
+	GlobalQuestClaimAll = getBridge("GlobalQuestClaimAll"),
+	SideQuestAcceptRequest = getBridge("SideQuestAcceptRequest"),
+	EquipBestLoadout = getBridge("EquipBestLoadout"),
+	RaidGateTeleport = getBridge("RaidGateTeleport"),
+	GachaRoll = getBridge("GachaRoll"),
+	SwordRoll = getBridge("SwordRoll"),
+	TitanRoll = getBridge("TitanRoll"),
+	PlayerPassiveRoll = getBridge("PlayerPassiveRoll"),
+}
+
+local GachaConfig = Library.getConfig("GachaConfig")
+local SwordConfig = Library.getConfig("SwordConfig")
+local TitansConfig = Library.getConfig("TitansConfig")
+
+local RarityRank = {}
+for rank, rarity in ipairs(GachaConfig.Rarity_Order) do
+	RarityRank[rarity] = rank
+end
+
+local GachaNames = {}
+local GachaNameToKey = {}
+local GachaMaxRarity = {}
+
+for key, gacha in pairs(GachaConfig.Gachas) do
+	table.insert(GachaNames, gacha.Name)
+	GachaNameToKey[gacha.Name] = key
+
+	local best, bestRank
+	for rarity in pairs(gacha.Items or {}) do
+		local rank = RarityRank[rarity]
+		if rank and (not bestRank or rank > bestRank) then
+			best, bestRank = rarity, rank
+		end
+	end
+	GachaMaxRarity[key] = best
+end
+table.sort(GachaNames)
+
+local function BuildBannerData(entries)
+	local names = {}
+	local map = {}
+	for key, entry in pairs(entries) do
+		table.insert(names, entry.Name)
+		map[entry.Name] = key
+	end
+	table.sort(names)
+	return names, map
+end
+
+local SwordBannerNames, SwordBannerToKey = BuildBannerData(SwordConfig.Swords)
+local TitanBannerNames, TitanBannerToKey = BuildBannerData(TitansConfig.Titans)
+
+local ActiveGachas = {}
+
+local GAMEMODES = {
+	{
+		Id = "Trial",
+		Arenas = "TimeTrialArenas",
+		Config = "TimeTrialConfig",
+		Getter = "GetAllTrials",
+		TotalField = "TotalRooms",
+		Counter = "Room",
+		Join = "TimeTrialJoin",
+		Leave = "TimeTrialLeave",
+		State = "TimeTrialState",
+		Ended = "TimeTrialEnded",
+		FarmTitle = "Time Trial Farm",
+		LeaveTitle = "Time Trial Leave At Floor",
+		SelectText = "Select Trials",
+		AutoFarmText = "Auto Farm Trial",
+		AutoLeaveText = "Auto leave At Time Trial Floor",
+	},
+	{
+		Id = "Raid",
+		Arenas = "RaidArenas",
+		Config = "RaidConfig",
+		Getter = "GetAllRaids",
+		TotalField = "TotalWaves",
+		Counter = "Wave",
+		Join = "RaidJoin",
+		Leave = "RaidLeave",
+		State = "RaidState",
+		Ended = "RaidEnded",
+		Status = "RaidActiveStatus",
+		Controller = "RaidController",
+		Afford = "HasEnoughForRaid",
+		CanJoinActive = "CanAutoJoinActiveRaid",
+		FarmTitle = "Raid Farm",
+		LeaveTitle = "Raid Leave At Wave",
+		SelectText = "Select Raids",
+		AutoFarmText = "Auto Farm Raid",
+		AutoLeaveText = "Auto leave At Raid Floor",
+	},
+	{
+		Id = "Defense",
+		Arenas = "DefenseArenas",
+		Config = "DefenseConfig",
+		Getter = "GetAllDefenses",
+		TotalField = "TotalWaves",
+		Counter = "Wave",
+		Join = "DefenseJoin",
+		Leave = "DefenseLeave",
+		State = "DefenseState",
+		Ended = "DefenseEnded",
+		Status = "DefenseActiveStatus",
+		Controller = "DefenseController",
+		Afford = "HasEnoughForDefense",
+		CanJoinActive = "CanAutoJoinActiveDefense",
+		FarmTitle = "Defense Farm",
+		LeaveTitle = "Defense Leave At Wave",
+		SelectText = "Select Defenses",
+		AutoFarmText = "Auto Farm Defense",
+		AutoLeaveText = "Auto leave At Defense Floor",
+	},
+	{
+		Id = "Dungeon",
+		Arenas = "DungeonArenas",
+		Config = "DungeonConfig",
+		Getter = "GetAllDungeons",
+		TotalField = "TotalRooms",
+		Counter = "Room",
+		Join = "DungeonJoin",
+		Leave = "DungeonLeave",
+		State = "DungeonState",
+		Ended = "DungeonEnded",
+		FarmTitle = "Dungeon Farm",
+		LeaveTitle = "Dungeon Leave At Wave",
+		SelectText = "Select Dungeons",
+		AutoFarmText = "Auto Farm Dungeon",
+		AutoLeaveText = "Auto leave At Dungeon Room",
+	},
+}
+
+for _, gamemode in ipairs(GAMEMODES) do
+	local config = Library.getConfig(gamemode.Config)
+	local entries = {}
+
+	for key, entry in pairs(config[gamemode.Getter](config)) do
+		table.insert(entries, {
+			Key = key,
+			Name = entry.Name,
+			WorldId = tonumber(entry.WorldId),
+			Total = tonumber(entry[gamemode.TotalField]) or 100,
+			GateRanks = entry.GateRanks,
+		})
+	end
+
+	table.sort(entries, function(a, b)
+		return a.Name < b.Name
+	end)
+
+	gamemode.Entries = entries
+	gamemode.NameToEntry = {}
+	gamemode.Names = {}
+
+	for _, entry in ipairs(entries) do
+		table.insert(gamemode.Names, entry.Name)
+		gamemode.NameToEntry[entry.Name] = entry
+
+		if entry.GateRanks then
+			local ranks = {}
+			for _, rank in ipairs(entry.GateRanks) do
+				table.insert(ranks, rank.Rank)
+			end
+			gamemode.GateRankValues = ranks
+		end
+	end
+
+	Bridges[gamemode.Join] = getBridge(gamemode.Join)
+	Bridges[gamemode.Leave] = getBridge(gamemode.Leave)
+	Bridges[gamemode.State] = getBridge(gamemode.State)
+
+	if gamemode.Status then
+		Bridges[gamemode.Status] = getBridge(gamemode.Status)
+	end
+end
+
+local ActiveGamemode = nil
+local GateAnnouncements = {}
+
+local RaidAnnouncement = getBridge("RaidAnnouncement")
+if RaidAnnouncement then
+	RaidAnnouncement:Connect(function(payload)
+		if type(payload) ~= "table" or type(payload.Key) ~= "string" then
+			return
+		end
+
+		local rank
+		if type(payload.Description) == "string" then
+			rank = payload.Description:match("Rank%s+(%a+)%s+Gate")
+		end
+
+		GateAnnouncements[payload.Key] = {
+			Rank = rank,
+			GateTeleport = payload.GateTeleport,
+		}
+	end)
+end
+
+local GamemodeActiveKeys = {}
+local GamemodeJoinIndex = {}
+local GamemodeLeftKeys = {}
+
+for _, gamemode in ipairs(GAMEMODES) do
+	GamemodeActiveKeys[gamemode.Id] = {}
+	GamemodeLeftKeys[gamemode.Id] = {}
+
+	local status = gamemode.Status and Bridges[gamemode.Status]
+	if status then
+		status:Connect(function(payload)
+			local keys = {}
+			if type(payload) == "table" then
+				for key, value in pairs(payload) do
+					if type(key) == "string" then
+						if value == true then
+							keys[key] = true
+						elseif type(value) == "table" and value.Active ~= false then
+							keys[key] = true
+						end
+					end
+				end
+			end
+			GamemodeActiveKeys[gamemode.Id] = keys
+
+			for key in pairs(GamemodeLeftKeys[gamemode.Id]) do
+				if not keys[key] then
+					GamemodeLeftKeys[gamemode.Id][key] = nil
+				end
+			end
+
+			if gamemode.Id == "Raid" then
+				for key in pairs(GateAnnouncements) do
+					if keys[key] then
+						GateAnnouncements[key] = nil
+					end
+				end
+			end
+		end)
+	end
+end
+
+local LOADOUT_STATS = { "Luck", "Drop", "Power", "XP", "Damage", "Yen", "None" }
+local FARM_MODES = { "Selected", "Nearest", "All" }
+local TARGET_MODES = { "Nearest", "Highest HP", "Furthest" }
+local DIFFICULTIES = { "VeryEasy", "Easy", "Medium", "Hard", "MiniBoss", "Boss", "Secret" }
+
+local DifficultyRank = {}
+for rank, difficulty in ipairs(DIFFICULTIES) do
+	DifficultyRank[difficulty] = rank
+end
+
+local ActiveMode = nil
+
+local function BindMode(name, enterBridges, endBridge)
+	for _, bridgeName in enterBridges do
+		local bridge = getBridge(bridgeName)
+		if bridge then
+			bridge:Connect(function()
+				ActiveMode = name
+			end)
+		end
+	end
+
+	local ended = getBridge(endBridge)
+	if ended then
+		ended:Connect(function()
+			if ActiveMode == name then
+				ActiveMode = nil
+			end
+		end)
+	end
+end
+
+BindMode("Dungeon", { "DungeonState", "DungeonMapReady" }, "DungeonEnded")
+BindMode("Defense", { "DefenseState", "DefenseMapReady" }, "DefenseEnded")
+BindMode("Raid", { "RaidState", "RaidMapReady" }, "RaidEnded")
+BindMode("Trial", { "TimeTrialState", "TimeTrialMapReady" }, "TimeTrialEnded")
+
+local WorldChanged = getBridge("WorldChanged")
+if WorldChanged then
+	WorldChanged:Connect(function()
+		ActiveMode = nil
+	end)
+end
+
+local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
+local ObsidianLibrary = loadstring(game:HttpGet(repo .. "Library.lua"))()
+local ThemeManager = loadstring(game:HttpGet(repo .. "addons/ThemeManager.lua"))()
+local SaveManager = loadstring(game:HttpGet(repo .. "addons/SaveManager.lua"))()
+
+local Options = ObsidianLibrary.Options
+local Toggles = ObsidianLibrary.Toggles
+
+local DISCORD_INVITE = "https://discord.gg/ehKVq7pf7v"
+
+local Worlds = {}
+for _, world in ipairs(WorldConfig:GetAllWorlds()) do
+	local id = tonumber(world.Order)
+	if id then
+		table.insert(Worlds, { Id = id, Name = world.Name })
+	end
+end
+table.sort(Worlds, function(a, b)
+	return a.Id < b.Id
+end)
+
+local WorldLabels = {}
+local WorldLabelToId = {}
+for _, world in ipairs(Worlds) do
+	local label = world.Name .. " | " .. world.Id
+	table.insert(WorldLabels, label)
+	WorldLabelToId[label] = world.Id
+end
+
+local MobLabelToName = {}
+
+local function BuildMobData(worldIds)
+	local entries = {}
+	local map = {}
+
+	for _, worldId in ipairs(worldIds) do
+		local list = EnemyConfig:GetEnemiesByWorld(worldId)
+		if list then
+			for _, enemy in pairs(list) do
+				if enemy and enemy.Name then
+					local difficulty = tostring(enemy.Type or "Unknown")
+					local label = enemy.Name .. " | " .. difficulty
+					if not map[label] then
+						map[label] = enemy.Name
+						table.insert(entries, {
+							Label = label,
+							Name = enemy.Name,
+							Rank = DifficultyRank[difficulty] or #DIFFICULTIES + 1,
+							WorldId = worldId,
+						})
+					end
+				end
+			end
+		end
+	end
+
+	table.sort(entries, function(a, b)
+		if a.Rank ~= b.Rank then
+			return a.Rank < b.Rank
+		end
+		if a.WorldId ~= b.WorldId then
+			return a.WorldId < b.WorldId
+		end
+		return a.Name < b.Name
+	end)
+
+	local labels = {}
+	for _, entry in ipairs(entries) do
+		table.insert(labels, entry.Label)
+	end
+
+	return labels, map
+end
+
+local function BuildMobLabels(worldIds)
+	local labels, map = BuildMobData(worldIds)
+	MobLabelToName = map
+	return labels
+end
+
+local SideQuestIds = {}
+for id in pairs(SideQuestConfig.Quests) do
+	table.insert(SideQuestIds, id)
+end
+table.sort(SideQuestIds)
+
+local function GetSelected(option, values)
+	local selected = {}
+	local value = option and option.Value
+	if type(value) ~= "table" then
+		return selected
+	end
+
+	for _, entry in ipairs(values) do
+		if value[entry] then
+			table.insert(selected, entry)
+		end
+	end
+	return selected
+end
+
+local function GetFirstSelected(option, values)
+	return GetSelected(option, values)[1]
+end
+
+local function GetSelectedWorldId()
+	local label = Options.FarmWorld and Options.FarmWorld.Value
+	return label and WorldLabelToId[label]
+end
+
+local function GetSelectedMobNames()
+	local names = {}
+	local value = Options.FarmMob and Options.FarmMob.Value
+	if type(value) ~= "table" then
+		return names
+	end
+
+	for label, active in pairs(value) do
+		if active and MobLabelToName[label] then
+			names[MobLabelToName[label]] = true
+		end
+	end
+	return names
+end
+
+local function GetRoot()
+	local character = LocalPlayer.Character
+	return character and character:FindFirstChild("HumanoidRootPart")
+end
+
+local function GetCurrentWorldId()
+	local ok, id = pcall(function()
+		return WorldController:GetCurrentWorld()
+	end)
+	if ok and id then
+		return tonumber(id)
+	end
+	return nil
+end
+
+local function GetEnemyList(worldId)
+	local worldsFolder = workspace:FindFirstChild("Worlds")
+	local world = worldsFolder and worldsFolder:FindFirstChild(tostring(worldId))
+	local folder = world and world:FindFirstChild("Enemies")
+	if not folder then
+		return {}
+	end
+
+	local alive = {}
+	for _, enemy in folder:GetChildren() do
+		local humanoid = enemy:FindFirstChildOfClass("Humanoid")
+		local root = enemy:FindFirstChild("HumanoidRootPart")
+		if humanoid and root and enemy:GetAttribute("EnemyDead") ~= true then
+			table.insert(alive, enemy)
+		end
+	end
+	return alive
+end
+
+local function GetNearestEnemy(worldId, root, nameFilter)
+	local nearest, nearestDist
+	for _, enemy in GetEnemyList(worldId) do
+		if not nameFilter or nameFilter[enemy.Name] then
+			local enemyRoot = enemy:FindFirstChild("HumanoidRootPart")
+			local dist = (enemyRoot.Position - root.Position).Magnitude
+			if not nearestDist or dist < nearestDist then
+				nearest = enemy
+				nearestDist = dist
+			end
+		end
+	end
+	return nearest
+end
+
+local function PickTarget(enemies, root, mode)
+	local best, bestScore
+
+	for _, enemy in ipairs(enemies) do
+		local enemyRoot = enemy:FindFirstChild("HumanoidRootPart")
+		local humanoid = enemy:FindFirstChildOfClass("Humanoid")
+
+		if enemyRoot and humanoid then
+			local score
+			if mode == "Highest HP" then
+				score = humanoid.Health
+			else
+				score = (enemyRoot.Position - root.Position).Magnitude
+				if mode ~= "Furthest" then
+					score = -score
+				end
+			end
+
+			if not bestScore or score > bestScore then
+				best, bestScore = enemy, score
+			end
+		end
+	end
+
+	return best
+end
+
+local Window = ObsidianLibrary:CreateWindow({
+	Title = "Ouroboros Hub",
+	Footer = "https://discord.gg/f3dJhDgyTq | Anime Astral Simulator",
+	Icon = 18657887261,
+	EnableSidebarResize = true,
+	NotifySide = "Right",
+	ShowCustomCursor = false,
+	ShowMobileButtons = false,
+	Size = UDim2.fromOffset(960, 720),
+})
+
+local Tabs = {
+	Main = Window:AddTab("Main", "swords"),
+	Secondary = Window:AddTab("Secondary", "sparkles"),
+	Gamemodes = Window:AddTab("Gamemodes", "castle"),
+	Gacha = Window:AddTab("Gacha", "dices"),
+	Priority = Window:AddTab("Priority", "list-ordered"),
+	Webhook = Window:AddTab("Webhook", "webhook"),
+	Settings = Window:AddTab("Settings", "settings"),
+}
+
+local function AddDiscordButton(Tab)
+	Tab:AddLeftGroupbox("Discord", nil, nil, nil, true):AddButton({
+		Text = "Join Discord For Dupe",
+		Func = function()
+			setclipboard(DISCORD_INVITE)
+			ObsidianLibrary:Notify("Copied Discord invite to clipboard")
+		end,
+	})
+end
+
+for _, Tab in Tabs do
+	AddDiscordButton(Tab)
+end
+
+local FarmGroup = Tabs.Main:AddLeftGroupbox("Farm")
+
+FarmGroup:AddDropdown("FarmWorld", {
+	Values = WorldLabels,
+	Default = WorldLabels[1],
+	Searchable = true,
+	AllowNull = true,
+	Text = "World",
+	Callback = function()
+		if Options.FarmMob then
+			local worldId = GetSelectedWorldId()
+			Options.FarmMob:SetValues(BuildMobLabels(worldId and { worldId } or {}))
+		end
+	end,
+})
+
+FarmGroup:AddDropdown("FarmMob", {
+	Values = BuildMobLabels({ WorldLabelToId[WorldLabels[1]] }),
+	Default = {},
+	Multi = true,
+	Searchable = true,
+	AllowNull = true,
+	Text = "Mob",
+})
+
+FarmGroup:AddDropdown("FarmMode", {
+	Values = FARM_MODES,
+	Default = "Nearest",
+	Searchable = true,
+	AllowNull = true,
+	Text = "Farm Mode",
+})
+
+FarmGroup:AddToggle("TeleportBeforeFarm", {
+	Text = "Teleport To World Before Farm",
+	Default = true,
+})
+
+FarmGroup:AddToggle("AutoFarm", {
+	Text = "Auto Farm",
+	Default = false,
+})
+
+FarmGroup:AddToggle("FastAutoClick", {
+	Text = "Fast Auto Click",
+	Default = false,
+})
+
+local RoundRobinGroup = Tabs.Main:AddLeftGroupbox("Round Robin Farm")
+
+local RoundRobinMobMap = {}
+local RefreshRoundRobinKillSliders
+
+local function RefreshRoundRobinMobs()
+	local worldIds = {}
+	for _, label in ipairs(GetSelected(Options.RoundRobinWorlds, WorldLabels)) do
+		table.insert(worldIds, WorldLabelToId[label])
+	end
+
+	local labels, map = BuildMobData(worldIds)
+	RoundRobinMobMap = map
+
+	if Options.RoundRobinMobs then
+		Options.RoundRobinMobs:SetValues(labels)
+	end
+
+	RefreshRoundRobinKillSliders()
+end
+
+RoundRobinGroup:AddDropdown("RoundRobinWorlds", {
+	Values = WorldLabels,
+	Default = {},
+	Multi = true,
+	Searchable = true,
+	AllowNull = true,
+	Text = "Worlds",
+	Callback = RefreshRoundRobinMobs,
+})
+
+RoundRobinGroup:AddDropdown("RoundRobinMobs", {
+	Values = {},
+	Default = {},
+	Multi = true,
+	Searchable = true,
+	AllowNull = true,
+	Text = "Mobs",
+	Callback = function()
+		RefreshRoundRobinKillSliders()
+	end,
+})
+
+local AllWorldIds = {}
+for _, world in ipairs(Worlds) do
+	table.insert(AllWorldIds, world.Id)
+end
+
+local AllMobLabels = BuildMobData(AllWorldIds)
+
+for _, label in ipairs(AllMobLabels) do
+	RoundRobinGroup:AddSlider("RoundRobinKills_" .. label, {
+		Text = "Kills before next - " .. label,
+		Default = 3,
+		Min = 1,
+		Max = 100,
+		Rounding = 0,
+		Visible = false,
+	})
+end
+
+RoundRobinGroup:AddSlider("RoundRobinSeconds", {
+	Text = "Max Seconds Per Target",
+	Default = 60,
+	Min = 5,
+	Max = 300,
+	Rounding = 0,
+	Suffix = "s",
+})
+
+RoundRobinGroup:AddToggle("RoundRobinFarm", {
+	Text = "Round Robin Auto Farm",
+	Default = false,
+})
+
+function RefreshRoundRobinKillSliders()
+	local selected = Options.RoundRobinMobs and Options.RoundRobinMobs.Value
+
+
+	for _, label in ipairs(AllMobLabels) do
+		local slider = Options["RoundRobinKills_" .. label]
+		if slider then
+			slider:SetVisible(type(selected) == "table" and selected[label] == true)
+		end
+	end
+end
+
+local AutoGroup = Tabs.Main:AddRightGroupbox("Automation")
+
+AutoGroup:AddToggle("AutoClaimAchievements", {
+	Text = "Auto Claim Achievements",
+	Default = false,
+	Callback = function(value)
+		if Bridges.AutoClaimAchievementsSet then
+			Bridges.AutoClaimAchievementsSet:Fire(value)
+		end
+	end,
+})
+
+AutoGroup:AddToggle("AutoRankUp", {
+	Text = "Auto Rank Up",
+	Default = false,
+	Callback = function(value)
+		if Bridges.RankUp then
+			Bridges.RankUp:Fire("SetAutoRankUp", value)
+		end
+	end,
+})
+
+AutoGroup:AddToggle("AutoUnlockWorld", {
+	Text = "Auto Unlock Next Affordable World",
+	Default = false,
+})
+
+AutoGroup:AddToggle("AutoClaimRewards", {
+	Text = "Auto Claim Time/Week Reward",
+	Default = false,
+	Callback = function(value)
+		if Bridges.AutoClaimRewardsSet then
+			Bridges.AutoClaimRewardsSet:Fire(value)
+		end
+	end,
+})
+
+AutoGroup:AddToggle("AutoFuseSwords", {
+	Text = "Auto Fuse All Swords",
+	Default = false,
+})
+
+local StarGroup = Tabs.Secondary:AddLeftGroupbox("Star Hatch")
+
+StarGroup:AddDropdown("StarWorld", {
+	Values = WorldLabels,
+	Default = { WorldLabels[1] },
+	Multi = true,
+	Searchable = true,
+	AllowNull = true,
+	Text = "Star",
+})
+
+StarGroup:AddToggle("AutoHatch", {
+	Text = "Auto Hatch",
+	Default = false,
+})
+
+local QuestGroup = Tabs.Secondary:AddLeftGroupbox("Quests")
+
+QuestGroup:AddToggle("AutoNextWorldQuest", {
+	Text = "Auto Next World Quest",
+	Default = false,
+})
+
+QuestGroup:AddToggle("AutoMainQuest", {
+	Text = "Auto Main Quest",
+	Default = false,
+})
+
+QuestGroup:AddDropdown("SideQuest", {
+	Values = SideQuestIds,
+	Default = { SideQuestConfig.DefaultQuestId },
+	Multi = true,
+	Searchable = true,
+	AllowNull = true,
+	Text = "Side Quest",
+})
+
+QuestGroup:AddToggle("AutoSideQuest", {
+	Text = "Auto Side Quest",
+	Default = false,
+})
+
+local EquipGroup = Tabs.Secondary:AddRightGroupbox("Auto Equip")
+
+EquipGroup:AddToggle("AutoEquipPets", {
+	Text = "Auto Equip Best Pets",
+	Default = false,
+})
+
+EquipGroup:AddToggle("AutoEquipSwords", {
+	Text = "Auto Equip Best Swords",
+	Default = false,
+})
+
+EquipGroup:AddToggle("AutoEquipAvatars", {
+	Text = "Auto Equip Best Avatars",
+	Default = false,
+	Callback = function(value)
+		if Bridges.AutoAvatarBuffSet then
+			Bridges.AutoAvatarBuffSet:Fire(value)
+		end
+	end,
+})
+
+EquipGroup:AddToggle("AutoEquipTitan", {
+	Text = "Auto Equip Best Titan",
+	Default = false,
+})
+
+local function GamemodeSelectedEntries(gamemode)
+	local entries = {}
+	for _, name in ipairs(GetSelected(Options[gamemode.Id .. "Select"], gamemode.Names)) do
+		table.insert(entries, gamemode.NameToEntry[name])
+	end
+	return entries
+end
+
+local function IsArenaRunning(gamemode, key)
+	local arenas = workspace:FindFirstChild(gamemode.Arenas)
+	return (arenas and arenas:FindFirstChild(key)) ~= nil
+end
+
+local function GetArenaEnemies(gamemode, key)
+	local arenas = workspace:FindFirstChild(gamemode.Arenas)
+	local arena = arenas and arenas:FindFirstChild(key)
+	local folder = arena and arena:FindFirstChild("Enemies")
+	if not folder then
+		return {}
+	end
+
+	local alive = {}
+	for _, enemy in folder:GetChildren() do
+		local humanoid = enemy:FindFirstChildOfClass("Humanoid")
+		local root = enemy:FindFirstChild("HumanoidRootPart")
+		if humanoid and root and enemy:GetAttribute("EnemyDead") ~= true then
+			table.insert(alive, enemy)
+		end
+	end
+	return alive
+end
+
+for _, gamemode in ipairs(GAMEMODES) do
+	local FarmBox = Tabs.Gamemodes:AddLeftGroupbox(gamemode.FarmTitle)
+
+	FarmBox:AddDropdown(gamemode.Id .. "Select", {
+		Values = gamemode.Names,
+		Default = {},
+		Multi = true,
+		Searchable = true,
+		AllowNull = true,
+		Text = gamemode.SelectText,
+	})
+
+	if gamemode.GateRankValues then
+		FarmBox:AddDropdown(gamemode.Id .. "GateRank", {
+			Values = gamemode.GateRankValues,
+			Default = {},
+			Multi = true,
+			Searchable = true,
+			AllowNull = true,
+			Text = "Select Gate Rank",
+		})
+	end
+
+	FarmBox:AddDropdown(gamemode.Id .. "Target", {
+		Values = TARGET_MODES,
+		Default = TARGET_MODES[1],
+		Searchable = true,
+		AllowNull = true,
+		Text = "Select Mob Priority",
+	})
+
+	FarmBox:AddToggle(gamemode.Id .. "AutoFarm", {
+		Text = gamemode.AutoFarmText,
+		Default = false,
+	})
+
+	local LeaveBox = Tabs.Gamemodes:AddRightGroupbox(gamemode.LeaveTitle)
+
+	for _, entry in ipairs(gamemode.Entries) do
+		LeaveBox:AddSlider(gamemode.Id .. "Leave" .. entry.Key, {
+			Text = entry.Name,
+			Default = entry.Total + 1,
+			Min = 2,
+			Max = entry.Total + 1,
+			Rounding = 0,
+		})
+	end
+
+	LeaveBox:AddToggle(gamemode.Id .. "AutoLeave", {
+		Text = gamemode.AutoLeaveText,
+		Default = false,
+	})
+end
+
+local ScheduleGroup = Tabs.Gamemodes:AddLeftGroupbox("Spawn Schedule")
+
+local ScheduleLabels = {}
+
+local STALE_GAMEMODE_SECONDS = 45
+local JOIN_CONFIRM_SECONDS = 6
+
+local SPAWN_SCHEDULE = {
+	Raid = { [0] = "Random Tier", [10] = "Gate", [20] = "Gate", [30] = "Random Tier", [40] = "Gate", [50] = "Gate" },
+	Dungeon = { [0] = "Easy", [15] = "Medium", [30] = "Easy", [45] = "Medium" },
+	Trial = { [0] = "Easy", [15] = "Medium", [30] = "Easy", [45] = "Medium" },
+}
+
+local function GetSpawnMinutes(id)
+	local schedule = SPAWN_SCHEDULE[id]
+	if not schedule then
+		return nil
+	end
+
+	local minutes = {}
+	for minute in pairs(schedule) do
+		table.insert(minutes, minute)
+	end
+	table.sort(minutes)
+	return minutes
+end
+
+local function GetNextSpawn(id)
+	local schedule = SPAWN_SCHEDULE[id]
+	local minutes = GetSpawnMinutes(id)
+	if not minutes then
+		return nil
+	end
+
+	local now = os.date("*t")
+	local remaining, tier
+
+	for _, minute in ipairs(minutes) do
+		local seconds = ((minute - now.min) % 60) * 60 - now.sec
+		if seconds <= 0 then
+			seconds += 3600
+		end
+		if not remaining or seconds < remaining then
+			remaining, tier = seconds, schedule[minute]
+		end
+	end
+	return remaining, tier
+end
+
+local function FormatCountdown(seconds)
+	return string.format("%02d:%02d", math.floor(seconds / 60), seconds % 60)
+end
+
+for _, gamemode in ipairs(GAMEMODES) do
+	if SPAWN_SCHEDULE[gamemode.Id] then
+		ScheduleLabels[gamemode.Id] = ScheduleGroup:AddLabel(gamemode.Id .. ": --:--", true)
+	end
+end
+
+
+local function IsInGamemode()
+	local ok, inside = pcall(function()
+		return TeleportController:IsInGamemode()
+	end)
+	return ok and inside == true
+end
+
+local function IsLoading()
+	local ok, loading = pcall(function()
+		return TeleportController:IsLoading()
+	end)
+	return ok and loading == true
+end
+
+local GamemodeControllers = {}
+
+local function GetGamemodeController(gamemode)
+	if not gamemode.Controller then
+		return nil
+	end
+
+	if GamemodeControllers[gamemode.Id] == nil then
+		local ok, controller = pcall(function()
+			return require(ClientFolder[gamemode.Controller])
+		end)
+		GamemodeControllers[gamemode.Id] = ok and controller or false
+	end
+
+	return GamemodeControllers[gamemode.Id] or nil
+end
+
+local function CanEnterKey(gamemode, key, isActive)
+	local controller = GetGamemodeController(gamemode)
+	if not controller then
+		return true
+	end
+
+	local method = isActive and gamemode.CanJoinActive or gamemode.Afford
+	if not method then
+		return true
+	end
+
+	local ok, allowed = pcall(function()
+		return controller[method](controller, key)
+	end)
+	return not ok or allowed == true
+end
+
+local function GateRankAllowed(gamemode, entry)
+	if not entry.GateRanks then
+		return true
+	end
+
+	local selected = GetSelected(Options[gamemode.Id .. "GateRank"], gamemode.GateRankValues or {})
+	if #selected == 0 then
+		return true
+	end
+
+	local announced = GateAnnouncements[entry.Key]
+	if not (announced and announced.Rank) then
+		return false
+	end
+
+	for _, rank in ipairs(selected) do
+		if rank == announced.Rank then
+			return true
+		end
+	end
+	return false
+end
+
+local GachaGroup = Tabs.Gacha:AddLeftGroupbox("Gacha")
+
+GachaGroup:AddDropdown("GachaSelect", {
+	Values = GachaNames,
+	Default = {},
+	Multi = true,
+	Searchable = true,
+	AllowNull = true,
+	Text = "Select Gacha",
+})
+
+GachaGroup:AddToggle("AutoSpinGacha", {
+	Text = "Auto Spin Gacha",
+	Default = false,
+})
+
+local SwordGroup = Tabs.Gacha:AddRightGroupbox("Sword")
+
+SwordGroup:AddDropdown("SwordBanner", {
+	Values = SwordBannerNames,
+	Default = {},
+	Multi = true,
+	Searchable = true,
+	AllowNull = true,
+	Text = "Select Banner",
+})
+
+SwordGroup:AddToggle("AutoRollSword", {
+	Text = "Auto Roll Sword Banner",
+	Default = false,
+})
+
+local TitanGroup = Tabs.Gacha:AddRightGroupbox("Titan")
+
+TitanGroup:AddDropdown("TitanBanner", {
+	Values = TitanBannerNames,
+	Default = {},
+	Multi = true,
+	Searchable = true,
+	AllowNull = true,
+	Text = "Select Banner",
+})
+
+TitanGroup:AddToggle("AutoRollTitan", {
+	Text = "Auto Roll Titan Banner",
+	Default = false,
+})
+
+local PassiveGroup = Tabs.Gacha:AddRightGroupbox("Passive")
+
+PassiveGroup:AddToggle("AutoRollPassive", {
+	Text = "Auto Roll Passive",
+	Default = false,
+})
+
+local WEBHOOK_INVITE = "discord.gg/f3dJhDgyTq"
+
+local WebhookGroup = Tabs.Webhook:AddLeftGroupbox("Webhook")
+
+WebhookGroup:AddInput("WebhookUrl", {
+	Text = "Webhook URL",
+	Default = "",
+	Placeholder = "https://discord.com/api/webhooks/...",
+	Finished = true,
+})
+
+WebhookGroup:AddInput("WebhookPingId", {
+	Text = "Ping ID",
+	Default = "",
+	Placeholder = "Your Discord user ID",
+	Numeric = true,
+	Finished = true,
+})
+
+WebhookGroup:AddToggle("WebhookOnDisconnect", {
+	Text = "Send When Disconnected",
+	Default = false,
+})
+
+WebhookGroup:AddToggle("WebhookOnDivineGacha", {
+	Text = "Send When Divine Gacha",
+	Default = false,
+})
+
+WebhookGroup:AddToggle("WebhookOnSpawn", {
+	Text = "Send When Gamemode Spawns",
+	Default = false,
+})
+
+local httpRequest = http_request or request or (syn and syn.request)
+
+local function SendWebhook(resultLines)
+	local url = Options.WebhookUrl.Value
+	if not httpRequest or type(url) ~= "string" or url == "" then
+		return
+	end
+
+	local pingId = Options.WebhookPingId.Value
+	local content = ""
+	if type(pingId) == "string" and pingId ~= "" then
+		content = "<@" .. pingId .. ">"
+	end
+
+	local name = LocalPlayer.Name
+	local ok, data = pcall(function()
+		return Library.Network.Functions.GetPlayerData:InvokeServer()
+	end)
+	if ok and type(data) == "table" and data.Rank then
+		name = "[" .. tostring(data.Rank) .. "] " .. name
+	end
+
+	local payload = HttpService:JSONEncode({
+		content = content,
+		embeds = {
+			{
+				title = "Anime Astral Simulator",
+				color = 5793266,
+				fields = {
+					{ name = "Name", value = name, inline = false },
+					{ name = "Result", value = table.concat(resultLines, "\n"), inline = false },
+				},
+				footer = { text = WEBHOOK_INVITE },
+				timestamp = DateTime.now():ToIsoDate(),
+			},
+		},
+	})
+
+	task.spawn(function()
+		pcall(httpRequest, {
+			Url = url,
+			Method = "POST",
+			Headers = { ["Content-Type"] = "application/json" },
+			Body = payload,
+		})
+	end)
+end
+
+task.spawn(function()
+	local GachaResult = getBridge("GachaResult")
+	if GachaResult then
+		GachaResult:Connect(function(success, _, result)
+			if not (success and type(result) == "table") then
+				return
+			end
+			if not Toggles.WebhookOnDivineGacha.Value then
+				return
+			end
+
+			local gacha = GachaConfig:GetGacha(result.GachaKey)
+			local gachaName = gacha and gacha.Name or tostring(result.GachaKey)
+
+			local rolls = type(result.Rolls) == "table" and result.Rolls or { result }
+			for _, roll in ipairs(rolls) do
+				if type(roll) == "table" and roll.RolledRarity == "Divine" then
+					local item = roll.RolledItem
+					local itemName = item and item.Name or "Divine"
+
+					SendWebhook({
+						"Divine Gacha - Obtained",
+						"- Gacha: " .. gachaName,
+						"- Power: " .. itemName,
+						"- Rarity: Divine",
+					})
+					break
+				end
+			end
+		end)
+	end
+end)
+
+task.spawn(function()
+	local LastSpawnMinute = {}
+
+	while true do
+		if ObsidianLibrary.Unloaded then
+			break
+		end
+
+		local minute = os.date("*t").min
+
+		for _, gamemode in ipairs(GAMEMODES) do
+			local schedule = SPAWN_SCHEDULE[gamemode.Id]
+			if schedule then
+				local label = ScheduleLabels[gamemode.Id]
+				if label then
+					local remaining, tier = GetNextSpawn(gamemode.Id)
+					label:SetText(gamemode.Id .. ": " .. tostring(tier) .. " in " .. FormatCountdown(remaining))
+				end
+
+				if schedule[minute] and LastSpawnMinute[gamemode.Id] ~= minute then
+					LastSpawnMinute[gamemode.Id] = minute
+
+					if Toggles.WebhookOnSpawn.Value then
+						SendWebhook({
+							"Spawned - " .. gamemode.Id,
+							"- Tier: " .. tostring(schedule[minute]),
+							"- Time: " .. os.date("%H:%M"),
+						})
+					end
+				end
+			end
+		end
+
+		task.wait(1)
+	end
+end)
+
+local SwapGroup = Tabs.Secondary:AddRightGroupbox("Load Out Swap")
+
+local SwapContexts = {
+	{ Index = "SwapDungeon", Text = "Swap At Dungeon", Mode = "Dungeon" },
+	{ Index = "SwapDefense", Text = "Swap At Defense", Mode = "Defense" },
+	{ Index = "SwapStarSummon", Text = "Swap At Star Summon", Mode = "StarSummon" },
+	{ Index = "SwapRaid", Text = "Swap At Raid", Mode = "Raid" },
+	{ Index = "SwapTrial", Text = "Swap At Trial", Mode = "Trial" },
+	{ Index = "SwapNormalFarm", Text = "Swap At Normal Farm", Mode = "NormalFarm" },
+}
+
+for _, context in ipairs(SwapContexts) do
+	SwapGroup:AddDropdown(context.Index, {
+		Values = LOADOUT_STATS,
+		Default = { "None" },
+		Multi = true,
+		Searchable = true,
+		AllowNull = true,
+		Text = context.Text,
+	})
+end
+
+SwapGroup:AddToggle("AutoSwapLoadout", {
+	Text = "Auto Swap LoadOut",
+	Default = false,
+})
+
+ObsidianLibrary.ToggleKeybind = Options.MenuKeybind
+
+local MenuGroup = Tabs.Settings:AddLeftGroupbox("Menu")
+
+MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", {
+	Default = "RightShift",
+	NoUI = true,
+	Text = "Menu keybind",
+})
+
+MenuGroup:AddToggle("AntiAFK", {
+	Text = "Anti-AFK",
+	Default = true,
+})
+
+local HasAutoHidden = false
+
+local function AutoHideOnce()
+	if HasAutoHidden or not Toggles.AutoHideUI.Value then
+		return
+	end
+	HasAutoHidden = true
+	Window:Toggle(false)
+end
+
+MenuGroup:AddToggle("AutoHideUI", {
+	Text = "Auto Hide UI",
+	Default = false,
+	Callback = AutoHideOnce,
+})
+
+local ToggleGui = Instance.new("ScreenGui")
+ToggleGui.Name = "OuroborosToggle"
+ToggleGui.ResetOnSpawn = false
+ToggleGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ToggleGui.DisplayOrder = 999
+
+if syn and syn.protect_gui then
+	syn.protect_gui(ToggleGui)
+end
+ToggleGui.Parent = (gethui and gethui()) or game:GetService("CoreGui")
+
+local ToggleButton = Instance.new("ImageButton")
+ToggleButton.Name = "Toggle"
+ToggleButton.Size = UDim2.fromOffset(56, 56)
+ToggleButton.Position = UDim2.fromOffset(20, 20)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+ToggleButton.BorderSizePixel = 0
+ToggleButton.AutoButtonColor = false
+ToggleButton.Image = "rbxassetid://18657887261"
+ToggleButton.ImageColor3 = Color3.fromRGB(255, 255, 255)
+ToggleButton.ScaleType = Enum.ScaleType.Fit
+ToggleButton.Parent = ToggleGui
+
+local TogglePadding = Instance.new("UIPadding")
+TogglePadding.PaddingTop = UDim.new(0, 10)
+TogglePadding.PaddingBottom = UDim.new(0, 10)
+TogglePadding.PaddingLeft = UDim.new(0, 10)
+TogglePadding.PaddingRight = UDim.new(0, 10)
+TogglePadding.Parent = ToggleButton
+
+local ToggleStroke = Instance.new("UIStroke")
+ToggleStroke.Color = Color3.fromRGB(60, 60, 60)
+ToggleStroke.Thickness = 1
+ToggleStroke.Parent = ToggleButton
+
+local UserInputService = game:GetService("UserInputService")
+
+local dragInput
+local dragMoved = false
+local dragStart
+local startPosition
+
+local function SyncToggleVisual()
+	ToggleButton.ImageTransparency = ObsidianLibrary.Toggled and 0 or 0.45
+end
+
+ToggleButton.InputBegan:Connect(function(input)
+	if input.UserInputType ~= Enum.UserInputType.MouseButton1 and input.UserInputType ~= Enum.UserInputType.Touch then
+		return
+	end
+
+	dragInput = input
+	dragMoved = false
+	dragStart = input.Position
+	startPosition = ToggleButton.Position
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if not dragInput then
+		return
+	end
+	if input.UserInputType ~= Enum.UserInputType.MouseMovement and input.UserInputType ~= Enum.UserInputType.Touch then
+		return
+	end
+
+	local delta = input.Position - dragStart
+	if delta.Magnitude > 4 then
+		dragMoved = true
+	end
+
+	if dragMoved then
+		ToggleButton.Position = UDim2.fromOffset(
+			startPosition.X.Offset + delta.X,
+			startPosition.Y.Offset + delta.Y
+		)
+	end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+	if not dragInput or input.UserInputType ~= dragInput.UserInputType then
+		return
+	end
+
+	dragInput = nil
+
+	if not dragMoved then
+		ObsidianLibrary:Toggle()
+		SyncToggleVisual()
+	end
+end)
+
+ObsidianLibrary:OnUnload(function()
+	ToggleGui:Destroy()
+end)
+
+MenuGroup:AddButton("Unload", function()
+	ObsidianLibrary:Unload()
+end)
+
+ObsidianLibrary:OnUnload(function()
+	print("Unloaded!")
+end)
+
+local PRIORITY_FEATURES = {
+	{ Id = "Trial", Text = "Time Trial" },
+	{ Id = "Defense", Text = "Defense" },
+	{ Id = "Raid", Text = "Raid" },
+	{ Id = "Dungeon", Text = "Dungeon" },
+	{ Id = "Quest", Text = "Auto Quest" },
+	{ Id = "Star", Text = "Auto Open Star" },
+	{ Id = "Farm", Text = "Auto Farm" },
+}
+
+local PriorityGroup = Tabs.Priority:AddLeftGroupbox("Feature Priority")
+
+PriorityGroup:AddToggle("PriorityEnabled", {
+	Text = "Enable Priority System",
+	Default = true,
+})
+
+PriorityGroup:AddLabel("1 = Highest Priority, 7 = Lowest Priority", true)
+PriorityGroup:AddLabel("1 = Ưu tiên cao nhất, 7 = Ưu tiên thấp nhất", true)
+PriorityGroup:AddLabel("1 = ลำดับความสำคัญสูงสุด, 7 = ลำดับความสำคัญต่ำสุด", true)
+PriorityGroup:AddLabel("1 = Pinakamataas na Prayoridad, 7 = Pinakamababang Prayoridad", true)
+
+for rank, feature in ipairs(PRIORITY_FEATURES) do
+	PriorityGroup:AddSlider("Priority" .. feature.Id, {
+		Text = feature.Text,
+		Default = rank,
+		Min = 1,
+		Max = #PRIORITY_FEATURES,
+		Rounding = 0,
+	})
+end
+
+local function IsFeatureEligible(id)
+	if id == "Quest" then
+		return Toggles.AutoMainQuest.Value or Toggles.AutoNextWorldQuest.Value or Toggles.AutoSideQuest.Value
+	elseif id == "Star" then
+		return Toggles.AutoHatch.Value
+	elseif id == "Farm" then
+		return Toggles.AutoFarm.Value or Toggles.RoundRobinFarm.Value
+	end
+
+	local toggle = Toggles[id .. "AutoFarm"]
+	if not (toggle and toggle.Value) then
+		return false
+	end
+
+	for _, gamemode in ipairs(GAMEMODES) do
+		if gamemode.Id == id then
+			return #GamemodeSelectedEntries(gamemode) > 0
+		end
+	end
+	return false
+end
+
+local function GetActiveFeature()
+	if ActiveGamemode then
+		return ActiveGamemode.Id
+	end
+
+	local best, bestRank
+	for _, feature in ipairs(PRIORITY_FEATURES) do
+		if IsFeatureEligible(feature.Id) then
+			local rank = Options["Priority" .. feature.Id].Value
+			if not bestRank or rank < bestRank then
+				best, bestRank = feature.Id, rank
+			end
+		end
+	end
+	return best
+end
+
+local function IsAllowed(id)
+	if not Toggles.PriorityEnabled.Value then
+		return true
+	end
+	return GetActiveFeature() == id
+end
+
+task.spawn(function()
+	for _, gamemode in ipairs(GAMEMODES) do
+		local ended = getBridge(gamemode.Ended)
+		if ended then
+			ended:Connect(function()
+				if not gamemode.Status then
+					GamemodeLeftKeys[gamemode.Id] = {}
+				end
+
+				if ActiveGamemode and ActiveGamemode.Id == gamemode.Id then
+					ActiveGamemode = nil
+				end
+			end)
+		end
+
+		local state = Bridges[gamemode.State]
+		if state then
+			state:Connect(function(payload)
+				if type(payload) ~= "table" then
+					return
+				end
+
+				if not (ActiveGamemode and ActiveGamemode.Id == gamemode.Id) then
+					return
+				end
+
+				ActiveGamemode.LastState = os.clock()
+
+				if not Toggles[gamemode.Id .. "AutoLeave"].Value then
+					return
+				end
+
+				local counter = tonumber(payload[gamemode.Counter])
+				local limit = Options[gamemode.Id .. "Leave" .. ActiveGamemode.Key]
+				if not (counter and limit) then
+					return
+				end
+
+				if counter >= limit.Value and Bridges[gamemode.Leave] then
+					Bridges[gamemode.Leave]:Fire()
+					GamemodeLeftKeys[gamemode.Id][ActiveGamemode.Key] = true
+					ActiveGamemode = nil
+				end
+			end)
+		end
+	end
+end)
+
+task.spawn(function()
+	while true do
+		if ObsidianLibrary.Unloaded then
+			break
+		end
+
+		if Toggles.AutoSpinGacha.Value and Bridges.GachaRoll then
+			local ok, data = pcall(function()
+				return Library.Network.Functions.GetPlayerData:InvokeServer()
+			end)
+			if ok and type(data) == "table" and type(data.ActiveGachas) == "table" then
+				ActiveGachas = data.ActiveGachas
+			end
+
+			for _, name in ipairs(GetSelected(Options.GachaSelect, GachaNames)) do
+				local key = GachaNameToKey[name]
+				if key and ActiveGachas[key] ~= GachaMaxRarity[key] then
+					Bridges.GachaRoll:Fire(key)
+				end
+			end
+		end
+
+		if Toggles.AutoRollSword.Value and Bridges.SwordRoll then
+			for _, name in ipairs(GetSelected(Options.SwordBanner, SwordBannerNames)) do
+				Bridges.SwordRoll:Fire(SwordBannerToKey[name])
+			end
+		end
+
+		if Toggles.AutoRollTitan.Value and Bridges.TitanRoll then
+			for _, name in ipairs(GetSelected(Options.TitanBanner, TitanBannerNames)) do
+				Bridges.TitanRoll:Fire(TitanBannerToKey[name])
+			end
+		end
+
+		if Toggles.AutoRollPassive.Value and Bridges.PlayerPassiveRoll then
+			Bridges.PlayerPassiveRoll:Fire()
+		end
+
+		task.wait(1)
+	end
+end)
+
+task.spawn(function()
+	local CoreGui = game:GetService("CoreGui")
+	local ok, overlay = pcall(function()
+		return CoreGui:WaitForChild("RobloxPromptGui"):WaitForChild("promptOverlay")
+	end)
+	if not ok or not overlay then
+		return
+	end
+
+	overlay.ChildAdded:Connect(function(child)
+		if ObsidianLibrary.Unloaded then
+			return
+		end
+		if not Toggles.WebhookOnDisconnect.Value then
+			return
+		end
+		if not child.Name:find("ErrorPrompt") then
+			return
+		end
+
+		local reason = "Connection lost"
+		local label = child:FindFirstChild("ErrorMessage", true)
+		if label and label:IsA("TextLabel") and label.Text ~= "" then
+			reason = label.Text
+		end
+
+		SendWebhook({
+			"Disconnected",
+			"- Reason: " .. reason,
+		})
+	end)
+end)
+
+task.spawn(function()
+	while true do
+		if ObsidianLibrary.Unloaded then
+			break
+		end
+
+		for _, gamemode in ipairs(GAMEMODES) do
+			if Toggles[gamemode.Id .. "AutoFarm"].Value and IsAllowed(gamemode.Id) then
+				local entries = GamemodeSelectedEntries(gamemode)
+
+				if ActiveGamemode and ActiveGamemode.Id == gamemode.Id then
+					local root = GetRoot()
+					local enemies = GetArenaEnemies(gamemode, ActiveGamemode.Key)
+
+					if os.clock() - ActiveGamemode.LastState > STALE_GAMEMODE_SECONDS and not IsInGamemode() then
+						ActiveGamemode = nil
+					elseif root and #enemies > 0 then
+						local target = PickTarget(enemies, root, Options[gamemode.Id .. "Target"].Value)
+
+						if target then
+							local targetRoot = target:FindFirstChild("HumanoidRootPart")
+							if targetRoot then
+								root.CFrame = targetRoot.CFrame * CFrame.new(0, 0, 5)
+							end
+							if Bridges.Click then
+								Bridges.Click:Fire()
+							end
+						end
+					end
+				elseif not ActiveGamemode and #entries > 0 and not IsInGamemode() and not IsLoading() then
+					local index = GamemodeJoinIndex[gamemode.Id] or 1
+					if index > #entries then
+						index = 1
+					end
+
+					for offset = 0, #entries - 1 do
+						local slot = ((index - 1 + offset) % #entries) + 1
+						local entry = entries[slot]
+						local isActive = gamemode.Status and GamemodeActiveKeys[gamemode.Id][entry.Key] == true
+						local leftBehind = GamemodeLeftKeys[gamemode.Id][entry.Key] == true
+
+						if leftBehind and not gamemode.Status and not IsArenaRunning(gamemode, entry.Key) then
+							GamemodeLeftKeys[gamemode.Id][entry.Key] = nil
+							leftBehind = false
+						end
+
+						local canEnter
+						if gamemode.Status then
+							canEnter = CanEnterKey(gamemode, entry.Key, isActive)
+						else
+							canEnter = IsArenaRunning(gamemode, entry.Key)
+						end
+
+						if GateRankAllowed(gamemode, entry) and Bridges[gamemode.Join] and not leftBehind and canEnter then
+							local action = "Join"
+							if gamemode.Status and not isActive then
+								action = "Create"
+							end
+
+							Bridges[gamemode.Join]:Fire(action, entry.Key)
+
+							local deadline = os.clock() + JOIN_CONFIRM_SECONDS
+							while os.clock() < deadline do
+								if IsInGamemode() or IsArenaRunning(gamemode, entry.Key) then
+									ActiveGamemode = { Id = gamemode.Id, Key = entry.Key, LastState = os.clock() }
+									GamemodeJoinIndex[gamemode.Id] = slot + 1
+									break
+								end
+								task.wait(0.25)
+							end
+
+							break
+						end
+					end
+				end
+			end
+		end
+
+		task.wait(0.1)
+	end
+end)
+
+task.spawn(function()
+	local lastStat
+
+	while true do
+		if ObsidianLibrary.Unloaded then
+			break
+		end
+
+		if Toggles.AutoSwapLoadout.Value and Bridges.EquipBestLoadout then
+			local mode = ActiveMode
+			if not mode and Toggles.AutoHatch.Value then
+				mode = "StarSummon"
+			end
+			if not mode then
+				mode = "NormalFarm"
+			end
+
+			local stat
+			for _, context in ipairs(SwapContexts) do
+				if context.Mode == mode then
+					stat = GetFirstSelected(Options[context.Index], LOADOUT_STATS)
+					break
+				end
+			end
+
+			if stat and stat ~= "None" and stat ~= lastStat then
+				Bridges.EquipBestLoadout:Fire(stat)
+				lastStat = stat
+			end
+		else
+			lastStat = nil
+		end
+
+		task.wait(1)
+	end
+end)
+
+task.spawn(function()
+	while true do
+		if ObsidianLibrary.Unloaded then
+			break
+		end
+
+		local doFarm = Toggles.AutoFarm.Value and not Toggles.RoundRobinFarm.Value and IsAllowed("Farm")
+		local fastClick = Toggles.FastAutoClick.Value
+
+		if (doFarm or fastClick) and Bridges.Click then
+			local root = GetRoot()
+			if root then
+				if doFarm then
+					local selectedWorldId = GetSelectedWorldId()
+					local currentWorldId = GetCurrentWorldId()
+
+					if Toggles.TeleportBeforeFarm.Value and Bridges.RequestChangeWorld and selectedWorldId then
+						if currentWorldId ~= selectedWorldId then
+							Bridges.RequestChangeWorld:Fire(selectedWorldId)
+							task.wait(2)
+							currentWorldId = GetCurrentWorldId()
+						end
+					end
+
+					currentWorldId = currentWorldId or selectedWorldId
+
+					if currentWorldId then
+						local mode = Options.FarmMode.Value or "Nearest"
+						local target
+
+						if mode == "Selected" then
+							local names = GetSelectedMobNames()
+							if next(names) then
+								target = GetNearestEnemy(currentWorldId, root, names)
+							end
+						elseif mode == "All" then
+							local list = GetEnemyList(currentWorldId)
+							if #list > 0 then
+								target = list[math.random(1, #list)]
+							end
+						else
+							target = GetNearestEnemy(currentWorldId, root)
+						end
+
+						if target then
+							local targetRoot = target:FindFirstChild("HumanoidRootPart")
+							if targetRoot then
+								root.CFrame = targetRoot.CFrame * CFrame.new(0, 0, 5)
+							end
+						end
+					end
+				end
+
+				Bridges.Click:Fire()
+			end
+		end
+
+		task.wait(Toggles.FastAutoClick.Value and 0.05 or 0.15)
+	end
+end)
+
+local function BuildRotation()
+	local rotation = {}
+
+	for _, label in ipairs(GetSelected(Options.RoundRobinWorlds, WorldLabels)) do
+		local worldId = WorldLabelToId[label]
+		local names = {}
+
+		for mobLabel, active in pairs(Options.RoundRobinMobs.Value) do
+			if active and RoundRobinMobMap[mobLabel] then
+				names[RoundRobinMobMap[mobLabel]] = true
+			end
+		end
+
+		local list = EnemyConfig:GetEnemiesByWorld(worldId)
+		if list then
+			local worldMobs = {}
+			for _, enemy in pairs(list) do
+				if enemy and enemy.Name and names[enemy.Name] then
+					local difficulty = tostring(enemy.Type or "Unknown")
+					table.insert(worldMobs, {
+						WorldId = worldId,
+						Name = enemy.Name,
+						Label = enemy.Name .. " | " .. difficulty,
+						Rank = DifficultyRank[difficulty] or #DIFFICULTIES + 1,
+					})
+				end
+			end
+
+			table.sort(worldMobs, function(a, b)
+				if a.Rank ~= b.Rank then
+					return a.Rank < b.Rank
+				end
+				return a.Name < b.Name
+			end)
+
+			for _, entry in ipairs(worldMobs) do
+				table.insert(rotation, entry)
+			end
+		end
+	end
+
+	return rotation
+end
+
+local function IsEnemyDead(enemy)
+	if not enemy.Parent then
+		return true
+	end
+	if enemy:GetAttribute("EnemyDead") == true then
+		return true
+	end
+
+	local humanoid = enemy:FindFirstChildOfClass("Humanoid")
+	return humanoid ~= nil and humanoid.Health <= 0
+end
+
+task.spawn(function()
+	local index = 1
+	local dwellStart = 0
+	local currentKey
+	local kills = 0
+	local engaged
+
+	while true do
+		if ObsidianLibrary.Unloaded then
+			break
+		end
+
+		if Toggles.RoundRobinFarm.Value and IsAllowed("Farm") and Bridges.Click then
+			local rotation = BuildRotation()
+
+			if #rotation > 0 then
+				if index > #rotation then
+					index = 1
+				end
+
+				local target = rotation[index]
+				local key = target.WorldId .. "|" .. target.Name
+
+				if key ~= currentKey then
+					currentKey = key
+					dwellStart = os.clock()
+					kills = 0
+					engaged = nil
+				end
+
+				local root = GetRoot()
+				local currentWorldId = GetCurrentWorldId()
+
+				if root and currentWorldId ~= target.WorldId and Bridges.RequestChangeWorld then
+					Bridges.RequestChangeWorld:Fire(target.WorldId)
+					task.wait(2)
+					currentWorldId = GetCurrentWorldId()
+				end
+
+				if engaged and IsEnemyDead(engaged) then
+					kills += 1
+					engaged = nil
+				end
+
+				local enemy = root and GetNearestEnemy(target.WorldId, root, { [target.Name] = true })
+
+				if enemy then
+					engaged = enemy
+
+					local enemyRoot = enemy:FindFirstChild("HumanoidRootPart")
+					if enemyRoot then
+						root.CFrame = enemyRoot.CFrame * CFrame.new(0, 0, 5)
+					end
+					Bridges.Click:Fire()
+				end
+
+				local killSlider = Options["RoundRobinKills_" .. target.Label]
+				local killTarget = killSlider and killSlider.Value or 3
+				local timedOut = os.clock() - dwellStart >= Options.RoundRobinSeconds.Value
+
+				if kills >= killTarget or timedOut then
+					index += 1
+					currentKey = nil
+				end
+			end
+		end
+
+		task.wait(Toggles.FastAutoClick.Value and 0.05 or 0.15)
+	end
+end)
+
+task.spawn(function()
+	while true do
+		if ObsidianLibrary.Unloaded then
+			break
+		end
+
+		if Toggles.AutoFuseSwords.Value and Bridges.FuseAllSwords then
+			Bridges.FuseAllSwords:Fire()
+		end
+
+		if Toggles.AutoUnlockWorld.Value and Bridges.BuyWorld then
+			for _, world in ipairs(Worlds) do
+				local unlocked = false
+				pcall(function()
+					unlocked = TeleportController:IsWorldUnlocked(world.Id)
+				end)
+				if not unlocked then
+					Bridges.BuyWorld:Fire(world.Id)
+					break
+				end
+			end
+		end
+
+		if Toggles.AutoEquipPets.Value and Bridges.EquipBest then
+			Bridges.EquipBest:Fire()
+		end
+
+		if Toggles.AutoEquipSwords.Value and Bridges.EquipBestSword then
+			Bridges.EquipBestSword:Fire()
+		end
+
+		if Toggles.AutoEquipTitan.Value and Bridges.EquipBestTitan then
+			Bridges.EquipBestTitan:Fire()
+		end
+
+		if Toggles.AutoHatch.Value and IsAllowed("Star") and Bridges.OpenEgg then
+			for _, label in ipairs(GetSelected(Options.StarWorld, WorldLabels)) do
+				local eggKey = "World" .. tostring(WorldLabelToId[label])
+				local actions
+				pcall(function()
+					actions = AutoActionController:GetActionsForEgg(eggKey)
+				end)
+				Bridges.OpenEgg:Fire(eggKey, actions)
+			end
+		end
+
+		local questAllowed = IsAllowed("Quest")
+
+		if Toggles.AutoMainQuest.Value and questAllowed and Bridges.QuestCollect then
+			Bridges.QuestCollect:Fire()
+		end
+
+		if Toggles.AutoNextWorldQuest.Value and questAllowed and Bridges.GlobalQuestClaimAll then
+			Bridges.GlobalQuestClaimAll:Fire()
+		end
+
+		if Toggles.AutoSideQuest.Value and questAllowed and Bridges.SideQuestAcceptRequest then
+			for _, questId in ipairs(GetSelected(Options.SideQuest, SideQuestIds)) do
+				Bridges.SideQuestAcceptRequest:Fire(questId)
+			end
+		end
+
+		task.wait(1)
+	end
+end)
+
+LocalPlayer.Idled:Connect(function()
+	if ObsidianLibrary.Unloaded then
+		return
+	end
+	if not Options.AntiAFK.Value then
+		return
+	end
+	VirtualUser:CaptureController()
+	VirtualUser:ClickButton2(Vector2.new())
+end)
+
+task.spawn(function()
+	while true do
+		task.wait(600)
+
+		if ObsidianLibrary.Unloaded then
+			break
+		end
+
+		local character = LocalPlayer.Character
+		local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+
+		if humanoid and humanoid.Health > 0 then
+			humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+		end
+	end
+end)
+
+ThemeManager:SetLibrary(ObsidianLibrary)
+SaveManager:SetLibrary(ObsidianLibrary)
+
+ThemeManager:SetFolder("OuroborosHub")
+SaveManager:SetFolder("OuroborosHub/astral-simulator")
+
+SaveManager:IgnoreThemeSettings()
+SaveManager:SetIgnoreIndexes({ "MenuKeybind" })
+
+ThemeManager:SaveDefault("Mint")
+
+ThemeManager:ApplyToTab(Tabs.Settings)
+SaveManager:BuildConfigSection(Tabs.Settings)
+
+ThemeManager:LoadDefault()
+SaveManager:LoadAutoloadConfig()
+
+AutoHideOnce()
+
+SyncToggleVisual()
