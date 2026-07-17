@@ -117,6 +117,23 @@ addPlaceShopEntries("Totem", totemNames, totemIdByName)
 addPlaceShopEntries("Decoration", decorNames, decorIdByName)
 addPlaceShopEntries("Crate", crateNames, crateIdByName)
 
+local trashShopNames, trashShopLabelByKey = {}, {}
+local function addTrashShopEntries(kind, names, ids)
+    for _, name in ipairs(names) do
+        local displayKind = kind == "SellTable" and "Sell Table" or kind
+        local label = displayKind .. " | " .. name
+        local itemId = ids[name]
+        table.insert(trashShopNames, label)
+        trashShopLabelByKey[kind .. ":" .. tostring(itemId)] = label
+    end
+end
+addTrashShopEntries("Bed", bedNames, bedIdByName)
+addTrashShopEntries("SellTable", tableNames, tableIdByName)
+addTrashShopEntries("Totem", totemNames, totemIdByName)
+addTrashShopEntries("Decoration", decorNames, decorIdByName)
+addTrashShopEntries("Gear", gearNames, gearIdByName)
+addTrashShopEntries("Crate", crateNames, crateIdByName)
+
 local sprinklerList = {}
 for _, v in ipairs(DecorationData.List) do
     if string.find(v.name, "Sprinkler") then
@@ -428,10 +445,14 @@ CrateBox:AddDropdown("BuyCrates", {
 CrateBox:AddSlider("CrateInterval", { Text = "Crate interval", Default = 2, Min = 0.5, Max = 15, Rounding = 1, Suffix = "s" })
 
 local TrashBox = Tabs.Main:AddRightGroupbox("Auto Trash", "trash-2")
-TrashBox:AddToggle("AutoTrash", { Text = "Auto Trash Seeds", Default = false })
+TrashBox:AddToggle("AutoTrash", { Text = "Auto Trash Items", Default = false })
 TrashBox:AddDropdown("TrashSeeds", {
     Values = seedNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
     Text = "Seeds to trash",
+})
+TrashBox:AddDropdown("TrashShopItems", {
+    Values = trashShopNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
+    Text = "Shop items to trash",
 })
 TrashBox:AddInput("KeepWeight", { Text = "Keep at or above weight (g, 0 = off)", Default = "0", Numeric = true, Finished = true })
 TrashBox:AddSlider("TrashInterval", { Text = "Trash interval", Default = 0.5, Min = 0.1, Max = 5, Rounding = 1, Suffix = "s" })
@@ -874,12 +895,23 @@ local placeRemoteByKind = {
 }
 
 local function shouldTrash(tool)
-    if tool:GetAttribute("ToolKind") ~= "Seed" then return false end
-    local seedLabel = seedNameById[tool:GetAttribute("ItemId")]
-    if not seedLabel or not Options.TrashSeeds.Value[seedLabel] then return false end
-    local keepWeight = tonumber(Options.KeepWeight.Value) or 0
-    if keepWeight > 0 and (tonumber(tool:GetAttribute("SeedWeight")) or 0) >= keepWeight then return false end
-    return true
+    local kind = tool:GetAttribute("ToolKind")
+    local itemId = tool:GetAttribute("ItemId")
+    if kind == "Seed" then
+        local seedLabel = seedNameById[itemId]
+        if not seedLabel or not Options.TrashSeeds.Value[seedLabel] then return false end
+        local keepWeight = tonumber(Options.KeepWeight.Value) or 0
+        if keepWeight > 0 and (tonumber(tool:GetAttribute("SeedWeight")) or 0) >= keepWeight then return false end
+        return true
+    end
+    local shopLabel = trashShopLabelByKey[kind .. ":" .. tostring(itemId)]
+    return shopLabel ~= nil and Options.TrashShopItems.Value[shopLabel] == true
+end
+
+local function ownTrashPrompt()
+    local plot = myPlot()
+    local trashCan = plot and plot:FindFirstChild("TrashCan")
+    return trashCan and trashCan:FindFirstChild("TrashPrompt", true)
 end
 
 local function safeFarmLoop(slots, maxDist, shouldContinueFunc, getInteractableFunc, actionFunc)
@@ -887,10 +919,10 @@ local function safeFarmLoop(slots, maxDist, shouldContinueFunc, getInteractableF
     if not root then return end
     local originalCFrame = root.CFrame
     local moved = false
-    
+
     for _, slot in ipairs(slots) do
         if Library.Unloaded or not shouldContinueFunc() then break end
-        
+
         local target = getInteractableFunc(slot)
         if target then
             if (root.Position - slot.Position).Magnitude > maxDist then
@@ -898,12 +930,12 @@ local function safeFarmLoop(slots, maxDist, shouldContinueFunc, getInteractableF
                 moved = true
                 task.wait(0.15)
             end
-            
+
             if Library.Unloaded or not shouldContinueFunc() then break end
             actionFunc(slot, target)
         end
     end
-    
+
     if moved then
         root.CFrame = originalCFrame
     end
@@ -1474,16 +1506,34 @@ task.spawn(function()
     while task.wait(Options.TrashInterval.Value) do
         if Library.Unloaded then break end
         if Toggles.AutoTrash.Value then
-            for _, tool in ipairs(ownedToolsOfKind("Seed")) do
-                if Library.Unloaded or not Toggles.AutoTrash.Value then break end
-                if shouldTrash(tool) then
-                    equipTool(tool)
-                    task.wait(0.05)
-                    if tool.Parent == LocalPlayer.Character then
-                        TrashHeld:FireServer(tool)
+            local toolsToTrash = {}
+            for _, kind in ipairs({ "Seed", "Bed", "SellTable", "Totem", "Decoration", "Gear", "Crate" }) do
+                for _, tool in ipairs(ownedToolsOfKind(kind)) do
+                    if shouldTrash(tool) then
+                        table.insert(toolsToTrash, tool)
                     end
-                    task.wait(0.1)
                 end
+            end
+            local root = rootPart()
+            local prompt = ownTrashPrompt()
+            local target = prompt and prompt.Parent
+            if #toolsToTrash > 0 and root and target and target:IsA("BasePart") then
+                local originalCFrame = root.CFrame
+                root.CFrame = target.CFrame + Vector3.new(0, 3, 0)
+                task.wait(0.1)
+                for _, tool in ipairs(toolsToTrash) do
+                    if Library.Unloaded or not Toggles.AutoTrash.Value then break end
+                    if tool.Parent then
+                        equipTool(tool)
+                        task.wait(0.1)
+                        if tool.Parent == LocalPlayer.Character then
+                            TrashHeld:FireServer(tool)
+                        end
+                        task.wait(0.1)
+                    end
+                end
+                root = rootPart()
+                if root then root.CFrame = originalCFrame end
             end
         end
     end
