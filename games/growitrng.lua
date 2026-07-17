@@ -129,7 +129,6 @@ local function addTrashShopEntries(kind, names, ids)
 end
 addTrashShopEntries("Bed", bedNames, bedIdByName)
 addTrashShopEntries("SellTable", tableNames, tableIdByName)
-addTrashShopEntries("Totem", totemNames, totemIdByName)
 addTrashShopEntries("Decoration", decorNames, decorIdByName)
 addTrashShopEntries("Gear", gearNames, gearIdByName)
 addTrashShopEntries("Crate", crateNames, crateIdByName)
@@ -450,6 +449,10 @@ TrashBox:AddDropdown("TrashSeeds", {
     Values = seedNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
     Text = "Seeds to trash",
 })
+TrashBox:AddDropdown("TrashTotems", {
+    Values = totemNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
+    Text = "Totems to trash",
+})
 TrashBox:AddDropdown("TrashShopItems", {
     Values = trashShopNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
     Text = "Shop items to trash",
@@ -463,6 +466,11 @@ UseBox:AddDropdown("PlaceTotems", {
     Values = totemNames, Default = {}, Multi = true, Searchable = true, AllowNull = true,
     Text = "Totems to place (none = all)",
 })
+for _, totem in ipairs(TotemData.List) do
+    UseBox:AddInput("TotemPlaceLimit" .. tostring(totem.id), {
+        Text = totem.name .. " place limit (0 = unlimited)", Default = "1", Numeric = true, Finished = true,
+    })
+end
 UseBox:AddSlider("TotemPlaceInterval", { Text = "Totem place interval", Default = 1, Min = 0.2, Max = 10, Rounding = 1, Suffix = "s" })
 UseBox:AddDivider()
 UseBox:AddToggle("AutoUseSprinklers", { Text = "Auto Use Sprinklers", Default = false })
@@ -904,8 +912,25 @@ local function shouldTrash(tool)
         if keepWeight > 0 and (tonumber(tool:GetAttribute("SeedWeight")) or 0) >= keepWeight then return false end
         return true
     end
+    if kind == "Totem" then
+        local totemLabel = totemLabelById[itemId]
+        return totemLabel ~= nil and Options.TrashTotems.Value[totemLabel] == true
+    end
     local shopLabel = trashShopLabelByKey[kind .. ":" .. tostring(itemId)]
     return shopLabel ~= nil and Options.TrashShopItems.Value[shopLabel] == true
+end
+
+local function canPlaceTotem(itemId)
+    local option = Options["TotemPlaceLimit" .. tostring(itemId)]
+    local limit = option and tonumber(option.Value) or 0
+    if limit <= 0 then return true end
+    local placed = 0
+    for _, totem in ipairs(CollectionService:GetTagged("Totem")) do
+        if totem:GetAttribute("OwnerUserId") == LocalPlayer.UserId and totem:GetAttribute("ItemId") == itemId then
+            placed = placed + 1
+        end
+    end
+    return placed < limit
 end
 
 local function ownTrashPrompt()
@@ -1544,7 +1569,7 @@ task.spawn(function()
         if Library.Unloaded then break end
         if Toggles.AutoPlaceTotems.Value then
             for _, tool in ipairs(ownedToolsOfKind("Totem")) do
-                if selectionContainsItem(Options.PlaceTotems.Value, tool:GetAttribute("ItemId"), totemLabelById) then
+                if selectionContainsItem(Options.PlaceTotems.Value, tool:GetAttribute("ItemId"), totemLabelById) and canPlaceTotem(tool:GetAttribute("ItemId")) then
                     placeOwnedTool(tool, PlaceTotem, function() return Toggles.AutoPlaceTotems.Value end)
                     break
                 end
@@ -1562,7 +1587,7 @@ task.spawn(function()
                 for _, tool in ipairs(ownedToolsOfKind(kind)) do
                     if Library.Unloaded or not Toggles.AutoPlaceShopItems.Value then break end
                     local label = placeShopLabelByKey[kind .. ":" .. tostring(tool:GetAttribute("ItemId"))]
-                    if label and Options.PlaceShopItems.Value[label] then
+                    if label and Options.PlaceShopItems.Value[label] and (kind ~= "Totem" or canPlaceTotem(tool:GetAttribute("ItemId"))) then
                         placeOwnedTool(tool, placeRemoteByKind[kind], function() return Toggles.AutoPlaceShopItems.Value end)
                         placed = true
                         break
