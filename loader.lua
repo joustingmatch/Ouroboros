@@ -63,7 +63,8 @@ local games = {
     [540612760] = 'buildabaseandsteal',
     [657759819] = 'rollanimetofight.lua',
     [35929511] = 'animeexpeditions.lua',
-}
+    [383912360] = 'zombieturretfarm.lua',
+}   
 
 local file = games[game.CreatorId]
 if file then
