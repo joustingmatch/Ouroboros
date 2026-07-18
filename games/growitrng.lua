@@ -39,6 +39,9 @@ local QuestClaim = Remotes:WaitForChild("QuestClaim")
 local PlaytimeClaim = Remotes:WaitForChild("PlaytimeClaim")
 local RebirthRequest = Remotes:WaitForChild("RebirthRequest")
 local RebirthBuyUpgrade = Remotes:WaitForChild("RebirthBuyUpgrade")
+local RebirthBuyItem = Remotes:WaitForChild("RebirthBuyItem")
+local RedeemCode = Remotes:WaitForChild("RedeemCode")
+local RequestSteal = Remotes:WaitForChild("RequestSteal")
 local TrashHeld = Remotes:WaitForChild("TrashHeld")
 local PlaceTotem = Remotes:WaitForChild("PlaceTotem")
 local PlaceDecoration = Remotes:WaitForChild("PlaceDecoration")
@@ -363,6 +366,13 @@ PetBox:AddDropdown("CatchPets", {
 PetBox:AddInput("MaxCatchPrice", { Text = "Max catch price (0 = any)", Default = "0", Numeric = true, Finished = true })
 PetBox:AddSlider("CatchInterval", { Text = "Catch interval", Default = 0.5, Min = 0.1, Max = 5, Rounding = 1, Suffix = "s" })
 
+-- Steal
+local StealBox = Tabs.Main:AddRightGroupbox("Auto Steal", "hand")
+StealBox:AddToggle("AutoSteal", { Text = "Auto Steal Crops", Default = false })
+StealBox:AddToggle("StealTables", { Text = "Steal From Sell Tables", Default = true })
+StealBox:AddToggle("StealBeds", { Text = "Steal Ripe Beds", Default = true })
+StealBox:AddSlider("StealInterval", { Text = "Steal interval", Default = 0.5, Min = 0.1, Max = 5, Rounding = 1, Suffix = "s" })
+
 -- Rewards
 local RewardBox = Tabs.Main:AddRightGroupbox("Rewards", "gift")
 RewardBox:AddToggle("AutoQuests", { Text = "Auto Claim Quests", Default = false })
@@ -498,6 +508,22 @@ MovementBox:AddToggle("InfiniteJump", { Text = "Infinite Jump", Default = false 
 local ESPBox = Tabs.Player:AddRightGroupbox("ESP")
 ESPBox:AddToggle("SeedSizeESP", { Text = "Seed Size ESP", Default = false })
 ESPBox:AddToggle("PetESP", { Text = "Pet ESP", Default = false })
+
+local CodesBox = Tabs.Player:AddRightGroupbox("Codes", "ticket")
+CodesBox:AddInput("CodeInput", { Text = "Code", Default = "", Placeholder = "ENTER CODE", Finished = false })
+CodesBox:AddButton("Redeem Code", function()
+    local code = Options.CodeInput.Value
+    if type(code) ~= "string" or #code:gsub("%s+", "") == 0 then
+        Library:Notify("Enter a code first")
+        return
+    end
+    local ok, result = pcall(function() return RedeemCode:InvokeServer(code) end)
+    if ok and type(result) == "table" and result.ok then
+        Library:Notify("Redeemed: " .. code)
+    else
+        Library:Notify("Invalid code: " .. code)
+    end
+end)
 
 local shopCategories = {
     { kind = "Bed", option = "BuyBeds", ids = bedIdByName, prices = bedPriceByName },
@@ -1325,6 +1351,42 @@ task.spawn(function()
                 end
             end
         end
+    end
+end)
+
+local function foreignStealSlots()
+    local result = {}
+    if Toggles.StealTables.Value then
+        for _, slot in ipairs(CollectionService:GetTagged("SellTableSlot")) do
+            if slot:IsDescendantOf(workspace) and (slot:GetAttribute("CropId") or 0) ~= 0 and not ownsModel(slot.Parent) then
+                table.insert(result, slot)
+            end
+        end
+    end
+    if Toggles.StealBeds.Value then
+        for _, slot in ipairs(CollectionService:GetTagged("GardenBedSlot")) do
+            if slot:IsDescendantOf(workspace) and slot:GetAttribute("Ripe") == true and not ownsModel(slot.Parent) then
+                table.insert(result, slot)
+            end
+        end
+    end
+    return result
+end
+
+task.spawn(function()
+    while task.wait(0.05) do
+        if Library.Unloaded then break end
+        if not organizingBase and Toggles.AutoSteal.Value then
+            safeFarmLoop(foreignStealSlots(), 8, function()
+                return not organizingBase and Toggles.AutoSteal.Value
+            end, function(slot)
+                return slot
+            end, function(slot)
+                pcall(function() RequestSteal:FireServer(slot) end)
+                task.wait(0.1)
+            end)
+        end
+        task.wait(math.max(0, Options.StealInterval.Value - 0.05))
     end
 end)
 
