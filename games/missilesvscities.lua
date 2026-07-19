@@ -41,6 +41,44 @@ local DISTRICTS = {
 	"district_houses",
 }
 
+local UPGRADE_TYPES = {
+	"Houses",
+	"Downtown",
+	"Farms",
+	"Warehouses",
+	"Nuclear Reactors",
+	"Solar Field",
+	"Wind Farm",
+	"Datacenters",
+	"Oil Refinery",
+	"Seaport",
+	"Missile Silos",
+	"Anti-Air",
+	"Hangars",
+	"Gold Mines",
+	"Barrage Arrays",
+	"Space Center",
+	"Naval Dock",
+	"Navy Ships",
+}
+
+local DISTRICT_UPGRADE_TYPES = {
+	district_houses = "Houses",
+	district_downtown = "Downtown",
+	district_farm = "Farms",
+	district_warehouses = "Warehouses",
+	district_nuclear_reactors = "Nuclear Reactors",
+	district_solar_field = "Solar Field",
+	district_wind_farm = "Wind Farm",
+	district_datacenters = "Datacenters",
+	district_oil_refinery = "Oil Refinery",
+	district_seaport = "Seaport",
+	district_silos = "Missile Silos",
+	district_military_airport = "Hangars",
+	district_space_center = "Space Center",
+	district_naval_dock = "Naval Dock",
+}
+
 local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
 local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
 local ThemeManager = loadstring(game:HttpGet(repo .. "addons/ThemeManager.lua"))()
@@ -54,6 +92,15 @@ local DISCORD_INVITE = "https://discord.gg/ehKVq7pf7v"
 local function toggle_enabled(name)
 	local toggle = Toggles[name]
 	return toggle and toggle.Value == true
+end
+
+local function upgrade_allowed(category)
+	local option = Options.UpgradeSelection
+	local selected = option and option.Value
+	if typeof(selected) ~= "table" or not next(selected) then
+		return true
+	end
+	return selected[category] == true
 end
 
 local function get_plot()
@@ -84,9 +131,14 @@ local function teleport_to(position)
 end
 
 local function touch(root, part)
-	firetouchinterest(root, part, 0)
-	task.wait()
-	firetouchinterest(root, part, 1)
+	pcall(function()
+		firetouchinterest(root, part, 0)
+		task.wait()
+		firetouchinterest(root, part, 1)
+	end)
+	pcall(function()
+		firesignal(part.Touched, root)
+	end)
 end
 
 local function collect_money()
@@ -103,6 +155,27 @@ local function collect_money()
 	end
 end
 
+local function button_upgrade_type(cap, plot)
+	local current = cap.Parent
+	while current and current ~= plot do
+		local category = DISTRICT_UPGRADE_TYPES[current.Name]
+		if category then
+			return category
+		end
+		if current.Name == "island_gold" then
+			return "Gold Mines"
+		end
+		if current.Name == "island_barrage" then
+			return "Barrage Arrays"
+		end
+		if current.Name == "expand_wind_farm" then
+			return "Wind Farm"
+		end
+		current = current.Parent
+	end
+	return nil
+end
+
 local function press_buttons()
 	local plot = get_plot()
 	local root = get_root()
@@ -113,7 +186,8 @@ local function press_buttons()
 	for _, cap in plot:GetDescendants() do
 		if cap.Name == "cap" and cap:IsA("BasePart") and cap.CanTouch and cap.Transparency == 0 then
 			local model = cap.Parent
-			if model:FindFirstChild("base") and cap.Color.G > 0.5 and cap.Color.R < 0.5 then
+			local category = button_upgrade_type(cap, plot)
+			if model:FindFirstChild("base") and cap.Color == Color3.fromRGB(0, 255, 0) and category and upgrade_allowed(category) then
 				touch(root, cap)
 			end
 		end
@@ -714,6 +788,14 @@ local UPGRADEABLE_PROMPTS = {
 	barrage = true,
 }
 
+local PROMPT_UPGRADE_TYPES = {
+	silo = "Missile Silos",
+	aa = "Anti-Air",
+	jet = "Hangars",
+	mine = "Gold Mines",
+	barrage = "Barrage Arrays",
+}
+
 local function upgrade_resources()
 	local plot = get_plot()
 	if not plot then
@@ -726,8 +808,10 @@ local function upgrade_resources()
 		end
 
 		local info = prompt.state
+		local category = PROMPT_UPGRADE_TYPES[prompt.kind]
 		if
 			UPGRADEABLE_PROMPTS[prompt.kind]
+			and upgrade_allowed(category)
 			and prompt.anchor
 			and prompt.anchor:IsDescendantOf(plot)
 			and typeof(info) == "table"
@@ -1013,8 +1097,16 @@ FarmGroup:AddToggle("AutoCollect", {
 })
 
 FarmGroup:AddToggle("AutoUpgrade", {
-	Text = "Auto Upgrade Resources",
+	Text = "Auto Upgrade Everything",
 	Default = false,
+})
+
+FarmGroup:AddDropdown("UpgradeSelection", {
+	Values = UPGRADE_TYPES,
+	Multi = true,
+	AllowNull = true,
+	Default = {},
+	Text = "Upgrade Types (none = all)",
 })
 
 FarmGroup:AddToggle("AutoGoldCarts", {
@@ -1463,6 +1555,9 @@ task.spawn(function()
 			pcall(upgrade_hangars)
 		end
 		if Toggles.AutoShips.Value then
+			pcall(upgrade_ships)
+		end
+		if Toggles.AutoUpgrade.Value and upgrade_allowed("Navy Ships") then
 			pcall(upgrade_ships)
 		end
 		if Toggles.AutoDeploy.Value then
