@@ -21,6 +21,8 @@ local jet_defend_respond = remotes:WaitForChild("jet_defend_respond")
 local jet_duel_begin = remotes:WaitForChild("jet_duel_begin")
 local jet_duel_event = remotes:WaitForChild("jet_duel_event")
 local jet_duel_turn = remotes:WaitForChild("jet_duel_turn")
+local orbital_strike = remotes:WaitForChild("orbital_strike")
+local orbital_aim = remotes:WaitForChild("orbital_aim")
 local state = require(ReplicatedStorage:WaitForChild("state"))
 local configs = require(ReplicatedStorage:WaitForChild("configs"))
 
@@ -290,6 +292,21 @@ local function pick_target()
 	return best
 end
 
+local function selected_target()
+	local wanted = Options.TargetPlayer.Value
+	if not wanted or wanted == "Auto Priority" or wanted == "Random" then
+		return nil
+	end
+
+	for _, entry in enemy_plots() do
+		if entry.owner == wanted then
+			return entry.plot
+		end
+	end
+
+	return nil
+end
+
 local function pick_district(plot)
 	local wanted = Options.TargetDistrict.Value
 	if wanted and wanted ~= "Most Important" and wanted ~= "Random" then
@@ -392,6 +409,7 @@ local TARGETING_TOGGLES = {
 	"AutoEMP",
 	"AutoRailGun",
 	"AutoBlowUpSilo",
+	"AutoOrbital",
 }
 
 local function sync_native_targeting()
@@ -494,7 +512,7 @@ local function barrage_attack()
 	end
 end
 
-local function special_weapon_attack(toggle_name, prompt_kind, title_text)
+local function special_weapon_attack(toggle_name, prompt_kind, title_text, explicit_target)
 	local plot = get_plot()
 	if not plot then
 		return
@@ -515,10 +533,72 @@ local function special_weapon_attack(toggle_name, prompt_kind, title_text)
 			and info.fire_ready
 			and (not title_text or title:find(title_text, 1, true))
 		then
-			local target = pick_target()
+			local target = explicit_target and selected_target() or pick_target()
 			if target then
 				fire_targeted_prompt(prompt.anchor, "fire", target)
 			end
+		end
+	end
+end
+
+local orbital_launch_cooldown = 0
+local orbital_busy_until = 0
+
+local function orbital_attack()
+	local target = selected_target()
+	if not target then
+		return
+	end
+
+	local plot = get_plot()
+	if not plot then
+		return
+	end
+
+	for _, prompt in state.prompts() do
+		if Library.Unloaded or not Toggles.AutoOrbital.Value then
+			return
+		end
+
+		local info = prompt.state
+		if
+			prompt.kind == "orbital"
+			and prompt.anchor
+			and prompt.anchor:IsDescendantOf(plot)
+			and typeof(info) == "table"
+		then
+			if not info.launched then
+				if os.clock() >= orbital_launch_cooldown then
+					orbital_launch_cooldown = os.clock() + 5
+					prompt_action:FireServer(prompt.anchor, "fire")
+				end
+				return
+			end
+
+			if not info.fire_ready or os.clock() < orbital_busy_until then
+				return
+			end
+
+			local duration = math.max(1, tonumber(configs.orbital.window_seconds) or 30)
+			local rate = math.max(0.05, tonumber(configs.orbital.aim_rate) or 0.1)
+			orbital_busy_until = os.clock() + duration
+			orbital_strike:FireServer(target.Name)
+
+			task.spawn(function()
+				while
+					not Library.Unloaded
+					and Toggles.AutoOrbital.Value
+					and os.clock() < orbital_busy_until
+				do
+					local current = selected_target()
+					if current ~= target then
+						break
+					end
+					orbital_aim:FireServer(aim_position(current))
+					task.wait(rate)
+				end
+			end)
+			return
 		end
 	end
 end
@@ -674,7 +754,7 @@ local function scramble_jets()
 			and not info.scramble_flying
 			and not info.scramble_knocked
 		then
-			local target = pick_target()
+			local target = selected_target()
 			if not target then
 				return
 			end
@@ -1181,6 +1261,12 @@ AttackGroup:AddToggle("AutoRailGun", {
 	Callback = sync_native_targeting,
 })
 
+AttackGroup:AddToggle("AutoOrbital", {
+	Text = "Auto Orbital Cannon",
+	Default = false,
+	Callback = sync_native_targeting,
+})
+
 AttackGroup:AddToggle("AutoBlowUpSilo", {
 	Text = "Auto Blow Up Silo",
 	Default = false,
@@ -1520,10 +1606,13 @@ task.spawn(function()
 			pcall(barrage_attack)
 		end
 		if Toggles.AutoEMP.Value then
-			pcall(special_weapon_attack, "AutoEMP", "strike", "emp")
+			pcall(special_weapon_attack, "AutoEMP", "strike", "emp", true)
 		end
 		if Toggles.AutoRailGun.Value then
-			pcall(special_weapon_attack, "AutoRailGun", "strike", "rail")
+			pcall(special_weapon_attack, "AutoRailGun", "strike", "rail", true)
+		end
+		if Toggles.AutoOrbital.Value then
+			pcall(orbital_attack)
 		end
 		if Toggles.AutoBlowUpSilo.Value then
 			pcall(special_weapon_attack, "AutoBlowUpSilo", "nuke")
