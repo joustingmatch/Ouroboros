@@ -1,6 +1,7 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local VirtualUser = game:GetService("VirtualUser")
+local UserInputService = game:GetService("UserInputService")
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -12,18 +13,31 @@ local fire_missile = remotes:WaitForChild("fire_missile")
 local enter_targeting = remotes:WaitForChild("enter_targeting")
 local fire_jet = remotes:WaitForChild("fire_jet")
 local enter_jet_targeting = remotes:WaitForChild("enter_jet_targeting")
+local jet_launched = remotes:WaitForChild("jet_launched")
+local jet_result = remotes:WaitForChild("jet_result")
+local jet_defend_offer = remotes:WaitForChild("jet_defend_offer")
+local jet_defend_respond = remotes:WaitForChild("jet_defend_respond")
+local jet_duel_begin = remotes:WaitForChild("jet_duel_begin")
+local jet_duel_event = remotes:WaitForChild("jet_duel_event")
+local jet_duel_turn = remotes:WaitForChild("jet_duel_turn")
 local state = require(ReplicatedStorage:WaitForChild("state"))
+local configs = require(ReplicatedStorage:WaitForChild("configs"))
 
 local DISTRICTS = {
-	"district_downtown",
-	"district_houses",
 	"district_silos",
-	"district_farm",
 	"district_military_airport",
-	"district_naval_dock",
 	"district_nuclear_reactors",
-	"district_solar_field",
+	"district_datacenters",
+	"district_naval_dock",
+	"district_space_center",
+	"district_oil_refinery",
+	"district_seaport",
 	"district_warehouses",
+	"district_solar_field",
+	"district_wind_farm",
+	"district_downtown",
+	"district_farm",
+	"district_houses",
 }
 
 local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
@@ -35,6 +49,11 @@ local Options = Library.Options
 local Toggles = Library.Toggles
 
 local DISCORD_INVITE = "https://discord.gg/ehKVq7pf7v"
+
+local function toggle_enabled(name)
+	local toggle = Toggles[name]
+	return toggle and toggle.Value == true
+end
 
 local function get_plot()
 	local plots = workspace:FindFirstChild("map") and workspace.map:FindFirstChild("plots")
@@ -140,19 +159,18 @@ end
 
 local function pick_district(plot)
 	local wanted = Options.TargetDistrict.Value
-	if wanted and wanted ~= "Random" then
+	if wanted and wanted ~= "Most Important" then
 		return plot:FindFirstChild(wanted)
 	end
 
-	local found = {}
 	for _, name in DISTRICTS do
 		local district = plot:FindFirstChild(name)
 		if district then
-			found[#found + 1] = district
+			return district
 		end
 	end
 
-	return found[math.random(#found)]
+	return nil
 end
 
 local function aim_position(plot)
@@ -161,15 +179,20 @@ local function aim_position(plot)
 		return plot:GetPivot().Position
 	end
 
-	local buildings = {}
+	local best_building
+	local best_size = 0
 	for _, child in district:GetChildren() do
 		if child:IsA("Model") and child.PrimaryPart then
-			buildings[#buildings + 1] = child
+			local size = child:GetExtentsSize().Magnitude
+			if size > best_size then
+				best_size = size
+				best_building = child
+			end
 		end
 	end
 
-	if #buildings > 0 then
-		return buildings[math.random(#buildings)]:GetPivot().Position
+	if best_building then
+		return best_building:GetPivot().Position
 	end
 
 	return district:GetPivot().Position
@@ -193,10 +216,16 @@ end
 
 local native_targeting = {}
 local native_jet_targeting = {}
+local native_jet_launched = {}
+local native_jet_duel_begin = {}
+local native_jet_duel_event = {}
 
 pcall(function()
 	native_targeting = getconnections(enter_targeting.OnClientEvent)
 	native_jet_targeting = getconnections(enter_jet_targeting.OnClientEvent)
+	native_jet_launched = getconnections(jet_launched.OnClientEvent)
+	native_jet_duel_begin = getconnections(jet_duel_begin.OnClientEvent)
+	native_jet_duel_event = getconnections(jet_duel_event.OnClientEvent)
 end)
 
 local function set_connections(list, enabled)
@@ -219,20 +248,34 @@ local function set_native_jet_targeting(enabled)
 	set_connections(native_jet_targeting, enabled)
 end
 
+local function set_native_air_fight(enabled)
+	set_connections(native_jet_launched, enabled)
+	set_connections(native_jet_duel_begin, enabled)
+	set_connections(native_jet_duel_event, enabled)
+end
+
 local targeting_open = false
 local jet_targeting_open = false
+local jet_targeting_data = nil
+local targeting_busy = false
 
 enter_targeting.OnClientEvent:Connect(function()
 	targeting_open = true
 end)
 
-enter_jet_targeting.OnClientEvent:Connect(function()
+enter_jet_targeting.OnClientEvent:Connect(function(data)
 	jet_targeting_open = true
+	jet_targeting_data = data
 end)
 
-local function fire_silo(anchor, plot)
+local function fire_targeted_prompt(anchor, action, plot)
+	if targeting_busy then
+		return
+	end
+
+	targeting_busy = true
 	targeting_open = false
-	prompt_action:FireServer(anchor, "shoot")
+	prompt_action:FireServer(anchor, action)
 
 	local deadline = os.clock() + 3
 	while not targeting_open and os.clock() < deadline do
@@ -244,6 +287,7 @@ local function fire_silo(anchor, plot)
 		fire_missile:FireServer(aim_position(plot))
 		task.wait(Options.AttackDelay.Value)
 	end
+	targeting_busy = false
 end
 
 local function attack()
@@ -262,7 +306,33 @@ local function attack()
 			return
 		end
 
-		fire_silo(anchor, plot)
+		fire_targeted_prompt(anchor, "shoot", plot)
+	end
+end
+
+local function barrage_attack()
+	local plot = get_plot()
+	if not plot then
+		return
+	end
+
+	for _, prompt in state.prompts() do
+		if Library.Unloaded or not Toggles.AutoBarrage.Value then
+			return
+		end
+
+		if
+			prompt.kind == "barrage"
+			and prompt.anchor
+			and prompt.anchor:IsDescendantOf(plot)
+			and typeof(prompt.state) == "table"
+			and prompt.state.fire_ready
+		then
+			local target = pick_target()
+			if target then
+				fire_targeted_prompt(prompt.anchor, "fire", target)
+			end
+		end
 	end
 end
 
@@ -347,8 +417,53 @@ local function counter_attack()
 			return
 		end
 
-		fire_silo(anchor, plot)
+		fire_targeted_prompt(anchor, "shoot", plot)
 	end
+end
+
+local function jet_strike_positions(target, data)
+	local positions = {}
+	local wanted = target:GetAttribute("owner_name")
+	local selected
+
+	if typeof(data) == "table" and typeof(data.plots) == "table" then
+		for _, entry in data.plots do
+			if typeof(entry) == "table" and entry.city == wanted then
+				selected = entry
+				break
+			end
+		end
+
+		if not selected then
+			local target_position = target:GetPivot().Position
+			local distance
+			for _, entry in data.plots do
+				if typeof(entry) == "table" and typeof(entry.center) == "Vector3" then
+					local current = (entry.center - target_position).Magnitude
+					if not distance or current < distance then
+						distance = current
+						selected = entry
+					end
+				end
+			end
+		end
+	end
+
+	local maximum = math.max(1, math.floor(tonumber(data and data.max_targets) or 1))
+	for _, silo in selected and selected.silos or {} do
+		if typeof(silo) == "table" and typeof(silo.pos) == "Vector3" then
+			positions[#positions + 1] = silo.pos
+			if #positions >= maximum then
+				break
+			end
+		end
+	end
+
+	if #positions == 0 then
+		positions[1] = aim_position(target)
+	end
+
+	return positions
 end
 
 local function scramble_jets()
@@ -378,6 +493,7 @@ local function scramble_jets()
 			end
 
 			jet_targeting_open = false
+			jet_targeting_data = nil
 			prompt_action:FireServer(prompt.anchor, "scramble")
 
 			local deadline = os.clock() + 3
@@ -387,12 +503,55 @@ local function scramble_jets()
 
 			if jet_targeting_open then
 				jet_targeting_open = false
-				fire_jet:FireServer({ positions = { aim_position(target) } })
+				fire_jet:FireServer({ positions = jet_strike_positions(target, jet_targeting_data) })
 				task.wait(Options.ScrambleDelay.Value)
 			end
 		end
 	end
 end
+
+local active_duel = nil
+
+jet_launched.OnClientEvent:Connect(function(data)
+	if not toggle_enabled("AutoAirFight") or typeof(data) ~= "table" or typeof(data.sortie_id) ~= "number" then
+		return
+	end
+
+	jet_result:FireServer({
+		sortie_id = data.sortie_id,
+		dots_hit = math.max(0, math.floor(tonumber(data.dots_total) or 0)),
+		bomb_hit = true,
+	})
+end)
+
+jet_defend_offer.OnClientEvent:Connect(function(data)
+	if toggle_enabled("AutoAirFight") and typeof(data) == "table" and typeof(data.duel_id) == "number" then
+		jet_defend_respond:FireServer({ accept = true, duel_id = data.duel_id })
+	end
+end)
+
+jet_duel_begin.OnClientEvent:Connect(function(data)
+	if toggle_enabled("AutoAirFight") and typeof(data) == "table" then
+		active_duel = data.duel_id
+	end
+end)
+
+jet_duel_event.OnClientEvent:Connect(function(data)
+	if not toggle_enabled("AutoAirFight") or typeof(data) ~= "table" or typeof(data.turn) ~= "number" then
+		return
+	end
+
+	local response = {
+		duel_id = data.duel_id or active_duel,
+		turn = data.turn,
+	}
+	if data.role == "shooter" then
+		response.lined_up = true
+	else
+		response.dodges = configs.jets.duel.evader_dodge_dots
+	end
+	jet_duel_turn:FireServer(response)
+end)
 
 local function cash()
 	local currency = LocalPlayer:FindFirstChild("currency")
@@ -434,11 +593,72 @@ local function upgrade_hangars()
 	end
 end
 
+local UPGRADEABLE_PROMPTS = {
+	silo = true,
+	aa = true,
+	jet = true,
+	mine = true,
+	barrage = true,
+}
+
+local function upgrade_resources()
+	local plot = get_plot()
+	if not plot then
+		return
+	end
+
+	for _, prompt in state.prompts() do
+		if Library.Unloaded or not Toggles.AutoUpgrade.Value then
+			return
+		end
+
+		local info = prompt.state
+		if
+			UPGRADEABLE_PROMPTS[prompt.kind]
+			and prompt.anchor
+			and prompt.anchor:IsDescendantOf(plot)
+			and typeof(info) == "table"
+			and info.up_affordable
+			and (info.up_cost or -1) >= 0
+			and affordable(info.up_cost or 0)
+		then
+			prompt_action:FireServer(prompt.anchor, "upgrade")
+			task.wait(0.25)
+		end
+	end
+end
+
+local function operate_mines(island_name, toggle)
+	local plot = get_plot()
+	if not plot then
+		return
+	end
+
+	for _, prompt in state.prompts() do
+		if Library.Unloaded or not toggle.Value then
+			return
+		end
+
+		if
+			prompt.kind == "mine"
+			and prompt.anchor
+			and prompt.anchor:IsDescendantOf(plot)
+			and prompt.anchor:GetFullName():find(island_name, 1, true)
+			and typeof(prompt.state) == "table"
+			and prompt.state.mine_state ~= "mining"
+		then
+			prompt_action:FireServer(prompt.anchor, "operate")
+			task.wait(0.2)
+		end
+	end
+end
+
 local fleet = {}
 local islands = {}
 local crates = {}
 local rarities = {}
 local island_names = {}
+local naval_sync_serial = 0
 
 naval_sync.OnClientEvent:Connect(function(data)
 	if typeof(data) ~= "table" or typeof(data.fleet) ~= "table" then
@@ -448,6 +668,7 @@ naval_sync.OnClientEvent:Connect(function(data)
 	fleet = data.fleet
 	islands = typeof(data.islands) == "table" and data.islands or {}
 	crates = typeof(data.crates) == "table" and data.crates or {}
+	naval_sync_serial = naval_sync_serial + 1
 
 	local seen, values = {}, {}
 	for _, ship in fleet do
@@ -481,6 +702,15 @@ naval_sync.OnClientEvent:Connect(function(data)
 	end
 end)
 
+local function sync_naval()
+	local serial = naval_sync_serial
+	naval_action:FireServer("sync")
+	local deadline = os.clock() + 3
+	while naval_sync_serial == serial and os.clock() < deadline do
+		task.wait(0.1)
+	end
+end
+
 local function rarity_allowed(rarity)
 	local picked = Options.ShipRarities.Value
 	if typeof(picked) ~= "table" or not next(picked) then
@@ -491,8 +721,7 @@ local function rarity_allowed(rarity)
 end
 
 local function upgrade_ships()
-	naval_action:FireServer("sync")
-	task.wait(0.5)
+	sync_naval()
 
 	for _, ship in fleet do
 		if Library.Unloaded or not Toggles.AutoShips.Value then
@@ -520,8 +749,7 @@ local function gems()
 end
 
 local function buy_crates()
-	naval_action:FireServer("sync")
-	task.wait(0.5)
+	sync_naval()
 
 	local key = Options.CrateType.Value
 	local crate = crates[key]
@@ -540,16 +768,15 @@ local function buy_crates()
 	end
 end
 
-local function pick_island(taken)
+local function pick_island()
 	local mode = Options.DeployMode.Value
 	local best
 
 	for _, island in islands do
-		local free = not taken[island.slot]
 		local owned = island.mine == true
 		local enemy = island.controller ~= nil and not owned
 
-		if free and not (owned and Toggles.SkipOwnedIslands.Value) then
+		if not (owned and Toggles.SkipOwnedIslands.Value) then
 			if mode == "Specific Island" then
 				if island.name == Options.DeployIsland.Value then
 					return island
@@ -572,10 +799,7 @@ local function pick_island(taken)
 end
 
 local function deploy_ships()
-	naval_action:FireServer("sync")
-	task.wait(0.5)
-
-	local taken = {}
+	sync_naval()
 
 	for _, ship in fleet do
 		if Library.Unloaded or not Toggles.AutoDeploy.Value then
@@ -589,10 +813,10 @@ local function deploy_ships()
 			and rarity_allowed(ship.rarity)
 			and (ship.level or 1) >= Options.MinDeployLevel.Value
 		then
-			local island = pick_island(taken)
+			local island = pick_island()
 			if island then
-				taken[island.slot] = true
 				naval_action:FireServer("deploy", ship.id, island.slot)
+				ship.deployed = island.slot
 				task.wait(0.4)
 			end
 		end
@@ -600,8 +824,8 @@ local function deploy_ships()
 end
 
 local Window = Library:CreateWindow({
-	Title = "Missiles vs Cities",
-	Footer = "Ourobroos",
+	Title = "Ouroboros Hub",
+	Footer = DISCORD_INVITE .. " | Missiles vs Cities",
 	Icon = 18657887261,
 	NotifySide = "Right",
 	ShowCustomCursor = false,
@@ -635,7 +859,17 @@ FarmGroup:AddToggle("AutoCollect", {
 })
 
 FarmGroup:AddToggle("AutoUpgrade", {
-	Text = "Auto Upgrade Plot",
+	Text = "Auto Upgrade Resources",
+	Default = false,
+})
+
+FarmGroup:AddToggle("AutoGoldCarts", {
+	Text = "Auto Gold Cart Send / Claim",
+	Default = false,
+})
+
+FarmGroup:AddToggle("AutoGemCarts", {
+	Text = "Auto Gem Cart Send / Claim",
 	Default = false,
 })
 
@@ -645,7 +879,7 @@ AttackGroup:AddToggle("AutoAttack", {
 	Text = "Auto Attack",
 	Default = false,
 	Callback = function(value)
-		set_native_targeting(not value)
+		set_native_targeting(not value and not toggle_enabled("AutoBarrage"))
 	end,
 })
 
@@ -660,7 +894,7 @@ AttackGroup:AddToggle("StrictTarget", {
 	Default = false,
 })
 
-local district_values = { "Random" }
+local district_values = { "Most Important" }
 for _, name in DISTRICTS do
 	district_values[#district_values + 1] = name
 end
@@ -683,6 +917,14 @@ AttackGroup:AddSlider("AttackDelay", {
 AttackGroup:AddToggle("AutoCounter", {
 	Text = "Auto Counter-Attack",
 	Default = false,
+})
+
+AttackGroup:AddToggle("AutoBarrage", {
+	Text = "Auto Barrage Array",
+	Default = false,
+	Callback = function(value)
+		set_native_targeting(not value and not toggle_enabled("AutoAttack"))
+	end,
 })
 
 AttackGroup:AddSlider("CounterDuration", {
@@ -716,6 +958,14 @@ AttackGroup:AddToggle("AutoScramble", {
 	Default = false,
 	Callback = function(value)
 		set_native_jet_targeting(not value)
+	end,
+})
+
+AttackGroup:AddToggle("AutoAirFight", {
+	Text = "Auto Air Fight",
+	Default = false,
+	Callback = function(value)
+		set_native_air_fight(not value)
 	end,
 })
 
@@ -888,22 +1138,65 @@ MenuGroup:AddButton("Unload", function()
 	Library:Unload()
 end)
 
+local antiAfkBeganConnection
+local antiAfkChangedConnection
+
 Library:OnUnload(function()
 	set_native_targeting(true)
 	set_native_jet_targeting(true)
+	set_native_air_fight(true)
+	antiAfkBeganConnection:Disconnect()
+	antiAfkChangedConnection:Disconnect()
 end)
 
 Library.ToggleKeybind = Options.MenuKeybind
 
-LocalPlayer.Idled:Connect(function()
-	if Library.Unloaded then
+local antiAfkLastInput = tick()
+local antiAfkLastTap = tick()
+
+pcall(function()
+	for _, connection in ipairs(getconnections(LocalPlayer.Idled)) do
+		pcall(function()
+			connection:Disable()
+		end)
+	end
+end)
+
+local function antiAfkTap()
+	local camera = workspace.CurrentCamera
+	if not camera then
 		return
 	end
-	if not Toggles.AntiAFK.Value then
-		return
+	VirtualUser:Button2Down(Vector2.new(0, 0), camera.CFrame)
+	task.wait(0.1)
+	VirtualUser:Button2Up(Vector2.new(0, 0), camera.CFrame)
+	antiAfkLastTap = tick()
+end
+
+antiAfkBeganConnection = UserInputService.InputBegan:Connect(function()
+	antiAfkLastInput = tick()
+end)
+
+antiAfkChangedConnection = UserInputService.InputChanged:Connect(function(input)
+	local inputType = input.UserInputType
+	if inputType == Enum.UserInputType.MouseMovement or inputType == Enum.UserInputType.Gamepad1 then
+		antiAfkLastInput = tick()
 	end
-	VirtualUser:CaptureController()
-	VirtualUser:ClickButton2(Vector2.new())
+end)
+
+task.spawn(function()
+	while not Library.Unloaded do
+		task.wait(2)
+		if Toggles.AntiAFK.Value then
+			local idle = tick() - antiAfkLastInput
+			local sinceTap = tick() - antiAfkLastTap
+			if idle >= 300 and sinceTap >= 60 then
+				pcall(antiAfkTap)
+			elseif idle < 300 and sinceTap >= 300 then
+				pcall(antiAfkTap)
+			end
+		end
+	end
 end)
 
 task.spawn(function()
@@ -924,6 +1217,13 @@ task.spawn(function()
 		end
 		if Toggles.AutoUpgrade.Value then
 			pcall(press_buttons)
+			pcall(upgrade_resources)
+		end
+		if Toggles.AutoGoldCarts.Value then
+			pcall(operate_mines, "island_gold", Toggles.AutoGoldCarts)
+		end
+		if Toggles.AutoGemCarts.Value then
+			pcall(operate_mines, "island_gem", Toggles.AutoGemCarts)
 		end
 	end
 end)
@@ -935,6 +1235,9 @@ task.spawn(function()
 		end
 		if Toggles.AutoAttack.Value then
 			pcall(attack)
+		end
+		if Toggles.AutoBarrage.Value then
+			pcall(barrage_attack)
 		end
 		if Toggles.AutoScramble.Value then
 			pcall(scramble_jets)
