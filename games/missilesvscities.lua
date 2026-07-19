@@ -2,6 +2,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local VirtualUser = game:GetService("VirtualUser")
 local UserInputService = game:GetService("UserInputService")
+local CollectionService = game:GetService("CollectionService")
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -136,6 +137,54 @@ local function enemy_plots()
 	return list
 end
 
+local function district_resources(district)
+	local list = {}
+	local seen = {}
+
+	for _, child in district:GetDescendants() do
+		if child:IsA("Model") and CollectionService:HasTag(child, "building") then
+			seen[child] = true
+			list[#list + 1] = child
+		end
+	end
+
+	for _, child in district:GetChildren() do
+		if child:IsA("Model") and not seen[child] then
+			local name = child.Name
+			if
+				name:match("^silo_structure_%d+$")
+				or name:match("^hangar_structure_%d+$")
+				or name == "launch_pad"
+				or name == "command_center"
+				or name == "heavy_battery"
+				or name == "orbital_console"
+				or name == "space_shuttle"
+			then
+				list[#list + 1] = child
+			end
+		end
+	end
+
+	return list
+end
+
+local function district_priority(plot)
+	local wanted = Options.TargetDistrict.Value
+	if wanted and wanted ~= "Most Important" and wanted ~= "Random" then
+		local district = plot:FindFirstChild(wanted)
+		return district and #district_resources(district) > 0 and 1 or nil
+	end
+
+	for index, name in DISTRICTS do
+		local district = plot:FindFirstChild(name)
+		if district and #district_resources(district) > 0 then
+			return index
+		end
+	end
+
+	return nil
+end
+
 local function pick_target()
 	local list = enemy_plots()
 	if #list == 0 then
@@ -143,7 +192,7 @@ local function pick_target()
 	end
 
 	local wanted = Options.TargetPlayer.Value
-	if wanted and wanted ~= "Random" then
+	if wanted and wanted ~= "Auto Priority" and wanted ~= "Random" then
 		for _, entry in list do
 			if entry.owner == wanted then
 				return entry.plot
@@ -154,18 +203,28 @@ local function pick_target()
 		end
 	end
 
-	return list[math.random(#list)].plot
+	local best
+	local best_priority
+	for _, entry in list do
+		local priority = district_priority(entry.plot)
+		if priority and (not best_priority or priority < best_priority) then
+			best = entry.plot
+			best_priority = priority
+		end
+	end
+
+	return best
 end
 
 local function pick_district(plot)
 	local wanted = Options.TargetDistrict.Value
-	if wanted and wanted ~= "Most Important" then
+	if wanted and wanted ~= "Most Important" and wanted ~= "Random" then
 		return plot:FindFirstChild(wanted)
 	end
 
 	for _, name in DISTRICTS do
 		local district = plot:FindFirstChild(name)
-		if district then
+		if district and #district_resources(district) > 0 then
 			return district
 		end
 	end
@@ -179,15 +238,14 @@ local function aim_position(plot)
 		return plot:GetPivot().Position
 	end
 
+	local resources = district_resources(district)
 	local best_building
 	local best_size = 0
-	for _, child in district:GetChildren() do
-		if child:IsA("Model") and child.PrimaryPart then
-			local size = child:GetExtentsSize().Magnitude
-			if size > best_size then
-				best_size = size
-				best_building = child
-			end
+	for _, child in resources do
+		local size = child:GetExtentsSize().Magnitude
+		if size > best_size then
+			best_size = size
+			best_building = child
 		end
 	end
 
@@ -252,6 +310,32 @@ local function set_native_air_fight(enabled)
 	set_connections(native_jet_launched, enabled)
 	set_connections(native_jet_duel_begin, enabled)
 	set_connections(native_jet_duel_event, enabled)
+end
+
+local TARGETING_TOGGLES = {
+	"AutoAttack",
+	"AutoBarrage",
+	"AutoEMP",
+	"AutoRailGun",
+	"AutoBlowUpSilo",
+}
+
+local function sync_native_targeting()
+	for _, name in TARGETING_TOGGLES do
+		if toggle_enabled(name) then
+			set_native_targeting(false)
+			return
+		end
+	end
+	set_native_targeting(true)
+end
+
+local function auto_air_enabled()
+	return toggle_enabled("AutoScramble") or toggle_enabled("AutoAirFight") or toggle_enabled("AutoMiniObby")
+end
+
+local function sync_native_air_fight()
+	set_native_air_fight(not auto_air_enabled())
 end
 
 local targeting_open = false
@@ -327,6 +411,35 @@ local function barrage_attack()
 			and prompt.anchor:IsDescendantOf(plot)
 			and typeof(prompt.state) == "table"
 			and prompt.state.fire_ready
+		then
+			local target = pick_target()
+			if target then
+				fire_targeted_prompt(prompt.anchor, "fire", target)
+			end
+		end
+	end
+end
+
+local function special_weapon_attack(toggle_name, prompt_kind, title_text)
+	local plot = get_plot()
+	if not plot then
+		return
+	end
+
+	for _, prompt in state.prompts() do
+		if Library.Unloaded or not toggle_enabled(toggle_name) then
+			return
+		end
+
+		local info = prompt.state
+		local title = typeof(info) == "table" and tostring(info.title or ""):lower() or ""
+		if
+			prompt.kind == prompt_kind
+			and prompt.anchor
+			and prompt.anchor:IsDescendantOf(plot)
+			and typeof(info) == "table"
+			and info.fire_ready
+			and (not title_text or title:find(title_text, 1, true))
 		then
 			local target = pick_target()
 			if target then
@@ -513,7 +626,7 @@ end
 local active_duel = nil
 
 jet_launched.OnClientEvent:Connect(function(data)
-	if not toggle_enabled("AutoAirFight") or typeof(data) ~= "table" or typeof(data.sortie_id) ~= "number" then
+	if not auto_air_enabled() or typeof(data) ~= "table" or typeof(data.sortie_id) ~= "number" then
 		return
 	end
 
@@ -525,19 +638,19 @@ jet_launched.OnClientEvent:Connect(function(data)
 end)
 
 jet_defend_offer.OnClientEvent:Connect(function(data)
-	if toggle_enabled("AutoAirFight") and typeof(data) == "table" and typeof(data.duel_id) == "number" then
+	if auto_air_enabled() and typeof(data) == "table" and typeof(data.duel_id) == "number" then
 		jet_defend_respond:FireServer({ accept = true, duel_id = data.duel_id })
 	end
 end)
 
 jet_duel_begin.OnClientEvent:Connect(function(data)
-	if toggle_enabled("AutoAirFight") and typeof(data) == "table" then
+	if auto_air_enabled() and typeof(data) == "table" then
 		active_duel = data.duel_id
 	end
 end)
 
 jet_duel_event.OnClientEvent:Connect(function(data)
-	if not toggle_enabled("AutoAirFight") or typeof(data) ~= "table" or typeof(data.turn) ~= "number" then
+	if not auto_air_enabled() or typeof(data) ~= "table" or typeof(data.turn) ~= "number" then
 		return
 	end
 
@@ -699,6 +812,21 @@ naval_sync.OnClientEvent:Connect(function(data)
 		if not table.find(names, Options.DeployIsland.Value) then
 			Options.DeployIsland:SetValue(names[1])
 		end
+
+		local assignment_values = { "Auto" }
+		for _, name in names do
+			assignment_values[#assignment_values + 1] = name
+		end
+		for index = 1, 4 do
+			local option = Options["NavyShip" .. index .. "Island"]
+			if option then
+				local current = option.Value
+				option:SetValues(assignment_values)
+				if not table.find(assignment_values, current) then
+					option:SetValue("Auto")
+				end
+			end
+		end
 	end
 end)
 
@@ -768,7 +896,16 @@ local function buy_crates()
 	end
 end
 
-local function pick_island()
+local function pick_island(assignment)
+	if assignment and assignment ~= "Auto" then
+		for _, island in islands do
+			if island.name == assignment then
+				return island.mine == true and nil or island
+			end
+		end
+		return nil
+	end
+
 	local mode = Options.DeployMode.Value
 	local best
 
@@ -801,8 +938,23 @@ end
 local function deploy_ships()
 	sync_naval()
 
+	local ordered = {}
+	local active = 0
 	for _, ship in fleet do
+		ordered[#ordered + 1] = ship
+		if ship.deployed then
+			active = active + 1
+		end
+	end
+	table.sort(ordered, function(left, right)
+		return (left.id or 0) < (right.id or 0)
+	end)
+
+	for index, ship in ordered do
 		if Library.Unloaded or not Toggles.AutoDeploy.Value then
+			return
+		end
+		if index > 4 or active >= 4 then
 			return
 		end
 
@@ -813,10 +965,12 @@ local function deploy_ships()
 			and rarity_allowed(ship.rarity)
 			and (ship.level or 1) >= Options.MinDeployLevel.Value
 		then
-			local island = pick_island()
+			local option = Options["NavyShip" .. index .. "Island"]
+			local island = pick_island(option and option.Value or "Auto")
 			if island then
 				naval_action:FireServer("deploy", ship.id, island.slot)
 				ship.deployed = island.slot
+				active = active + 1
 				task.wait(0.4)
 			end
 		end
@@ -878,13 +1032,11 @@ local AttackGroup = Tabs.Main:AddRightGroupbox("Attack", "rocket")
 AttackGroup:AddToggle("AutoAttack", {
 	Text = "Auto Attack",
 	Default = false,
-	Callback = function(value)
-		set_native_targeting(not value and not toggle_enabled("AutoBarrage"))
-	end,
+	Callback = sync_native_targeting,
 })
 
 AttackGroup:AddDropdown("TargetPlayer", {
-	Values = { "Random" },
+	Values = { "Auto Priority" },
 	Default = 1,
 	Text = "Target",
 })
@@ -922,9 +1074,25 @@ AttackGroup:AddToggle("AutoCounter", {
 AttackGroup:AddToggle("AutoBarrage", {
 	Text = "Auto Barrage Array",
 	Default = false,
-	Callback = function(value)
-		set_native_targeting(not value and not toggle_enabled("AutoAttack"))
-	end,
+	Callback = sync_native_targeting,
+})
+
+AttackGroup:AddToggle("AutoEMP", {
+	Text = "Auto EMP Attack",
+	Default = false,
+	Callback = sync_native_targeting,
+})
+
+AttackGroup:AddToggle("AutoRailGun", {
+	Text = "Auto Rail Gun Attack",
+	Default = false,
+	Callback = sync_native_targeting,
+})
+
+AttackGroup:AddToggle("AutoBlowUpSilo", {
+	Text = "Auto Blow Up Silo",
+	Default = false,
+	Callback = sync_native_targeting,
 })
 
 AttackGroup:AddSlider("CounterDuration", {
@@ -939,7 +1107,7 @@ AttackGroup:AddSlider("CounterDuration", {
 local last_targets = ""
 
 local function refresh_targets()
-	local values = { "Random" }
+	local values = { "Auto Priority" }
 	for _, entry in enemy_plots() do
 		values[#values + 1] = entry.owner
 	end
@@ -950,23 +1118,32 @@ local function refresh_targets()
 	end
 
 	last_targets = key
+	local current = Options.TargetPlayer.Value
 	Options.TargetPlayer:SetValues(values)
+	if not table.find(values, current) then
+		Options.TargetPlayer:SetValue("Auto Priority")
+	end
 end
 
 AttackGroup:AddToggle("AutoScramble", {
 	Text = "Auto Scramble Jets",
 	Default = false,
-	Callback = function(value)
-		set_native_jet_targeting(not value)
+	Callback = function()
+		set_native_jet_targeting(not toggle_enabled("AutoScramble"))
+		sync_native_air_fight()
 	end,
 })
 
 AttackGroup:AddToggle("AutoAirFight", {
 	Text = "Auto Air Fight",
 	Default = false,
-	Callback = function(value)
-		set_native_air_fight(not value)
-	end,
+	Callback = sync_native_air_fight,
+})
+
+AttackGroup:AddToggle("AutoMiniObby", {
+	Text = "Auto Mini-Obby",
+	Default = false,
+	Callback = sync_native_air_fight,
 })
 
 AttackGroup:AddSlider("ScrambleDelay", {
@@ -991,7 +1168,7 @@ TeleportGroup:AddButton({
 	Text = "Teleport To Target",
 	Func = function()
 		local wanted = Options.TargetPlayer.Value
-		if wanted and wanted ~= "Random" then
+		if wanted and wanted ~= "Auto Priority" and wanted ~= "Random" then
 			local player = Players:FindFirstChild(wanted)
 			local character = player and player.Character
 			local root = character and character:FindFirstChild("HumanoidRootPart")
@@ -1080,6 +1257,14 @@ NavyGroup:AddDropdown("DeployIsland", {
 	AllowNull = true,
 	Text = "Island",
 })
+
+for index = 1, 4 do
+	NavyGroup:AddDropdown("NavyShip" .. index .. "Island", {
+		Values = { "Auto" },
+		Default = 1,
+		Text = "Ship " .. index .. " Fixed Island",
+	})
+end
 
 NavyGroup:AddButton({
 	Text = "Refresh Islands",
@@ -1187,7 +1372,10 @@ end)
 task.spawn(function()
 	while not Library.Unloaded do
 		task.wait(2)
-		if Toggles.AntiAFK.Value then
+		if Library.Unloaded then
+			break
+		end
+		if toggle_enabled("AntiAFK") then
 			local idle = tick() - antiAfkLastInput
 			local sinceTap = tick() - antiAfkLastTap
 			if idle >= 300 and sinceTap >= 60 then
@@ -1238,6 +1426,15 @@ task.spawn(function()
 		end
 		if Toggles.AutoBarrage.Value then
 			pcall(barrage_attack)
+		end
+		if Toggles.AutoEMP.Value then
+			pcall(special_weapon_attack, "AutoEMP", "strike", "emp")
+		end
+		if Toggles.AutoRailGun.Value then
+			pcall(special_weapon_attack, "AutoRailGun", "strike", "rail")
+		end
+		if Toggles.AutoBlowUpSilo.Value then
+			pcall(special_weapon_attack, "AutoBlowUpSilo", "nuke")
 		end
 		if Toggles.AutoScramble.Value then
 			pcall(scramble_jets)
