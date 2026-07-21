@@ -6,25 +6,17 @@ local CollectionService = game:GetService("CollectionService")
 
 local LocalPlayer = Players.LocalPlayer
 
-local remotes = ReplicatedStorage:WaitForChild("remotes")
-local prompt_action = remotes:WaitForChild("prompt_action")
-local naval_action = remotes:WaitForChild("naval_action")
-local naval_sync = remotes:WaitForChild("naval_sync")
-local fire_missile = remotes:WaitForChild("fire_missile")
-local enter_targeting = remotes:WaitForChild("enter_targeting")
-local fire_jet = remotes:WaitForChild("fire_jet")
-local enter_jet_targeting = remotes:WaitForChild("enter_jet_targeting")
-local jet_launched = remotes:WaitForChild("jet_launched")
-local jet_result = remotes:WaitForChild("jet_result")
-local jet_defend_offer = remotes:WaitForChild("jet_defend_offer")
-local jet_defend_respond = remotes:WaitForChild("jet_defend_respond")
-local jet_duel_begin = remotes:WaitForChild("jet_duel_begin")
-local jet_duel_event = remotes:WaitForChild("jet_duel_event")
-local jet_duel_turn = remotes:WaitForChild("jet_duel_turn")
-local orbital_strike = remotes:WaitForChild("orbital_strike")
-local orbital_aim = remotes:WaitForChild("orbital_aim")
-local state = require(ReplicatedStorage:WaitForChild("state"))
-local configs = require(ReplicatedStorage:WaitForChild("configs"))
+local Shared = ReplicatedStorage:WaitForChild("Shared")
+local Net = Shared:WaitForChild("Net")
+local Config = require(Shared:WaitForChild("Config"))
+local PlayerState = require(Shared:WaitForChild("Framework"):WaitForChild("PlayerState"))
+local Prompts = require(Net:WaitForChild("Prompts"))
+local Targeting = require(Net:WaitForChild("Targeting"))
+local Missiles = require(Net:WaitForChild("Missiles"))
+local Jets = require(Net:WaitForChild("Jets"))
+local Orbital = require(Net:WaitForChild("Orbital"))
+local Naval = require(Net:WaitForChild("Naval"))
+local Combat = require(Net:WaitForChild("Combat"))
 
 local DISTRICTS = {
 	"district_silos",
@@ -347,6 +339,14 @@ local function aim_position(plot)
 	return district:GetPivot().Position
 end
 
+local function prompt_records()
+	local list = {}
+	for _, record in PlayerState.Prompts() do
+		list[#list + 1] = record
+	end
+	return list
+end
+
 local function silo_anchors()
 	local plot = get_plot()
 	local list = {}
@@ -354,53 +354,56 @@ local function silo_anchors()
 		return list
 	end
 
-	for _, prompt in state.prompts() do
-		if prompt.kind == "silo" and prompt.anchor and prompt.anchor:IsDescendantOf(plot) then
-			list[#list + 1] = prompt.anchor
+	for _, record in prompt_records() do
+		if record.kind == "silo" and record.anchor and record.anchor:IsDescendantOf(plot) then
+			list[#list + 1] = record.anchor
 		end
 	end
 
 	return list
 end
 
-local native_targeting = {}
-local native_jet_targeting = {}
-local native_jet_launched = {}
-local native_jet_duel_begin = {}
-local native_jet_duel_event = {}
+local suppressed = {}
 
-pcall(function()
-	native_targeting = getconnections(enter_targeting.OnClientEvent)
-	native_jet_targeting = getconnections(enter_jet_targeting.OnClientEvent)
-	native_jet_launched = getconnections(jet_launched.OnClientEvent)
-	native_jet_duel_begin = getconnections(jet_duel_begin.OnClientEvent)
-	native_jet_duel_event = getconnections(jet_duel_event.OnClientEvent)
-end)
+local function native_listeners(packet)
+	local snapshot = suppressed[packet]
+	if not snapshot then
+		snapshot = table.clone(packet.getListeners())
+		suppressed[packet] = snapshot
+	end
+	return snapshot
+end
 
-local function set_connections(list, enabled)
-	for _, connection in list do
-		pcall(function()
-			if enabled then
-				connection:Enable()
-			else
-				connection:Disable()
-			end
-		end)
+local function set_packet_native(packet, enabled)
+	local snapshot = native_listeners(packet)
+	local live = packet.getListeners()
+
+	for _, listener in snapshot do
+		local index = table.find(live, listener)
+		if enabled and not index then
+			table.insert(live, listener)
+		elseif not enabled and index then
+			table.remove(live, index)
+		end
 	end
 end
 
+for _, packet in { Targeting.enter, Targeting.enterJet, Jets.launched, Jets.duelBegin, Jets.duelTurn } do
+	native_listeners(packet)
+end
+
 local function set_native_targeting(enabled)
-	set_connections(native_targeting, enabled)
+	set_packet_native(Targeting.enter, enabled)
 end
 
 local function set_native_jet_targeting(enabled)
-	set_connections(native_jet_targeting, enabled)
+	set_packet_native(Targeting.enterJet, enabled)
 end
 
 local function set_native_air_fight(enabled)
-	set_connections(native_jet_launched, enabled)
-	set_connections(native_jet_duel_begin, enabled)
-	set_connections(native_jet_duel_event, enabled)
+	set_packet_native(Jets.launched, enabled)
+	set_packet_native(Jets.duelBegin, enabled)
+	set_packet_native(Jets.duelTurn, enabled)
 end
 
 local TARGETING_TOGGLES = {
@@ -435,11 +438,11 @@ local jet_targeting_open = false
 local jet_targeting_data = nil
 local targeting_busy = false
 
-enter_targeting.OnClientEvent:Connect(function()
+Targeting.enter.listen(function()
 	targeting_open = true
 end)
 
-enter_jet_targeting.OnClientEvent:Connect(function(data)
+Targeting.enterJet.listen(function(data)
 	jet_targeting_open = true
 	jet_targeting_data = data
 end)
@@ -451,7 +454,7 @@ local function fire_targeted_prompt(anchor, action, plot)
 
 	targeting_busy = true
 	targeting_open = false
-	prompt_action:FireServer(anchor, action)
+	Prompts.action.send({ anchor = anchor, action = action })
 
 	local deadline = os.clock() + 3
 	while not targeting_open and os.clock() < deadline do
@@ -460,7 +463,7 @@ local function fire_targeted_prompt(anchor, action, plot)
 
 	if targeting_open then
 		targeting_open = false
-		fire_missile:FireServer(aim_position(plot))
+		Missiles.fire.send({ target = aim_position(plot) })
 		task.wait(Options.AttackDelay.Value)
 	end
 	targeting_busy = false
@@ -492,21 +495,21 @@ local function barrage_attack()
 		return
 	end
 
-	for _, prompt in state.prompts() do
+	for _, record in prompt_records() do
 		if Library.Unloaded or not Toggles.AutoBarrage.Value then
 			return
 		end
 
 		if
-			prompt.kind == "barrage"
-			and prompt.anchor
-			and prompt.anchor:IsDescendantOf(plot)
-			and typeof(prompt.state) == "table"
-			and prompt.state.fire_ready
+			record.kind == "barrage"
+			and record.anchor
+			and record.anchor:IsDescendantOf(plot)
+			and typeof(record.state) == "table"
+			and record.state.fire_ready
 		then
 			local target = pick_target()
 			if target then
-				fire_targeted_prompt(prompt.anchor, "fire", target)
+				fire_targeted_prompt(record.anchor, "fire", target)
 			end
 		end
 	end
@@ -518,24 +521,24 @@ local function special_weapon_attack(toggle_name, prompt_kind, title_text, expli
 		return
 	end
 
-	for _, prompt in state.prompts() do
+	for _, record in prompt_records() do
 		if Library.Unloaded or not toggle_enabled(toggle_name) then
 			return
 		end
 
-		local info = prompt.state
+		local info = record.state
 		local title = typeof(info) == "table" and tostring(info.title or ""):lower() or ""
 		if
-			prompt.kind == prompt_kind
-			and prompt.anchor
-			and prompt.anchor:IsDescendantOf(plot)
+			record.kind == prompt_kind
+			and record.anchor
+			and record.anchor:IsDescendantOf(plot)
 			and typeof(info) == "table"
 			and info.fire_ready
 			and (not title_text or title:find(title_text, 1, true))
 		then
 			local target = explicit_target and selected_target() or pick_target()
 			if target then
-				fire_targeted_prompt(prompt.anchor, "fire", target)
+				fire_targeted_prompt(record.anchor, "fire", target)
 			end
 		end
 	end
@@ -555,22 +558,22 @@ local function orbital_attack()
 		return
 	end
 
-	for _, prompt in state.prompts() do
+	for _, record in prompt_records() do
 		if Library.Unloaded or not Toggles.AutoOrbital.Value then
 			return
 		end
 
-		local info = prompt.state
+		local info = record.state
 		if
-			prompt.kind == "orbital"
-			and prompt.anchor
-			and prompt.anchor:IsDescendantOf(plot)
+			record.kind == "orbital"
+			and record.anchor
+			and record.anchor:IsDescendantOf(plot)
 			and typeof(info) == "table"
 		then
 			if not info.launched then
 				if os.clock() >= orbital_launch_cooldown then
 					orbital_launch_cooldown = os.clock() + 5
-					prompt_action:FireServer(prompt.anchor, "fire")
+					Prompts.action.send({ anchor = record.anchor, action = "fire" })
 				end
 				return
 			end
@@ -579,10 +582,10 @@ local function orbital_attack()
 				return
 			end
 
-			local duration = math.max(1, tonumber(configs.orbital.window_seconds) or 30)
-			local rate = math.max(0.05, tonumber(configs.orbital.aim_rate) or 0.1)
+			local duration = math.max(1, tonumber(Config.orbital.window_seconds) or 30)
+			local rate = math.max(0.05, tonumber(Config.orbital.aim_rate) or 0.1)
 			orbital_busy_until = os.clock() + duration
-			orbital_strike:FireServer(target.Name)
+			Orbital.strike.send({ name = target.Name })
 
 			task.spawn(function()
 				while
@@ -594,7 +597,7 @@ local function orbital_attack()
 					if current ~= target then
 						break
 					end
-					orbital_aim:FireServer(aim_position(current))
+					Orbital.aim.send({ pos = aim_position(current) })
 					task.wait(rate)
 				end
 			end)
@@ -606,57 +609,47 @@ end
 local counter_target = nil
 local counter_deadline = 0
 
-local function find_player_name(value, depth)
-	if depth > 5 then
-		return nil
+local function note_attacker(name)
+	if Library.Unloaded or not Toggles.AutoCounter.Value then
+		return
+	end
+	if typeof(name) ~= "string" or name == "" or name == LocalPlayer.Name then
+		return
+	end
+	if not Players:FindFirstChild(name) then
+		return
 	end
 
-	local kind = typeof(value)
-	if kind == "string" then
-		if value ~= LocalPlayer.Name and Players:FindFirstChild(value) then
-			return value
-		end
-	elseif kind == "Instance" and value:IsA("Player") then
-		if value ~= LocalPlayer then
-			return value.Name
-		end
-	elseif kind == "table" then
-		for _, inner in value do
-			local found = find_player_name(inner, depth + 1)
-			if found then
-				return found
-			end
-		end
-	end
-
-	return nil
+	counter_target = name
+	counter_deadline = os.clock() + (tonumber(Options.CounterDuration.Value) or 30)
 end
 
-local combat_signals = {
-	"revenge_offer",
-	"jet_defend_offer",
-	"naval_contested",
-	"naval_strike",
-	"combat_alert",
-	"missile_impact",
-}
+Combat.revengeOffer.listen(function(data)
+	note_attacker(typeof(data) == "table" and data.attackerName or nil)
+end)
 
-for _, signal in combat_signals do
-	local event = remotes:FindFirstChild(signal)
-	if event and event:IsA("RemoteEvent") then
-		event.OnClientEvent:Connect(function(...)
-			if Library.Unloaded or not Toggles.AutoCounter.Value then
-				return
-			end
+Combat.clip.listen(function(data)
+	note_attacker(typeof(data) == "table" and data.name or nil)
+end)
 
-			local attacker = find_player_name({ ... }, 0)
-			if attacker then
-				counter_target = attacker
-				counter_deadline = os.clock() + (tonumber(Options.CounterDuration.Value) or 30)
-			end
-		end)
+Jets.defendOffer.listen(function(data)
+	note_attacker(typeof(data) == "table" and data.attackerName or nil)
+end)
+
+Naval.alertAttack.listen(function(data)
+	note_attacker(typeof(data) == "table" and data.attacker or nil)
+end)
+
+Naval.alertLost.listen(function(data)
+	note_attacker(typeof(data) == "table" and data.attacker or nil)
+end)
+
+Missiles.launched.listen(function(data)
+	local shooter = typeof(data) == "table" and data.shooter or nil
+	if typeof(shooter) == "Instance" and shooter:IsA("Player") then
+		note_attacker(shooter.Name)
 	end
-end
+end)
 
 local function counter_attack()
 	if not counter_target or os.clock() > counter_deadline then
@@ -716,7 +709,7 @@ local function jet_strike_positions(target, data)
 		end
 	end
 
-	local maximum = math.max(1, math.floor(tonumber(data and data.max_targets) or 1))
+	local maximum = math.max(1, math.floor(tonumber(data and data.maxTargets) or 1))
 	for _, silo in selected and selected.silos or {} do
 		if typeof(silo) == "table" and typeof(silo.pos) == "Vector3" then
 			positions[#positions + 1] = silo.pos
@@ -739,16 +732,16 @@ local function scramble_jets()
 		return
 	end
 
-	for _, prompt in state.prompts() do
+	for _, record in prompt_records() do
 		if Library.Unloaded or not Toggles.AutoScramble.Value then
 			return
 		end
 
-		local info = prompt.state
+		local info = record.state
 		if
-			prompt.kind == "jet"
-			and prompt.anchor
-			and prompt.anchor:IsDescendantOf(plot)
+			record.kind == "jet"
+			and record.anchor
+			and record.anchor:IsDescendantOf(plot)
 			and typeof(info) == "table"
 			and info.scramble_ready
 			and not info.scramble_flying
@@ -761,7 +754,7 @@ local function scramble_jets()
 
 			jet_targeting_open = false
 			jet_targeting_data = nil
-			prompt_action:FireServer(prompt.anchor, "scramble")
+			Prompts.action.send({ anchor = record.anchor, action = "scramble" })
 
 			local deadline = os.clock() + 3
 			while not jet_targeting_open and os.clock() < deadline do
@@ -770,54 +763,54 @@ local function scramble_jets()
 
 			if jet_targeting_open then
 				jet_targeting_open = false
-				fire_jet:FireServer({ positions = jet_strike_positions(target, jet_targeting_data) })
+				Jets.fire.send({ positions = jet_strike_positions(target, jet_targeting_data) })
 				task.wait(Options.ScrambleDelay.Value)
 			end
 		end
 	end
 end
 
-local active_duel = nil
+local active_duel = 0
 
-jet_launched.OnClientEvent:Connect(function(data)
-	if not auto_air_enabled() or typeof(data) ~= "table" or typeof(data.sortie_id) ~= "number" then
+Jets.launched.listen(function(data)
+	if not auto_air_enabled() or typeof(data) ~= "table" or typeof(data.sortieId) ~= "number" then
 		return
 	end
 
-	jet_result:FireServer({
-		sortie_id = data.sortie_id,
-		dots_hit = math.max(0, math.floor(tonumber(data.dots_total) or 0)),
-		bomb_hit = true,
+	Jets.result.send({
+		sortieId = data.sortieId,
+		dotsHit = math.max(0, math.floor(tonumber(data.dotsTotal) or 0)),
+		bombHit = true,
 	})
 end)
 
-jet_defend_offer.OnClientEvent:Connect(function(data)
-	if auto_air_enabled() and typeof(data) == "table" and typeof(data.duel_id) == "number" then
-		jet_defend_respond:FireServer({ accept = true, duel_id = data.duel_id })
+Jets.defendOffer.listen(function(data)
+	if auto_air_enabled() and typeof(data) == "table" and typeof(data.duelId) == "number" then
+		Jets.defendRespond.send({ duelId = data.duelId, accept = true })
 	end
 end)
 
-jet_duel_begin.OnClientEvent:Connect(function(data)
+Jets.duelBegin.listen(function(data)
 	if auto_air_enabled() and typeof(data) == "table" then
-		active_duel = data.duel_id
+		active_duel = data.duelId or active_duel
 	end
 end)
 
-jet_duel_event.OnClientEvent:Connect(function(data)
+Jets.duelTurn.listen(function(data)
 	if not auto_air_enabled() or typeof(data) ~= "table" or typeof(data.turn) ~= "number" then
 		return
 	end
 
 	local response = {
-		duel_id = data.duel_id or active_duel,
+		duelId = data.duelId or active_duel,
 		turn = data.turn,
 	}
 	if data.role == "shooter" then
-		response.lined_up = true
+		response.linedUp = true
 	else
-		response.dodges = configs.jets.duel.evader_dodge_dots
+		response.dodges = data.dodgeDots or Config.jets.duel.evader_dodge_dots
 	end
-	jet_duel_turn:FireServer(response)
+	Jets.duelTurnReport.send(response)
 end)
 
 local function cash()
@@ -845,15 +838,15 @@ local function upgrade_hangars()
 		return
 	end
 
-	for _, prompt in state.prompts() do
+	for _, record in prompt_records() do
 		if Library.Unloaded or not Toggles.AutoHangars.Value then
 			return
 		end
 
-		if prompt.kind == "jet" and prompt.anchor and prompt.anchor:IsDescendantOf(plot) then
-			local info = prompt.state
+		if record.kind == "jet" and record.anchor and record.anchor:IsDescendantOf(plot) then
+			local info = record.state
 			if typeof(info) == "table" and info.up_affordable and affordable(info.up_cost or 0) then
-				prompt_action:FireServer(prompt.anchor, "upgrade")
+				Prompts.action.send({ anchor = record.anchor, action = "upgrade" })
 				task.wait(0.4)
 			end
 		end
@@ -882,24 +875,24 @@ local function upgrade_resources()
 		return
 	end
 
-	for _, prompt in state.prompts() do
+	for _, record in prompt_records() do
 		if Library.Unloaded or not Toggles.AutoUpgrade.Value then
 			return
 		end
 
-		local info = prompt.state
-		local category = PROMPT_UPGRADE_TYPES[prompt.kind]
+		local info = record.state
+		local category = PROMPT_UPGRADE_TYPES[record.kind]
 		if
-			UPGRADEABLE_PROMPTS[prompt.kind]
+			UPGRADEABLE_PROMPTS[record.kind]
 			and upgrade_allowed(category)
-			and prompt.anchor
-			and prompt.anchor:IsDescendantOf(plot)
+			and record.anchor
+			and record.anchor:IsDescendantOf(plot)
 			and typeof(info) == "table"
 			and info.up_affordable
 			and (info.up_cost or -1) >= 0
 			and affordable(info.up_cost or 0)
 		then
-			prompt_action:FireServer(prompt.anchor, "upgrade")
+			Prompts.action.send({ anchor = record.anchor, action = "upgrade" })
 			task.wait(0.25)
 		end
 	end
@@ -911,20 +904,20 @@ local function operate_mines(island_name, toggle)
 		return
 	end
 
-	for _, prompt in state.prompts() do
+	for _, record in prompt_records() do
 		if Library.Unloaded or not toggle.Value then
 			return
 		end
 
 		if
-			prompt.kind == "mine"
-			and prompt.anchor
-			and prompt.anchor:IsDescendantOf(plot)
-			and prompt.anchor:GetFullName():find(island_name, 1, true)
-			and typeof(prompt.state) == "table"
-			and prompt.state.mine_state ~= "mining"
+			record.kind == "mine"
+			and record.anchor
+			and record.anchor:IsDescendantOf(plot)
+			and record.anchor:GetFullName():find(island_name, 1, true)
+			and typeof(record.state) == "table"
+			and record.state.mine_state ~= "mining"
 		then
-			prompt_action:FireServer(prompt.anchor, "operate")
+			Prompts.action.send({ anchor = record.anchor, action = "operate" })
 			task.wait(0.2)
 		end
 	end
@@ -937,11 +930,7 @@ local rarities = {}
 local island_names = {}
 local naval_sync_serial = 0
 
-naval_sync.OnClientEvent:Connect(function(data)
-	if typeof(data) ~= "table" or typeof(data.fleet) ~= "table" then
-		return
-	end
-
+local function apply_naval_sync(data)
 	fleet = data.fleet
 	islands = typeof(data.islands) == "table" and data.islands or {}
 	crates = typeof(data.crates) == "table" and data.crates or {}
@@ -992,11 +981,34 @@ naval_sync.OnClientEvent:Connect(function(data)
 			end
 		end
 	end
+end
+
+local pending_naval = nil
+
+Naval.sync.listen(function(data)
+	if typeof(data) ~= "table" or typeof(data.fleet) ~= "table" then
+		return
+	end
+
+	pending_naval = data
+end)
+
+task.spawn(function()
+	while task.wait(0.1) do
+		if Library.Unloaded then
+			break
+		end
+		local data = pending_naval
+		if data then
+			pending_naval = nil
+			pcall(apply_naval_sync, data)
+		end
+	end
 end)
 
 local function sync_naval()
 	local serial = naval_sync_serial
-	naval_action:FireServer("sync")
+	Naval.requestSync.send()
 	local deadline = os.clock() + 3
 	while naval_sync_serial == serial and os.clock() < deadline do
 		task.wait(0.1)
@@ -1020,15 +1032,15 @@ local function upgrade_ships()
 			return
 		end
 
-		local cost = ship.upgrade_cost or 0
+		local cost = ship.upgradeCost or 0
 		if
 			not ship.maxed
-			and ship.upgrade_afford
+			and ship.upgradeAfford
 			and rarity_allowed(ship.rarity)
 			and (ship.level or 1) < Options.MaxShipLevel.Value
 			and affordable(cost)
 		then
-			naval_action:FireServer("upgrade_ship", ship.id)
+			Naval.upgradeShip.send({ shipId = ship.id })
 			task.wait(0.4)
 		end
 	end
@@ -1055,7 +1067,7 @@ local function buy_crates()
 			return
 		end
 
-		naval_action:FireServer("roll", key, "gems")
+		Naval.roll.send({ crate = key, currency = "gems" })
 		task.wait(1)
 	end
 end
@@ -1125,14 +1137,14 @@ local function deploy_ships()
 		if
 			not ship.deployed
 			and not ship.repairing
-			and (ship.ready_in or 0) <= 0
+			and (ship.readyIn or 0) <= 0
 			and rarity_allowed(ship.rarity)
 			and (ship.level or 1) >= Options.MinDeployLevel.Value
 		then
 			local option = Options["NavyShip" .. index .. "Island"]
 			local island = pick_island(option and option.Value or "Auto")
 			if island then
-				naval_action:FireServer("deploy", ship.id, island.slot)
+				Naval.deploy.send({ shipId = ship.id, slot = island.slot })
 				ship.deployed = island.slot
 				active = active + 1
 				task.wait(0.4)
@@ -1447,11 +1459,11 @@ end
 NavyGroup:AddButton({
 	Text = "Refresh Islands",
 	Func = function()
-		naval_action:FireServer("sync")
+		Naval.requestSync.send()
 	end,
 })
 
-naval_action:FireServer("sync")
+Naval.requestSync.send()
 
 NavyGroup:AddToggle("SkipOwnedIslands", {
 	Text = "Skip Islands I Hold",
