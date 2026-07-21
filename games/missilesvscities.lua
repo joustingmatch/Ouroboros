@@ -388,7 +388,7 @@ local function set_packet_native(packet, enabled)
 	end
 end
 
-for _, packet in { Targeting.enter, Targeting.enterJet, Jets.launched, Jets.duelBegin, Jets.duelTurn } do
+for _, packet in { Targeting.enter, Targeting.enterJet, Orbital.open, Jets.launched, Jets.duelBegin, Jets.duelTurn } do
 	native_listeners(packet)
 end
 
@@ -398,6 +398,10 @@ end
 
 local function set_native_jet_targeting(enabled)
 	set_packet_native(Targeting.enterJet, enabled)
+end
+
+local function set_native_orbital(enabled)
+	set_packet_native(Orbital.open, enabled)
 end
 
 local function set_native_air_fight(enabled)
@@ -544,11 +548,19 @@ local function special_weapon_attack(toggle_name, prompt_kind, title_text, expli
 	end
 end
 
-local orbital_launch_cooldown = 0
 local orbital_busy_until = 0
+local orbital_open = false
+
+Orbital.open.listen(function()
+	orbital_open = true
+end)
 
 local function orbital_attack()
-	local target = selected_target()
+	if os.clock() < orbital_busy_until then
+		return
+	end
+
+	local target = selected_target() or pick_target()
 	if not target then
 		return
 	end
@@ -569,18 +581,22 @@ local function orbital_attack()
 			and record.anchor
 			and record.anchor:IsDescendantOf(plot)
 			and typeof(info) == "table"
+			and info.launched
+			and info.fire_ready
 		then
-			if not info.launched then
-				if os.clock() >= orbital_launch_cooldown then
-					orbital_launch_cooldown = os.clock() + 5
-					Prompts.action.send({ anchor = record.anchor, action = "fire" })
-				end
+			orbital_open = false
+			Prompts.action.send({ anchor = record.anchor, action = "fire" })
+
+			local deadline = os.clock() + 3
+			while not orbital_open and os.clock() < deadline do
+				task.wait(0.1)
+			end
+
+			if not orbital_open then
 				return
 			end
 
-			if not info.fire_ready or os.clock() < orbital_busy_until then
-				return
-			end
+			orbital_open = false
 
 			local duration = math.max(1, tonumber(Config.orbital.window_seconds) or 30)
 			local rate = math.max(0.05, tonumber(Config.orbital.aim_rate) or 0.1)
@@ -593,11 +609,7 @@ local function orbital_attack()
 					and Toggles.AutoOrbital.Value
 					and os.clock() < orbital_busy_until
 				do
-					local current = selected_target()
-					if current ~= target then
-						break
-					end
-					Orbital.aim.send({ pos = aim_position(current) })
+					Orbital.aim.send({ pos = aim_position(target) })
 					task.wait(rate)
 				end
 			end)
@@ -1276,7 +1288,10 @@ AttackGroup:AddToggle("AutoRailGun", {
 AttackGroup:AddToggle("AutoOrbital", {
 	Text = "Auto Orbital Cannon",
 	Default = false,
-	Callback = sync_native_targeting,
+	Callback = function()
+		set_native_orbital(not toggle_enabled("AutoOrbital"))
+		sync_native_targeting()
+	end,
 })
 
 AttackGroup:AddToggle("AutoBlowUpSilo", {
@@ -1519,6 +1534,7 @@ local antiAfkChangedConnection
 Library:OnUnload(function()
 	set_native_targeting(true)
 	set_native_jet_targeting(true)
+	set_native_orbital(true)
 	set_native_air_fight(true)
 	antiAfkBeganConnection:Disconnect()
 	antiAfkChangedConnection:Disconnect()
