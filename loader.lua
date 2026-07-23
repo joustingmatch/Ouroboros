@@ -72,6 +72,7 @@ local games = {
     [830072163] = 'greedygrowers.lua',
     [999381953] = 'dinohunters.lua',
     [865578721] = 'getfattobreaktape.lua',
+    [286242120] = 'lootup.lua',
 }   
 
 local file = games[game.CreatorId]
