@@ -20,6 +20,7 @@ local RebirthConfig = require(ReplicatedStorage.Shared.Info.RebirthConfig)
 local FertilizerConfig = require(ReplicatedStorage.Shared.Info.FertilizerConfig)
 local CustomEnum = require(ReplicatedStorage.Shared.Info.CustomEnum)
 local Constants = require(ReplicatedStorage.Shared.Info.Constants)
+local WeatherConfig = require(ReplicatedStorage.Shared.Info.WeatherConfig)
 
 local SeedConveyorService = Knit.GetService("SeedConveyorService")
 local PlayerPlotService = Knit.GetService("PlayerPlotService")
@@ -278,6 +279,25 @@ for _, key in ipairs(FertilizerConfig.Order) do
     FERTILIZER_NAMES[#FERTILIZER_NAMES + 1] = key
 end
 
+local WEATHER_NAMES = {}
+local WEATHER_NAME_TO_KEY = {}
+for _, key in ipairs(WeatherConfig.Order) do
+    local weather = WeatherConfig.Weathers[key]
+    local name = weather and weather.displayName or key
+    WEATHER_NAMES[#WEATHER_NAMES + 1] = name
+    WEATHER_NAME_TO_KEY[name] = key
+end
+
+local wantedWeathers = {}
+for _, key in ipairs(WeatherConfig.Order) do
+    wantedWeathers[key] = true
+end
+
+local function getActiveWeatherKey()
+    local value = ReplicatedStorage:FindFirstChild("CurrentWeather")
+    return value and WeatherConfig.Normalize(value.Value)
+end
+
 local wantedPlantSeeds = {}
 
 local function getEquippedSeedTool()
@@ -300,28 +320,31 @@ local function findPlantableSlot()
     end
 
     local mode = Options.PlantMode.Value
-    local best, bestSlot = nil, nil
-    for slot, item in data.Inventory.Hotbar or {} do
-        if item and item.itemType == "Seed" and item.seedType then
-            local allowed = mode == "Any Seed" or wantedPlantSeeds[item.seedType] == true
-            if allowed then
-                local seed = SeedConfig.GetSeed(item.seedType)
-                local cost = seed and seed.plantCost or 0
-                if mode == "Highest Value" then
-                    if not best or cost > best then
-                        best, bestSlot = cost, slot
+    local best, bestSlot, bestHotbar = nil, nil, nil
+    for _, container in ipairs({ { data.Inventory.Hotbar, true }, { data.Inventory.Storage, false } }) do
+        local items, isHotbar = container[1], container[2]
+        for slot, item in items or {} do
+            if item and item.itemType == "Seed" and item.seedType then
+                local allowed = mode == "Any Seed" or wantedPlantSeeds[item.seedType] == true
+                if allowed then
+                    local seed = SeedConfig.GetSeed(item.seedType)
+                    local cost = seed and seed.plantCost or 0
+                    if mode == "Highest Value" then
+                        if not best or cost > best then
+                            best, bestSlot, bestHotbar = cost, slot, isHotbar
+                        end
+                    elseif mode == "Lowest Value" then
+                        if not best or cost < best then
+                            best, bestSlot, bestHotbar = cost, slot, isHotbar
+                        end
+                    else
+                        return slot, isHotbar
                     end
-                elseif mode == "Lowest Value" then
-                    if not best or cost < best then
-                        best, bestSlot = cost, slot
-                    end
-                else
-                    return slot
                 end
             end
         end
     end
-    return bestSlot
+    return bestSlot, bestHotbar
 end
 
 local function doPlant()
@@ -329,13 +352,20 @@ local function doPlant()
         return
     end
 
+    if Toggles.PlantDuringWeatherOnly.Value then
+        local weather = getActiveWeatherKey()
+        if not weather or not wantedWeathers[weather] then
+            return
+        end
+    end
+
     local tool = getEquippedSeedTool()
     if not tool then
-        local slot = findPlantableSlot()
+        local slot, isHotbar = findPlantableSlot()
         if not slot then
             return
         end
-        ToolService.ToggleEquip:Fire(true, slot)
+        ToolService.ToggleEquip:Fire(isHotbar, slot)
         local deadline = tick() + 3
         repeat
             task.wait(0.1)
@@ -709,6 +739,30 @@ PlantGroup:AddDropdown("PlantFertilizer", {
     Values = FERTILIZER_NAMES,
     Default = "None",
     Multi = false,
+})
+
+PlantGroup:AddToggle("PlantDuringWeatherOnly", {
+    Text = "Only Plant During Weather",
+    Default = false,
+})
+
+PlantGroup:AddDropdown("PlantWeathers", {
+    Text = "Weathers To Plant In",
+    Values = WEATHER_NAMES,
+    Default = WEATHER_NAMES,
+    Multi = true,
+    Callback = function(value)
+        local set = {}
+        for name, state in value do
+            if state then
+                local key = WEATHER_NAME_TO_KEY[name]
+                if key then
+                    set[key] = true
+                end
+            end
+        end
+        wantedWeathers = set
+    end,
 })
 
 PlantGroup:AddToggle("PlantNotify", {
