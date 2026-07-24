@@ -170,6 +170,25 @@ local function isFavourited(id)
     return false
 end
 
+local function isCheapAuction(prompt)
+    local floor = getNumber("PassUnder", 0)
+    if floor <= 0 then
+        return false
+    end
+
+    local options = type(prompt.options) == "table" and prompt.options or {}
+    local lowest = nil
+
+    for _, option in options do
+        local amount = tonumber(option and option.amount)
+        if amount and (not lowest or amount < lowest) then
+            lowest = amount
+        end
+    end
+
+    return lowest ~= nil and lowest < floor
+end
+
 local function pickBidIndex(prompt)
     local cap = getNumber("MaxBid", 0)
     local strategy = Options.BidStrategy and Options.BidStrategy.Value or "Highest Affordable"
@@ -208,7 +227,7 @@ local function pickBidIndex(prompt)
 end
 
 local function respondToPrompt(prompt)
-    local index = pickBidIndex(prompt)
+    local index = not (isOn("AutoPassCheap") and isCheapAuction(prompt)) and pickBidIndex(prompt) or nil
 
     if index then
         local option = prompt.options[index]
@@ -379,6 +398,18 @@ BidGroup:AddDropdown("BidStrategy", {
 
 BidGroup:AddInput("MaxBid", {
     Text = "Max Bid",
+    Default = "0",
+    Numeric = true,
+    Finished = true,
+})
+
+BidGroup:AddToggle("AutoPassCheap", {
+    Text = "Auto Pass Cheap Animes",
+    Default = false,
+})
+
+BidGroup:AddInput("PassUnder", {
+    Text = "Pass Under",
     Default = "0",
     Numeric = true,
     Finished = true,
