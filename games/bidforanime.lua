@@ -12,6 +12,7 @@ if getgenv then
 end
 
 local Misc = ReplicatedStorage:WaitForChild("BrainrotsThings"):WaitForChild("Misc")
+local BrainrotEconomy = require(Misc:WaitForChild("BrainrotEconomy"))
 local Events = Misc:WaitForChild("Events")
 local PlayerEvents = Events:WaitForChild("Player")
 local TableEvents = Events:WaitForChild("Tables")
@@ -24,11 +25,19 @@ local ClaimOfflineEarnings = PlayerEvents:WaitForChild("ClaimOfflineEarnings")
 local EquipBestBrainrots = PlayerEvents:WaitForChild("EquipBestBrainrots")
 local ToggleFavourite = PlayerEvents:WaitForChild("ToggleFavourite")
 local SellAll = PlayerEvents:WaitForChild("SellAll")
+local SellItem = PlayerEvents:WaitForChild("SellItem")
 local RebirthRequest = PlayerEvents:WaitForChild("RebirthRequest")
 local PurchaseLuckUpgrade = PlayerEvents:WaitForChild("PurchaseLuckUpgrade")
 local RequestIndex = PlayerEvents:WaitForChild("RequestIndex")
+local IndexUpdated = PlayerEvents:WaitForChild("IndexUpdated")
+local LuckBroadcast = PlayerEvents:WaitForChild("LuckBroadcast")
+local MoneyBroadcast = PlayerEvents:WaitForChild("MoneyBroadcast")
+local ChairShopUpdated = PlayerEvents:WaitForChild("ChairShopUpdated")
+local PurchaseChair = PlayerEvents:WaitForChild("PurchaseChair")
+local EquipChair = PlayerEvents:WaitForChild("EquipChair")
 
 local AuctionStarted = TableEvents:WaitForChild("AuctionStarted")
+local AuctionStateUpdated = TableEvents:WaitForChild("AuctionStateUpdated")
 local AuctionEnded = TableEvents:WaitForChild("AuctionEnded")
 local AuctionCancelled = TableEvents:WaitForChild("AuctionCancelled")
 local AuctionPrompt = TableEvents:WaitForChild("AuctionPrompt")
@@ -111,19 +120,51 @@ local TABLE_OPTIONS = { "GuaranteedSecret", "GuaranteedDivine", "LuckyBlock" }
 
 local inventory = {}
 local favourites = {}
+local indexEntries = {}
+local playerLuck = {}
+local playerMoney = {}
+local chairShop = nil
 local activeAuction = nil
 local activePrompt = nil
 local lastPromptId = nil
 local spinning = false
+
+local Tables = workspace:WaitForChild("Map"):WaitForChild("Tables")
+local LeaveTableAction = LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("ConsoleActions"):WaitForChild("BidConsoleLeaveTable")
 
 InventoryUpdated.OnClientEvent:Connect(function(items, _, favourited)
     inventory = type(items) == "table" and items or {}
     favourites = type(favourited) == "table" and favourited or {}
 end)
 
-AuctionStarted.OnClientEvent:Connect(function(payload)
-    activeAuction = payload
+IndexUpdated.OnClientEvent:Connect(function(mode, entries)
+    if mode == "__FULL__" and type(entries) == "table" then
+        indexEntries = entries
+    end
 end)
+
+LuckBroadcast.OnClientEvent:Connect(function(userId, luck)
+    playerLuck[userId] = tonumber(luck) or 0
+end)
+
+MoneyBroadcast.OnClientEvent:Connect(function(userId, money)
+    playerMoney[userId] = tonumber(money) or 0
+end)
+
+ChairShopUpdated.OnClientEvent:Connect(function(payload)
+    if type(payload) == "table" then
+        chairShop = payload
+    end
+end)
+
+local function setAuction(payload)
+    if type(payload) == "table" then
+        activeAuction = payload
+    end
+end
+
+AuctionStarted.OnClientEvent:Connect(setAuction)
+AuctionStateUpdated.OnClientEvent:Connect(setAuction)
 
 local function clearAuction()
     activeAuction = nil
@@ -170,6 +211,77 @@ local function isFavourited(id)
     return false
 end
 
+local function isSeated()
+    local character = LocalPlayer.Character
+    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+    local seat = humanoid and humanoid.SeatPart
+    return seat ~= nil and seat:IsDescendantOf(Tables)
+end
+
+local function leaveTable()
+    pcall(function()
+        LeaveTableAction:Invoke()
+    end)
+    clearAuction()
+end
+
+local function currentBrainrot()
+    if type(activeAuction) ~= "table" or type(activeAuction.brainrot) ~= "table" then
+        return nil
+    end
+    return activeAuction.brainrot
+end
+
+local function isMissingFromIndex(brainrot)
+    if not brainrot or not brainrot.sourceType or not brainrot.name or not brainrot.variant then
+        return false
+    end
+    return indexEntries[brainrot.sourceType .. "|" .. brainrot.name .. "|" .. brainrot.variant] ~= true
+end
+
+local function matchesBidFilters(brainrot)
+    local rarities = getSelected("BidRarities")
+    local variants = getSelected("BidVariants")
+    local hasRarity = next(rarities) ~= nil
+    local hasVariant = next(variants) ~= nil
+
+    if not hasRarity and not hasVariant then
+        return true
+    end
+
+    if not brainrot then
+        return true
+    end
+
+    return (hasRarity and rarities[brainrot.rarity] == true) or (hasVariant and variants[brainrot.variant] == true)
+end
+
+local function hasBadOpponent()
+    local participants = type(activeAuction) == "table" and activeAuction.participants
+    if type(participants) ~= "table" then
+        return false
+    end
+
+    local minLuck = getNumber("MinOpponentLuck", 0)
+    local minMoney = getNumber("MinOpponentMoney", 0)
+
+    for _, participant in participants do
+        local userId = type(participant) == "table" and participant.userId
+        if userId and userId ~= LocalPlayer.UserId then
+            local luck = playerLuck[userId] or 0
+            local money = tonumber(participant.money) or playerMoney[userId] or 0
+            if minLuck > 0 and luck < minLuck then
+                return true
+            end
+            if minMoney > 0 and money < minMoney then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
 local function isCheapAuction(prompt)
     local floor = getNumber("PassUnder", 0)
     if floor <= 0 then
@@ -189,9 +301,10 @@ local function isCheapAuction(prompt)
     return lowest ~= nil and lowest < floor
 end
 
-local function pickBidIndex(prompt)
-    local cap = getNumber("MaxBid", 0)
-    local strategy = Options.BidStrategy and Options.BidStrategy.Value or "Highest Affordable"
+local function pickBidIndex(prompt, ignoreLimits)
+    local cap = ignoreLimits and 0 or getNumber("MaxBid", 0)
+    local strategy = ignoreLimits and "Highest Affordable"
+        or (Options.BidStrategy and Options.BidStrategy.Value or "Highest Affordable")
     local options = type(prompt.options) == "table" and prompt.options or {}
 
     local function usable(index)
@@ -227,7 +340,14 @@ local function pickBidIndex(prompt)
 end
 
 local function respondToPrompt(prompt)
-    local index = not (isOn("AutoPassCheap") and isCheapAuction(prompt)) and pickBidIndex(prompt) or nil
+    local brainrot = currentBrainrot()
+    local index = nil
+
+    if isOn("IndexPriority") and isMissingFromIndex(brainrot) then
+        index = pickBidIndex(prompt, true)
+    elseif matchesBidFilters(brainrot) and not (isOn("AutoPassCheap") and isCheapAuction(prompt)) then
+        index = pickBidIndex(prompt, false)
+    end
 
     if index then
         local option = prompt.options[index]
@@ -248,6 +368,16 @@ local function respondToPrompt(prompt)
         })
     end
 end
+
+AuctionStarted.OnClientEvent:Connect(function()
+    if Library.Unloaded or not isOn("AutoLeaveBad") then
+        return
+    end
+
+    if hasBadOpponent() then
+        leaveTable()
+    end
+end)
 
 AuctionPrompt.OnClientEvent:Connect(function(prompt)
     if type(prompt) ~= "table" then
@@ -377,10 +507,31 @@ JoinGroup:AddToggle("AutoPlayAI", {
 
 JoinGroup:AddSlider("JoinDelay", {
     Text = "Join Delay",
-    Default = 3,
-    Min = 1,
+    Default = 0.5,
+    Min = 0.1,
     Max = 20,
     Rounding = 1,
+})
+
+local LeaveGroup = Tabs.Auction:AddLeftGroupbox("Auto Leave", "door-closed")
+
+LeaveGroup:AddToggle("AutoLeaveBad", {
+    Text = "Leave Bad Opponents",
+    Default = false,
+})
+
+LeaveGroup:AddInput("MinOpponentLuck", {
+    Text = "Min Opponent Luck",
+    Default = "0",
+    Numeric = true,
+    Finished = true,
+})
+
+LeaveGroup:AddInput("MinOpponentMoney", {
+    Text = "Min Opponent Money",
+    Default = "0",
+    Numeric = true,
+    Finished = true,
 })
 
 local BidGroup = Tabs.Auction:AddRightGroupbox("Auto Bid", "gavel")
@@ -401,6 +552,25 @@ BidGroup:AddInput("MaxBid", {
     Default = "0",
     Numeric = true,
     Finished = true,
+})
+
+BidGroup:AddDropdown("BidRarities", {
+    Values = RARITIES,
+    Default = {},
+    Multi = true,
+    Text = "Only Bid Rarities",
+})
+
+BidGroup:AddDropdown("BidVariants", {
+    Values = VARIANTS,
+    Default = {},
+    Multi = true,
+    Text = "Only Bid Variants",
+})
+
+BidGroup:AddToggle("IndexPriority", {
+    Text = "Always Bid For Index",
+    Default = false,
 })
 
 BidGroup:AddToggle("AutoPassCheap", {
@@ -477,6 +647,21 @@ LuckGroup:AddSlider("LuckDelay", {
     Rounding = 1,
 })
 
+local ChairGroup = Tabs.Luck:AddRightGroupbox("Chairs", "armchair")
+
+ChairGroup:AddToggle("AutoBuyChair", {
+    Text = "Auto Buy Best Chair",
+    Default = false,
+})
+
+ChairGroup:AddSlider("ChairDelay", {
+    Text = "Loop Delay",
+    Default = 5,
+    Min = 1,
+    Max = 60,
+    Rounding = 1,
+})
+
 local BlockGroup = Tabs.Luck:AddLeftGroupbox("Lucky Blocks", "package-open")
 
 BlockGroup:AddToggle("AutoTableOption", {
@@ -543,6 +728,39 @@ CollectionGroup:AddDropdown("FavouriteVariants", {
     Text = "Favorite Variants",
 })
 
+CollectionGroup:AddToggle("AutoUnfavourite", {
+    Text = "Auto Unfavorite",
+    Default = false,
+})
+
+CollectionGroup:AddDropdown("UnfavouriteRarities", {
+    Values = RARITIES,
+    Default = {},
+    Multi = true,
+    Text = "Unfavorite Rarities",
+})
+
+CollectionGroup:AddDropdown("UnfavouriteVariants", {
+    Values = VARIANTS,
+    Default = {},
+    Multi = true,
+    Text = "Unfavorite Variants",
+})
+
+CollectionGroup:AddButton({
+    Text = "Unfavorite Everything",
+    Func = function()
+        local ids = table.clone(favourites)
+        task.spawn(function()
+            for _, id in ids do
+                ToggleFavourite:FireServer(id)
+                task.wait(0.15)
+            end
+            Library:Notify("Unfavorited " .. #ids .. " animes")
+        end)
+    end,
+})
+
 local SellGroup = Tabs.Economy:AddRightGroupbox("Auto Sell", "banknote")
 
 SellGroup:AddToggle("AutoSell", {
@@ -555,6 +773,18 @@ SellGroup:AddDropdown("SellRarities", {
     Default = {},
     Multi = true,
     Text = "Sell Rarities",
+})
+
+SellGroup:AddToggle("AutoSellEarn", {
+    Text = "Auto Sell By Earn",
+    Default = false,
+})
+
+SellGroup:AddInput("SellUnderEarn", {
+    Text = "Sell Under Cash Per Second",
+    Default = "0",
+    Numeric = true,
+    Finished = true,
 })
 
 SellGroup:AddSlider("SellDelay", {
@@ -654,18 +884,18 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    while not Library.Unloaded do
-        if isOn("AutoJoin") and not activeAuction and LocalPlayer:GetAttribute("ClientInDuel") ~= true then
-            QuickJoin:FireServer()
+    local lastAIRequest = 0
 
-            if isOn("AutoPlayAI") then
-                task.wait(getNumber("JoinDelay", 3))
-                if isOn("AutoJoin") and isOn("AutoPlayAI") and not activeAuction then
-                    PlayWithAIRequest:FireServer()
-                end
+    while not Library.Unloaded do
+        if isOn("AutoJoin") and LocalPlayer:GetAttribute("ClientInDuel") ~= true then
+            if not isSeated() then
+                QuickJoin:FireServer()
+            elseif isOn("AutoPlayAI") and not activeAuction and tick() - lastAIRequest >= 3 then
+                lastAIRequest = tick()
+                PlayWithAIRequest:FireServer()
             end
         end
-        task.wait(getNumber("JoinDelay", 3))
+        task.wait(getNumber("JoinDelay", 0.5))
     end
 end)
 
@@ -740,6 +970,20 @@ task.spawn(function()
                 end
             end
         end
+
+        if isOn("AutoUnfavourite") then
+            local rarities = getSelected("UnfavouriteRarities")
+            local variants = getSelected("UnfavouriteVariants")
+
+            for _, item in inventory do
+                if type(item) == "table" and item.id and isFavourited(item.id) then
+                    if rarities[item.rarity] or variants[item.variant] then
+                        ToggleFavourite:FireServer(item.id)
+                        task.wait(0.15)
+                    end
+                end
+            end
+        end
         task.wait(1)
     end
 end)
@@ -755,7 +999,68 @@ task.spawn(function()
                 end
             end
         end
+
+        if isOn("AutoSellEarn") then
+            local threshold = getNumber("SellUnderEarn", 0)
+            if threshold > 0 then
+                for _, item in inventory do
+                    if type(item) == "table" and item.id and not isFavourited(item.id) then
+                        local ok, earn = pcall(BrainrotEconomy.getCashPerSecondForItem, item)
+                        if ok and (tonumber(earn) or 0) < threshold then
+                            SellItem:FireServer(item.id)
+                            task.wait(0.2)
+                        end
+                    end
+                end
+            end
+        end
         task.wait(getNumber("SellDelay", 5))
+    end
+end)
+
+task.spawn(function()
+    while not Library.Unloaded do
+        if isOn("AutoBuyChair") then
+            if not chairShop then
+                PurchaseChair:FireServer("DefaultChair")
+            else
+                local normal = type(chairShop.normal) == "table" and chairShop.normal or {}
+                local money = getMoney()
+                local target, targetLuck = nil, -1
+
+                for name, chair in normal do
+                    if type(chair) == "table" and chair.owned ~= true and (tonumber(chair.price) or math.huge) <= money then
+                        local luck = tonumber(chair.luck) or 0
+                        if luck > targetLuck then
+                            target, targetLuck = name, luck
+                        end
+                    end
+                end
+
+                if target then
+                    PurchaseChair:FireServer(target)
+                else
+                    local best, bestLuck = nil, -1
+
+                    for _, group in { normal, type(chairShop.special) == "table" and chairShop.special or {} } do
+                        for name, chair in group do
+                            if type(chair) == "table" and chair.owned == true then
+                                local luck = tonumber(chair.luck) or 0
+                                if luck > bestLuck then
+                                    best, bestLuck = name, luck
+                                end
+                            end
+                        end
+                    end
+
+                    if best and chairShop.equippedChair ~= best then
+                        EquipChair:FireServer(best)
+                        chairShop.equippedChair = best
+                    end
+                end
+            end
+        end
+        task.wait(getNumber("ChairDelay", 5))
     end
 end)
 
