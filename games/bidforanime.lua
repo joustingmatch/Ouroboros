@@ -282,23 +282,14 @@ local function hasBadOpponent()
     return false
 end
 
-local function isCheapAuction(prompt)
+local function isCheapAuction(brainrot)
     local floor = getNumber("PassUnder", 0)
-    if floor <= 0 then
+    if floor <= 0 or not brainrot then
         return false
     end
 
-    local options = type(prompt.options) == "table" and prompt.options or {}
-    local lowest = nil
-
-    for _, option in options do
-        local amount = tonumber(option and option.amount)
-        if amount and (not lowest or amount < lowest) then
-            lowest = amount
-        end
-    end
-
-    return lowest ~= nil and lowest < floor
+    local value = tonumber(brainrot.value) or tonumber(brainrot.baseValue)
+    return value ~= nil and value < floor
 end
 
 local function pickBidIndex(prompt, ignoreLimits)
@@ -345,7 +336,7 @@ local function respondToPrompt(prompt)
 
     if isOn("IndexPriority") and isMissingFromIndex(brainrot) then
         index = pickBidIndex(prompt, true)
-    elseif matchesBidFilters(brainrot) and not (isOn("AutoPassCheap") and isCheapAuction(prompt)) then
+    elseif matchesBidFilters(brainrot) and not (isOn("AutoPassCheap") and isCheapAuction(brainrot)) then
         index = pickBidIndex(prompt, false)
     end
 
