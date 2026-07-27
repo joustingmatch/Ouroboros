@@ -288,8 +288,8 @@ local function isCheapAuction(brainrot)
         return false
     end
 
-    local value = tonumber(brainrot.value) or tonumber(brainrot.baseValue)
-    return value ~= nil and value < floor
+    local ok, earn = pcall(BrainrotEconomy.getCashPerSecondForItem, brainrot)
+    return ok and (tonumber(earn) or 0) < floor
 end
 
 local function pickBidIndex(prompt, ignoreLimits)
@@ -570,7 +570,7 @@ BidGroup:AddToggle("AutoPassCheap", {
 })
 
 BidGroup:AddInput("PassUnder", {
-    Text = "Pass Under",
+    Text = "Pass Under Cash Per Second",
     Default = "0",
     Numeric = true,
     Finished = true,
