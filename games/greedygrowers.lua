@@ -263,14 +263,15 @@ local function doRoundHarvest()
     end
 
     local target = tonumber(Options.HarvestMultiplier.Value) or 2
-    if roundMultiplier(round.startTime) < target then
+    local multiplier = roundMultiplier(round.startTime)
+    if multiplier < target then
         return
     end
 
     harvestedRoundId = round.roundId
-    PlantRoundService:StopPlant():await()
-    if Toggles.HarvestNotify.Value then
-        Library:Notify(("Harvested at %.2fx"):format(roundMultiplier(round.startTime)))
+    local ok = PlantRoundService:StopPlant():await()
+    if ok and Toggles.HarvestNotify.Value then
+        Library:Notify(("Harvested at %.2fx"):format(multiplier))
     end
 end
 
@@ -398,6 +399,125 @@ local function doPlant()
     end
 end
 
+local function isTreeItem(item)
+    if not item or item.empty == true or not item.seedType then
+        return false
+    end
+    local itemType = item.itemType
+    return itemType ~= "Seed" and itemType ~= "Fruit" and itemType ~= "Decor" and itemType ~= "Axe"
+end
+
+local function findTreeSlot(dead)
+    local data = getData()
+    if not data or not data.Inventory then
+        return nil
+    end
+    for _, container in ipairs({ { data.Inventory.Hotbar, true }, { data.Inventory.Storage, false } }) do
+        local items, isHotbar = container[1], container[2]
+        for slot, item in items or {} do
+            if isTreeItem(item) and (item.isDead == true) == dead then
+                return slot, isHotbar
+            end
+        end
+    end
+    return nil
+end
+
+local function getEquippedTreeTool(dead)
+    local character = LocalPlayer.Character
+    if not character then
+        return nil
+    end
+    for _, tool in character:GetChildren() do
+        if tool:IsA("Tool") and tool:GetAttribute("IsTree") and (tool:GetAttribute("IsDead") == true) == dead then
+            return tool
+        end
+    end
+    return nil
+end
+
+local function equipTree(dead)
+    local tool = getEquippedTreeTool(dead)
+    if tool then
+        return tool
+    end
+
+    local slot, isHotbar = findTreeSlot(dead)
+    if not slot then
+        return nil
+    end
+
+    ToolService.ToggleEquip:Fire(isHotbar, slot)
+    local deadline = tick() + 3
+    repeat
+        task.wait(0.1)
+        tool = getEquippedTreeTool(dead)
+    until tool or tick() > deadline
+    return tool
+end
+
+local function getDirtParts()
+    local plot = getMyPlot()
+    if not plot then
+        return {}
+    end
+    local parts = {}
+    for _, descendant in plot:GetDescendants() do
+        if descendant:IsA("BasePart") and descendant.Name == "Dirt" then
+            parts[#parts + 1] = descendant
+        end
+    end
+    return parts
+end
+
+local function randomDirtPoint(dirt)
+    local offset = Vector3.new(
+        (math.random() - 0.5) * dirt.Size.X * 0.8,
+        dirt.Size.Y / 2,
+        (math.random() - 0.5) * dirt.Size.Z * 0.8
+    )
+    return dirt.CFrame:PointToWorldSpace(offset)
+end
+
+local function doPlantTrees()
+    local dirts = getDirtParts()
+    if #dirts == 0 then
+        return
+    end
+
+    while not Library.Unloaded and Toggles.AutoPlantTrees.Value do
+        local tool = equipTree(false)
+        if not tool then
+            return
+        end
+
+        local itemId = tool:GetAttribute("ItemId")
+        if not itemId then
+            return
+        end
+
+        local planted = false
+        for _ = 1, 10 do
+            local dirt = dirts[math.random(#dirts)]
+            local ok, success = PlayerPlotService:PlantTree(itemId, randomDirtPoint(dirt), 0):await()
+            if ok and success then
+                planted = true
+                break
+            end
+            task.wait(0.1)
+        end
+
+        if not planted then
+            return
+        end
+
+        if Toggles.PlantNotify.Value then
+            Library:Notify("Planted a grown tree")
+        end
+        task.wait(0.2)
+    end
+end
+
 local function collectTreePrompts(tree)
     local prompts = {}
     for _, descendant in tree:GetDescendants() do
@@ -516,6 +636,31 @@ end
 
 local function doSellAll()
     SellStandService:SellAll():await()
+end
+
+local function doSellDeadTrees()
+    if Toggles.SellTeleport.Value then
+        local field = workspace:FindFirstChild("BigField")
+        local stand = field and field:FindFirstChild("SellStand")
+        local root = getRoot()
+        local pivot = stand and stand:GetPivot()
+        if root and pivot then
+            root.CFrame = pivot + Vector3.new(0, 5, 0)
+            task.wait(0.2)
+        end
+    end
+
+    while not Library.Unloaded and Toggles.AutoSellAll.Value and Toggles.SellDeadTreesOnly.Value do
+        local tool = equipTree(true)
+        if not tool then
+            return
+        end
+        local ok, sold = SellStandService:SellTree():await()
+        if not ok or not sold then
+            return
+        end
+        task.wait(Options.SellActionDelay.Value or 0.2)
+    end
 end
 
 local function doRebirth()
@@ -765,6 +910,11 @@ PlantGroup:AddDropdown("PlantWeathers", {
     end,
 })
 
+PlantGroup:AddToggle("AutoPlantTrees", {
+    Text = "Auto Plant Grown Trees",
+    Default = false,
+})
+
 PlantGroup:AddToggle("PlantNotify", {
     Text = "Notify On Plant",
     Default = false,
@@ -854,6 +1004,11 @@ SellGroup:AddToggle("AutoSellFruits", {
 
 SellGroup:AddToggle("AutoSellAll", {
     Text = "Auto Sell All",
+    Default = false,
+})
+
+SellGroup:AddToggle("SellDeadTreesOnly", {
+    Text = "Sell Dead Trees Only",
     Default = false,
 })
 
@@ -1027,6 +1182,15 @@ end)
 
 task.spawn(function()
     while not Library.Unloaded do
+        if Toggles.AutoPlantTrees.Value then
+            pcall(doPlantTrees)
+        end
+        task.wait(Options.PlantLoopDelay.Value or 1)
+    end
+end)
+
+task.spawn(function()
+    while not Library.Unloaded do
         if Toggles.AutoCollectFruit.Value then
             pcall(doHarvest)
         end
@@ -1040,7 +1204,11 @@ task.spawn(function()
             pcall(doSellFruits)
         end
         if Toggles.AutoSellAll.Value then
-            pcall(doSellAll)
+            if Toggles.SellDeadTreesOnly.Value then
+                pcall(doSellDeadTrees)
+            else
+                pcall(doSellAll)
+            end
         end
         task.wait(Options.SellLoopDelay.Value or 2)
     end
