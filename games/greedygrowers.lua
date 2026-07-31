@@ -21,6 +21,8 @@ local FertilizerConfig = require(ReplicatedStorage.Shared.Info.FertilizerConfig)
 local CustomEnum = require(ReplicatedStorage.Shared.Info.CustomEnum)
 local Constants = require(ReplicatedStorage.Shared.Info.Constants)
 local WeatherConfig = require(ReplicatedStorage.Shared.Info.WeatherConfig)
+local FurnitureShopConfig = require(ReplicatedStorage.Shared.Info.FurnitureShopConfig)
+local AbbreviateNumber = require(ReplicatedStorage.Shared.Utility.AbbreviateNumber)
 
 local SeedConveyorService = Knit.GetService("SeedConveyorService")
 local PlayerPlotService = Knit.GetService("PlayerPlotService")
@@ -28,10 +30,11 @@ local PlantRoundService = Knit.GetService("PlantRoundService")
 local ToolService = Knit.GetService("ToolService")
 local SellStandService = Knit.GetService("SellStandService")
 local SellFruitsService = Knit.GetService("SellFruitsService")
+local FurnitureShopService = Knit.GetService("FurnitureShopService")
 local RebirthService = Knit.GetService("RebirthService")
 local DataClient = Knit.GetController("DataClient")
 
-local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
+local repo = "https://raw.githubusercontent.com/joustingmatch/ObsidianUltra/main/"
 local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
 
 pcall(function()
@@ -45,6 +48,7 @@ local Toggles = Library.Toggles
 local Options = Library.Options
 
 local DISCORD_INVITE = "https://discord.gg/ehKVq7pf7v"
+local RSCRIPTS_LINK = "https://rscripts.net/@Ouroboros"
 
 local function copyDiscord()
     if setclipboard then
@@ -54,6 +58,19 @@ local function copyDiscord()
     end
     Library:Notify("Copied Discord invite to clipboard")
 end
+
+local function colored(text, color)
+    return string.format('<font color="%s">%s</font>', color, text)
+end
+
+local function field(key, value, color)
+    return string.format("<b>%s</b> %s %s", key, colored("-", "#5a6070"), colored(value, color))
+end
+
+local GREEN = "#7fd47f"
+local BLUE = "#6ec1ff"
+local ORANGE = "#e8a34d"
+local GREY = "#8b93a3"
 
 local RARITY_ORDER = {
     "COMMON",
@@ -80,11 +97,29 @@ end
 local SEED_NAMES = {}
 local SEED_NAME_TO_KEY = {}
 for key in pairs(SeedConfig.Seeds) do
-    local name = SeedConfig.SeedDisplayName(key)
+    local seed = SeedConfig.GetSeed(key)
+    local cost = seed and seed.plantCost or 0
+    local priceText = cost > 0 and ("$" .. AbbreviateNumber(cost)) or "Free"
+    local name = SeedConfig.SeedDisplayName(key) .. " (" .. priceText .. ")"
     SEED_NAMES[#SEED_NAMES + 1] = name
     SEED_NAME_TO_KEY[name] = key
 end
 table.sort(SEED_NAMES)
+
+local FURNITURE_NAMES = {}
+local FURNITURE_NAME_TO_INFO = {}
+for _, category in ipairs(FurnitureShopConfig.Categories) do
+    for _, item in ipairs(category.items) do
+        local price = tonumber(item.price) or 0
+        local priceText = price > 0 and ("$" .. AbbreviateNumber(price)) or "Free"
+        local name = ("[%s] %s (%s)"):format(category.name, item.id, priceText)
+        FURNITURE_NAMES[#FURNITURE_NAMES + 1] = name
+        FURNITURE_NAME_TO_INFO[name] = { type = category.type, id = item.id, price = price }
+    end
+end
+table.sort(FURNITURE_NAMES)
+
+local wantedFurniture = {}
 
 local function selectedSet(value)
     local set = {}
@@ -193,9 +228,9 @@ local function doBuySeeds()
             local seedType = holder:GetAttribute("SeedType")
             local rarity = holder:GetAttribute("Rarity")
             if seedType and rarity and shouldBuySeed(seedType, rarity, holder:GetAttribute("Mutation")) then
-                purchasedSpawns[spawnId] = true
                 local ok, success = SeedConveyorService:RequestPurchase(spawnId):await()
                 if ok and success then
+                    purchasedSpawns[spawnId] = true
                     if Toggles.BuyNotify.Value then
                         Library:Notify(("Bought %s"):format(SeedConfig.SeedDisplayName(seedType)))
                     end
@@ -218,6 +253,22 @@ local function doBuySeeds()
         end
         if not stillThere then
             purchasedSpawns[spawnId] = nil
+        end
+    end
+end
+
+local function doBuyFurniture()
+    local reserve = tonumber(Options.FurnitureReserve.Value) or 0
+    for _, info in ipairs(wantedFurniture) do
+        if Library.Unloaded or not Toggles.AutoBuyFurniture.Value then
+            return
+        end
+        if getCoins() - info.price >= reserve then
+            local ok, success = FurnitureShopService:BuyFurniture(info.type, info.id):await()
+            if ok and success and Toggles.FurnitureNotify.Value then
+                Library:Notify(("Bought %s"):format(info.id))
+            end
+            task.wait(Options.FurnitureActionDelay.Value or 0.2)
         end
     end
 end
@@ -521,8 +572,15 @@ end
 local function collectTreePrompts(tree)
     local prompts = {}
     for _, descendant in tree:GetDescendants() do
-        if descendant:IsA("ProximityPrompt") and descendant.Enabled and descendant.ActionText == "Collect" then
-            prompts[#prompts + 1] = descendant
+        if descendant:IsA("ProximityPrompt") then
+            local parent = descendant.Parent
+            while parent and parent ~= tree do
+                if parent.Name == "FruitSpawns" then
+                    prompts[#prompts + 1] = descendant
+                    break
+                end
+                parent = parent.Parent
+            end
         end
     end
     return prompts
@@ -599,8 +657,8 @@ local function doSellFruits()
     end
 
     if Toggles.SellTeleport.Value then
-        local field = workspace:FindFirstChild("BigField")
-        local stand = field and field:FindFirstChild("SellStand")
+        local plot = getMyPlot()
+        local stand = plot and plot:FindFirstChild("SellFruits")
         local root = getRoot()
         local pivot = stand and stand:GetPivot()
         if root and pivot then
@@ -650,7 +708,7 @@ local function doSellDeadTrees()
         end
     end
 
-    while not Library.Unloaded and Toggles.AutoSellAll.Value and Toggles.SellDeadTreesOnly.Value do
+    while not Library.Unloaded and Toggles.SellDeadTreesOnly.Value do
         local tool = equipTree(true)
         if not tool then
             return
@@ -687,11 +745,16 @@ end
 
 local Window = Library:CreateWindow({
     Title = "Ouroboros Hub",
-    Footer = DISCORD_INVITE .. " | " .. GAME_NAME,
-    Icon = 18657887261,
+    Footer = {
+        { Text = DISCORD_INVITE, Copyable = true },
+        "|",
+        GAME_NAME,
+    },
+    Icon = 12645376577,
     NotifySide = "Right",
     Size = UDim2.fromOffset(900, 640),
     ShowCustomCursor = false,
+    CornerRadius = 10,
 })
 
 Library.ShowCustomCursor = false
@@ -704,7 +767,7 @@ local Tabs = {
 }
 
 local function AddDiscordButton(Tab)
-    local DiscordGroup = Tab:AddLeftGroupbox("Discord", "message-circle", true, false, true)
+    local DiscordGroup = Tab:AddLeftGroupbox("Discord")
     DiscordGroup:AddButton({
         Text = "Join Discord to Make Money",
         Func = copyDiscord,
@@ -719,8 +782,6 @@ for _, Tab in Tabs do
     AddDiscordButton(Tab)
 end
 
-local InfoGroup = Tabs.Info:AddLeftGroupbox("Basic Info", "circle-user")
-
 local executorName = "Unknown"
 pcall(function()
     if identifyexecutor then
@@ -731,10 +792,90 @@ pcall(function()
     end
 end)
 
-InfoGroup:AddLabel("Executor: " .. executorName, true)
-InfoGroup:AddLabel("Game: " .. GAME_NAME, true)
-InfoGroup:AddLabel("Player: " .. LocalPlayer.Name, true)
-InfoGroup:AddLabel("Status: Keyless", true)
+local AccountGroup = Tabs.Info:AddLeftGroupbox("Account", "circle-user")
+
+AccountGroup:AddLabel(field("User", LocalPlayer.Name, GREEN), true)
+AccountGroup:AddLabel(field("Status", "Keyless", GREEN), true)
+AccountGroup:AddLabel(field("Executor", executorName, GREEN), true)
+
+local GameGroup = Tabs.Info:AddLeftGroupbox("Game Info", "gamepad-2")
+
+GameGroup:AddLabel(colored(GAME_NAME .. " [" .. tostring(game.PlaceId) .. "]", BLUE), true)
+GameGroup:AddLabel(field("Place ID", tostring(game.PlaceId), BLUE), true)
+
+local SessionLabel = GameGroup:AddLabel(field("Session time", "0s", ORANGE), true)
+
+local jobId = tostring(game.JobId)
+local shortJobId = #jobId > 18 and (string.sub(jobId, 1, 18) .. "...") or jobId
+GameGroup:AddLabel(field("Server", shortJobId, GREY), true)
+
+GameGroup:AddButton({
+    Text = "Copy join script (Job ID)",
+    Func = function()
+        local joinScript = string.format(
+            'game:GetService("TeleportService"):TeleportToPlaceInstance(%d, "%s", game:GetService("Players").LocalPlayer)',
+            game.PlaceId,
+            jobId
+        )
+        if setclipboard then
+            setclipboard(joinScript)
+        elseif toclipboard then
+            toclipboard(joinScript)
+        end
+        Library:Notify("Copied join script to clipboard")
+    end,
+})
+
+local sessionStart = os.clock()
+task.spawn(function()
+    while true do
+        task.wait(1)
+        if Library.Unloaded then
+            break
+        end
+        local elapsed = math.floor(os.clock() - sessionStart)
+        local text
+        if elapsed < 60 then
+            text = elapsed .. "s"
+        elseif elapsed < 3600 then
+            text = string.format("%dm %ds", elapsed // 60, elapsed % 60)
+        else
+            text = string.format("%dh %dm", elapsed // 3600, (elapsed % 3600) // 60)
+        end
+        SessionLabel:SetText(field("Session time", text, ORANGE))
+    end
+end)
+
+local ScriptsGroup = Tabs.Info:AddRightGroupbox("Scripts", "package")
+
+ScriptsGroup:AddLabel(colored("Included in this hub", GREY), true)
+ScriptsGroup:AddLabel(colored(GAME_NAME, BLUE), true)
+
+local FeaturesGroup = Tabs.Info:AddRightGroupbox("Features", "list")
+
+FeaturesGroup:AddLabel(colored("Auto Buy Seeds & Furniture", BLUE), true)
+FeaturesGroup:AddLabel(colored("Auto Plant & Harvest", GREEN), true)
+FeaturesGroup:AddLabel(colored("Auto Sell", ORANGE), true)
+FeaturesGroup:AddLabel(colored("Auto Rebirth", GREY), true)
+
+local SocialsGroup = Tabs.Info:AddRightGroupbox("Socials", "link")
+
+SocialsGroup:AddButton({
+    Text = "Discord",
+    Func = copyDiscord,
+})
+
+SocialsGroup:AddButton({
+    Text = "Rscripts",
+    Func = function()
+        if setclipboard then
+            setclipboard(RSCRIPTS_LINK)
+        elseif toclipboard then
+            toclipboard(RSCRIPTS_LINK)
+        end
+        Library:Notify("Copied Rscripts profile to clipboard")
+    end,
+})
 
 local AdGroup = Tabs.Info:AddLeftGroupbox("Ouroboros Hub", "sparkles")
 
@@ -759,8 +900,6 @@ FaqGroup:AddLabel("How do I make suggestions?", true)
 FaqGroup:AddLabel("Join the Discord and drop it in suggestions, most of them get added.", true)
 FaqGroup:AddLabel("How do I get help or updates?", true)
 FaqGroup:AddLabel("Join the Discord, updates and support are posted there first.", true)
-FaqGroup:AddLabel('<font color="rgb(85, 255, 85)">Is Harvest before Lightning Strike Possible?</font>', true)
-FaqGroup:AddLabel('<font color="rgb(85, 255, 85)">No</font>', true)
 
 local BuyGroup = Tabs.Seeds:AddLeftGroupbox("Auto Buy Seeds", "shopping-cart")
 
@@ -846,6 +985,61 @@ BuyLimitGroup:AddSlider("BuyLoopDelay", {
     Rounding = 1,
 })
 
+local FurnitureGroup = Tabs.Seeds:AddLeftGroupbox("Auto Buy Furniture", "sofa")
+
+FurnitureGroup:AddToggle("AutoBuyFurniture", {
+    Text = "Auto Buy Furniture",
+    Default = false,
+})
+
+FurnitureGroup:AddDropdown("FurnitureItems", {
+    Text = "Furniture To Buy",
+    Values = FURNITURE_NAMES,
+    Default = {},
+    Multi = true,
+    Callback = function(value)
+        local list = {}
+        for name, state in value do
+            if state then
+                local info = FURNITURE_NAME_TO_INFO[name]
+                if info then
+                    list[#list + 1] = info
+                end
+            end
+        end
+        wantedFurniture = list
+    end,
+})
+
+FurnitureGroup:AddInput("FurnitureReserve", {
+    Text = "Keep Coin Reserve",
+    Default = "0",
+    Numeric = true,
+    Finished = false,
+    ClearTextOnFocus = false,
+})
+
+FurnitureGroup:AddToggle("FurnitureNotify", {
+    Text = "Notify On Buy",
+    Default = false,
+})
+
+FurnitureGroup:AddSlider("FurnitureActionDelay", {
+    Text = "Buy Delay",
+    Default = 0.2,
+    Min = 0.1,
+    Max = 2,
+    Rounding = 2,
+})
+
+FurnitureGroup:AddSlider("FurnitureLoopDelay", {
+    Text = "Loop Delay",
+    Default = 1,
+    Min = 0.2,
+    Max = 20,
+    Rounding = 1,
+})
+
 local PlantGroup = Tabs.Farm:AddRightGroupbox("Auto Plant", "sprout")
 
 PlantGroup:AddToggle("AutoPlant", {
@@ -885,6 +1079,13 @@ PlantGroup:AddDropdown("PlantFertilizer", {
     Default = "None",
     Multi = false,
 })
+
+for _, key in ipairs(FertilizerConfig.Order) do
+    local fert = FertilizerConfig.Fertilizers[key]
+    if fert and (fert.rebirthReq or 0) > 0 then
+        PlantGroup:AddLabel(("%s needs Rebirth %d"):format(fert.displayName or key, fert.rebirthReq), true)
+    end
+end
 
 PlantGroup:AddToggle("PlantDuringWeatherOnly", {
     Text = "Only Plant During Weather",
@@ -1129,7 +1330,7 @@ end)
 
 ThemeManager:SetLibrary(Library)
 ThemeManager:SetFolder("OuroborosHub")
-ThemeManager:SaveDefault("Mint")
+ThemeManager:SaveDefault("Monochrome")
 
 SaveManager:SetLibrary(Library)
 SaveManager:IgnoreThemeSettings()
@@ -1148,6 +1349,15 @@ task.spawn(function()
             pcall(doBuySeeds)
         end
         task.wait(Options.BuyLoopDelay.Value or 0.5)
+    end
+end)
+
+task.spawn(function()
+    while not Library.Unloaded do
+        if Toggles.AutoBuyFurniture.Value then
+            pcall(doBuyFurniture)
+        end
+        task.wait(Options.FurnitureLoopDelay.Value or 1)
     end
 end)
 
@@ -1203,12 +1413,10 @@ task.spawn(function()
         if Toggles.AutoSellFruits.Value then
             pcall(doSellFruits)
         end
-        if Toggles.AutoSellAll.Value then
-            if Toggles.SellDeadTreesOnly.Value then
-                pcall(doSellDeadTrees)
-            else
-                pcall(doSellAll)
-            end
+        if Toggles.SellDeadTreesOnly.Value then
+            pcall(doSellDeadTrees)
+        elseif Toggles.AutoSellAll.Value then
+            pcall(doSellAll)
         end
         task.wait(Options.SellLoopDelay.Value or 2)
     end
