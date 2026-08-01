@@ -14,6 +14,30 @@ local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
 local ThemeManager = loadstring(game:HttpGet(repo .. "addons/ThemeManager.lua"))()
 local SaveManager = loadstring(game:HttpGet(repo .. "addons/SaveManager.lua"))()
 
+pcall(function()
+    if Library.ScreenGui then
+        Library.ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+    end
+end)
+
+local oldSetNotifySide = Library.SetNotifySide
+Library.SetNotifySide = function(self, ...)
+    pcall(oldSetNotifySide, self, ...)
+end
+
+local oldAddDraggableMenu = Library.AddDraggableMenu
+Library.AddDraggableMenu = function(self, ...)
+    local ok, res1, res2 = pcall(oldAddDraggableMenu, self, ...)
+    if ok and res1 and res2 then
+        return res1, res2
+    end
+    local dummyHolder = Instance.new("Frame")
+    local dummyContainer = Instance.new("Frame")
+    dummyHolder.Visible = false
+    dummyContainer.Visible = false
+    return dummyHolder, dummyContainer
+end
+
 local Options = Library.Options
 local Toggles = Library.Toggles
 
@@ -37,7 +61,11 @@ UpdatePlayerCurrency.OnClientEvent:Connect(function(currencyName, amount)
 end)
 
 local function copyDiscord()
-    setclipboard(DISCORD_INVITE)
+    if setclipboard then
+        setclipboard(DISCORD_INVITE)
+    elseif toclipboard then
+        toclipboard(DISCORD_INVITE)
+    end
     Library:Notify("Copied Discord invite to clipboard")
 end
 
