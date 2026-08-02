@@ -1,5 +1,6 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local HttpService = game:GetService("HttpService")
 local UserInputService = game:GetService("UserInputService")
 local VirtualUser = game:GetService("VirtualUser")
 
@@ -13,6 +14,9 @@ end
 
 local Misc = ReplicatedStorage:WaitForChild("BrainrotsThings"):WaitForChild("Misc")
 local BrainrotEconomy = require(Misc:WaitForChild("BrainrotEconomy"))
+local PlayerRateDisplay = require(Misc:WaitForChild("PlayerRateDisplay"))
+local BrainrotInfo = require(Misc:WaitForChild("BrainrotInfo"))
+local InventoryConfig = require(Misc:WaitForChild("InventoryConfig"))
 local Events = Misc:WaitForChild("Events")
 local PlayerEvents = Events:WaitForChild("Player")
 local TableEvents = Events:WaitForChild("Tables")
@@ -43,6 +47,7 @@ local AuctionCancelled = TableEvents:WaitForChild("AuctionCancelled")
 local AuctionPrompt = TableEvents:WaitForChild("AuctionPrompt")
 local BidSubmitted = TableEvents:WaitForChild("BidSubmitted")
 local BidRejected = TableEvents:WaitForChild("BidRejected")
+local MatchResolved = TableEvents:WaitForChild("MatchResolved")
 local PlayWithAIRequest = TableEvents:WaitForChild("PlayWithAIRequest")
 local TableOptionRequest = TableEvents:WaitForChild("TableOptionRequest")
 local GetTableOptionConfig = TableEvents:WaitForChild("GetTableOptionConfig")
@@ -89,6 +94,8 @@ local RARITIES = {
     "Celestial",
     "Divine",
     "Anime God",
+    "Transcendent",
+    "Omnipotent",
 }
 
 local SELLABLE_RARITIES = {
@@ -202,6 +209,19 @@ local function getMoney()
     return money and money.Value or 0
 end
 
+local function cashPerSecond(item)
+    if type(item) ~= "table" then
+        return 0
+    end
+
+    local ok, value = pcall(function()
+        local multiplier = PlayerRateDisplay.getEffectiveCashMultiplier()
+        return BrainrotEconomy.getCashPerSecondForItem(item, multiplier, BrainrotEconomy.getBestNonNyanCps(inventory, multiplier))
+    end)
+
+    return ok and (tonumber(value) or 0) or 0
+end
+
 local function isFavourited(id)
     for _, favourite in favourites do
         if favourite == id then
@@ -288,8 +308,7 @@ local function isCheapAuction(brainrot)
         return false
     end
 
-    local ok, earn = pcall(BrainrotEconomy.getCashPerSecondForItem, brainrot)
-    return ok and (tonumber(earn) or 0) < floor
+    return cashPerSecond(brainrot) < floor
 end
 
 local function pickBidIndex(prompt, ignoreLimits)
@@ -409,6 +428,89 @@ BidRejected.OnClientEvent:Connect(function(payload)
     end
 end)
 
+local httpRequest = (syn and syn.request) or (http and http.request) or http_request or request
+
+local function rarityOf(name)
+    local info = type(name) == "string" and BrainrotInfo[name]
+    local rarities = type(info) == "table" and info.Rarities
+    return type(rarities) == "table" and rarities[1] or "Unknown"
+end
+
+local function rarityColour(rarity)
+    local colour = InventoryConfig.RARITY_COLOURS[rarity]
+    if typeof(colour) ~= "Color3" then
+        return 3092790
+    end
+    return math.floor(colour.R * 255 + 0.5) * 65536
+        + math.floor(colour.G * 255 + 0.5) * 256
+        + math.floor(colour.B * 255 + 0.5)
+end
+
+local function formatMoney(value)
+    local ok, text = pcall(PlayerRateDisplay.formatMoney, value)
+    return ok and text or ("$" .. tostring(math.floor(tonumber(value) or 0)))
+end
+
+local function sendWebhook(payload)
+    local url = Options.WebhookUrl and Options.WebhookUrl.Value or ""
+    if not httpRequest or type(url) ~= "string" or not url:match("^https://") then
+        return false
+    end
+
+    local ok = pcall(httpRequest, {
+        Url = url,
+        Method = "POST",
+        Headers = { ["Content-Type"] = "application/json" },
+        Body = HttpService:JSONEncode(payload),
+    })
+
+    return ok
+end
+
+local function buildWinEmbed(name, variant, finalPrice)
+    local rarity = rarityOf(name)
+    local variantName = (type(variant) == "string" and variant ~= "" and variant) or "Normal"
+    local title = variantName == "Normal" and name or (variantName .. " " .. name)
+    local value = BrainrotEconomy.getRollValue(name, variantName, 0)
+    local earn = cashPerSecond({ name = name, variant = variantName, rarity = rarity })
+
+    return {
+        author = {
+            name = LocalPlayer.DisplayName .. " (@" .. LocalPlayer.Name .. ")",
+            icon_url = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. LocalPlayer.UserId .. "&width=150&height=150&format=png",
+        },
+        title = "Auction Won",
+        description = "**" .. title .. "**",
+        color = rarityColour(rarity),
+        fields = {
+            { name = "Rarity", value = "`" .. rarity .. "`", inline = true },
+            { name = "Variant", value = "`" .. variantName .. "`", inline = true },
+            { name = "Multiplier", value = "`x" .. BrainrotEconomy.getVariantMultiplier(variantName) .. "`", inline = true },
+            { name = "Cash / Second", value = "`" .. formatMoney(earn) .. "`", inline = true },
+            { name = "Value", value = "`" .. formatMoney(value) .. "`", inline = true },
+            { name = "Paid", value = "`" .. formatMoney(finalPrice or 0) .. "`", inline = true },
+        },
+        footer = { text = "Ouroboros Hub | " .. GAME_NAME },
+        timestamp = DateTime.now():ToIsoDate(),
+    }
+end
+
+local function sendWin(name, variant, finalPrice)
+    return sendWebhook({
+        username = "Ouroboros Hub",
+        content = isOn("WebhookPing") and "@everyone" or nil,
+        embeds = { buildWinEmbed(name, variant, finalPrice) },
+    })
+end
+
+MatchResolved.OnClientEvent:Connect(function(_, _, _, outcome, name, variant, _, finalPrice)
+    if Library.Unloaded or not isOn("WebhookWins") or outcome ~= "win" or type(name) ~= "string" then
+        return
+    end
+
+    task.spawn(sendWin, name, variant, finalPrice)
+end)
+
 local Window = Library:CreateWindow({
     Title = "Ouroboros Hub",
     Footer = DISCORD_INVITE .. " | " .. GAME_NAME,
@@ -422,6 +524,7 @@ local Tabs = {
     Auction = Window:AddTab("Auction", "gavel"),
     Luck = Window:AddTab("Luck", "clover"),
     Economy = Window:AddTab("Economy", "coins"),
+    Webhook = Window:AddTab("Webhook", "webhook"),
     Settings = Window:AddTab("Settings", "settings"),
 }
 
@@ -441,6 +544,7 @@ AddDiscordButton(Tabs.Info)
 AddDiscordButton(Tabs.Auction)
 AddDiscordButton(Tabs.Luck)
 AddDiscordButton(Tabs.Economy)
+AddDiscordButton(Tabs.Webhook)
 AddDiscordButton(Tabs.Settings)
 
 local InfoGroup = Tabs.Info:AddLeftGroupbox("Basic Info", "circle-user")
@@ -786,6 +890,42 @@ SellGroup:AddSlider("SellDelay", {
     Rounding = 1,
 })
 
+local WebhookGroup = Tabs.Webhook:AddRightGroupbox("Discord Webhook", "webhook")
+
+WebhookGroup:AddInput("WebhookUrl", {
+    Text = "Webhook URL",
+    Default = "",
+    Placeholder = "https://discord.com/api/webhooks/...",
+    Finished = true,
+})
+
+WebhookGroup:AddToggle("WebhookWins", {
+    Text = "Send Auction Wins",
+    Default = false,
+})
+
+WebhookGroup:AddToggle("WebhookPing", {
+    Text = "Ping Everyone",
+    Default = false,
+})
+
+WebhookGroup:AddButton({
+    Text = "Send Test Webhook",
+    Func = function()
+        if not httpRequest then
+            Library:Notify("Your executor does not support http requests")
+            return
+        end
+
+        local sample = next(BrainrotInfo)
+        if sendWin(sample, "Rainbow", 1000000) == false then
+            Library:Notify("Webhook failed, check the URL")
+        else
+            Library:Notify("Test webhook sent")
+        end
+    end,
+})
+
 local MenuGroup = Tabs.Settings:AddLeftGroupbox("Menu", "wrench")
 
 MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", {
@@ -996,8 +1136,7 @@ task.spawn(function()
             if threshold > 0 then
                 for _, item in inventory do
                     if type(item) == "table" and item.id and not isFavourited(item.id) then
-                        local ok, earn = pcall(BrainrotEconomy.getCashPerSecondForItem, item)
-                        if ok and (tonumber(earn) or 0) < threshold then
+                        if cashPerSecond(item) < threshold then
                             SellItem:FireServer(item.id)
                             task.wait(0.2)
                         end
