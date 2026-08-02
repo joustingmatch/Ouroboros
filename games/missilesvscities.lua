@@ -388,7 +388,7 @@ local function set_packet_native(packet, enabled)
 	end
 end
 
-for _, packet in { Targeting.enter, Targeting.enterJet, Orbital.open, Jets.launched, Jets.duelBegin, Jets.duelTurn } do
+for _, packet in { Targeting.enter, Targeting.enterJet, Orbital.open, Jets.launched, Jets.summary } do
 	native_listeners(packet)
 end
 
@@ -404,10 +404,9 @@ local function set_native_orbital(enabled)
 	set_packet_native(Orbital.open, enabled)
 end
 
-local function set_native_air_fight(enabled)
+local function set_native_jet_flight(enabled)
 	set_packet_native(Jets.launched, enabled)
-	set_packet_native(Jets.duelBegin, enabled)
-	set_packet_native(Jets.duelTurn, enabled)
+	set_packet_native(Jets.summary, enabled)
 end
 
 local TARGETING_TOGGLES = {
@@ -429,12 +428,8 @@ local function sync_native_targeting()
 	set_native_targeting(true)
 end
 
-local function auto_air_enabled()
-	return toggle_enabled("AutoScramble") or toggle_enabled("AutoAirFight") or toggle_enabled("AutoMiniObby")
-end
-
-local function sync_native_air_fight()
-	set_native_air_fight(not auto_air_enabled())
+local function sync_native_jet_flight()
+	set_native_jet_flight(not toggle_enabled("AutoScramble"))
 end
 
 local targeting_open = false
@@ -644,8 +639,8 @@ Combat.clip.listen(function(data)
 	note_attacker(typeof(data) == "table" and data.name or nil)
 end)
 
-Jets.defendOffer.listen(function(data)
-	note_attacker(typeof(data) == "table" and data.attackerName or nil)
+Combat.lastAttacker.listen(function(data)
+	note_attacker(typeof(data) == "table" and data.owner or nil)
 end)
 
 Naval.alertAttack.listen(function(data)
@@ -721,14 +716,8 @@ local function jet_strike_positions(target, data)
 		end
 	end
 
-	local maximum = math.max(1, math.floor(tonumber(data and data.maxTargets) or 1))
-	for _, silo in selected and selected.silos or {} do
-		if typeof(silo) == "table" and typeof(silo.pos) == "Vector3" then
-			positions[#positions + 1] = silo.pos
-			if #positions >= maximum then
-				break
-			end
-		end
+	if selected and typeof(selected.center) == "Vector3" then
+		positions[1] = selected.center
 	end
 
 	if #positions == 0 then
@@ -781,49 +770,6 @@ local function scramble_jets()
 		end
 	end
 end
-
-local active_duel = 0
-
-Jets.launched.listen(function(data)
-	if not auto_air_enabled() or typeof(data) ~= "table" or typeof(data.sortieId) ~= "number" then
-		return
-	end
-
-	Jets.result.send({
-		sortieId = data.sortieId,
-		dotsHit = math.max(0, math.floor(tonumber(data.dotsTotal) or 0)),
-		bombHit = true,
-	})
-end)
-
-Jets.defendOffer.listen(function(data)
-	if auto_air_enabled() and typeof(data) == "table" and typeof(data.duelId) == "number" then
-		Jets.defendRespond.send({ duelId = data.duelId, accept = true })
-	end
-end)
-
-Jets.duelBegin.listen(function(data)
-	if auto_air_enabled() and typeof(data) == "table" then
-		active_duel = data.duelId or active_duel
-	end
-end)
-
-Jets.duelTurn.listen(function(data)
-	if not auto_air_enabled() or typeof(data) ~= "table" or typeof(data.turn) ~= "number" then
-		return
-	end
-
-	local response = {
-		duelId = data.duelId or active_duel,
-		turn = data.turn,
-	}
-	if data.role == "shooter" then
-		response.linedUp = true
-	else
-		response.dodges = data.dodgeDots or Config.jets.duel.evader_dodge_dots
-	end
-	Jets.duelTurnReport.send(response)
-end)
 
 local function cash()
 	local currency = LocalPlayer:FindFirstChild("currency")
@@ -1180,8 +1126,16 @@ local Tabs = {
 }
 
 local function AddDiscordButton(Tab)
-	Tab:AddLeftGroupbox("Discord", nil, true, false, true):AddButton({
-		Text = "Join Discord For Dupe",
+	local DiscordGroup = Tab:AddLeftGroupbox("Discord", nil, true, false, true)
+	DiscordGroup:AddButton({
+		Text = "Join Discord to Make Money",
+		Func = function()
+			setclipboard(DISCORD_INVITE)
+			Library:Notify("Copied Discord invite to clipboard")
+		end,
+	})
+	DiscordGroup:AddButton({
+		Text = "Join Discord for Keyless Scripts",
 		Func = function()
 			setclipboard(DISCORD_INVITE)
 			Library:Notify("Copied Discord invite to clipboard")
@@ -1335,20 +1289,8 @@ AttackGroup:AddToggle("AutoScramble", {
 	Default = false,
 	Callback = function()
 		set_native_jet_targeting(not toggle_enabled("AutoScramble"))
-		sync_native_air_fight()
+		sync_native_jet_flight()
 	end,
-})
-
-AttackGroup:AddToggle("AutoAirFight", {
-	Text = "Auto Air Fight",
-	Default = false,
-	Callback = sync_native_air_fight,
-})
-
-AttackGroup:AddToggle("AutoMiniObby", {
-	Text = "Auto Mini-Obby",
-	Default = false,
-	Callback = sync_native_air_fight,
 })
 
 AttackGroup:AddSlider("ScrambleDelay", {
@@ -1535,7 +1477,7 @@ Library:OnUnload(function()
 	set_native_targeting(true)
 	set_native_jet_targeting(true)
 	set_native_orbital(true)
-	set_native_air_fight(true)
+	set_native_jet_flight(true)
 	antiAfkBeganConnection:Disconnect()
 	antiAfkChangedConnection:Disconnect()
 end)
