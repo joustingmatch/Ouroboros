@@ -103,6 +103,7 @@ local games = {
     [248260079] = 'moofarm.lua',
     [618896802] = 'lumberfarm.lua',
     [697469702] = 'backflipkeyboard.lua',
+    [1008902725] = 'speedmonkeyescape.lua',
 }   
 
 local file = games[game.CreatorId]
