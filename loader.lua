@@ -109,6 +109,7 @@ local games = {
     [679586291] = 'dignclean.lua',
     [32634643] = 'rngvsfruit.lua',
     [113072261] = 'cutgrass.lua',
+    [1081589393] = 'fatperclick.lua',
 }   
 
 local file = games[game.CreatorId]
