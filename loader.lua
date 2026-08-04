@@ -115,6 +115,7 @@ local games = {
     [462340796] = 'muscleevolution.lua',
     [760075281] = 'followersperclick.lua',
     [326703534] = 'kawaiianimerng.lua',
+    [1009503765] = 'rollagnome.lua',
 }   
 
 local file = games[game.CreatorId]
