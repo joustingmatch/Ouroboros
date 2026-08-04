@@ -56,6 +56,11 @@ for index, rarity in ipairs(Items.RARITY_ORDER) do
     RARITY_INDEX[rarity] = index
 end
 
+local CONDITION_INDEX = {}
+for index, condition in ipairs(Conditions.CONDITION_ORDER) do
+    CONDITION_INDEX[condition] = index
+end
+
 local surfacedItems = {}
 local surfacedConnections = {}
 
@@ -391,6 +396,7 @@ local FeaturesGroup = Tabs.Info:AddRightGroupbox("Features", "list")
 FeaturesGroup:AddLabel(colored("Auto Dig", BLUE), true)
 FeaturesGroup:AddLabel(colored("Auto Clean", BLUE), true)
 FeaturesGroup:AddLabel(colored("Auto Place", ORANGE), true)
+FeaturesGroup:AddLabel(colored("Auto Replace", ORANGE), true)
 FeaturesGroup:AddLabel(colored("Auto Sell", ORANGE), true)
 FeaturesGroup:AddLabel(colored("Auto Buy Gear", GREEN), true)
 
@@ -562,6 +568,49 @@ PlaceGroup:AddToggle("PlaceTeleport", {
     Default = true,
 })
 
+local ReplaceGroup = Tabs.Storage:AddLeftGroupbox("Auto Replace", "refresh-cw")
+
+ReplaceGroup:AddToggle("AutoReplace", {
+    Text = "Auto Replace",
+    Default = false,
+})
+
+ReplaceGroup:AddDropdown("ReplaceMode", {
+    Values = { "Higher Value", "Higher Rarity", "Better Condition", "Configuration" },
+    Default = "Higher Value",
+    Text = "Replace Mode",
+})
+
+ReplaceGroup:AddDropdown("ReplaceMinRarity", {
+    Values = Items.RARITY_ORDER,
+    Default = "common",
+    Text = "Minimum Candidate Rarity",
+})
+
+ReplaceGroup:AddDropdown("ReplaceMinCondition", {
+    Values = Conditions.CONDITION_ORDER,
+    Default = "poor",
+    Text = "Minimum Candidate Condition",
+})
+
+ReplaceGroup:AddSlider("ReplaceMinValue", {
+    Text = "Minimum Candidate Value",
+    Default = 0,
+    Min = 0,
+    Max = 100000,
+    Rounding = 0,
+    Prefix = "$",
+})
+
+ReplaceGroup:AddSlider("ReplaceImprovement", {
+    Text = "Minimum Value Improvement",
+    Default = 0,
+    Min = 0,
+    Max = 100,
+    Rounding = 0,
+    Suffix = "%",
+})
+
 local SellGroup = Tabs.Storage:AddRightGroupbox("Auto Sell", "hand-coins")
 
 SellGroup:AddToggle("AutoSell", {
@@ -645,11 +694,13 @@ local PRIORITY_ROUTINES = {
     ["Dig then Sell"] = { "dig", "sell" },
     ["Dig, Clean then Sell"] = { "dig", "clean", "sell" },
     ["Dig, Clean, Place then Sell"] = { "dig", "clean", "place", "sell" },
+    ["Dig, Clean, Replace, Sell"] = { "dig", "clean", "replace", "sell" },
 }
 
 local PRIORITY_ROUTINE_NAMES = {
     "Dig, Clean then Sell",
     "Dig, Clean, Place then Sell",
+    "Dig, Clean, Replace, Sell",
     "Clean then Sell",
     "Dig then Clean",
     "Dig then Sell",
@@ -1234,19 +1285,180 @@ local function conditionAllowed(condition)
     return selected[condition] == true
 end
 
+local function itemRarityIndex(entry)
+    local definition = Items.Items[entry.id]
+    if not definition then
+        return 0
+    end
+    return RARITY_INDEX[definition.rarity] or 0
+end
+
+local function itemConditionIndex(entry)
+    return CONDITION_INDEX[entry.condition] or 0
+end
+
+local function placeCandidateAllowed(entry)
+    if entry.dirty ~= false or entry.pedestalSlot ~= nil then
+        return false
+    end
+    if not conditionAllowed(entry.condition) then
+        return false
+    end
+    return itemValue(entry) >= Options.PlaceMinValue.Value
+end
+
+local function replaceCandidateAllowed(entry)
+    if entry.dirty ~= false or entry.pedestalSlot ~= nil then
+        return false
+    end
+    if itemRarityIndex(entry) < (RARITY_INDEX[Options.ReplaceMinRarity.Value] or 1) then
+        return false
+    end
+    if itemConditionIndex(entry) < (CONDITION_INDEX[Options.ReplaceMinCondition.Value] or 1) then
+        return false
+    end
+    return itemValue(entry) >= Options.ReplaceMinValue.Value
+end
+
+local function pedestalFailsConfiguration(entry)
+    if itemRarityIndex(entry) < (RARITY_INDEX[Options.ReplaceMinRarity.Value] or 1) then
+        return true
+    end
+    if itemConditionIndex(entry) < (CONDITION_INDEX[Options.ReplaceMinCondition.Value] or 1) then
+        return true
+    end
+    return itemValue(entry) < Options.ReplaceMinValue.Value
+end
+
+local function shouldReplacePedestal(candidate, current)
+    local mode = Options.ReplaceMode.Value
+    local candidateValue = itemValue(candidate)
+    local currentValue = itemValue(current)
+    local candidateRarity = itemRarityIndex(candidate)
+    local currentRarity = itemRarityIndex(current)
+    local candidateCondition = itemConditionIndex(candidate)
+    local currentCondition = itemConditionIndex(current)
+    local improvement = Options.ReplaceImprovement.Value
+    local neededValue = currentValue * (1 + improvement / 100)
+
+    if mode == "Higher Rarity" then
+        return candidateRarity > currentRarity
+    elseif mode == "Better Condition" then
+        return candidateCondition > currentCondition
+    elseif mode == "Configuration" then
+        if pedestalFailsConfiguration(current) then
+            return true
+        end
+        return candidateValue > neededValue
+    end
+
+    return candidateValue > neededValue
+end
+
+local function replaceScore(entry)
+    local mode = Options.ReplaceMode.Value
+    if mode == "Higher Rarity" then
+        return itemRarityIndex(entry)
+    elseif mode == "Better Condition" then
+        return itemConditionIndex(entry)
+    end
+    return itemValue(entry)
+end
+
 local function hasPlaceCandidate()
     local data = getData()
     if not data then
         return false
     end
     for _, entry in pairs(data.Inventory) do
-        if entry.dirty == false and entry.pedestalSlot == nil and conditionAllowed(entry.condition) then
-            if itemValue(entry) >= Options.PlaceMinValue.Value then
-                return true
+        if placeCandidateAllowed(entry) then
+            return true
+        end
+    end
+    return false
+end
+
+local function hasReplaceCandidate()
+    local data = getData()
+    if not data then
+        return false
+    end
+
+    local occupied = {}
+    for _, entry in pairs(data.Inventory) do
+        if entry.pedestalSlot then
+            occupied[#occupied + 1] = entry
+        end
+    end
+    if #occupied == 0 then
+        return false
+    end
+
+    for _, entry in pairs(data.Inventory) do
+        if replaceCandidateAllowed(entry) then
+            for _, current in ipairs(occupied) do
+                if shouldReplacePedestal(entry, current) then
+                    return true
+                end
             end
         end
     end
     return false
+end
+
+local function findReplacement()
+    local data = getData()
+    if not data then
+        return nil
+    end
+
+    local plot = getPlot()
+    if not plot then
+        return nil
+    end
+
+    local plotFolder = plot:FindFirstChild("Plot")
+    local pedestals = plotFolder and plotFolder:FindFirstChild("Pedestals")
+    if not pedestals then
+        return nil
+    end
+
+    local occupied = {}
+    for _, entry in pairs(data.Inventory) do
+        if entry.pedestalSlot then
+            occupied[entry.pedestalSlot] = entry
+        end
+    end
+
+    local bestCandidate = nil
+    local targetSlot = nil
+    local targetPedestal = nil
+    local bestPairScore = nil
+
+    for _, entry in pairs(data.Inventory) do
+        if replaceCandidateAllowed(entry) then
+            local value = itemValue(entry)
+            for _, pedestal in ipairs(pedestals:GetChildren()) do
+                local slot = pedestal:GetAttribute("Slot")
+                local current = type(slot) == "number" and occupied[slot]
+                if current and shouldReplacePedestal(entry, current) then
+                    local pairScore = value * 1000000 - replaceScore(current)
+                    if bestPairScore == nil or pairScore > bestPairScore then
+                        bestCandidate = entry
+                        targetSlot = slot
+                        targetPedestal = pedestal
+                        bestPairScore = pairScore
+                    end
+                end
+            end
+        end
+    end
+
+    if not bestCandidate then
+        return nil
+    end
+
+    return bestCandidate, targetSlot, targetPedestal
 end
 
 local function findPlacement()
@@ -1273,59 +1485,55 @@ local function findPlacement()
         end
     end
 
-    local candidate = nil
-    local candidateValue = 0
-    for _, entry in pairs(data.Inventory) do
-        if entry.dirty == false and entry.pedestalSlot == nil and conditionAllowed(entry.condition) then
-            local value = itemValue(entry)
-            if value >= Options.PlaceMinValue.Value and value > candidateValue then
-                candidate = entry
-                candidateValue = value
-            end
-        end
-    end
-
-    if not candidate then
-        return nil
-    end
-
-    local targetSlot = nil
-    local targetPedestal = nil
-    local worstValue = nil
-
-    for _, pedestal in ipairs(pedestals:GetChildren()) do
-        local slot = pedestal:GetAttribute("Slot")
-        if type(slot) == "number" then
-            local current = occupied[slot]
-            if not current then
-                targetSlot = slot
-                targetPedestal = pedestal
-                worstValue = nil
-                break
-            elseif Toggles.PlaceReplaceWorse.Value then
-                local value = itemValue(current)
-                if value < candidateValue and (worstValue == nil or value < worstValue) then
-                    targetSlot = slot
-                    targetPedestal = pedestal
-                    worstValue = value
+    if Toggles.AutoPlace.Value then
+        local candidate = nil
+        local candidateValue = 0
+        for _, entry in pairs(data.Inventory) do
+            if placeCandidateAllowed(entry) then
+                local value = itemValue(entry)
+                if value > candidateValue then
+                    candidate = entry
+                    candidateValue = value
                 end
             end
         end
+
+        if candidate then
+            local targetSlot = nil
+            local targetPedestal = nil
+            local worstValue = nil
+
+            for _, pedestal in ipairs(pedestals:GetChildren()) do
+                local slot = pedestal:GetAttribute("Slot")
+                if type(slot) == "number" then
+                    local current = occupied[slot]
+                    if not current then
+                        return candidate, slot, pedestal
+                    elseif Toggles.PlaceReplaceWorse.Value then
+                        local value = itemValue(current)
+                        if value < candidateValue and (worstValue == nil or value < worstValue) then
+                            targetSlot = slot
+                            targetPedestal = pedestal
+                            worstValue = value
+                        end
+                    end
+                end
+            end
+
+            if targetSlot then
+                return candidate, targetSlot, targetPedestal
+            end
+        end
     end
 
-    if not targetSlot then
-        return nil
+    if Toggles.AutoReplace.Value then
+        return findReplacement()
     end
 
-    return candidate, targetSlot, targetPedestal
+    return nil
 end
 
-local function stepAutoPlace()
-    if Toggles.AutoTravelIsland.Value and hasPlaceCandidate() and not ensureIsland(IslandConstants.STARTER_ISLAND_ID) then
-        return
-    end
-
-    local candidate, targetSlot, targetPedestal = findPlacement()
+local function applyPedestalAction(candidate, targetSlot, targetPedestal)
     if not candidate then
         return
     end
@@ -1346,6 +1554,23 @@ local function stepAutoPlace()
     pcall(function()
         PedestalFunctions.placeItem:invoke(targetSlot, candidate.uid)
     end)
+end
+
+local function stepAutoPlace()
+    local needsTravel = (Toggles.AutoPlace.Value and hasPlaceCandidate()) or (Toggles.AutoReplace.Value and hasReplaceCandidate())
+    if Toggles.AutoTravelIsland.Value and needsTravel and not ensureIsland(IslandConstants.STARTER_ISLAND_ID) then
+        return
+    end
+
+    applyPedestalAction(findPlacement())
+end
+
+local function stepAutoReplace()
+    if Toggles.AutoTravelIsland.Value and hasReplaceCandidate() and not ensureIsland(IslandConstants.STARTER_ISLAND_ID) then
+        return
+    end
+
+    applyPedestalAction(findReplacement())
 end
 
 local lastSellAt = os.clock()
@@ -1532,10 +1757,17 @@ local function stageDone(stage)
     elseif stage == "clean" then
         return not cleanActive and not isWorkbenchBusy() and not hasDirtyItems()
     elseif stage == "place" then
-        if not hasPlaceCandidate() then
+        local canPlace = Toggles.AutoPlace.Value and hasPlaceCandidate()
+        local canReplace = Toggles.AutoReplace.Value and hasReplaceCandidate()
+        if not canPlace and not canReplace then
             return true
         end
         return getPlot() ~= nil and findPlacement() == nil
+    elseif stage == "replace" then
+        if not hasReplaceCandidate() then
+            return true
+        end
+        return getPlot() ~= nil and findReplacement() == nil
     elseif stage == "sell" then
         local data = getData()
         return data ~= nil and BackpackCapacity.count(data.Inventory) <= 0
@@ -1549,6 +1781,8 @@ local function stepPriorityStage(stage)
         cleanActive = ok and busy == true
     elseif stage == "place" then
         pcall(stepAutoPlace)
+    elseif stage == "replace" then
+        pcall(stepAutoReplace)
     elseif stage == "sell" then
         pcall(stepAutoSell, true)
     end
@@ -1617,7 +1851,7 @@ task.spawn(function()
             continue
         end
         if not cleanActive and not isDigBusy() then
-            if Toggles.AutoPlace.Value then
+            if Toggles.AutoPlace.Value or Toggles.AutoReplace.Value then
                 pcall(stepAutoPlace)
             end
             if Toggles.AutoSell.Value then
