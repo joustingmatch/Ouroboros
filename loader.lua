@@ -136,7 +136,7 @@ local unstable = {
     velocity = true,
 }
 
-local function notify(text, color, button)
+local function notify(lines, color, button)
     local gui = Instance.new('ScreenGui')
     gui.Name = 'Ouroboros'
     gui.ResetOnSpawn = false
@@ -145,7 +145,7 @@ local function notify(text, color, button)
     gui.DisplayOrder = 999999
 
     local frame = Instance.new('Frame')
-    frame.Size = UDim2.new(0, 460, 0, 130)
+    frame.Size = UDim2.new(0, 520, 0, 420)
     frame.Position = UDim2.new(0.5, 0, 0.5, 0)
     frame.AnchorPoint = Vector2.new(0.5, 0.5)
     frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
@@ -161,20 +161,40 @@ local function notify(text, color, button)
     corner.CornerRadius = UDim.new(0, 6)
     corner.Parent = frame
 
-    local label = Instance.new('TextLabel')
-    label.Size = UDim2.new(1, -24, 1, -48)
-    label.Position = UDim2.new(0, 12, 0, 12)
-    label.BackgroundTransparency = 1
-    label.Font = Enum.Font.Gotham
-    label.TextSize = 14
-    label.TextColor3 = Color3.fromRGB(235, 235, 235)
-    label.TextWrapped = true
-    label.Text = text
-    label.Parent = frame
+    local scroll = Instance.new('ScrollingFrame')
+    scroll.Size = UDim2.new(1, -24, 1, -56)
+    scroll.Position = UDim2.new(0, 12, 0, 12)
+    scroll.BackgroundTransparency = 1
+    scroll.BorderSizePixel = 0
+    scroll.ScrollBarThickness = 4
+    scroll.ScrollBarImageColor3 = color
+    scroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    scroll.CanvasSize = UDim2.new()
+    scroll.Parent = frame
+
+    local layout = Instance.new('UIListLayout')
+    layout.Padding = UDim.new(0, 10)
+    layout.SortOrder = Enum.SortOrder.LayoutOrder
+    layout.Parent = scroll
+
+    for index, text in ipairs(lines) do
+        local label = Instance.new('TextLabel')
+        label.Size = UDim2.new(1, -8, 0, 0)
+        label.AutomaticSize = Enum.AutomaticSize.Y
+        label.BackgroundTransparency = 1
+        label.Font = Enum.Font.SourceSans
+        label.TextSize = 17
+        label.TextColor3 = Color3.fromRGB(235, 235, 235)
+        label.TextWrapped = true
+        label.TextXAlignment = Enum.TextXAlignment.Left
+        label.LayoutOrder = index
+        label.Text = text
+        label.Parent = scroll
+    end
 
     local close = Instance.new('TextButton')
     close.Size = UDim2.new(0, 90, 0, 26)
-    close.Position = UDim2.new(0.5, 0, 1, -34)
+    close.Position = UDim2.new(0.5, 0, 1, -38)
     close.AnchorPoint = Vector2.new(0.5, 0)
     close.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     close.BorderSizePixel = 0
@@ -202,26 +222,49 @@ local function notify(text, color, button)
     end
 end
 
+local unsupportedText = {
+    "[EN] Your executor is not supported. I suggest using discord.gg/projectreal. If the script does not load or does not work, that is an executor problem, not mine.",
+    "[PH] Hindi supported ang executor mo. Mas mabuting gamitin ang discord.gg/projectreal. Kung hindi mag-load o hindi gumana ang script, problema iyon ng executor, hindi sa akin.",
+    "[ID] Executor kamu tidak didukung. Saranku pakai discord.gg/projectreal. Kalau script-nya tidak mau load atau tidak jalan, itu masalah executor-nya, bukan masalahku.",
+    "[RU] Ваш экзекутор не поддерживается. Советую использовать discord.gg/projectreal. Если скрипт не загружается или не работает, это проблема экзекутора, а не моя.",
+    "[TH] executor ของคุณไม่รองรับ ผมแนะนำให้ใช้ discord.gg/projectreal ถ้าสคริปต์ไม่โหลดหรือไม่ทำงาน นั่นเป็นปัญหาของ executor ไม่ใช่ปัญหาของผม",
+    "[BR] Seu executor não é suportado. Sugiro usar o discord.gg/projectreal. Se o script não carregar ou não funcionar, o problema é do executor, não meu.",
+    "[VN] Executor của bạn không được hỗ trợ. Mình khuyên bạn dùng discord.gg/projectreal. Nếu script không tải được hoặc không chạy, đó là lỗi của executor, không phải lỗi của mình.",
+}
+
+local unstableText = {
+    "[EN] This might work, it might not. If it does not work, do not come crying to me. I suggest using discord.gg/projectreal. If the script does not load or does not work, that is an executor problem, not mine.",
+    "[PH] Baka gumana ito, baka hindi. Kung hindi gumana, huwag kang magreklamo sa akin. Mas mabuting gamitin ang discord.gg/projectreal. Kung hindi mag-load o hindi gumana ang script, problema iyon ng executor, hindi sa akin.",
+    "[ID] Ini mungkin jalan, mungkin juga tidak. Kalau tidak jalan, jangan mengeluh ke aku. Saranku pakai discord.gg/projectreal. Kalau script-nya tidak mau load atau tidak jalan, itu masalah executor-nya, bukan masalahku.",
+    "[RU] Это может сработать, а может и нет. Если не сработает, не жалуйтесь мне. Советую использовать discord.gg/projectreal. Если скрипт не загружается или не работает, это проблема экзекутора, а не моя.",
+    "[TH] อาจจะใช้งานได้หรือไม่ได้ก็ได้ ถ้าใช้ไม่ได้ก็อย่ามาบ่นกับผม ผมแนะนำให้ใช้ discord.gg/projectreal ถ้าสคริปต์ไม่โหลดหรือไม่ทำงาน นั่นเป็นปัญหาของ executor ไม่ใช่ปัญหาของผม",
+    "[BR] Isso pode funcionar ou não. Se não funcionar, não venha reclamar comigo. Sugiro usar o discord.gg/projectreal. Se o script não carregar ou não funcionar, o problema é do executor, não meu.",
+    "[VN] Cái này có thể chạy, cũng có thể không. Nếu không chạy thì đừng than phiền với mình. Mình khuyên bạn dùng discord.gg/projectreal. Nếu script không tải được hoặc không chạy, đó là lỗi của executor, không phải lỗi của mình.",
+}
+
 local executor = identifyexecutor and string.lower(select(1, identifyexecutor())) or ''
+local warnedFile = 'ouroboros_warned_' .. tostring(game.GameId) .. '.txt'
+
+local function warn(lines, color)
+    if isfile and isfile(warnedFile) then
+        return
+    end
+    if writefile then
+        pcall(writefile, warnedFile, '1')
+    end
+    notify(lines, color, 'Confirm')
+end
 
 for name in pairs(unsupported) do
     if string.find(executor, name, 1, true) then
-        notify('Executor is Unsupported, my suggestion is using discord.gg/projectreal.', Color3.fromRGB(200, 60, 60), 'Close')
-        return
+        warn(unsupportedText, Color3.fromRGB(200, 60, 60))
+        break
     end
 end
 
-local warnedFile = 'ouroboros_warned_' .. tostring(game.GameId) .. '.txt'
-
 for name in pairs(unstable) do
     if string.find(executor, name, 1, true) then
-        local warned = isfile and isfile(warnedFile)
-        if not warned then
-            if writefile then
-                pcall(writefile, warnedFile, '1')
-            end
-            notify("Might work, Might Not, if it doesn't work then don't come crying to me, my suggestion is using discord.gg/projectreal.", Color3.fromRGB(220, 170, 60), 'Confirm')
-        end
+        warn(unstableText, Color3.fromRGB(220, 170, 60))
         break
     end
 end
