@@ -136,7 +136,7 @@ local unstable = {
     velocity = true,
 }
 
-local function notify(text, color)
+local function notify(text, color, button)
     local gui = Instance.new('ScreenGui')
     gui.Name = 'Ouroboros'
     gui.ResetOnSpawn = false
@@ -181,7 +181,7 @@ local function notify(text, color)
     close.Font = Enum.Font.Gotham
     close.TextSize = 14
     close.TextColor3 = Color3.fromRGB(235, 235, 235)
-    close.Text = 'Close'
+    close.Text = button
     close.Parent = frame
 
     local closeCorner = Instance.new('UICorner')
@@ -206,14 +206,32 @@ local executor = identifyexecutor and string.lower(select(1, identifyexecutor())
 
 for name in pairs(unsupported) do
     if string.find(executor, name, 1, true) then
-        notify('Executor is Unsupported, my suggestion is using discord.gg/projectreal.', Color3.fromRGB(200, 60, 60))
+        notify('Executor is Unsupported, my suggestion is using discord.gg/projectreal.', Color3.fromRGB(200, 60, 60), 'Close')
         return
+    end
+end
+
+local warnedFile = 'ouroboros_warned_' .. tostring(game.GameId) .. '.txt'
+
+local function alreadyWarned()
+    if isfile and isfile(warnedFile) then
+        return true
+    end
+    return false
+end
+
+local function markWarned()
+    if writefile then
+        pcall(writefile, warnedFile, '1')
     end
 end
 
 for name in pairs(unstable) do
     if string.find(executor, name, 1, true) then
-        notify("Might work, Might Not, if it doesn't work then don't come crying to me, my suggestion is using discord.gg/projectreal.", Color3.fromRGB(220, 170, 60))
+        if not alreadyWarned() then
+            notify("Might work, Might Not, if it doesn't work then don't come crying to me, my suggestion is using discord.gg/projectreal.", Color3.fromRGB(220, 170, 60), 'Confirm')
+            markWarned()
+        end
         break
     end
 end
