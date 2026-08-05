@@ -119,6 +119,7 @@ local games = {
     [611030254] = 'loadthetruck.lua',
     [99675598] = 'poweryourcity.lua',
     [825735094] = 'stealanegg.lua',
+    [531274056] = 'rolltosurvive.lua',
 }   
 
 local file = games[game.CreatorId]
