@@ -211,26 +211,14 @@ for name in pairs(unsupported) do
     end
 end
 
-local warnedFile = 'ouroboros_warned_' .. tostring(game.GameId) .. '.txt'
-
-local function alreadyWarned()
-    if isfile and isfile(warnedFile) then
-        return true
-    end
-    return false
-end
-
-local function markWarned()
-    if writefile then
-        pcall(writefile, warnedFile, '1')
-    end
-end
+local env = getgenv and getgenv() or _G
+env.OuroborosWarned = env.OuroborosWarned or {}
 
 for name in pairs(unstable) do
     if string.find(executor, name, 1, true) then
-        if not alreadyWarned() then
+        if not env.OuroborosWarned[game.GameId] then
+            env.OuroborosWarned[game.GameId] = true
             notify("Might work, Might Not, if it doesn't work then don't come crying to me, my suggestion is using discord.gg/projectreal.", Color3.fromRGB(220, 170, 60), 'Confirm')
-            markWarned()
         end
         break
     end
