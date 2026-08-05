@@ -126,6 +126,98 @@ local games = {
     [1010818854] = 'catchbillionducks.lua',
 }   
 
+local unsupported = {
+    solara = true,
+    xeno = true,
+}
+
+local unstable = {
+    madium = true,
+    velocity = true,
+}
+
+local function notify(text, color)
+    local gui = Instance.new('ScreenGui')
+    gui.Name = 'Ouroboros'
+    gui.ResetOnSpawn = false
+    gui.IgnoreGuiInset = true
+    gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    gui.DisplayOrder = 999999
+
+    local frame = Instance.new('Frame')
+    frame.Size = UDim2.new(0, 460, 0, 130)
+    frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+    frame.AnchorPoint = Vector2.new(0.5, 0.5)
+    frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    frame.BorderSizePixel = 0
+    frame.Parent = gui
+
+    local stroke = Instance.new('UIStroke')
+    stroke.Color = color
+    stroke.Thickness = 1
+    stroke.Parent = frame
+
+    local corner = Instance.new('UICorner')
+    corner.CornerRadius = UDim.new(0, 6)
+    corner.Parent = frame
+
+    local label = Instance.new('TextLabel')
+    label.Size = UDim2.new(1, -24, 1, -48)
+    label.Position = UDim2.new(0, 12, 0, 12)
+    label.BackgroundTransparency = 1
+    label.Font = Enum.Font.Gotham
+    label.TextSize = 14
+    label.TextColor3 = Color3.fromRGB(235, 235, 235)
+    label.TextWrapped = true
+    label.Text = text
+    label.Parent = frame
+
+    local close = Instance.new('TextButton')
+    close.Size = UDim2.new(0, 90, 0, 26)
+    close.Position = UDim2.new(0.5, 0, 1, -34)
+    close.AnchorPoint = Vector2.new(0.5, 0)
+    close.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    close.BorderSizePixel = 0
+    close.Font = Enum.Font.Gotham
+    close.TextSize = 14
+    close.TextColor3 = Color3.fromRGB(235, 235, 235)
+    close.Text = 'Close'
+    close.Parent = frame
+
+    local closeCorner = Instance.new('UICorner')
+    closeCorner.CornerRadius = UDim.new(0, 4)
+    closeCorner.Parent = close
+
+    close.MouseButton1Click:Connect(function()
+        gui:Destroy()
+    end)
+
+    if syn and syn.protect_gui then
+        syn.protect_gui(gui)
+        gui.Parent = game:GetService('CoreGui')
+    elseif gethui then
+        gui.Parent = gethui()
+    else
+        gui.Parent = game:GetService('CoreGui')
+    end
+end
+
+local executor = identifyexecutor and string.lower(select(1, identifyexecutor())) or ''
+
+for name in pairs(unsupported) do
+    if string.find(executor, name, 1, true) then
+        notify('Executor is Unsupported, my suggestion is using discord.gg/projectreal.', Color3.fromRGB(200, 60, 60))
+        return
+    end
+end
+
+for name in pairs(unstable) do
+    if string.find(executor, name, 1, true) then
+        notify("Might work, Might Not, if it doesn't work then don't come crying to me, my suggestion is using discord.gg/projectreal.", Color3.fromRGB(220, 170, 60))
+        break
+    end
+end
+
 local file = games[game.CreatorId]
 if file then
     task.wait(math.random())
