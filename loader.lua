@@ -144,69 +144,71 @@ local function notify(lines, color, button)
     gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     gui.DisplayOrder = 999999
 
-    local frame = Instance.new('Frame')
-    frame.Size = UDim2.new(0, 520, 0, 420)
-    frame.Position = UDim2.new(0.5, 0, 0.5, 0)
-    frame.AnchorPoint = Vector2.new(0.5, 0.5)
-    frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    frame.BorderSizePixel = 0
-    frame.Parent = gui
-
-    local stroke = Instance.new('UIStroke')
-    stroke.Color = color
-    stroke.Thickness = 1
-    stroke.Parent = frame
-
-    local corner = Instance.new('UICorner')
-    corner.CornerRadius = UDim.new(0, 6)
-    corner.Parent = frame
+    local backdrop = Instance.new('Frame')
+    backdrop.Size = UDim2.new(1, 0, 1, 0)
+    backdrop.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    backdrop.BackgroundTransparency = 0.35
+    backdrop.BorderSizePixel = 0
+    backdrop.Parent = gui
 
     local scroll = Instance.new('ScrollingFrame')
-    scroll.Size = UDim2.new(1, -24, 1, -56)
-    scroll.Position = UDim2.new(0, 12, 0, 12)
+    scroll.Size = UDim2.new(0.62, 0, 1, -160)
+    scroll.Position = UDim2.new(0.5, 0, 0, 90)
+    scroll.AnchorPoint = Vector2.new(0.5, 0)
     scroll.BackgroundTransparency = 1
     scroll.BorderSizePixel = 0
-    scroll.ScrollBarThickness = 4
+    scroll.ScrollBarThickness = 2
     scroll.ScrollBarImageColor3 = color
+    scroll.ScrollBarImageTransparency = 0.5
     scroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
     scroll.CanvasSize = UDim2.new()
-    scroll.Parent = frame
+    scroll.Parent = backdrop
 
     local layout = Instance.new('UIListLayout')
-    layout.Padding = UDim.new(0, 10)
+    layout.Padding = UDim.new(0, 26)
     layout.SortOrder = Enum.SortOrder.LayoutOrder
     layout.Parent = scroll
 
     for index, text in ipairs(lines) do
         local label = Instance.new('TextLabel')
-        label.Size = UDim2.new(1, -8, 0, 0)
+        label.Size = UDim2.new(1, -12, 0, 0)
         label.AutomaticSize = Enum.AutomaticSize.Y
         label.BackgroundTransparency = 1
-        label.Font = Enum.Font.SourceSans
-        label.TextSize = 17
-        label.TextColor3 = Color3.fromRGB(235, 235, 235)
+        label.Font = Enum.Font.SourceSansLight
+        label.TextSize = index == 1 and 34 or 24
+        label.TextColor3 = index == 1 and color or Color3.fromRGB(200, 200, 200)
         label.TextWrapped = true
         label.TextXAlignment = Enum.TextXAlignment.Left
+        label.LineHeight = 1.15
         label.LayoutOrder = index
         label.Text = text
         label.Parent = scroll
     end
 
-    local close = Instance.new('TextButton')
-    close.Size = UDim2.new(0, 90, 0, 26)
-    close.Position = UDim2.new(0.5, 0, 1, -38)
-    close.AnchorPoint = Vector2.new(0.5, 0)
-    close.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    close.BorderSizePixel = 0
-    close.Font = Enum.Font.Gotham
-    close.TextSize = 14
-    close.TextColor3 = Color3.fromRGB(235, 235, 235)
-    close.Text = button
-    close.Parent = frame
+    local closeHolder = Instance.new('Frame')
+    closeHolder.Size = UDim2.new(0, 220, 0, 44)
+    closeHolder.Position = UDim2.new(0.5, 0, 1, -46)
+    closeHolder.AnchorPoint = Vector2.new(0.5, 1)
+    closeHolder.BackgroundTransparency = 1
+    closeHolder.BorderSizePixel = 0
+    closeHolder.Parent = backdrop
 
-    local closeCorner = Instance.new('UICorner')
-    closeCorner.CornerRadius = UDim.new(0, 4)
-    closeCorner.Parent = close
+    local closeStroke = Instance.new('UIStroke')
+    closeStroke.Color = color
+    closeStroke.Thickness = 1
+    closeStroke.Transparency = 0.4
+    closeStroke.Parent = closeHolder
+
+    local close = Instance.new('TextButton')
+    close.Size = UDim2.new(1, 0, 1, 0)
+    close.BackgroundTransparency = 1
+    close.BorderSizePixel = 0
+    close.AutoButtonColor = false
+    close.Font = Enum.Font.SourceSansLight
+    close.TextSize = 22
+    close.TextColor3 = Color3.fromRGB(235, 235, 235)
+    close.Text = string.upper(button)
+    close.Parent = closeHolder
 
     close.MouseButton1Click:Connect(function()
         gui:Destroy()
