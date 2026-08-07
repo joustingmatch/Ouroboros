@@ -134,6 +134,7 @@ local games = {
     [918026845] = 'sellores.lua',
     [2919794] = 'lowball.lua',
     [699041832] = 'hackperclick.lua',
+    [1005157018] = 'spinafem.lua',
 }   
 
 local file = games[game.CreatorId]
