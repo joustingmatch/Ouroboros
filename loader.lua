@@ -146,6 +146,7 @@ local games = {
     [519201492] = 'heightperjump.lua',
     [35850353] = 'mergeplantsvsmobs.lua',
     [124937935] = 'carsvstape.lua',
+    [127740815] = 'plushietd.lua',
 }   
 
 local file = games[game.CreatorId]
