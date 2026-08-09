@@ -25,6 +25,7 @@ local BackpackCapacity = BackpackModule.BackpackCapacity
 local IslandConstants = require(ReplicatedStorage.TS.constants.world.Islands)
 local DigZoneSpawn = require(ReplicatedStorage.TS.utils.world.DigZoneSpawn)
 local teleportStreamed = require(ReplicatedStorage.TS.utils.world.teleportStreamed).teleportStreamed
+local PlotSections = require(ReplicatedStorage.TS.constants.plot.PlotSections)
 
 local NetworkFolder = LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("TS"):WaitForChild("network")
 local ShopFunctions = require(NetworkFolder.ShopNetwork).ShopFunctions
@@ -163,6 +164,30 @@ local function getPlot()
         end
     end
     return nil
+end
+
+local function collectOwnedPedestals(plot)
+    local list = {}
+    if not plot then
+        return list
+    end
+    for _, folder in ipairs(plot:GetDescendants()) do
+        if folder.Name == "Pedestals" then
+            local section = folder.Parent
+            if section and section:GetAttribute(PlotSections.SECTION_ID_ATTRIBUTE) ~= nil then
+                if section:GetAttribute(PlotSections.SECTION_UNLOCKED_ATTRIBUTE) ~= true then
+                    continue
+                end
+            end
+            for _, pedestal in ipairs(folder:GetChildren()) do
+                local slot = pedestal:GetAttribute("Slot")
+                if type(slot) == "number" and pedestal:GetAttribute("Owned") == true then
+                    list[#list + 1] = pedestal
+                end
+            end
+        end
+    end
+    return list
 end
 
 local function getIslandModel(islandId)
@@ -1595,9 +1620,8 @@ local function findReplacement()
         return nil
     end
 
-    local plotFolder = plot:FindFirstChild("Plot")
-    local pedestals = plotFolder and plotFolder:FindFirstChild("Pedestals")
-    if not pedestals then
+    local pedestals = collectOwnedPedestals(plot)
+    if #pedestals == 0 then
         return nil
     end
 
@@ -1616,7 +1640,7 @@ local function findReplacement()
     for _, entry in pairs(data.Inventory) do
         if replaceCandidateAllowed(entry) then
             local value = itemValue(entry)
-            for _, pedestal in ipairs(pedestals:GetChildren()) do
+            for _, pedestal in ipairs(pedestals) do
                 local slot = pedestal:GetAttribute("Slot")
                 local current = type(slot) == "number" and occupied[slot]
                 if current and shouldReplacePedestal(entry, current) then
@@ -1650,9 +1674,8 @@ local function findPlacement(forcePlace)
         return nil
     end
 
-    local plotFolder = plot:FindFirstChild("Plot")
-    local pedestals = plotFolder and plotFolder:FindFirstChild("Pedestals")
-    if not pedestals then
+    local pedestals = collectOwnedPedestals(plot)
+    if #pedestals == 0 then
         return nil
     end
 
@@ -1681,7 +1704,7 @@ local function findPlacement(forcePlace)
             local targetPedestal = nil
             local worstValue = nil
 
-            for _, pedestal in ipairs(pedestals:GetChildren()) do
+            for _, pedestal in ipairs(pedestals) do
                 local slot = pedestal:GetAttribute("Slot")
                 if type(slot) == "number" then
                     local current = occupied[slot]
