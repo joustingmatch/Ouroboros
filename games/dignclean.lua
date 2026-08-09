@@ -191,6 +191,13 @@ local function getNpc(islandId, npcName)
 end
 
 local function itemValue(entry)
+    if entry.dirty == true then
+        local ok, value = pcall(Items.dirtyItemValueFor, entry.id, entry.kg)
+        if ok and type(value) == "number" then
+            return value
+        end
+        return 0
+    end
     local ok, value = pcall(Items.itemValueFor, entry.id, entry.condition, entry.kg)
     if ok and type(value) == "number" then
         return value
@@ -664,9 +671,15 @@ SellGroup:AddToggle("AutoSell", {
     Default = false,
 })
 
+SellGroup:AddDropdown("SellTarget", {
+    Values = { "Everything", "Junk Only" },
+    Default = "Junk Only",
+    Text = "Sell Target",
+})
+
 SellGroup:AddDropdown("SellMode", {
-    Values = { "Backpack Full", "Item Count", "Timer" },
-    Default = "Backpack Full",
+    Values = { "Backpack Full", "Item Count", "Timer", "Junk Found" },
+    Default = "Junk Found",
     Text = "Sell Trigger",
 })
 
@@ -685,6 +698,30 @@ SellGroup:AddSlider("SellInterval", {
     Max = 900,
     Rounding = 0,
     Suffix = "s",
+})
+
+SellGroup:AddSlider("SellBelowValue", {
+    Text = "Sell Below Value",
+    Default = 1000,
+    Min = 0,
+    Max = 100000,
+    Rounding = 0,
+    Prefix = "$",
+})
+
+SellGroup:AddSlider("SellBelowKg", {
+    Text = "Sell Below Weight",
+    Default = 100,
+    Min = 0,
+    Max = 500,
+    Rounding = 1,
+    Suffix = " kg",
+})
+
+SellGroup:AddDropdown("SellMaxRarity", {
+    Values = Items.RARITY_ORDER,
+    Default = "uncommon",
+    Text = "Sell Max Rarity",
 })
 
 SellGroup:AddToggle("SellTeleport", {
@@ -1716,14 +1753,79 @@ end
 
 local lastSellAt = os.clock()
 
+local function isSellableEntry(entry)
+    if entry.favorited == true or entry.pedestalSlot ~= nil or entry.polisherSlot ~= nil then
+        return false
+    end
+    return true
+end
+
+local function isJunkEntry(entry)
+    if not isSellableEntry(entry) then
+        return false
+    end
+    local maxRarity = RARITY_INDEX[Options.SellMaxRarity.Value] or 1
+    if itemRarityIndex(entry) > maxRarity then
+        return false
+    end
+    local belowValue = Options.SellBelowValue.Value
+    if belowValue > 0 and itemValue(entry) >= belowValue then
+        return false
+    end
+    local belowKg = Options.SellBelowKg.Value
+    if belowKg > 0 and (entry.kg or 0) >= belowKg then
+        return false
+    end
+    return true
+end
+
+local function collectJunkEntries(data)
+    local junk = {}
+    for _, entry in pairs(data.Inventory) do
+        if isJunkEntry(entry) then
+            junk[#junk + 1] = entry
+        end
+    end
+    return junk
+end
+
+local function sellHeldEntry(entry)
+    local inventoryId = entry.uid
+    if type(inventoryId) ~= "string" then
+        return false
+    end
+    local tool, held = findToolByInventoryId(inventoryId)
+    if not tool then
+        return false
+    end
+    if not held then
+        local humanoid = getHumanoid()
+        if not humanoid then
+            return false
+        end
+        humanoid:EquipTool(tool)
+        task.wait(0.2)
+    end
+    local ok, result = pcall(function()
+        return SellFunctions.sellHeldItem:invoke():expect()
+    end)
+    return ok and type(result) == "number"
+end
+
 local function stepAutoSell(force)
     local data = getData()
     if not data then
         return
     end
 
+    local junkOnly = Options.SellTarget.Value == "Junk Only"
     local count = BackpackCapacity.count(data.Inventory)
     if count <= 0 then
+        return
+    end
+
+    local junk = collectJunkEntries(data)
+    if junkOnly and #junk <= 0 and not force then
         return
     end
 
@@ -1734,6 +1836,8 @@ local function stepAutoSell(force)
             trigger = count >= Options.SellItemCount.Value
         elseif mode == "Timer" then
             trigger = os.clock() - lastSellAt >= Options.SellInterval.Value
+        elseif mode == "Junk Found" then
+            trigger = #junk > 0
         else
             trigger = BackpackCapacity.isFull(data)
         end
@@ -1760,16 +1864,28 @@ local function stepAutoSell(force)
         end
     end
 
-    local humanoid = getHumanoid()
-    if humanoid then
-        humanoid:UnequipTools()
+    if force or not junkOnly then
+        local humanoid = getHumanoid()
+        if humanoid then
+            humanoid:UnequipTools()
+        end
+        pcall(function()
+            SellFunctions.sellInventory:invoke()
+        end)
+        task.wait(0.3)
+    else
+        for _, entry in ipairs(junk) do
+            if Library.Unloaded then
+                break
+            end
+            pcall(sellHeldEntry, entry)
+            task.wait(0.25)
+        end
+        local humanoid = getHumanoid()
+        if humanoid then
+            humanoid:UnequipTools()
+        end
     end
-
-    pcall(function()
-        SellFunctions.sellInventory:invoke()
-    end)
-
-    task.wait(0.3)
 
     if Toggles.SellReturn.Value and returnCFrame then
         local currentRoot = getRoot()
