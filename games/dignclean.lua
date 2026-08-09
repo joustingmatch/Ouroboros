@@ -15,6 +15,7 @@ local RSCRIPTS_LINK = "https://rscripts.net/@Ouroboros"
 local Flamework = require(ReplicatedStorage.rbxts_include.node_modules["@flamework"].core.out).Flamework
 
 local Shovels = require(ReplicatedStorage.TS.constants.digging.Shovels)
+local Detectors = require(ReplicatedStorage.TS.constants.digging.Detectors)
 local SprayBottles = require(ReplicatedStorage.TS.constants.cleaning.SprayBottles)
 local DiggingConfig = require(ReplicatedStorage.TS.constants.digging.DiggingConfig)
 local Items = require(ReplicatedStorage.TS.constants.items.Items)
@@ -663,6 +664,11 @@ ShopGroup:AddToggle("AutoBuySpray", {
     Default = false,
 })
 
+ShopGroup:AddToggle("AutoBuyDetector", {
+    Text = "Auto Buy Best Affordable Detector",
+    Default = false,
+})
+
 ShopGroup:AddToggle("AutoEquipGear", {
     Text = "Auto Equip Best Owned Gear",
     Default = true,
@@ -687,6 +693,7 @@ local ShopStatusGroup = Tabs.Shop:AddRightGroupbox("Status", "activity")
 local GoldLabel = ShopStatusGroup:AddLabel(field("Gold", "0", GREEN), true)
 local ShovelLabel = ShopStatusGroup:AddLabel(field("Shovel", "none", BLUE), true)
 local SprayLabel = ShopStatusGroup:AddLabel(field("Spray", "none", BLUE), true)
+local DetectorLabel = ShopStatusGroup:AddLabel(field("Detector", "none", BLUE), true)
 
 local PRIORITY_ROUTINES = {
     ["Dig then Clean"] = { "dig", "clean" },
@@ -812,6 +819,12 @@ warnAgainstAutoDig(
     "AutoBuySpray",
     "Auto Buy Spray Bottle",
     "Auto Dig is running. Buying teleports you to the gear shop and back, which interrupts the dig loop each time a spray bottle becomes affordable."
+)
+
+warnAgainstAutoDig(
+    "AutoBuyDetector",
+    "Auto Buy Detector",
+    "Auto Dig is running. Buying teleports you to the gear shop and back, which interrupts the dig loop each time a detector becomes affordable."
 )
 
 local MenuGroup = Tabs.Settings:AddLeftGroupbox("Menu", "menu")
@@ -1008,7 +1021,7 @@ local function isDigBusy()
 end
 
 local function stepAutoDig(delta)
-    if cleanActive then
+    if cleanActive or isWorkbenchBusy() then
         return
     end
 
@@ -1051,17 +1064,20 @@ local function stepAutoDig(delta)
         return
     end
 
+    local data = getData()
+    if Toggles.DigStopWhenFull.Value and data and BackpackCapacity.isFull(data) then
+        return
+    end
+
     local character = getCharacter()
     for _, child in ipairs(character:GetChildren()) do
         if child:IsA("Tool") and child:GetAttribute("inventoryId") ~= nil then
+            if Toggles.AutoClean.Value and CollectionService:HasTag(child, "Dirt") then
+                return
+            end
             humanoid:UnequipTools()
             return
         end
-    end
-
-    local data = getData()
-    if Toggles.DigStopWhenFull.Value and data and BackpackCapacity.isFull(data.Inventory) then
-        return
     end
 
     if not ensureIsland(selectedIslandId()) then
@@ -1156,17 +1172,32 @@ local function stepAutoClean()
     end
 
     if workbench.session then
+        local spray = resolve(SPRAY_CONTROLLER)
+        if not spray or spray.finishing then
+            return true
+        end
+
         if cleanSessionStartedAt == 0 then
             cleanSessionStartedAt = os.clock()
         end
-        if os.clock() - cleanSessionStartedAt < Options.CleanFinishDelay.Value then
+
+        local primed = spray.dirtCells ~= nil
+            or (type(spray.dirtBlocks) == "table" and #spray.dirtBlocks > 0)
+        local waited = os.clock() - cleanSessionStartedAt
+        if not primed and waited < 15 then
             return true
         end
-        local spray = resolve(SPRAY_CONTROLLER)
-        if spray and not spray.finishing then
-            pcall(spray.sweepRemaining, spray)
-            pcall(spray.forceFinish, spray)
+        if primed and waited < Options.CleanFinishDelay.Value then
+            return true
         end
+
+        pcall(function()
+            if spray.popAllDirt then
+                spray:popAllDirt()
+            end
+            spray:sweepRemaining()
+            spray:forceFinish()
+        end)
         return true
     end
 
@@ -1267,7 +1298,7 @@ local function shouldStartCleaning()
     end
 
     local data = getData()
-    return data ~= nil and BackpackCapacity.isFull(data.Inventory)
+    return data ~= nil and BackpackCapacity.isFull(data)
 end
 
 local function conditionAllowed(condition)
@@ -1298,7 +1329,7 @@ local function itemConditionIndex(entry)
 end
 
 local function placeCandidateAllowed(entry)
-    if entry.dirty ~= false or entry.pedestalSlot ~= nil then
+    if entry.dirty ~= false or entry.pedestalSlot ~= nil or entry.polisherSlot ~= nil then
         return false
     end
     if not conditionAllowed(entry.condition) then
@@ -1308,7 +1339,7 @@ local function placeCandidateAllowed(entry)
 end
 
 local function replaceCandidateAllowed(entry)
-    if entry.dirty ~= false or entry.pedestalSlot ~= nil then
+    if entry.dirty ~= false or entry.pedestalSlot ~= nil or entry.polisherSlot ~= nil then
         return false
     end
     if itemRarityIndex(entry) < (RARITY_INDEX[Options.ReplaceMinRarity.Value] or 1) then
@@ -1461,7 +1492,7 @@ local function findReplacement()
     return bestCandidate, targetSlot, targetPedestal
 end
 
-local function findPlacement()
+local function findPlacement(forcePlace)
     local data = getData()
     if not data then
         return nil
@@ -1485,7 +1516,7 @@ local function findPlacement()
         end
     end
 
-    if Toggles.AutoPlace.Value then
+    if forcePlace or Toggles.AutoPlace.Value then
         local candidate = nil
         local candidateValue = 0
         for _, entry in pairs(data.Inventory) do
@@ -1594,7 +1625,7 @@ local function stepAutoSell(force)
         elseif mode == "Timer" then
             trigger = os.clock() - lastSellAt >= Options.SellInterval.Value
         else
-            trigger = BackpackCapacity.isFull(data.Inventory)
+            trigger = BackpackCapacity.isFull(data)
         end
 
         if not trigger then
@@ -1650,7 +1681,7 @@ local function teleportToGearShop(data)
     return returnCFrame
 end
 
-local function stepAutoBuy()
+local function stepAutoBuy(forceAll)
     local data = getData()
     if not data then
         return
@@ -1663,17 +1694,24 @@ local function stepAutoBuy()
 
     local purchases = {}
 
-    if Toggles.AutoBuyShovel.Value then
+    if forceAll or Toggles.AutoBuyShovel.Value then
         local id = bestAffordableGear(Shovels.SHOVEL_TIER_ORDER, Shovels.Shovels, data.OwnedShovels, data.UnlockedIslands, budget)
         if id then
             table.insert(purchases, { "shovel", id })
         end
     end
 
-    if Toggles.AutoBuySpray.Value then
+    if forceAll or Toggles.AutoBuySpray.Value then
         local id = bestAffordableGear(SprayBottles.SPRAY_TIER_ORDER, SprayBottles.SprayBottles, data.OwnedSprays, data.UnlockedIslands, budget)
         if id then
             table.insert(purchases, { "spray", id })
+        end
+    end
+
+    if forceAll or Toggles.AutoBuyDetector.Value then
+        local id = bestAffordableGear(Detectors.DETECTOR_TIER_ORDER, Detectors.Detectors, data.OwnedDetectors, data.UnlockedIslands, budget)
+        if id then
+            table.insert(purchases, { "detector", id })
         end
     end
 
@@ -1720,10 +1758,24 @@ local function stepAutoEquip()
             ShopFunctions.equipGear:invoke("spray", spray)
         end)
     end
+
+    local detector = highestOwnedGear(Detectors.DETECTOR_TIER_ORDER, data.OwnedDetectors)
+    if detector and detector ~= data.EquippedDetector then
+        pcall(function()
+            ShopFunctions.equipGear:invoke("detector", detector)
+        end)
+    end
 end
 
 local priorityIndex = 1
 local priorityCycles = 0
+
+Toggles.PriorityMode:OnChanged(function(enabled)
+    if enabled then
+        priorityIndex = 1
+        cleanActive = false
+    end
+end)
 
 local function priorityStages()
     return PRIORITY_ROUTINES[Options.PriorityRoutine.Value] or PRIORITY_ROUTINES["Dig, Clean then Sell"]
@@ -1742,7 +1794,7 @@ local function digStageDone()
     if not data then
         return false
     end
-    if BackpackCapacity.isFull(data.Inventory) then
+    if BackpackCapacity.isFull(data) then
         return true
     end
     if Options.PrioritySwitch.Value == "Item Count" then
@@ -1757,12 +1809,12 @@ local function stageDone(stage)
     elseif stage == "clean" then
         return not cleanActive and not isWorkbenchBusy() and not hasDirtyItems()
     elseif stage == "place" then
-        local canPlace = Toggles.AutoPlace.Value and hasPlaceCandidate()
+        local canPlace = hasPlaceCandidate()
         local canReplace = Toggles.AutoReplace.Value and hasReplaceCandidate()
         if not canPlace and not canReplace then
             return true
         end
-        return getPlot() ~= nil and findPlacement() == nil
+        return getPlot() ~= nil and findPlacement(true) == nil
     elseif stage == "replace" then
         if not hasReplaceCandidate() then
             return true
@@ -1776,11 +1828,19 @@ local function stageDone(stage)
 end
 
 local function stepPriorityStage(stage)
-    if stage == "clean" then
+    if stage == "dig" then
+        cleanActive = false
+    elseif stage == "clean" then
         local ok, busy = pcall(stepAutoClean)
         cleanActive = ok and busy == true
     elseif stage == "place" then
-        pcall(stepAutoPlace)
+        local needsTravel = hasPlaceCandidate() or (Toggles.AutoReplace.Value and hasReplaceCandidate())
+        if Toggles.AutoTravelIsland.Value and needsTravel and not ensureIsland(IslandConstants.STARTER_ISLAND_ID) then
+            return
+        end
+        pcall(function()
+            applyPedestalAction(findPlacement(true))
+        end)
     elseif stage == "replace" then
         pcall(stepAutoReplace)
     elseif stage == "sell" then
@@ -1796,6 +1856,7 @@ local digConnection = RunService.Heartbeat:Connect(function(delta)
         if priorityStage() ~= "dig" then
             return
         end
+        cleanActive = false
     elseif not Toggles.AutoDig.Value then
         return
     end
@@ -1815,7 +1876,7 @@ task.spawn(function()
             priorityIndex = 1
             priorityCycles += 1
             if Toggles.PriorityBuyGear.Value and not isDigBusy() then
-                pcall(stepAutoBuy)
+                pcall(stepAutoBuy, true)
                 pcall(stepAutoEquip)
             end
         end
@@ -1837,9 +1898,17 @@ task.spawn(function()
         end
         if not Toggles.AutoClean.Value then
             cleanActive = false
-        elseif cleanActive or shouldStartCleaning() then
-            local ok, busy = pcall(stepAutoClean)
-            cleanActive = ok and busy == true
+        else
+            local shouldClean = cleanActive
+            if not shouldClean then
+                local okStart, startNow = pcall(shouldStartCleaning)
+                shouldClean = okStart and startNow == true
+            end
+            if shouldClean then
+                cleanActive = true
+                local ok, busy = pcall(stepAutoClean)
+                cleanActive = ok and busy == true
+            end
         end
     end
 end)
@@ -1868,7 +1937,7 @@ task.spawn(function()
             continue
         end
         if not cleanActive and not isDigBusy() then
-            if Toggles.AutoBuyShovel.Value or Toggles.AutoBuySpray.Value then
+            if Toggles.AutoBuyShovel.Value or Toggles.AutoBuySpray.Value or Toggles.AutoBuyDetector.Value then
                 pcall(stepAutoBuy)
             end
             if Toggles.AutoEquipGear.Value then
@@ -1901,7 +1970,7 @@ task.spawn(function()
         local data = getData()
         if data then
             local count = BackpackCapacity.count(data.Inventory)
-            DigBackpackLabel:SetText(field("Backpack", string.format("%d / %d", count, BackpackModule.MAX_BACKPACK_CAPACITY), GREEN))
+            DigBackpackLabel:SetText(field("Backpack", string.format("%d / %d", count, BackpackCapacity.limitFor(data)), GREEN))
 
             local dirty = 0
             for _, entry in pairs(data.Inventory) do
@@ -1918,6 +1987,9 @@ task.spawn(function()
 
             local sprayDefinition = SprayBottles.SprayBottles[data.EquippedSpray]
             SprayLabel:SetText(field("Spray", sprayDefinition and sprayDefinition.displayName or "none", BLUE))
+
+            local detectorDefinition = Detectors.Detectors[data.EquippedDetector]
+            DetectorLabel:SetText(field("Detector", detectorDefinition and detectorDefinition.displayName or "none", BLUE))
         end
 
         if Toggles.PriorityMode.Value then
