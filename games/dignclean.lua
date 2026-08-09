@@ -729,7 +729,7 @@ SellGroup:AddSlider("SellBelowValue", {
     Text = "Sell Below Value",
     Default = 1000,
     Min = 0,
-    Max = 100000,
+    Max = 1000000,
     Rounding = 0,
     Prefix = "$",
 })
@@ -738,7 +738,7 @@ SellGroup:AddSlider("SellBelowKg", {
     Text = "Sell Below Weight",
     Default = 100,
     Min = 0,
-    Max = 500,
+    Max = 10000,
     Rounding = 1,
     Suffix = " kg",
 })
@@ -1791,33 +1791,48 @@ local function isJunkEntry(entry)
     if itemRarityIndex(entry) > maxRarity then
         return false
     end
+
     local belowValue = Options.SellBelowValue.Value
-    if belowValue > 0 and itemValue(entry) >= belowValue then
-        return false
-    end
     local belowKg = Options.SellBelowKg.Value
-    if belowKg > 0 and (entry.kg or 0) >= belowKg then
-        return false
+    local valueEnabled = belowValue > 0
+    local kgEnabled = belowKg > 0
+    if not valueEnabled and not kgEnabled then
+        return true
     end
-    return true
+
+    local kg = tonumber(entry.kg) or 0
+    local valueMatch = valueEnabled and itemValue(entry) < belowValue
+    local kgMatch = kgEnabled and kg < belowKg
+    if valueEnabled and kgEnabled then
+        return valueMatch or kgMatch
+    end
+    if valueEnabled then
+        return valueMatch
+    end
+    return kgMatch
 end
 
 local function collectJunkEntries(data)
     local junk = {}
-    for _, entry in pairs(data.Inventory) do
+    for key, entry in pairs(data.Inventory) do
         if isJunkEntry(entry) then
-            junk[#junk + 1] = entry
+            local uid = entry.uid
+            if type(uid) ~= "string" then
+                uid = key
+            end
+            if type(uid) == "string" then
+                junk[#junk + 1] = { entry = entry, uid = uid }
+            end
         end
     end
     return junk
 end
 
-local function sellHeldEntry(entry)
-    local inventoryId = entry.uid
-    if type(inventoryId) ~= "string" then
+local function sellHeldEntry(uid)
+    if type(uid) ~= "string" then
         return false
     end
-    local tool, held = findToolByInventoryId(inventoryId)
+    local tool, held = findToolByInventoryId(uid)
     if not tool then
         return false
     end
@@ -1827,7 +1842,11 @@ local function sellHeldEntry(entry)
             return false
         end
         humanoid:EquipTool(tool)
-        task.wait(0.2)
+        task.wait(0.25)
+        tool, held = findToolByInventoryId(uid)
+        if not tool or not held then
+            return false
+        end
     end
     local ok, result = pcall(function()
         return SellFunctions.sellHeldItem:invoke():expect()
@@ -1897,12 +1916,12 @@ local function stepAutoSell(force)
         end)
         task.wait(0.3)
     else
-        for _, entry in ipairs(junk) do
+        for _, item in ipairs(junk) do
             if Library.Unloaded then
                 break
             end
-            pcall(sellHeldEntry, entry)
-            task.wait(0.25)
+            pcall(sellHeldEntry, item.uid)
+            task.wait(0.3)
         end
         local humanoid = getHumanoid()
         if humanoid then
