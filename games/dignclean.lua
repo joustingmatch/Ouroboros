@@ -24,6 +24,7 @@ local BackpackModule = require(ReplicatedStorage.TS.constants.inventory.Backpack
 local BackpackCapacity = BackpackModule.BackpackCapacity
 local IslandConstants = require(ReplicatedStorage.TS.constants.world.Islands)
 local DigZoneSpawn = require(ReplicatedStorage.TS.utils.world.DigZoneSpawn)
+local teleportStreamed = require(ReplicatedStorage.TS.utils.world.teleportStreamed).teleportStreamed
 
 local NetworkFolder = LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("TS"):WaitForChild("network")
 local ShopFunctions = require(NetworkFolder.ShopNetwork).ShopFunctions
@@ -37,13 +38,21 @@ local ShovelFunctions = ShovelNetwork.ShovelFunctions
 local IslandOptions = {}
 local IslandByName = {}
 local IslandById = {}
-local travelFailed = {}
+local travelCooldownUntil = {}
+local travelNotified = {}
 
-pcall(function()
-    for _, island in ipairs(TravelFunctions.getIslands:invoke():expect()) do
-        IslandById[island.id] = island
-    end
-end)
+local function refreshIslandSpawns()
+    pcall(function()
+        for _, island in ipairs(TravelFunctions.getIslands:invoke():expect()) do
+            IslandById[island.id] = island
+            if type(island.name) == "string" then
+                IslandByName[island.name] = island
+            end
+        end
+    end)
+end
+
+refreshIslandSpawns()
 
 for _, id in ipairs(IslandConstants.ISLAND_ORDER) do
     local island = IslandById[id]
@@ -209,22 +218,51 @@ local function findToolByInventoryId(inventoryId)
     return nil, false
 end
 
+local function dirtyToolRarityIndex(tool)
+    local itemId = tool:GetAttribute("itemId")
+    local definition = itemId and Items.Items[itemId]
+    if not definition then
+        return 0
+    end
+    return RARITY_INDEX[definition.rarity] or 0
+end
+
+local function cleanRarityAllowed(tool)
+    local minimum = 1
+    if Options and Options.CleanRarityPriority then
+        minimum = RARITY_INDEX[Options.CleanRarityPriority.Value] or 1
+    end
+    return dirtyToolRarityIndex(tool) >= minimum
+end
+
 local function findDirtyTool()
     local character = getCharacter()
     if character then
         for _, tool in ipairs(character:GetChildren()) do
-            if tool:IsA("Tool") and CollectionService:HasTag(tool, "Dirt") then
+            if tool:IsA("Tool") and CollectionService:HasTag(tool, "Dirt") and cleanRarityAllowed(tool) then
                 return tool, true
             end
         end
     end
+
     local backpack = LocalPlayer:FindFirstChildOfClass("Backpack")
-    if backpack then
-        for _, tool in ipairs(backpack:GetChildren()) do
-            if tool:IsA("Tool") and CollectionService:HasTag(tool, "Dirt") then
-                return tool, false
+    if not backpack then
+        return nil, false
+    end
+
+    local best, bestScore
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") and CollectionService:HasTag(tool, "Dirt") and cleanRarityAllowed(tool) then
+            local score = dirtyToolRarityIndex(tool)
+            if not best or score > bestScore then
+                best = tool
+                bestScore = score
             end
         end
+    end
+
+    if best then
+        return best, false
     end
     return nil, false
 end
@@ -464,7 +502,8 @@ DigGroup:AddToggle("AutoTravelIsland", {
 })
 
 Options.DigIsland:OnChanged(function()
-    table.clear(travelFailed)
+    table.clear(travelCooldownUntil)
+    table.clear(travelNotified)
 end)
 
 DigGroup:AddDropdown("DigMinRarity", {
@@ -510,6 +549,12 @@ CleanGroup:AddDropdown("CleanPriority", {
     Values = { "When Backpack Full", "Always", "When Not Digging" },
     Default = "When Backpack Full",
     Text = "Clean Priority",
+})
+
+CleanGroup:AddDropdown("CleanRarityPriority", {
+    Values = Items.RARITY_ORDER,
+    Default = "common",
+    Text = "Rarity Priority",
 })
 
 CleanGroup:AddToggle("CleanTeleport", {
@@ -968,6 +1013,30 @@ local function bestSurfacedTarget(position)
     return best, bestDistance
 end
 
+local function islandSpawnCFrame(islandId)
+    refreshIslandSpawns()
+    local island = IslandById[islandId]
+    local spawn = island and island.spawn
+    if typeof(spawn) == "CFrame" then
+        return spawn + Vector3.new(0, 4, 0)
+    end
+    if typeof(spawn) == "Vector3" then
+        return CFrame.new(spawn + Vector3.new(0, 4, 0))
+    end
+    if typeof(spawn) == "Instance" then
+        return spawn:GetPivot() + Vector3.new(0, 4, 0)
+    end
+    local model = getIslandModel(islandId)
+    if model then
+        local marker = model:FindFirstChild("Spawn") or model:FindFirstChildWhichIsA("SpawnLocation", true)
+        if marker then
+            return marker:GetPivot() + Vector3.new(0, 4, 0)
+        end
+        return model:GetPivot() + Vector3.new(0, 20, 0)
+    end
+    return nil
+end
+
 local function ensureIsland(islandId)
     if not islandId then
         return true
@@ -976,7 +1045,10 @@ local function ensureIsland(islandId)
     if data and data.CurrentIsland == islandId then
         return true
     end
-    if travelBusy or travelFailed[islandId] or not data then
+    if travelBusy or not data then
+        return false
+    end
+    if travelCooldownUntil[islandId] and os.clock() < travelCooldownUntil[islandId] then
         return false
     end
 
@@ -985,19 +1057,49 @@ local function ensureIsland(islandId)
         local ok, result = pcall(function()
             return TravelFunctions.travel:invoke(islandId):expect()
         end)
+
+        local island = IslandById[islandId]
+        local name = island and island.name or islandId
+        local spawnCf = islandSpawnCFrame(islandId)
+
         if ok and result == "ok" then
-            local island = IslandById[islandId]
-            if island then
-                teleportTo(island.spawn.Position + Vector3.new(0, 4, 0))
+            if spawnCf then
+                pcall(teleportStreamed, LocalPlayer, spawnCf)
             end
-            task.wait(0.5)
+            for _ = 1, 20 do
+                task.wait(0.15)
+                local latest = getData()
+                if latest and latest.CurrentIsland == islandId then
+                    break
+                end
+            end
             refreshSurfacedItems()
+            travelNotified[islandId] = nil
+            travelCooldownUntil[islandId] = nil
+        elseif result == "poor" then
+            travelCooldownUntil[islandId] = os.clock() + 8
+            if not travelNotified[islandId] then
+                travelNotified[islandId] = true
+                local definition = IslandConstants.Islands[islandId]
+                local cost = definition and definition.cost
+                if type(cost) == "number" and cost > 0 then
+                    Library:Notify(string.format("Need $%s to unlock %s", tostring(cost), name))
+                else
+                    Library:Notify("Could not travel to " .. name)
+                end
+            end
         else
-            travelFailed[islandId] = true
-            local island = IslandById[islandId]
-            Library:Notify("Could not travel to " .. (island and island.name or islandId))
+            travelCooldownUntil[islandId] = os.clock() + 5
+            if spawnCf then
+                pcall(teleportStreamed, LocalPlayer, spawnCf)
+            end
+            if not travelNotified[islandId] then
+                travelNotified[islandId] = true
+                Library:Notify("Could not travel to " .. name)
+            end
         end
-        task.wait(0.5)
+
+        task.wait(0.35)
         travelBusy = false
     end)
 
@@ -1267,9 +1369,17 @@ local function hasDirtyItems()
     if not data then
         return false
     end
+    local minimum = 1
+    if Options and Options.CleanRarityPriority then
+        minimum = RARITY_INDEX[Options.CleanRarityPriority.Value] or 1
+    end
     for _, entry in pairs(data.Inventory) do
         if entry.dirty == true then
-            return true
+            local definition = Items.Items[entry.id]
+            local index = definition and RARITY_INDEX[definition.rarity] or 0
+            if index >= minimum then
+                return true
+            end
         end
     end
     return false
