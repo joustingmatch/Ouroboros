@@ -923,24 +923,6 @@
         "Auto Dig is running. Selling teleports you to the seller and sells everything still in the backpack, including items you have not cleaned or placed yet."
     )
 
-    warnAgainstAutoDig(
-        "AutoBuyShovel",
-        "Auto Buy Shovel",
-        "Auto Dig is running. Buying teleports you to the gear shop and back, which interrupts the dig loop each time a shovel becomes affordable."
-    )
-
-    warnAgainstAutoDig(
-        "AutoBuySpray",
-        "Auto Buy Spray Bottle",
-        "Auto Dig is running. Buying teleports you to the gear shop and back, which interrupts the dig loop each time a spray bottle becomes affordable."
-    )
-
-    warnAgainstAutoDig(
-        "AutoBuyDetector",
-        "Auto Buy Detector",
-        "Auto Dig is running. Buying teleports you to the gear shop and back, which interrupts the dig loop each time a detector becomes affordable."
-    )
-
     local MenuGroup = Tabs.Settings:AddLeftGroupbox("Menu", "menu")
 
     MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", {
@@ -1023,6 +1005,7 @@
 
     local digClickBudget = 0
     local cleanActive = false
+    local buyActive = false
     travelBusy = false
 
     local WALK_ARRIVAL_DISTANCE = 6
@@ -1390,7 +1373,7 @@ end)
     end
 
     local function stepAutoDig(delta)
-        if cleanActive or isWorkbenchBusy() then
+        if cleanActive or buyActive or isWorkbenchBusy() then
             return
         end
 
@@ -2191,6 +2174,10 @@ end
     end
 
     local function stepAutoBuy(forceAll)
+        if buyActive then
+            return
+        end
+
         local data = getData()
         if not data then
             return
@@ -2228,24 +2215,34 @@ end
             return
         end
 
-        local returnCFrame = nil
-        if Toggles.ShopTeleport.Value then
-            returnCFrame = teleportToGearShop(data)
-        end
-
-        for _, purchase in ipairs(purchases) do
-            pcall(function()
-                ShopFunctions.buyGear:invoke(purchase[1], purchase[2])
-            end)
-            task.wait(0.4)
-        end
-
-        if returnCFrame then
-            local root = getRoot()
-            if root then
-                root.CFrame = returnCFrame
+        buyActive = true
+        stopDigWalk()
+        pcall(function()
+            local returnCFrame = nil
+            if Toggles.ShopTeleport.Value then
+                returnCFrame = teleportToGearShop(data)
             end
-        end
+
+            for _, purchase in ipairs(purchases) do
+                pcall(function()
+                    ShopFunctions.buyGear:invoke(purchase[1], purchase[2])
+                end)
+                task.wait(0.4)
+            end
+
+            if returnCFrame then
+                if digModeIsWalk() then
+                    teleportToWalkStart()
+                    beginWalkResume()
+                else
+                    local root = getRoot()
+                    if root then
+                        root.CFrame = returnCFrame
+                    end
+                end
+            end
+        end)
+        buyActive = false
     end
 
     local function stepAutoEquip()
@@ -2392,7 +2389,7 @@ end
             if priorityIndex > #stages then
                 priorityIndex = 1
                 priorityCycles += 1
-                if Toggles.PriorityBuyGear.Value and not isDigBusy() then
+                if Toggles.PriorityBuyGear.Value and not buyActive and not isDigBusy() then
                     pcall(stepAutoBuy, true)
                     pcall(stepAutoEquip)
                 end
@@ -2453,7 +2450,7 @@ end
             if Toggles.PriorityMode.Value then
                 continue
             end
-            if not cleanActive and not isDigBusy() then
+            if not cleanActive and not buyActive and not isDigBusy() then
                 if Toggles.AutoBuyShovel.Value or Toggles.AutoBuySpray.Value or Toggles.AutoBuyDetector.Value then
                     pcall(stepAutoBuy)
                 end
