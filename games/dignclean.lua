@@ -1056,94 +1056,120 @@
         },
     }
 
-    local walkIndex = 1
-    local walkOriginalSpeed = 16
-    local walkSpeedActive = false
-    local syncingDigMode = false
+local walkIndex = 1
+local walkOriginalSpeed = 16
+local walkSpeedActive = false
+local syncingDigMode = false
+local WALK_RESUME_DELAY = 1.25
+local walkResumeAt = 0
 
-    local function selectedIslandId()
-        local island = IslandByName[Options.DigIsland.Value]
-        return island and island.id
+local function selectedIslandId()
+    local island = IslandByName[Options.DigIsland.Value]
+    return island and island.id
+end
+
+local function digModeIsWalk()
+    return Options.DigMode.Value == "Walk"
+end
+
+local function stopDigWalk()
+    if not walkSpeedActive then
+        return
     end
-
-    local function digModeIsWalk()
-        return Options.DigMode.Value == "Walk"
-    end
-
-    local function stopDigWalk()
-        if not walkSpeedActive then
-            return
+    walkSpeedActive = false
+    local humanoid = getHumanoid()
+    local root = getRoot()
+    if humanoid then
+        humanoid.WalkSpeed = walkOriginalSpeed
+        if root then
+            humanoid:MoveTo(root.Position)
         end
-        walkSpeedActive = false
-        local humanoid = getHumanoid()
-        local root = getRoot()
-        if humanoid then
-            humanoid.WalkSpeed = walkOriginalSpeed
-            if root then
-                humanoid:MoveTo(root.Position)
+    end
+    local character = getCharacter()
+    if character then
+        for _, part in ipairs(character:GetDescendants()) do
+            if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+                part.CanCollide = true
             end
         end
-        local character = getCharacter()
-        if character then
-            for _, part in ipairs(character:GetDescendants()) do
-                if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
-                    part.CanCollide = true
-                end
-            end
-        end
+    end
+end
+
+local function teleportToWalkStart()
+    local points = WALK_POINTS_BY_ISLAND[selectedIslandId()]
+    if not points or not points[1] then
+        return false
+    end
+    walkIndex = 1
+    local cf = CFrame.new(points[1] + Vector3.new(0, 3, 0))
+    local ok = pcall(teleportStreamed, LocalPlayer, cf)
+    if not ok then
+        return teleportTo(points[1] + Vector3.new(0, 3, 0))
+    end
+    return true
+end
+
+local function beginWalkResume()
+    stopDigWalk()
+    walkResumeAt = os.clock() + WALK_RESUME_DELAY
+end
+
+local function stepDigWalk()
+    local humanoid = getHumanoid()
+    local root = getRoot()
+    if not humanoid or not root or humanoid.Health <= 0 then
+        return
     end
 
-    local function stepDigWalk()
-        local humanoid = getHumanoid()
-        local root = getRoot()
-        if not humanoid or not root or humanoid.Health <= 0 then
-            return
-        end
+    if os.clock() < walkResumeAt then
+        humanoid:MoveTo(root.Position)
+        return
+    end
 
-        if not walkSpeedActive then
-            walkOriginalSpeed = humanoid.WalkSpeed
-            walkSpeedActive = true
-        end
+    if not walkSpeedActive then
+        walkOriginalSpeed = humanoid.WalkSpeed
+        walkSpeedActive = true
+    end
 
-        if humanoid.WalkSpeed ~= WALK_SPEED_WHILE_ACTIVE then
-            humanoid.WalkSpeed = WALK_SPEED_WHILE_ACTIVE
-        end
+    if humanoid.WalkSpeed ~= WALK_SPEED_WHILE_ACTIVE then
+        humanoid.WalkSpeed = WALK_SPEED_WHILE_ACTIVE
+    end
 
-        local points = WALK_POINTS_BY_ISLAND[selectedIslandId()]
-        if not points or #points == 0 then
-            return
-        end
+    local points = WALK_POINTS_BY_ISLAND[selectedIslandId()]
+    if not points or #points == 0 then
+        return
+    end
 
-        if walkIndex < 1 or walkIndex > #points then
+    if walkIndex < 1 or walkIndex > #points then
+        walkIndex = 1
+    end
+
+    local target = points[walkIndex]
+    if (root.Position - target).Magnitude <= WALK_ARRIVAL_DISTANCE then
+        walkIndex += 1
+        if walkIndex > #points then
             walkIndex = 1
         end
-
-        local target = points[walkIndex]
-        if (root.Position - target).Magnitude <= WALK_ARRIVAL_DISTANCE then
-            walkIndex += 1
-            if walkIndex > #points then
-                walkIndex = 1
-            end
-            target = points[walkIndex]
-        end
-
-        humanoid:MoveTo(target)
+        target = points[walkIndex]
     end
 
-    local walkNoclipConnection = RunService.Stepped:Connect(function()
-        if Library.Unloaded or not walkSpeedActive then
-            return
+    humanoid:MoveTo(target)
+end
+
+local walkNoclipConnection = RunService.Stepped:Connect(function()
+    if Library.Unloaded or not walkSpeedActive then
+        return
+    end
+    local character = getCharacter()
+    if not character then
+        return
+    end
+    for _, part in ipairs(character:GetDescendants()) do
+        if part:IsA("BasePart") and part.CanCollide then
+            part.CanCollide = false
         end
-        local character = getCharacter()
-        if not character then
-            return
-        end
-        for _, part in ipairs(character:GetDescendants()) do
-            if part:IsA("BasePart") and part.CanCollide then
-                part.CanCollide = false
-            end
-        end
-    end)
+    end
+end)
 
     Options.DigMode:OnChanged(function(value)
         if value ~= "Walk" then
@@ -1304,6 +1330,9 @@
                 refreshSurfacedItems()
                 travelNotified[islandId] = nil
                 travelCooldownUntil[islandId] = nil
+                if digModeIsWalk() then
+                    beginWalkResume()
+                end
             elseif result == "poor" then
                 travelCooldownUntil[islandId] = os.clock() + 8
                 if not travelNotified[islandId] then
@@ -1324,6 +1353,9 @@
                 if not travelNotified[islandId] then
                     travelNotified[islandId] = true
                     Library:Notify("Could not travel to " .. name)
+                end
+                if digModeIsWalk() then
+                    beginWalkResume()
                 end
             end
 
@@ -1555,11 +1587,11 @@ local function stepAutoClean()
         if Toggles.AutoTravelIsland.Value and targetIsland and not ensureIsland(targetIsland) then
             return true
         end
-        if cleanReturnCFrame then
-            local root = getRoot()
-            if root then
-                root.CFrame = cleanReturnCFrame
-            end
+        if digModeIsWalk() then
+            teleportToWalkStart()
+            beginWalkResume()
+        elseif cleanReturnCFrame then
+            pcall(teleportStreamed, LocalPlayer, cleanReturnCFrame)
         end
         cleanReturnCFrame = nil
         cleanNeedsReturn = false
@@ -2130,11 +2162,11 @@ end
         if Toggles.SellReturn.Value then
             if Toggles.AutoTravelIsland.Value and returnIsland then
                 ensureIsland(returnIsland)
+            elseif digModeIsWalk() then
+                teleportToWalkStart()
+                beginWalkResume()
             elseif returnCFrame then
-                local currentRoot = getRoot()
-                if currentRoot then
-                    currentRoot.CFrame = returnCFrame
-                end
+                pcall(teleportStreamed, LocalPlayer, returnCFrame)
             end
         end
     end
