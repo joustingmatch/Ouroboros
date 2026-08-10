@@ -1,7 +1,1 @@
-# Ouroboros Hub
-
-Ouroboros Loader 
-
-```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua"))()
-```
+vibecoded hub i do for fun, don't overcomplicate it.
