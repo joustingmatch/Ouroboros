@@ -152,6 +152,7 @@ local games = {
     [515962489] = 'mergeswordzombies.lua',
     [390180214] = 'reheads.lua',
     [35932459] = 'wingsforbrainrot.lua',
+    [388952470] = 'dancinganimals.lua',
 }   
 
 local file = games[game.CreatorId]
