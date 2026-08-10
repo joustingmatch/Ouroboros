@@ -1498,108 +1498,127 @@
         wanderDigZone(selectedIslandId() or (getData() and getData().CurrentIsland))
     end
 
-    local CLEAN_ENTER_TIMEOUT = 5
+local CLEAN_ENTER_TIMEOUT = 5
 
-    local cleanSessionStartedAt = 0
-    local cleanEnterStartedAt = 0
-    local cleanReturnCFrame = nil
+local cleanSessionStartedAt = 0
+local cleanEnterStartedAt = 0
+local cleanReturnCFrame = nil
+local cleanNeedsReturn = false
 
-    local function stepAutoClean()
-        local workbench = resolve(WORKBENCH_CONTROLLER)
-        if not workbench then
-            return false
-        end
+local function stepAutoClean()
+    local workbench = resolve(WORKBENCH_CONTROLLER)
+    if not workbench then
+        return false
+    end
 
-        if workbench.session then
-            local spray = resolve(SPRAY_CONTROLLER)
-            if not spray or spray.finishing then
-                return true
-            end
-
-            if cleanSessionStartedAt == 0 then
-                cleanSessionStartedAt = os.clock()
-            end
-
-            local primed = spray.dirtCells ~= nil
-                or (type(spray.dirtBlocks) == "table" and #spray.dirtBlocks > 0)
-            local waited = os.clock() - cleanSessionStartedAt
-            if not primed and waited < 15 then
-                return true
-            end
-            if primed and waited < Options.CleanFinishDelay.Value then
-                return true
-            end
-
-            pcall(function()
-                if spray.popAllDirt then
-                    spray:popAllDirt()
-                end
-                spray:sweepRemaining()
-                spray:forceFinish()
-            end)
+    if workbench.session then
+        local spray = resolve(SPRAY_CONTROLLER)
+        if not spray or spray.finishing then
             return true
         end
 
-        if cleanSessionStartedAt ~= 0 then
-            cleanSessionStartedAt = 0
-            if Toggles.CleanReturn.Value and cleanReturnCFrame then
-                local root = getRoot()
-                if root then
-                    root.CFrame = cleanReturnCFrame
-                end
-            end
-            cleanReturnCFrame = nil
+        if cleanSessionStartedAt == 0 then
+            cleanSessionStartedAt = os.clock()
+        end
+
+        local primed = spray.dirtCells ~= nil
+            or (type(spray.dirtBlocks) == "table" and #spray.dirtBlocks > 0)
+        local waited = os.clock() - cleanSessionStartedAt
+        if not primed and waited < 15 then
+            return true
+        end
+        if primed and waited < Options.CleanFinishDelay.Value then
             return true
         end
 
-        if workbench.cleaning then
-            if cleanEnterStartedAt == 0 then
-                cleanEnterStartedAt = os.clock()
+        pcall(function()
+            if spray.popAllDirt then
+                spray:popAllDirt()
             end
-            return os.clock() - cleanEnterStartedAt < CLEAN_ENTER_TIMEOUT
-        end
-
-        cleanEnterStartedAt = 0
-
-        local tool, held = findDirtyTool()
-        if not tool then
-            return false
-        end
-
-        if not held then
-            local humanoid = getHumanoid()
-            if not humanoid then
-                return false
-            end
-            humanoid:EquipTool(tool)
-            return true
-        end
-
-        if Toggles.AutoTravelIsland.Value and not ensureIsland(IslandConstants.STARTER_ISLAND_ID) then
-            return true
-        end
-
-        local bench = workbench.workbench
-        if not bench then
-            return false
-        end
-
-        local root = getRoot()
-        if not root then
-            return false
-        end
-
-        cleanReturnCFrame = root.CFrame
-
-        if Toggles.CleanTeleport.Value then
-            teleportTo(bench:GetPivot().Position + Vector3.new(0, 4, 0))
-            task.wait(0.2)
-        end
-
-        pcall(workbench.onTriggered, workbench)
-
+            spray:sweepRemaining()
+            spray:forceFinish()
+        end)
         return true
     end
+
+    if cleanSessionStartedAt ~= 0 then
+        cleanSessionStartedAt = 0
+        if Toggles.CleanReturn.Value then
+            cleanNeedsReturn = true
+        else
+            cleanReturnCFrame = nil
+        end
+    end
+
+    if cleanNeedsReturn then
+        local targetIsland = selectedIslandId()
+        if Toggles.AutoTravelIsland.Value and targetIsland and not ensureIsland(targetIsland) then
+            return true
+        end
+        if cleanReturnCFrame then
+            local root = getRoot()
+            if root then
+                root.CFrame = cleanReturnCFrame
+            end
+        end
+        cleanReturnCFrame = nil
+        cleanNeedsReturn = false
+        return true
+    end
+
+    if workbench.cleaning then
+        if cleanEnterStartedAt == 0 then
+            cleanEnterStartedAt = os.clock()
+        end
+        return os.clock() - cleanEnterStartedAt < CLEAN_ENTER_TIMEOUT
+    end
+
+    cleanEnterStartedAt = 0
+
+    local tool, held = findDirtyTool()
+    if not tool then
+        return false
+    end
+
+    if not held then
+        local humanoid = getHumanoid()
+        if not humanoid then
+            return false
+        end
+        humanoid:EquipTool(tool)
+        return true
+    end
+
+    if not cleanReturnCFrame then
+        local root = getRoot()
+        if root then
+            cleanReturnCFrame = root.CFrame
+        end
+    end
+
+    if Toggles.AutoTravelIsland.Value and not ensureIsland(IslandConstants.STARTER_ISLAND_ID) then
+        return true
+    end
+
+    local bench = workbench.workbench
+    if not bench then
+        return false
+    end
+
+    local root = getRoot()
+    if not root then
+        return false
+    end
+
+    if Toggles.CleanTeleport.Value then
+        teleportTo(bench:GetPivot().Position + Vector3.new(0, 4, 0))
+        task.wait(0.2)
+    end
+
+    pcall(workbench.onTriggered, workbench)
+
+    return true
+end
 
     local function hasDirtyItems()
         local data = getData()
@@ -2064,14 +2083,18 @@
             end
         end
 
+        local root = getRoot()
+        local returnIsland = selectedIslandId() or data.CurrentIsland
+        local returnCFrame = nil
+        if root and data.CurrentIsland ~= IslandConstants.STARTER_ISLAND_ID then
+            returnCFrame = root.CFrame
+        end
+
         if Toggles.AutoTravelIsland.Value and not ensureIsland(IslandConstants.STARTER_ISLAND_ID) then
             return
         end
 
         lastSellAt = os.clock()
-
-        local root = getRoot()
-        local returnCFrame = root and root.CFrame
 
         if Toggles.SellTeleport.Value then
             local npc = getNpc(data.CurrentIsland, "Sell") or getNpc(IslandConstants.STARTER_ISLAND_ID, "Sell")
@@ -2104,10 +2127,14 @@
             end
         end
 
-        if Toggles.SellReturn.Value and returnCFrame then
-            local currentRoot = getRoot()
-            if currentRoot then
-                currentRoot.CFrame = returnCFrame
+        if Toggles.SellReturn.Value then
+            if Toggles.AutoTravelIsland.Value and returnIsland then
+                ensureIsland(returnIsland)
+            elseif returnCFrame then
+                local currentRoot = getRoot()
+                if currentRoot then
+                    currentRoot.CFrame = returnCFrame
+                end
             end
         end
     end
