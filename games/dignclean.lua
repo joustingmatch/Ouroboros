@@ -1011,12 +1011,19 @@
         end
     end)
 
+    local digConnection
+    local walkNoclipConnection
+    local stopDigWalk
+    local travelBusy
+    local syncingDigMode
+
+    ;(function()
     local POWER_TIERS = DiggingConfig.DIG_POWER_TIERS
     local POWER_TARGET = POWER_TIERS[#POWER_TIERS].minPower
 
     local digClickBudget = 0
     local cleanActive = false
-    local travelBusy = false
+    travelBusy = false
 
     local WALK_ARRIVAL_DISTANCE = 6
     local WALK_SPEED_WHILE_ACTIVE = 100
@@ -1059,7 +1066,7 @@
 local walkIndex = 1
 local walkOriginalSpeed = 16
 local walkSpeedActive = false
-local syncingDigMode = false
+syncingDigMode = false
 local WALK_RESUME_DELAY = 1.25
 local walkResumeAt = 0
 
@@ -1072,7 +1079,7 @@ local function digModeIsWalk()
     return Options.DigMode.Value == "Walk"
 end
 
-local function stopDigWalk()
+stopDigWalk = function()
     if not walkSpeedActive then
         return
     end
@@ -1156,7 +1163,7 @@ local function stepDigWalk()
     humanoid:MoveTo(target)
 end
 
-local walkNoclipConnection = RunService.Stepped:Connect(function()
+walkNoclipConnection = RunService.Stepped:Connect(function()
     if Library.Unloaded or not walkSpeedActive then
         return
     end
@@ -2350,7 +2357,7 @@ end
         end
     end
 
-    local digConnection = RunService.Heartbeat:Connect(function(delta)
+    digConnection = RunService.Heartbeat:Connect(function(delta)
         if Library.Unloaded then
             return
         end
@@ -2525,6 +2532,8 @@ end
             CleanStateLabel:SetText(field("Workbench", state, BLUE))
         end
     end)
+
+    end)()
 
     ThemeManager:SetLibrary(Library)
     ThemeManager:SetFolder("OuroborosHub")
