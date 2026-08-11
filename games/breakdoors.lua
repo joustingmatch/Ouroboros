@@ -27,16 +27,10 @@ local PlotService = Knit.GetService("PlotService")
 local AirdropService = Knit.GetService("AirdropService")
 local RoomController = Knit.GetController("RoomController")
 local RoundManagerController = Knit.GetController("RoundManagerController")
-local SkillController = Knit.GetController("SkillController")
-local HunterAttributeService = Knit.GetService("HunterAttributeService")
-local HunterService = Knit.GetService("HunterService")
 local TaskService = Knit.GetService("TaskService")
 local HumanClassService = Knit.GetService("HumanClassService")
 local HunterInventoryService = Knit.GetService("HunterInventoryService")
 local LaboratoryService = Knit.GetService("LaboratoryService")
-
-local HUNTER_STAT_KEYS = { "Attack", "HP", "Lucky" }
-local hunterAttackActive = false
 
 local RESEARCH_NAMES = {}
 local RESEARCH_BY_NAME = {}
@@ -208,119 +202,6 @@ local function isHumanTeam()
 	return getMyTeam() == "Team_1"
 end
 
-local function isHunterTeam()
-	return getMyTeam() == "Team_2"
-end
-
-local function getHunterAttackRange()
-	local ok, snap = pcall(function()
-		return HunterService:GetHunterSnapshot():expect()
-	end)
-	if ok and type(snap) == "table" then
-		local range = tonumber(snap.AttackRange)
-		if range and range > 0 then
-			return range
-		end
-	end
-	return 2
-end
-
-local function getAllDoorPlots()
-	local ok, plots = pcall(function()
-		return PlotController:GetAllPlots()
-	end)
-	if not ok or type(plots) ~= "table" then
-		return {}
-	end
-	local doors = {}
-	for _, plot in pairs(plots) do
-		if type(plot) == "table"
-			and plot.Destroyed ~= true
-			and getLogicType(plot.TmplId) == "Door"
-			and typeof(plot.CFrame) == "CFrame"
-		then
-			doors[#doors + 1] = plot
-		end
-	end
-	return doors
-end
-
-local function getDoorWorldCFrame(plot)
-	if type(plot) ~= "table" or type(plot.UniqueId) ~= "number" then
-		return nil
-	end
-	local ok, part = pcall(function()
-		return PlotController:GetPlotPart(plot.UniqueId)
-	end)
-	if ok and part and part:IsA("BasePart") then
-		return part.CFrame
-	end
-	if typeof(plot.CFrame) == "CFrame" then
-		return plot.CFrame
-	end
-	return nil
-end
-
-local function getNearestDoorCFrame(fromPos)
-	local bestCf = nil
-	local bestDist = math.huge
-	for _, plot in ipairs(getAllDoorPlots()) do
-		local cf = getDoorWorldCFrame(plot)
-		if cf then
-			local dist = (cf.Position - fromPos).Magnitude
-			if dist < bestDist then
-				bestDist = dist
-				bestCf = cf
-			end
-		end
-	end
-	return bestCf, bestDist
-end
-
-local function getNearestSurvivorRoot(fromPos)
-	local bestRoot = nil
-	local bestDist = math.huge
-	for _, player in ipairs(Players:GetPlayers()) do
-		if player ~= LocalPlayer and getTeamKeyForPlayer(player) == "Team_1" then
-			local character = player.Character
-			if isAliveCharacter(character) then
-				local root = character:FindFirstChild("HumanoidRootPart")
-				if root then
-					local dist = (root.Position - fromPos).Magnitude
-					if dist < bestDist then
-						bestDist = dist
-						bestRoot = root
-					end
-				end
-			end
-		end
-	end
-	return bestRoot, bestDist
-end
-
-local function ensureHunterAutoAttack(enabled)
-	pcall(function()
-		SkillController:SetAutoNormalAttackEnabled(enabled == true)
-	end)
-	if enabled then
-		if not hunterAttackActive then
-			hunterAttackActive = true
-			pcall(function()
-				SkillController:BeginNormalAttack()
-			end)
-		else
-			pcall(function()
-				SkillController:_TryUseNormalAttack()
-			end)
-		end
-	elseif hunterAttackActive then
-		hunterAttackActive = false
-		pcall(function()
-			SkillController:EndNormalAttack()
-		end)
-	end
-end
-
 local function getLocalPlots()
 	local ok, plots = pcall(function()
 		return PlotController:GetLocalPlayerPlots()
@@ -414,81 +295,6 @@ local function teleportToCFrame(target)
 	root.AssemblyLinearVelocity = Vector3.zero
 	root.AssemblyAngularVelocity = Vector3.zero
 	return true
-end
-
-local function moveHunterToTarget(targetPos, standDistance)
-	local root = getRoot()
-	local character = LocalPlayer.Character
-	if not root or not character or typeof(targetPos) ~= "Vector3" then
-		return false
-	end
-	local offset = standDistance or 1.5
-	local flat = Vector3.new(targetPos.X - root.Position.X, 0, targetPos.Z - root.Position.Z)
-	local dir = flat.Magnitude > 0.05 and flat.Unit or root.CFrame.LookVector
-	local dest = CFrame.new(targetPos - dir * offset + Vector3.new(0, 3, 0), targetPos)
-	return teleportToCFrame(dest)
-end
-
-local function runHunterCombat()
-	if not isHunterTeam() then
-		if hunterAttackActive then
-			ensureHunterAutoAttack(false)
-		end
-		return
-	end
-
-	local breakDoors = isOn("AutoBreakDoors")
-	local killPeople = isOn("AutoKillSurvivors")
-	if not breakDoors and not killPeople then
-		ensureHunterAutoAttack(false)
-		return
-	end
-
-	local root = getRoot()
-	if not root then
-		return
-	end
-
-	local range = getHunterAttackRange()
-	local approach = math.max(1.2, range * 0.75)
-	local chosenPos = nil
-
-	if killPeople then
-		local survivorRoot = getNearestSurvivorRoot(root.Position)
-		if survivorRoot then
-			chosenPos = survivorRoot.Position
-		end
-	end
-
-	if chosenPos == nil and breakDoors then
-		local doorCf = getNearestDoorCFrame(root.Position)
-		if doorCf then
-			chosenPos = doorCf.Position
-		end
-	end
-
-	if chosenPos == nil then
-		ensureHunterAutoAttack(true)
-		return
-	end
-
-	local dist = (root.Position - chosenPos).Magnitude
-	if dist > range + 0.75 then
-		moveHunterToTarget(chosenPos, approach)
-	end
-	ensureHunterAutoAttack(true)
-end
-
-local function runHunterUpgrades()
-	if not isHunterTeam() or not isOn("AutoHunterUpgradeAll") then
-		return
-	end
-	for _, statKey in ipairs(HUNTER_STAT_KEYS) do
-		pcall(function()
-			HunterAttributeService:Upgrade(statKey):expect()
-		end)
-		task.wait(0.05)
-	end
 end
 
 local function claimDailyTasks()
@@ -1157,7 +963,6 @@ ScriptsGroup:AddLabel(colored(GAME_NAME, BLUE), true)
 
 local FeaturesGroup = Tabs.Info:AddRightGroupbox("Features", "list")
 FeaturesGroup:AddLabel(colored("Automation", BLUE), true)
-FeaturesGroup:AddLabel(colored("Hunter", ORANGE), true)
 FeaturesGroup:AddLabel(colored("Lobby", GREEN), true)
 FeaturesGroup:AddLabel(colored("ESP", BLUE), true)
 FeaturesGroup:AddLabel(colored("Player Utilities", GREY), true)
@@ -1332,20 +1137,6 @@ AutoGroup:AddDropdown("ResearchProject", {
 local EspGroup = Tabs.Main:AddRightGroupbox("ESP", "eye")
 EspGroup:AddToggle("PlayerESP", {
 	Text = "Survivor/Hunter ESP",
-	Default = false,
-})
-
-local HunterGroup = Tabs.Main:AddRightGroupbox("Hunter", "skull")
-HunterGroup:AddToggle("AutoBreakDoors", {
-	Text = "Auto Break Doors",
-	Default = false,
-})
-HunterGroup:AddToggle("AutoKillSurvivors", {
-	Text = "Auto Kill Survivors",
-	Default = false,
-})
-HunterGroup:AddToggle("AutoHunterUpgradeAll", {
-	Text = "Auto Upgrade All",
 	Default = false,
 })
 
@@ -1660,20 +1451,6 @@ end)
 
 task.spawn(function()
 	while not Library.Unloaded do
-		task.wait(0.2)
-		pcall(runHunterCombat)
-	end
-end)
-
-task.spawn(function()
-	while not Library.Unloaded do
-		task.wait(0.6)
-		pcall(runHunterUpgrades)
-	end
-end)
-
-task.spawn(function()
-	while not Library.Unloaded do
 		task.wait(2)
 		pcall(runLobbyFeatures)
 	end
@@ -1845,7 +1622,6 @@ end)
 SaveManager:LoadAutoloadConfig()
 
 Library:OnUnload(function()
-	ensureHunterAutoAttack(false)
 	clearEsp()
 	if espFolder then
 		espFolder:Destroy()
