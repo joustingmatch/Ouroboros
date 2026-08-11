@@ -33,6 +33,12 @@ local EQUIP_BEST_UNIT = "\232\163\133\229\164\135\230\156\128\229\165\189_" .. U
 local MERGE_UNITS = "\229\144\136\230\136\144\229\141\149\228\189\141_\230\152\159\230\152\159\231\173\137\231\186\167"
 local REBIRTH = "\233\135\141\231\148\159"
 local PLACE_UNIT = "\230\148\190\231\189\174_" .. UNIT
+local DAOJU = "\233\129\147\229\133\183"
+local DAY_GIFT = "\230\175\143\230\151\165\229\165\150\229\138\177"
+local DAY_BOX = "\230\175\143\230\151\165\229\174\157\231\174\177"
+local START_CRAFT = "\229\188\128\229\167\139\229\136\182\228\189\156"
+local CLAIM_CRAFT = "\233\162\134\229\143\150\229\136\182\228\189\156"
+local USE_ITEM_TYPE = 2
 
 local UNIVERSAL_CD = 0.35
 
@@ -146,6 +152,57 @@ for index, cfg in PlayConfig.allStatUpgrade do
     upgradeIdByName[cfg.title] = cfg.id
 end
 
+local plantNames = {}
+local plantIdByName = {}
+local plantIndexByName = {}
+for _, cfg in PlayConfig.allUnit do
+    if cfg and cfg.name and (cfg.MaterialRarity == 1 or cfg.MaterialRarity == nil) and not plantIdByName[cfg.name] then
+        plantNames[#plantNames + 1] = cfg.name
+        plantIdByName[cfg.name] = cfg.id
+        plantIndexByName[cfg.name] = cfg.index
+    end
+end
+
+local fruitNames = {}
+local fruitIdByName = {}
+for _, cfg in PlayConfig.allUseItem do
+    if cfg and cfg.name and cfg.useType == 1 then
+        fruitNames[#fruitNames + 1] = cfg.name
+        fruitIdByName[cfg.name] = cfg.id
+    end
+end
+
+local craftNames = {}
+local craftIdByName = {}
+for _, cfg in PlayConfig.allProduction do
+    local label = "Craft " .. tostring(cfg.id)
+    if cfg.award then
+        if cfg.award.itemEnum == UNIT then
+            local unitCfg = PlayConfig.allUnit[cfg.award.value]
+            if unitCfg and unitCfg.name then
+                label = unitCfg.name
+            end
+        elseif cfg.award.itemEnum == DAOJU then
+            local itemCfg = PlayConfig.allUseItem[cfg.award.value]
+            if itemCfg and itemCfg.name then
+                label = itemCfg.name
+            end
+        end
+    end
+    if craftIdByName[label] then
+        label = label .. " #" .. tostring(cfg.id)
+    end
+    craftNames[#craftNames + 1] = label
+    craftIdByName[label] = cfg.id
+end
+
+local plantCraftByUnitId = {}
+for _, cfg in PlayConfig.allProduction do
+    if cfg.award and cfg.award.itemEnum == UNIT then
+        plantCraftByUnitId[cfg.award.value] = cfg.id
+    end
+end
+
 local unitStarMax = PlayConfig.unitStarMax
 
 local function selectedIdSet(optionName, idByName)
@@ -195,6 +252,7 @@ local Tabs = {
 
 Tabs.Roll = Tabs.Main:AddSubTab("Roll", "dices")
 Tabs.Units = Tabs.Main:AddSubTab("Units", "sprout")
+Tabs.Shop = Tabs.Main:AddSubTab("Shop", "shopping-bag")
 Tabs.Match = Tabs.Main:AddSubTab("Match", "swords")
 
 local function AddDiscordButton(Tab)
@@ -287,6 +345,11 @@ FeaturesGroup:AddLabel(colored("Auto Sell by Rarity", ORANGE), true)
 FeaturesGroup:AddLabel(colored("Auto Merge", BLUE), true)
 FeaturesGroup:AddLabel(colored("Auto Equip Best", GREEN), true)
 FeaturesGroup:AddLabel(colored("Auto Replace", BLUE), true)
+FeaturesGroup:AddLabel(colored("Auto Buy / Delete Plants", GREEN), true)
+FeaturesGroup:AddLabel(colored("Auto Buy / Use Fruit", ORANGE), true)
+FeaturesGroup:AddLabel(colored("Auto Craft", BLUE), true)
+FeaturesGroup:AddLabel(colored("Auto Claim Mission / Daily", GREEN), true)
+FeaturesGroup:AddLabel(colored("Auto Get All Plants", ORANGE), true)
 FeaturesGroup:AddLabel(colored("Auto Start / Stop at Wave", ORANGE), true)
 FeaturesGroup:AddLabel(colored("Auto Rebirth", ORANGE), true)
 FeaturesGroup:AddLabel(colored("Auto Upgrades", GREEN), true)
@@ -437,6 +500,83 @@ UnitGroup:AddToggle("AutoReplace", {
     Default = false,
 })
 
+local BuyPlantGroup = Tabs.Shop:AddLeftGroupbox("Buy Plant", "sprout")
+
+BuyPlantGroup:AddToggle("AutoBuyPlant", {
+    Text = "Auto Buy Plant",
+    Default = false,
+})
+
+BuyPlantGroup:AddDropdown("BuyPlants", {
+    Values = plantNames,
+    Multi = true,
+    Searchable = true,
+    AllowNull = true,
+    Text = "Plants",
+    Default = {},
+})
+
+local DeletePlantGroup = Tabs.Shop:AddLeftGroupbox("Delete Plant", "trash-2")
+
+DeletePlantGroup:AddToggle("AutoDeletePlant", {
+    Text = "Auto Delete Plant",
+    Default = false,
+})
+
+DeletePlantGroup:AddDropdown("DeletePlants", {
+    Values = plantNames,
+    Multi = true,
+    Searchable = true,
+    AllowNull = true,
+    Text = "Plants",
+    Default = {},
+})
+
+local FruitGroup = Tabs.Shop:AddRightGroupbox("Fruit", "apple")
+
+FruitGroup:AddToggle("AutoBuyFruit", {
+    Text = "Auto Buy Fruit",
+    Default = false,
+})
+
+FruitGroup:AddToggle("AutoUseFruit", {
+    Text = "Auto Use Fruit",
+    Default = false,
+})
+
+FruitGroup:AddDropdown("Fruits", {
+    Values = fruitNames,
+    Multi = true,
+    Searchable = true,
+    AllowNull = true,
+    Text = "Fruits",
+    Default = {},
+})
+
+local CraftGroup = Tabs.Shop:AddRightGroupbox("Craft", "hammer")
+
+CraftGroup:AddToggle("AutoCraft", {
+    Text = "Auto Craft",
+    Default = false,
+})
+
+CraftGroup:AddDropdown("CraftRecipes", {
+    Values = craftNames,
+    Multi = true,
+    Searchable = true,
+    AllowNull = true,
+    Text = "Recipes",
+    Default = {},
+})
+
+CraftGroup:AddSlider("CraftSize", {
+    Text = "Craft Size",
+    Default = 1,
+    Min = 1,
+    Max = 20,
+    Rounding = 0,
+})
+
 local MatchGroup = Tabs.Match:AddRightGroupbox("Match", "swords")
 
 MatchGroup:AddToggle("AutoStart", {
@@ -478,6 +618,25 @@ UpgradeGroup:AddDropdown("UpgradeTypes", {
     AllowNull = true,
     Text = "Upgrades",
     Default = {},
+})
+
+local MissionGroup = Tabs.Progress:AddLeftGroupbox("Missions", "list-checks")
+
+MissionGroup:AddToggle("AutoClaimMission", {
+    Text = "Auto Claim Mission",
+    Default = false,
+})
+
+MissionGroup:AddToggle("AutoGetAllPlant", {
+    Text = "Auto Get All Plant",
+    Default = false,
+})
+
+local DailyGroup = Tabs.Progress:AddRightGroupbox("Daily", "calendar")
+
+DailyGroup:AddToggle("AutoClaimDaily", {
+    Text = "Auto Claim Daily Rewards",
+    Default = false,
 })
 
 local function syncRollFlag(key, current, desired)
@@ -810,6 +969,253 @@ task.spawn(function()
                                 break
                             end
                             level = serverData.allStatUpgrade[index]
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
+
+local function selectedNameSet(optionName)
+    local set = {}
+    for name, enabled in pairs(getMulti(optionName)) do
+        if enabled then
+            set[name] = true
+        end
+    end
+    return set
+end
+
+local function getUnixTime()
+    local FrameworkLink = require(BusinessFolder:WaitForChild("FrameworkLink"))
+    local ok, ms = pcall(function()
+        return FrameworkLink.TimeSynch:Get_UnixTimestampMillis()
+    end)
+    if ok and type(ms) == "number" then
+        return math.floor(ms / 1000)
+    end
+    return os.time()
+end
+
+local function canAfford(con)
+    if type(con) ~= "table" then
+        return true
+    end
+    local ok, ready = pcall(BusinessBase.Con, con, false)
+    return ok and ready == true
+end
+
+local function craftAffordable(cfg)
+    if type(cfg.data) ~= "table" then
+        return true
+    end
+    for _, entry in pairs(cfg.data) do
+        if type(entry) == "table" then
+            local cost = entry.cost or entry
+            if type(cost) == "table" and cost.itemEnum and not canAfford(cost) then
+                return false
+            end
+        end
+    end
+    return true
+end
+
+local function productionReady(serverData)
+    local productionId = serverData.productionId
+    if productionId == nil or productionId == 0 then
+        return false
+    end
+    local startTime = serverData.productionStartTime or 0
+    local maxTime = serverData.productionMaxTime or 0
+    return getUnixTime() >= (startTime + maxTime)
+end
+
+task.spawn(function()
+    while not Library.Unloaded do
+        task.wait(1)
+
+        if isOn("AutoDeletePlant") then
+            local wanted = selectedNameSet("DeletePlants")
+            if hasAny(wanted) then
+                local data = getData()
+                if data then
+                    local indexes = {}
+                    for name in pairs(wanted) do
+                        local index = plantIndexByName[name]
+                        if index then
+                            indexes[index] = true
+                        end
+                    end
+                    local gids = {}
+                    for _, entry in data.serverData.allCard do
+                        local gid = entry.gid
+                        local card, cfg = getUnit(data, gid)
+                        if card ~= nil and cfg ~= nil and indexes[cfg.index] and not card.isLock then
+                            if not isSceneUnit(data.serverData, gid) and not isEquippedUnit(data.serverData, gid) then
+                                table.insert(gids, gid)
+                            end
+                        end
+                    end
+                    if #gids > 0 then
+                        OnClientGameEvent:Destroy_GidData_Item(UNIT, gids)
+                        task.wait(UNIVERSAL_CD)
+                    end
+                end
+            end
+        end
+
+        if isOn("AutoBuyPlant") then
+            local wanted = selectedNameSet("BuyPlants")
+            if hasAny(wanted) then
+                local serverData = getServerData()
+                if serverData and (serverData.productionId == nil or serverData.productionId == 0) then
+                    for name in pairs(wanted) do
+                        if Library.Unloaded or not isOn("AutoBuyPlant") then
+                            break
+                        end
+                        local unitId = plantIdByName[name]
+                        if unitId then
+                            local craftId = plantCraftByUnitId[unitId]
+                            if craftId then
+                                local cfg = PlayConfig.allProduction[craftId]
+                                if cfg and craftAffordable(cfg) then
+                                    OnClientGameEvent:BusinessToIdSize(START_CRAFT, craftId, 1)
+                                    task.wait(UNIVERSAL_CD)
+                                    break
+                                end
+                            else
+                                if canAfford(PlayConfig.allUnit[unitId] and PlayConfig.allUnit[unitId].cost) then
+                                    OnClientGameEvent:Buy_Backpack_Item(UNIT, unitId)
+                                    task.wait(UNIVERSAL_CD)
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+
+        if isOn("AutoBuyFruit") then
+            local wanted = selectedNameSet("Fruits")
+            if hasAny(wanted) then
+                for name in pairs(wanted) do
+                    if Library.Unloaded or not isOn("AutoBuyFruit") then
+                        break
+                    end
+                    local fruitId = fruitIdByName[name]
+                    local cfg = fruitId and PlayConfig.allUseItem[fruitId]
+                    if cfg and canAfford(cfg.cost) then
+                        OnClientGameEvent:Buy_Backpack_Item(DAOJU, cfg.id)
+                        task.wait(UNIVERSAL_CD)
+                    end
+                end
+            end
+        end
+
+        if isOn("AutoUseFruit") then
+            local wanted = selectedNameSet("Fruits")
+            if hasAny(wanted) then
+                local serverData = getServerData()
+                if serverData and serverData.allUseItemStoreSize then
+                    for name in pairs(wanted) do
+                        if Library.Unloaded or not isOn("AutoUseFruit") then
+                            break
+                        end
+                        local fruitId = fruitIdByName[name]
+                        if fruitId and (serverData.allUseItemStoreSize[fruitId] or 0) > 0 then
+                            OnClientGameEvent:UseItem(fruitId, USE_ITEM_TYPE)
+                            task.wait(UNIVERSAL_CD)
+                        end
+                    end
+                end
+            end
+        end
+
+        if isOn("AutoCraft") then
+            local serverData = getServerData()
+            if serverData then
+                if productionReady(serverData) then
+                    OnClientGameEvent:Business(CLAIM_CRAFT)
+                    task.wait(UNIVERSAL_CD)
+                elseif serverData.productionId == nil or serverData.productionId == 0 then
+                    local wanted = selectedNameSet("CraftRecipes")
+                    if hasAny(wanted) then
+                        local size = math.max(1, math.floor(getNumber("CraftSize", 1)))
+                        for name in pairs(wanted) do
+                            if Library.Unloaded or not isOn("AutoCraft") then
+                                break
+                            end
+                            local craftId = craftIdByName[name]
+                            local cfg = craftId and PlayConfig.allProduction[craftId]
+                            if cfg and craftAffordable(cfg) then
+                                OnClientGameEvent:BusinessToIdSize(START_CRAFT, craftId, size)
+                                task.wait(UNIVERSAL_CD)
+                                break
+                            end
+                        end
+                    end
+                end
+            end
+        elseif isOn("AutoBuyPlant") then
+            local serverData = getServerData()
+            if serverData and productionReady(serverData) then
+                OnClientGameEvent:Business(CLAIM_CRAFT)
+                task.wait(UNIVERSAL_CD)
+            end
+        end
+
+        if isOn("AutoClaimMission") then
+            local serverData = getServerData()
+            if serverData then
+                for index, cfg in PlayConfig.allDayTask do
+                    if Library.Unloaded or not isOn("AutoClaimMission") then
+                        break
+                    end
+                    local need = cfg.con and cfg.con.size or 0
+                    local progress = serverData.dayTaskSize and serverData.dayTaskSize[index] or 0
+                    local claimed = serverData.dayTaskIsOk and serverData.dayTaskIsOk[index] == true
+                    if need > 0 and progress >= need and not claimed and cfg.con and cfg.con.itemEnum then
+                        OnClientGameEvent:BusinessToId(cfg.con.itemEnum, cfg.id)
+                        task.wait(UNIVERSAL_CD)
+                    end
+                end
+            end
+        end
+
+        if isOn("AutoClaimDaily") then
+            local serverData = getServerData()
+            if serverData then
+                local nextDay = (serverData.dayGift or 0) + 1
+                if PlayConfig.dayGift[nextDay] then
+                    OnClientGameEvent:BusinessToId(DAY_GIFT, nextDay)
+                    task.wait(UNIVERSAL_CD)
+                end
+                local boxTime = serverData.dailyBoxTime or 0
+                if boxTime > 0 and getUnixTime() >= boxTime then
+                    OnClientGameEvent:GetGift(DAY_BOX)
+                    task.wait(UNIVERSAL_CD)
+                end
+            end
+        end
+
+        if isOn("AutoGetAllPlant") then
+            local data = getData()
+            if data then
+                for chunk = 1, #data.serverData.sceneUnit do
+                    if Library.Unloaded or not isOn("AutoGetAllPlant") then
+                        break
+                    end
+                    if data.serverData.sceneUnitChunkUnlock[chunk] == true then
+                        local sceneGid = data.serverData.sceneUnit[chunk]
+                        if sceneGid == nil or sceneGid <= 0 then
+                            local slot = findBetterHandSlot(data, nil)
+                            if slot ~= nil then
+                                OnClientGameEvent:SelectHandUnit(slot)
+                                task.wait(UNIVERSAL_CD)
+                                OnClientGameEvent:BusinessToId(PLACE_UNIT, chunk)
+                                task.wait(UNIVERSAL_CD)
+                            end
                         end
                     end
                 end
