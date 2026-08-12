@@ -168,6 +168,7 @@ local games = {
     [559846885]  = 'ironsoulsdungeon.lua',
     [286016413] = 'broketorich.lua',
     [860201727] = 'speedevolve.lua',
+    [854390513] = 'jumptostealsoccer.lua',
 }   
 
 local file = games[game.CreatorId]
