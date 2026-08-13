@@ -174,6 +174,7 @@ local games = {
     [852706731] = 'rollasuperhero.lua',
     [1030691482] = 'beanstalksquishy.lua',
     [650517328] = 'rollanimedice.lua',
+    [308858726] = 'buildagunarmy.lua',
 }   
 
 local file = games[game.CreatorId]
