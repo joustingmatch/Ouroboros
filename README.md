@@ -1,3 +1,1 @@
-# before anyone dickrides, yes obviously i vibecode mostly, that is why this is keyless and not paid at all. 
-
-# will never have a key-system nor any other slop bullshit so don't worry about that either. 
+# bit of vibecoding bit of manual coding, keyless and ur average script hub that adds any or whatever exists on roblox 
