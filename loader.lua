@@ -184,6 +184,7 @@ local games = {
     [496909722] = 'dungeonquest.lua',
     [9436002850] = 'petforest.lua',
     [988942002] = 'auraperclick.lua',
+    [546215338] = 'animewarrng.lua',
 }   
 
 local file = games[game.CreatorId]
