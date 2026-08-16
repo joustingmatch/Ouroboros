@@ -1,2 +1,2 @@
-local message = "Script is DOWN, fixing some issues then rereleasing, apologies."
+local message = "discontinued"
 game:GetService("Players").LocalPlayer:Kick(message)
