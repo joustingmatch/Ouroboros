@@ -187,6 +187,7 @@ local games = {
     [546215338] = 'animewarrng.lua',
     [33893781] = 'dreamkeyboard.lua',
     [36086574] = 'starcatchers.lua',
+    [33579757] = 'minerrng.lua',
 }   
 
 local file = games[game.CreatorId]
