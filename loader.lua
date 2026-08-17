@@ -199,6 +199,7 @@ local games = {
     [16481354] = 'slimecardcollection.lua',
     [4656477] = 'caseparadise.lua',
     [706743014] = 'swordempire.lua',
+    [247318225] = 'animecoin.lua',
 }   
 
 local file = games[game.CreatorId]
