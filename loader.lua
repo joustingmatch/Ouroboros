@@ -192,6 +192,7 @@ local games = {
     [490177241] = 'rollforchiikawa.lua',
     [355220525] = 'rollaspirit.lua',
     [35699110] = 'animelootup.lua',
+    [1018567917] = 'snipebrainrots.lua',
 }   
 
 local file = games[game.CreatorId]
