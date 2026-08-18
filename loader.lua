@@ -207,6 +207,7 @@ local games = {
     [1061245028] = 'cliffmansion.lua',
     [35754558] = 'ageevolution.lua',
     [476752300] = 'bemonkey.lua',
+    [15707680] = 'fishperclick.lua',
 }   
 
 local file = games[game.CreatorId]
