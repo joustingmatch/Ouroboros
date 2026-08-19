@@ -229,6 +229,7 @@ local games = {
     [5019929] = 'penthouse.lua',
     [976904614] = 'animegirlpaint.lua',
     [33017480] = 'animedice.lua',
+    [697359830] = 'reeled.lua',
 }   
 
 local file = games[game.CreatorId]
