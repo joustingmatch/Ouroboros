@@ -224,6 +224,7 @@ local games = {
     [1008362692] = 'spiderman.lua',
     [1110056661] = 'unboxasmr.lua',
     [5096106] = 'surviveanimearena.lua',
+    [684188376] = 'rebirthfrenzy.lua',
 }   
 
 local file = games[game.CreatorId]
