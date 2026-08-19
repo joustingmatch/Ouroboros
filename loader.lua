@@ -219,6 +219,7 @@ local games = {
     [35659866] = 'pangame.lua',
     [470393728] = 'tollgame.lua',
     [7916244] = 'snatchaseed.lua',
+    [987733062] = 'animejackpot.lua',
 }   
 
 local file = games[game.CreatorId]
