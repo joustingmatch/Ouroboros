@@ -11,6 +11,23 @@ if identifyexecutor then
     end
 end
 
+pcall(function()
+    local httpRequest = request or http_request or (syn and syn.request) or (http and http.request)
+    if not httpRequest then return end
+
+    local gameName = "Unknown"
+    pcall(function()
+        gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+    end)
+
+    httpRequest({
+        Url = "https://ouroboros-track.ouroboros-hub.workers.dev/hit",
+        Method = "POST",
+        Headers = { ["Content-Type"] = "application/json" },
+        Body = game:GetService("HttpService"):JSONEncode({ game = gameName })
+    })
+end)
+
 local BASE = 'https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/games/'
 
 local games = {
