@@ -252,6 +252,7 @@ local games = {
     [1092080264] = 'carvewood.lua',
     [1044583942] = 'cleantheworld.lua',
     [1040399903] = 'surviveverity.luau',
+    [659075385] = 'CollectTheAlphabet.luau',
 }   
 
 local file = games[game.CreatorId]
