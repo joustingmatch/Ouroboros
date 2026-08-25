@@ -256,6 +256,7 @@ local games = {
     [620792404] = 'mytimberpets.lua',
     [621477904] = 'buildagolem.luau',
     [11317569] = 'blowupluckyblock.luau',
+    [1083668503] = 'defendyouranimals.luau',
 }   
 
 local file = games[game.CreatorId]
