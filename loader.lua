@@ -259,6 +259,7 @@ local games = {
     [1083668503] = 'defendyouranimals.luau',
     [888837368] = 'mergeaspinner.luau',
     [339029776] = 'whereseasonspass.luau',
+    [304215968] = 'cutandride.luau',
 }   
 
 local file = games[game.CreatorId]
