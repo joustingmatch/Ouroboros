@@ -262,6 +262,7 @@ local games = {
     [304215968] = 'cutandride.luau',
     [809019174] = 'luckytrain.luau',
     [944559406] = 'powerjujustu.luau',
+    [34815841] = 'breakanimewalls.luau',
 }   
 
 local file = games[game.CreatorId]
