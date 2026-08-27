@@ -264,6 +264,7 @@ local games = {
     [944559406] = 'powerjujustu.luau',
     [34815841] = 'breakanimewalls.luau',
     [282223248] = 'squirrelescape.luau',
+    [2919215] = 'dragonadventures.luau',
 }   
 
 local file = games[game.CreatorId]
