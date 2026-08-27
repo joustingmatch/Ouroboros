@@ -268,6 +268,7 @@ local games = {
     [34744238] = 'deepfishing.luau',
     [848138310] = 'buildacloneobby.luau',
     [194818661] = 'rollasorcrer.luau',
+    [32943081] = 'runaways.luau',
 }   
 
 local file = games[game.CreatorId]
