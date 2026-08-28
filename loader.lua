@@ -263,7 +263,7 @@ local games = {
     [1102045545] = 'buildbasketball.luau',
     [220663882] = 'swordfightingescape.luau',
     [343600121] = 'forgensell.luau',
-    [] = 'streamcheesepull.luau',
+    [1013100488] = 'streamcheesepull.luau',
 }
 
 if identifyexecutor then
