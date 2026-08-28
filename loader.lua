@@ -260,6 +260,7 @@ local games = {
     [848138310] = 'buildacloneobby.luau',
     [194818661] = 'rollasorcrer.luau',
     [32943081] = 'runaways.luau',
+    [1102045545] = 'buildbasketball.luau',
 }
 
 if identifyexecutor then
