@@ -262,7 +262,7 @@ local games = {
     [32943081] = 'runaways.luau',
     [1102045545] = 'buildbasketball.luau',
     [220663882] = 'swordfightingescape.luau',
-    [343600121] = 'forgensell.luau,
+    [343600121] = 'forgensell.luau',
 }
 
 if identifyexecutor then
