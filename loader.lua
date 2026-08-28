@@ -2,15 +2,6 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
-
-if identifyexecutor then
-    local execName = tostring(identifyexecutor()):lower()
-    if execName:find("solara") or execName:find("xeno") then
-        game:GetService("Players").LocalPlayer:Kick("EXECUTOR NOT SUPPORTED[PLEASE DON'T GET MAD THIS IS SOLARA/XENO'S FAULT]")
-        return
-    end
-end
-
 local BASE = 'https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/games/'
 
 local games = {
@@ -269,20 +260,30 @@ local games = {
     [848138310] = 'buildacloneobby.luau',
     [194818661] = 'rollasorcrer.luau',
     [32943081] = 'runaways.luau',
-}   
+}
+
+if identifyexecutor then
+    local execName = tostring(identifyexecutor()):lower()
+    local UNSUPPORTED = { "Solara", "Xeno" }
+    for _, name in ipairs(UNSUPPORTED) do
+        if execName:find(name:lower(), 1, true) then
+            local ok, Library = pcall(function()
+                return loadstring(game:HttpGet("https://raw.githubusercontent.com/joustingmatch/ObsidianUltra/main/Library.lua"))()
+            end)
+            if ok and Library then
+                Library:CreateUnsupportedScreen({
+                    Title = "Ouroboros",
+                    Unsupported = UNSUPPORTED,
+                    Footer = { { Text = "discord.gg/ehKVq7pf7v", Copyable = true } },
+                })
+            end
+            return
+        end
+    end
+end
 
 local file = games[game.CreatorId]
 if file then
-    pcall(function()
-        local httpRequest = request or http_request or (syn and syn.request) or (http and http.request)
-        if not httpRequest then return end
-
-        httpRequest({
-            Url = "https://ouroboros-track.ouroboros-hub.workers.dev/hit",
-            Method = "POST"
-        })
-    end)
-
     task.wait(math.random())
     loadstring(game:HttpGet(BASE .. file))()
 end
