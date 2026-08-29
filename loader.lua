@@ -264,6 +264,7 @@ local games = {
     [220663882] = 'swordfightingescape.luau',
     [343600121] = 'forgensell.luau',
     [1013100488] = 'streamcheesepull.luau',
+    [317336606] = 'ruleanimedungeon.luau,
 }
 
 if identifyexecutor then
