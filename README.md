@@ -1,1 +1,1 @@
-# hi genius yes i use a shit obf on purpose, and yes u can crack them i could care less it was a single prompt and a 10 minute wait 
+# ur only looking at this github for 1 reason and i probably know why and yes ur 2 late they already got me and yes i don't care
