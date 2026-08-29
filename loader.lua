@@ -266,6 +266,7 @@ local games = {
     [1013100488] = 'streamcheesepull.luau',
     [317336606] = 'ruleanimedungeon.luau',
     [110427303] = 'dungeonlootr.luau',
+    [914557479] = 'beatanimeboss.luau',
 }
 
 if identifyexecutor then
