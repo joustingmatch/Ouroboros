@@ -1,1 +1,1 @@
-# how you gon crack my slop scripts and not be able to crack anything with more then 2k lines using a garbage obf LOLOLOL
+# hi genius yes i use a shit obf on purpose, and yes u can crack them i could care less it was a single prompt and a 10 minute wait 
