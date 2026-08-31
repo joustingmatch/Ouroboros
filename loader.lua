@@ -274,6 +274,7 @@ local games = {
     [14624718] = 'tap4money.luau',
     [771272433] = 'farmersmarket.luau',
     [414378048] = 'digintosecrets.luau',
+    [1103270448] = 'rescueanimals.luau',
 }
 
 if identifyexecutor then
