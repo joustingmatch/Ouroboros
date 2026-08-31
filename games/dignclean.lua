@@ -32,6 +32,9 @@
     local SellFunctions = require(NetworkFolder.SellNetwork).SellFunctions
     local PedestalFunctions = require(NetworkFolder.PedestalNetwork).PedestalFunctions
     local TravelFunctions = require(NetworkFolder.TravelNetwork).TravelFunctions
+    local ItemsNetwork = require(NetworkFolder.ItemsNetwork)
+    local ItemsFunctions = ItemsNetwork.ItemsFunctions
+    local ItemsEvents = ItemsNetwork.ItemsEvents
     local ShovelNetwork = require(NetworkFolder.ShovelNetwork)
     local ShovelEvents = ShovelNetwork.ShovelEvents
     local ShovelFunctions = ShovelNetwork.ShovelFunctions
@@ -107,7 +110,6 @@
     local SWEEP_CONTROLLER = "client/controllers/world/DetectorSweepController@DetectorSweepController"
     local SURFACED_CONTROLLER = "client/controllers/world/SurfacedItemController@SurfacedItemController"
     local WORKBENCH_CONTROLLER = "client/controllers/world/WorkbenchController@WorkbenchController"
-    local SPRAY_CONTROLLER = "client/controllers/world/SprayBottleController@SprayBottleController"
     local DATA_CONTROLLER = "client/controllers/data/DataController@DataController"
 
     local function resolve(identifier)
@@ -590,11 +592,6 @@
         Text = "Rarity Priority",
     })
 
-    CleanGroup:AddToggle("CleanTeleport", {
-        Text = "Teleport To Workbench",
-        Default = true,
-    })
-
     CleanGroup:AddSlider("CleanFinishDelay", {
         Text = "Scrub Time Before Finishing",
         Default = 1,
@@ -604,15 +601,10 @@
         Suffix = "s",
     })
 
-    CleanGroup:AddToggle("CleanReturn", {
-        Text = "Return After Cleaning",
-        Default = true,
-    })
-
     local CleanStatusGroup = Tabs.Cleaning:AddRightGroupbox("Status", "activity")
 
     local CleanDirtyLabel = CleanStatusGroup:AddLabel(field("Dirty items", "0", ORANGE), true)
-    local CleanStateLabel = CleanStatusGroup:AddLabel(field("Workbench", "idle", BLUE), true)
+    local CleanStateLabel = CleanStatusGroup:AddLabel(field("Clean", "idle", BLUE), true)
 
     local PlaceGroup = Tabs.Storage:AddLeftGroupbox("Auto Place", "layout-grid")
 
@@ -914,7 +906,7 @@
     warnAgainstAutoDig(
         "AutoClean",
         "Auto Clean",
-        "Auto Dig is running. Cleaning takes you to the workbench and pauses digging until the backpack is clean. Set Clean Priority so the two take turns the way you want."
+        "Auto Dig is running. Cleaning pauses digging until the backpack is clean. Set Clean Priority so the two take turns the way you want."
     )
 
     warnAgainstAutoDig(
@@ -1005,6 +997,9 @@
 
     local digClickBudget = 0
     local cleanActive = false
+    local cleanInventoryId = nil
+    local cleanStartedAt = 0
+    local cleanCooldownUntil = 0
     local buyActive = false
     travelBusy = false
 
@@ -1043,6 +1038,36 @@
             Vector3.new(2687, 20, 1718),
             Vector3.new(2592, 25, 1672),
             Vector3.new(2505, 20, 1682),
+        },
+        island4 = {
+            Vector3.new(2033, 51, -2847),
+            Vector3.new(2201, 51, -2938),
+            Vector3.new(2329, 51, -2871),
+            Vector3.new(2382, 51, -2689),
+            Vector3.new(2364, 51, -2649),
+            Vector3.new(2133, 51, -2555),
+            Vector3.new(2068, 51, -2595),
+            Vector3.new(2009, 51, -2798),
+        },
+        island5 = {
+            Vector3.new(-1534, 67, 1064),
+            Vector3.new(-1306, 67, 940),
+            Vector3.new(-1132, 67, 1030),
+            Vector3.new(-1059, 67, 1277),
+            Vector3.new(-1083, 67, 1331),
+            Vector3.new(-1396, 67, 1460),
+            Vector3.new(-1485, 67, 1407),
+            Vector3.new(-1566, 67, 1131),
+        },
+        island6 = {
+            Vector3.new(-2415, 643, -1023),
+            Vector3.new(-2201, 643, -1060),
+            Vector3.new(-2111, 643, -1046),
+            Vector3.new(-2070, 643, -986),
+            Vector3.new(-2130, 643, -831),
+            Vector3.new(-2389, 643, -713),
+            Vector3.new(-2430, 643, -731),
+            Vector3.new(-2482, 643, -931),
         },
     }
 
@@ -1357,6 +1382,9 @@ end)
     end
 
     local function isWorkbenchBusy()
+        if cleanInventoryId then
+            return true
+        end
         local workbench = resolve(WORKBENCH_CONTROLLER)
         if not workbench then
             return false
@@ -1520,82 +1548,27 @@ end)
         wanderDigZone(selectedIslandId() or (getData() and getData().CurrentIsland))
     end
 
-local CLEAN_ENTER_TIMEOUT = 5
-
-local cleanSessionStartedAt = 0
-local cleanEnterStartedAt = 0
-local cleanReturnCFrame = nil
-local cleanNeedsReturn = false
-
 local function stepAutoClean()
-    local workbench = resolve(WORKBENCH_CONTROLLER)
-    if not workbench then
-        return false
+    if os.clock() < cleanCooldownUntil then
+        return true
     end
 
-    if workbench.session then
-        local spray = resolve(SPRAY_CONTROLLER)
-        if not spray or spray.finishing then
+    if cleanInventoryId then
+        if os.clock() - cleanStartedAt < Options.CleanFinishDelay.Value then
             return true
         end
-
-        if cleanSessionStartedAt == 0 then
-            cleanSessionStartedAt = os.clock()
-        end
-
-        local primed = spray.dirtCells ~= nil
-            or (type(spray.dirtBlocks) == "table" and #spray.dirtBlocks > 0)
-        local waited = os.clock() - cleanSessionStartedAt
-        if not primed and waited < 15 then
-            return true
-        end
-        if primed and waited < Options.CleanFinishDelay.Value then
-            return true
-        end
-
+        local inventoryId = cleanInventoryId
+        cleanInventoryId = nil
+        cleanStartedAt = 0
+        cleanCooldownUntil = os.clock() + 0.4
         pcall(function()
-            if spray.popAllDirt then
-                spray:popAllDirt()
-            end
-            spray:sweepRemaining()
-            spray:forceFinish()
+            ItemsEvents.finishCleaning:fire(inventoryId)
         end)
-        return true
-    end
-
-    if cleanSessionStartedAt ~= 0 then
-        cleanSessionStartedAt = 0
-        if Toggles.CleanReturn.Value then
-            cleanNeedsReturn = true
-        else
-            cleanReturnCFrame = nil
-        end
-    end
-
-    if cleanNeedsReturn then
-        local targetIsland = selectedIslandId()
-        if Toggles.AutoTravelIsland.Value and targetIsland and not ensureIsland(targetIsland) then
-            return true
-        end
         if digModeIsWalk() then
-            teleportToWalkStart()
             beginWalkResume()
-        elseif cleanReturnCFrame then
-            pcall(teleportStreamed, LocalPlayer, cleanReturnCFrame)
         end
-        cleanReturnCFrame = nil
-        cleanNeedsReturn = false
         return true
     end
-
-    if workbench.cleaning then
-        if cleanEnterStartedAt == 0 then
-            cleanEnterStartedAt = os.clock()
-        end
-        return os.clock() - cleanEnterStartedAt < CLEAN_ENTER_TIMEOUT
-    end
-
-    cleanEnterStartedAt = 0
 
     local tool, held = findDirtyTool()
     if not tool then
@@ -1611,34 +1584,22 @@ local function stepAutoClean()
         return true
     end
 
-    if not cleanReturnCFrame then
-        local root = getRoot()
-        if root then
-            cleanReturnCFrame = root.CFrame
-        end
+    local inventoryId = tool:GetAttribute("inventoryId")
+    if type(inventoryId) ~= "string" then
+        return false
     end
 
-    if Toggles.AutoTravelIsland.Value and not ensureIsland(IslandConstants.STARTER_ISLAND_ID) then
+    stopDigWalk()
+
+    local ok = pcall(function()
+        ItemsFunctions.beginCleaning:invoke(inventoryId):expect()
+    end)
+    if not ok then
         return true
     end
 
-    local bench = workbench.workbench
-    if not bench then
-        return false
-    end
-
-    local root = getRoot()
-    if not root then
-        return false
-    end
-
-    if Toggles.CleanTeleport.Value then
-        teleportTo(bench:GetPivot().Position + Vector3.new(0, 4, 0))
-        task.wait(0.2)
-    end
-
-    pcall(workbench.onTriggered, workbench)
-
+    cleanInventoryId = inventoryId
+    cleanStartedAt = os.clock()
     return true
 end
 
@@ -2517,16 +2478,20 @@ end
             end
             PriorityCycleLabel:SetText(field("Cycles", tostring(priorityCycles), GREEN))
 
-            local workbench = resolve(WORKBENCH_CONTROLLER)
             local state = "idle"
-            if workbench then
-                if workbench.session then
-                    state = "cleaning"
-                elseif workbench.cleaning then
-                    state = "entering"
+            if cleanInventoryId then
+                state = "cleaning"
+            else
+                local workbench = resolve(WORKBENCH_CONTROLLER)
+                if workbench then
+                    if workbench.session then
+                        state = "cleaning"
+                    elseif workbench.cleaning then
+                        state = "entering"
+                    end
                 end
             end
-            CleanStateLabel:SetText(field("Workbench", state, BLUE))
+            CleanStateLabel:SetText(field("Clean", state, BLUE))
         end
     end)
 
@@ -2540,7 +2505,7 @@ end
 
     SaveManager:SetLibrary(Library)
     SaveManager:IgnoreThemeSettings()
-    SaveManager:SetIgnoreIndexes({ "MenuKeybind" })
+    SaveManager:SetIgnoreIndexes({ "MenuKeybind", "CleanTeleport", "CleanReturn" })
     SaveManager:SetFolder("OuroborosHub/dig-and-clean")
     SaveManager:BuildConfigSection(Tabs.Settings)
 
