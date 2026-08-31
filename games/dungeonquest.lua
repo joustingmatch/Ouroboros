@@ -78,10 +78,17 @@ local Translations = {
         title = "Skript momentan offline",
         body = "Dungeon Quest hat das Anticheat aktualisiert, weshalb das Skript momentan nicht funktioniert. Wir arbeiten an einem Bypass—falls es nicht klappt, geben wir Bescheid.",
         button = "Schließen"
+    },
+    ["br"] = {
+        name = "Português",
+        flag = "🇧🇷",
+        title = "Script temporariamente desativado",
+        body = "Dungeon Quest atualizou o anti-cheat, então o script está temporariamente inutilizável. Estamos tentando criar um bypass—se não for possível, postaremos um aviso.",
+        button = "Fechar"
     }
 }
 
-local LanguageOrder = {"en", "ph", "vn", "id", "ru", "th", "de"}
+local LanguageOrder = {"en", "ph", "vn", "id", "ru", "th", "de", "br"}
 
 local Blur = Instance.new("BlurEffect")
 Blur.Name = "DQ_NoticeBlur"
@@ -149,7 +156,7 @@ ChooserSub.TextSize = 10
 ChooserSub.TextColor3 = THEME.TextMuted
 ChooserSub.TextXAlignment = Enum.TextXAlignment.Left
 ChooserSub.BackgroundTransparency = 1
-ChooserSub.Text = "Pumili ng wika • Chọn ngôn ngữ • Pilih bahasa • Выберите язык • เลือกภาษา • Sprache wählen"
+ChooserSub.Text = "Pumili ng wika • Chọn ngôn ngữ • Pilih bahasa • Escolha o idioma"
 ChooserSub.Parent = ChooserHeader
 
 local ChooserDivider = Instance.new("Frame")
@@ -220,8 +227,7 @@ SwitchText.Text = "Change Lang"
 SwitchText.Parent = SwitchBtn
 
 local NoticeDivider = Instance.new("Frame")
-NoticeDivider.Size = UDim2.new(1, 0, 0, 1)
-NoticeDivider.Position = UDim2.new(0, 0, 0, 46)
+NoticeDivider.Size = UDim2.new(1, 0, 0, 46)
 NoticeDivider.BackgroundColor3 = THEME.Border
 NoticeDivider.BorderSizePixel = 0
 NoticeDivider.Parent = NoticeFrame
