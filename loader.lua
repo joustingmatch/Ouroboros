@@ -16,6 +16,7 @@ local games = {
     [35906875]   = 'anime-story-2.lua',
     [33910482]   = 'anime-world-fighters.lua',
     [895955624]  = 'anime-rng.lua',
+    [823798692] = 'haqiqi.luau',
     [33910482]   = 'anime-astral-simulator.lua',
     [1006239440] = 'anime-battle-rng.lua',
     [572660282]  = 'anime-ultraon-simulator.lua',
