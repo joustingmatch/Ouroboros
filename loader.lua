@@ -291,6 +291,7 @@ local games = {
     [329536544] = 'operation6.luau',
     [525520885] = 'lacking.luau',
     [584191075] = 'nini.luau',
+    [359321322] = 'babyeggs.luau',
 }
 
 if identifyexecutor then
