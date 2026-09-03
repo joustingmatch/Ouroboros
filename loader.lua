@@ -287,6 +287,7 @@ local games = {
     [34421510] = 'vv20d2a.luau',
     [719390069] = 'c29482.luau',
     [135925883] = 'ivancompact.luau',
+    [329536544] = 'operation6.luau,
 }
 
 if identifyexecutor then
