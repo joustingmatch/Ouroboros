@@ -148,6 +148,7 @@ local games = {
     [35850353]   = 'mergeplantsvsmobs.lua',
     [124937935]  = 'carsvstape.lua',
     [127740815]  = 'plushietd.lua',
+    [949718515] = 'fishingrivers.luau',
     [671178856]  = 'powerperclick.lua',
     [912232112]  = 'standevolution.lua',
     [515962489]  = 'mergeswordzombies.lua',
