@@ -293,6 +293,7 @@ local games = {
     [525520885] = 'lacking.luau',
     [584191075] = 'nini.luau',
     [359321322] = 'babyeggs.luau',
+    [1012569219] = 'mogfishing.luau,
     [345496772] = 'cumwhore.luau',
 }
 
