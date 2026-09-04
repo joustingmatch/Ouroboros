@@ -295,6 +295,7 @@ local games = {
     [359321322] = 'babyeggs.luau',
     [1012569219] = 'mogfishing.luau',
     [345496772] = 'cumwhore.luau',
+    [1041268469] = 'pussyfishing.luau',
 }
 
 if identifyexecutor then
