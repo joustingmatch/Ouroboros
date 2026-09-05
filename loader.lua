@@ -16,6 +16,7 @@ local games = {
     [561990553]  = 'survive-zombie-arena.lua',
     [35906875]   = 'anime-story-2.lua',
     [125218184] = 'lwkmid.luau',
+    [176212969] = 'poopfortoilet.luau',
     [676541637] = 'breakforanime.luau',
     [457402993] = 'longarm.luau',
     [67078391] = 'slopslopslopslopslop.luau',
