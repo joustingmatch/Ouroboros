@@ -25,6 +25,7 @@ local games = {
     [1006239440] = 'anime-battle-rng.lua',
     [572660282]  = 'anime-ultraon-simulator.lua',
     [2568838]    = 'tree-rng.lua',
+    [965490287] = 'gaygaygaygyagyad.luau',
     [15504927]   = 'launch-a-wheel.lua',
     [4651630]    = 'lineage-piece.lua',
     [2823500]    = 'untitled-melee-rng.lua',
