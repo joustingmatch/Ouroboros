@@ -408,26 +408,73 @@ local function autoWinStep()
 	end
 end
 
-local function getTreadmills()
+local function isTreadmillModel(inst)
+	return inst:IsA("Model") and inst.Name:find("Treadmill") and inst.Name ~= "TreadmillsGUI"
+end
+
+local function treadmillLabel(model)
+	local name = model.Name
+	if string.sub(name, -9) == "Treadmill" then
+		name = string.sub(name, 1, -10)
+	end
+	return (string.gsub(name, "GoldenCrown", " Golden Crown"))
+end
+
+local function isRobuxTreadmill(model)
+	if model.Name == "WoodenTreadmill" then
+		return false
+	end
+	if (tonumber(model:GetAttribute("RequiredRebirths")) or 0) == 0 then
+		return true
+	end
+	if string.find(model.Name, "GoldenCrown", 1, true) then
+		return true
+	end
+	return model:FindFirstChild("RobuxAmountNeedToUnlockGUI", true) ~= nil
+end
+
+local function treadmillStand(model)
+	local conveyor = model:FindFirstChild("Conveyor", true)
+	if conveyor and conveyor:IsA("BasePart") then
+		return conveyor
+	end
+	if model.PrimaryPart then
+		return model.PrimaryPart
+	end
+	return model:FindFirstChildWhichIsA("BasePart", true)
+end
+
+local function eachTreadmill()
 	local list = {}
 	for _, child in Workspace:GetChildren() do
-		if child:IsA("Model") and child.Name:find("Treadmill") and child.Name ~= "TreadmillsGUI" then
-			local required = tonumber(child:GetAttribute("RequiredRebirths")) or 0
-			local mult = tonumber(child:GetAttribute("Multiplier")) or 0
-			local conveyor = child:FindFirstChild("Conveyor", true)
-			if conveyor and conveyor:IsA("BasePart") then
-				list[#list + 1] = {
-					Model = child,
-					Required = required,
-					Multiplier = mult,
-					Conveyor = conveyor,
-				}
-			end
+		if isTreadmillModel(child) then
+			list[#list + 1] = child
 		end
 	end
 	table.sort(list, function(a, b)
-		return a.Multiplier > b.Multiplier
+		local ma = tonumber(a:GetAttribute("Multiplier")) or 0
+		local mb = tonumber(b:GetAttribute("Multiplier")) or 0
+		if ma ~= mb then
+			return ma > mb
+		end
+		return a.Name < b.Name
 	end)
+	return list
+end
+
+local function getTreadmills()
+	local list = {}
+	for _, model in eachTreadmill() do
+		local conveyor = model:FindFirstChild("Conveyor", true)
+		if conveyor and conveyor:IsA("BasePart") then
+			list[#list + 1] = {
+				Model = model,
+				Required = tonumber(model:GetAttribute("RequiredRebirths")) or 0,
+				Multiplier = tonumber(model:GetAttribute("Multiplier")) or 0,
+				Conveyor = conveyor,
+			}
+		end
+	end
 	return list
 end
 
@@ -442,10 +489,7 @@ local function treadmillUnlocked(entry)
 	if name == "LavaTreadmill" then
 		return attr("HasLava", false) == true
 	end
-	if name == "W1GoldenCrownTreadmill"
-		or name == "W2GoldenCrownTreadmill"
-		or name == "W3GoldenCrownTreadmill"
-	then
+	if string.find(name, "GoldenCrown", 1, true) then
 		return attr("HasVIP", false) == true
 	end
 	return getRebirths() >= entry.Required
@@ -453,11 +497,45 @@ end
 
 local function bestTreadmill()
 	for _, entry in getTreadmills() do
-		if treadmillUnlocked(entry) then
+		if not isRobuxTreadmill(entry.Model) and treadmillUnlocked(entry) then
 			return entry
 		end
 	end
 	return nil
+end
+
+local function entryFromModel(model)
+	local stand = treadmillStand(model)
+	if not stand then
+		return nil
+	end
+	return {
+		Model = model,
+		Required = tonumber(model:GetAttribute("RequiredRebirths")) or 0,
+		Multiplier = tonumber(model:GetAttribute("Multiplier")) or 0,
+		Conveyor = stand,
+	}
+end
+
+local function resolveTreadmill()
+	local selected = Options.Treadmill and Options.Treadmill.Value or "Best"
+	if selected == "Best" then
+		return bestTreadmill()
+	end
+	for _, model in eachTreadmill() do
+		if treadmillLabel(model) == selected then
+			return entryFromModel(model)
+		end
+	end
+	return nil
+end
+
+local function buildTreadmillValues()
+	local values = { "Best" }
+	for _, model in eachTreadmill() do
+		values[#values + 1] = treadmillLabel(model)
+	end
+	return values
 end
 
 local function teleportToPart(part)
@@ -592,7 +670,7 @@ local function eggCost(name)
 end
 
 local function autoTrainOnce()
-	local entry = bestTreadmill()
+	local entry = resolveTreadmill()
 	if not entry then
 		return
 	end
@@ -672,6 +750,7 @@ local function autoHatchOnce()
 end
 
 local WIN_PLATE_VALUES = buildWinPlateValues()
+local TREADMILL_VALUES = buildTreadmillValues()
 local EGG_VALUES = buildEggValues()
 if #EGG_VALUES == 0 then
 	EGG_VALUES = { "Common" }
@@ -895,6 +974,13 @@ FarmGroup:AddSlider("AutoWinWalkSpeed", {
 FarmGroup:AddToggle("AutoTrain", {
 	Text = "Auto Train",
 	Default = false,
+})
+FarmGroup:AddDropdown("Treadmill", {
+	Text = "Treadmill",
+	Values = TREADMILL_VALUES,
+	Default = "Best",
+	Expandable = true,
+	ExpandColumns = 2,
 })
 FarmGroup:AddToggle("AutoRebirth", {
 	Text = "Auto Rebirth",
