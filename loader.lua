@@ -15,6 +15,7 @@ local games = {
     [5028964]    = 'saber-simulator.lua',
     [561990553]  = 'survive-zombie-arena.lua',
     [35906875]   = 'anime-story-2.lua',
+    [419880819] = 'nukeapussy.luau',
     [125218184] = 'lwkmid.luau',
     [176212969] = 'poopfortoilet.luau',
     [676541637] = 'breakforanime.luau',
