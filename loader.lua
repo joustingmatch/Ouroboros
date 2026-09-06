@@ -13,6 +13,7 @@ local games = {
     [104489519]  = 'defend-ur-base-with-anime.lua',
     [446405201]  = 'merge-a-nuke.lua',
     [5028964]    = 'saber-simulator.lua',
+    [3796913] = 'analgunzombies.luau',
     [15203288] = 'nuttinginsidebrainrots.luau',
     [561990553]  = 'survive-zombie-arena.lua',
     [771624731] = '23123123123123.luau',
