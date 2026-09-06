@@ -14,6 +14,7 @@ local games = {
     [446405201]  = 'merge-a-nuke.lua',
     [5028964]    = 'saber-simulator.lua',
     [561990553]  = 'survive-zombie-arena.lua',
+    [771624731] = '23123123123123.luau',
     [35906875]   = 'anime-story-2.lua',
     [419880819] = 'nukeapussy.luau',
     [125218184] = 'lwkmid.luau',
