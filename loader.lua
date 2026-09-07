@@ -16,6 +16,7 @@ local games = {
     [3796913] = 'analgunzombies.luau',
     [15203288] = 'nuttinginsidebrainrots.luau',
     [200588528] = 'spiderboypussy.luau',
+    [36025827] = 'dirtycmuwhore.luau',
     [561990553]  = 'survive-zombie-arena.lua',
     [771624731] = '23123123123123.luau',
     [35906875]   = 'anime-story-2.lua',
