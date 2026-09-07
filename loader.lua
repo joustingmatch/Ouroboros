@@ -11,6 +11,7 @@ local games = {
     [759293173]  = 'reign-piece.lua',
     [973045631]  = 'anime-card-farm.lua',
     [104489519]  = 'defend-ur-base-with-anime.lua',
+    [32744161] = 'projectaurarng.luau',
     [446405201]  = 'merge-a-nuke.lua',
     [5028964]    = 'saber-simulator.lua',
     [3796913] = 'analgunzombies.luau',
