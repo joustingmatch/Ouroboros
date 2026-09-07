@@ -1,7 +1,17 @@
---!strict
+--!nonstrict
+
+--[[
+    Ouroboros — donation popup.
+
+    Shown once per game (the cache below decides), then this window: a squared
+    Hello Kitty panel with donation tiers on the left and every payment address
+    on the right, each row copying on click with a rainbow outline on hover.
+]]
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 
 local LocalPlayer = Players.LocalPlayer
@@ -56,88 +66,6 @@ end
 if readShown()[GAME_KEY] then
     return
 end
-
-local CONFIG = {
-    GameName = "Ouroboros",
-    Tagline = "Wanna help support %s? Start by donating.",
-    BgColor = Color3.fromRGB(11, 12, 16),
-    CardBg = Color3.fromRGB(15, 17, 23),
-    CardHoverBg = Color3.fromRGB(21, 24, 33),
-    BorderColor = Color3.fromRGB(28, 32, 42),
-    BorderHoverColor = Color3.fromRGB(56, 64, 84),
-    BorderActiveColor = Color3.fromRGB(255, 255, 255),
-    TextColor = Color3.fromRGB(255, 255, 255),
-    TextMuted = Color3.fromRGB(130, 138, 156),
-
-    Methods = {
-        {
-            Tag = "LTC",
-            Name = "Litecoin",
-            Value = "LSZPqKSsD1x6QXea2H8JS17nXMLnmtew3w",
-            Display = "LSZPqKSs...mtew3w",
-            TagColor = Color3.fromRGB(52, 211, 153),
-        },
-        {
-            Tag = "BTC",
-            Name = "Bitcoin",
-            Value = "bc1qwc9exvcn3ykjqnsa0t9gakuccr494ljjuuqj99",
-            Display = "bc1qwc9e...uqj99",
-            TagColor = Color3.fromRGB(251, 191, 36),
-        },
-        {
-            Tag = "ETH",
-            Name = "ERC-20",
-            Value = "0xaE95A405D007a6F858E5d35714111B075fEFb40a",
-            Display = "0xaE95A4...Fb40a",
-            TagColor = Color3.fromRGB(129, 140, 248),
-        },
-        {
-            Tag = "SOL",
-            Name = "Solana",
-            Value = "Hq5jPHKDKjyHhccc6UULcbYTK6aKBBbTDmHNRXGKBKGp",
-            Display = "Hq5jPHKD...BKGp",
-            TagColor = Color3.fromRGB(192, 132, 252),
-        },
-        {
-            Tag = "USDT",
-            Name = "ETH",
-            Value = "0xaE95A405D007a6F858E5d35714111B075fEFb40a",
-            Display = "0xaE95A4...Fb40a",
-            TagColor = Color3.fromRGB(45, 212, 191),
-        },
-        {
-            Tag = "USDT",
-            Name = "SOLANA",
-            Value = "Hq5jPHKDKjyHhccc6UULcbYTK6aKBBbTDmHNRXGKBKGp",
-            Display = "Hq5jPHKD...BKGp",
-            TagColor = Color3.fromRGB(45, 212, 191),
-        },
-        {
-            Tag = "PAYPAL",
-            Name = "LINK",
-            Value = "https://paypal.me/TheTruckerGOD",
-            Display = "paypal.me/...",
-            TagColor = Color3.fromRGB(56, 189, 248),
-        },
-        {
-            Tag = "VENMO",
-            Name = "LINK",
-            Value = "https://venmo.com/u/miserablemusic",
-            Display = "venmo.com/...",
-            TagColor = Color3.fromRGB(96, 165, 250),
-        },
-    }
-}
-
-local function createStroke(parent: Instance, color: Color3, thickness: number?): UIStroke
-    local stroke = Instance.new("UIStroke")
-    stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    stroke.Color = color
-    stroke.Thickness = thickness or 1
-    stroke.Parent = parent
-    return stroke
-end
-
 local function copyToClipboard(text: string)
     local setcb = (getfenv()["setclipboard"] or getfenv()["toclipboard"] or (getfenv()["syn"] and getfenv()["syn"].write_clipboard))
     if setcb then
@@ -151,250 +79,642 @@ end
 
 markShown()
 
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "DonationGui"
-ScreenGui.ResetOnSpawn = false
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ScreenGui.Parent = PlayerGui
+--// Content \\--
 
-local MainFrame = Instance.new("Frame")
-MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 580, 0, 330)
-MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-MainFrame.BackgroundColor3 = CONFIG.BgColor
-MainFrame.BorderSizePixel = 0
-MainFrame.ClipsDescendants = true
-MainFrame.Parent = ScreenGui
-createStroke(MainFrame, CONFIG.BorderColor, 1)
+local Project = "Ouroboros Hub"
 
-local CloseButton = Instance.new("TextButton")
-CloseButton.Name = "CloseButton"
-CloseButton.Size = UDim2.new(0, 26, 0, 26)
-CloseButton.Position = UDim2.new(1, -44, 0, 20)
-CloseButton.BackgroundColor3 = Color3.fromRGB(17, 19, 26)
-CloseButton.BorderSizePixel = 0
-CloseButton.Font = Enum.Font.GothamBold
-CloseButton.Text = "X"
-CloseButton.TextColor3 = CONFIG.TextMuted
-CloseButton.TextSize = 12
-CloseButton.AutoButtonColor = false
-CloseButton.Parent = MainFrame
-local closeStroke = createStroke(CloseButton, CONFIG.BorderColor, 1)
+local Tiers = {
+    { Name = "Donator", Price = "$5" },
+    { Name = "Ultra Donator", Price = "$15" },
+    { Name = "The True Ouro", Price = "$50" },
+}
 
-CloseButton.MouseEnter:Connect(function()
-    TweenService:Create(CloseButton, TweenInfo.new(0.12), {
-        BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-        TextColor3 = Color3.fromRGB(0, 0, 0)
-    }):Play()
-    TweenService:Create(closeStroke, TweenInfo.new(0.12), { Color = Color3.fromRGB(255, 255, 255) }):Play()
-end)
+local Methods = {
+    { Name = "Litecoin", Address = "LSZPqKSsD1x6QXea2H8JS17nXMLnmtew3w", Color = Color3.fromRGB(160, 166, 178) },
+    { Name = "Bitcoin", Address = "bc1qwc9exvcn3ykjqnsa0t9gakuccr494ljjuuqj99", Color = Color3.fromRGB(247, 147, 26) },
+    { Name = "Ethereum", Address = "0xaE95A405D007a6F858E5d35714111B075fEFb40a", Color = Color3.fromRGB(120, 130, 220) },
+    { Name = "USDT · ETH", Address = "0xaE95A405D007a6F858E5d35714111B075fEFb40a", Color = Color3.fromRGB(38, 161, 123) },
+    { Name = "USDT · SOL", Address = "Hq5jPHKDKjyHhccc6UULcbYTK6aKBBbTDmHNRXGKBKGp", Color = Color3.fromRGB(38, 161, 123) },
+    { Name = "Solana", Address = "Hq5jPHKDKjyHhccc6UULcbYTK6aKBBbTDmHNRXGKBKGp", Color = Color3.fromRGB(153, 69, 255) },
+    { Name = "PayPal", Address = "https://paypal.me/TheTruckerGOD", Color = Color3.fromRGB(0, 112, 186) },
+    { Name = "Venmo", Address = "https://venmo.com/u/miserablemusic", Color = Color3.fromRGB(0, 143, 214) },
+}
 
-CloseButton.MouseLeave:Connect(function()
-    TweenService:Create(CloseButton, TweenInfo.new(0.12), {
-        BackgroundColor3 = Color3.fromRGB(17, 19, 26),
-        TextColor3 = CONFIG.TextMuted
-    }):Play()
-    TweenService:Create(closeStroke, TweenInfo.new(0.12), { Color = CONFIG.BorderColor }):Play()
-end)
 
-CloseButton.MouseButton1Click:Connect(function()
-    local tween = TweenService:Create(MainFrame, TweenInfo.new(0.16, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
-        Size = UDim2.new(0, 540, 0, 300),
-        BackgroundTransparency = 1
+-- Addresses are long and the row is one line, so show a middle-elided form.
+-- The click always copies the full string.
+local function Short(Address: string): string
+    local Display = (Address:gsub("^https://", ""))
+    if #Display <= 30 then
+        return Display
+    end
+    return Display:sub(1, 12) .. "…" .. Display:sub(-6)
+end
+
+
+--// Palette \\--
+
+local Scheme = {
+    Ground = Color3.fromRGB(255, 241, 247), -- window background, warm white
+    Card = Color3.fromRGB(255, 255, 255),
+    Sunk = Color3.fromRGB(255, 230, 241),
+    Pink = Color3.fromRGB(232, 64, 127), -- primary accent, 4.3:1 under white text
+    Deep = Color3.fromRGB(168, 20, 76), -- pressed / emphasis, 7:1 on white
+    Bow = Color3.fromRGB(232, 56, 79), -- the red bow
+    Gold = Color3.fromRGB(255, 197, 61), -- her nose
+    Ink = Color3.fromRGB(35, 22, 30), -- body text, 14:1 on white
+    Muted = Color3.fromRGB(106, 78, 94), -- 6:1 on white
+    Line = Color3.fromRGB(240, 178, 206),
+}
+
+local HEAD = Enum.Font.FredokaOne
+local BODY = Enum.Font.Gotham
+local BOLD = Enum.Font.GothamBold
+
+--// Tiny builders \\--
+
+local function New(Class: string, Props: { [string]: any }, Children: { Instance }?): Instance
+    local Object = Instance.new(Class)
+    for Key, Value in pairs(Props) do
+        if Key ~= "Parent" then
+            (Object :: any)[Key] = Value
+        end
+    end
+    for _, Child in ipairs(Children or {}) do
+        Child.Parent = Object
+    end
+    if Props.Parent then
+        Object.Parent = Props.Parent
+    end
+    return Object
+end
+
+-- The window is squared off. The helper keeps its argument so the radius
+-- sites stay in the code if the look is ever softened again.
+local function Corner(_Radius: number): Instance
+    return New("UICorner", { CornerRadius = UDim.new(0, 0) })
+end
+
+local function Stroke(Color: Color3?, Thickness: number?): Instance
+    return New("UIStroke", {
+        Color = Color or Scheme.Line,
+        Thickness = Thickness or 1,
+        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
     })
-    tween:Play()
-    tween.Completed:Connect(function()
-        ScreenGui:Destroy()
-    end)
+end
+
+local function Pad(All: number, Extra: { [string]: number }?): Instance
+    local P = New("UIPadding", {
+        PaddingTop = UDim.new(0, All),
+        PaddingBottom = UDim.new(0, All),
+        PaddingLeft = UDim.new(0, All),
+        PaddingRight = UDim.new(0, All),
+    })
+    for Key, Value in pairs(Extra or {}) do
+        (P :: any)[Key] = UDim.new(0, Value)
+    end
+    return P
+end
+
+local function List(Padding: number, Horizontal: boolean?): Instance
+    return New("UIListLayout", {
+        Padding = UDim.new(0, Padding),
+        FillDirection = Horizontal and Enum.FillDirection.Horizontal or Enum.FillDirection.Vertical,
+        SortOrder = Enum.SortOrder.LayoutOrder,
+    })
+end
+
+local function Text(Props: { [string]: any }): Instance
+    local Defaults = {
+        BackgroundTransparency = 1,
+        Font = BODY,
+        TextColor3 = Scheme.Ink,
+        TextSize = 14,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        RichText = true,
+    }
+    for Key, Value in pairs(Props) do
+        Defaults[Key] = Value
+    end
+    return New("TextLabel", Defaults)
+end
+
+--// Screen \--
+
+local Gui = New("ScreenGui", {
+    Parent = PlayerGui,
+    Name = "DonationGui",
+    ResetOnSpawn = false,
+    ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+    IgnoreGuiInset = true,
+    DisplayOrder = 100,
+})
+
+--// Window \\--
+
+local WIDTH, HEIGHT, BAR = 760, 430, 46
+
+local Window = New("Frame", {
+    Parent = Gui,
+    Name = "Window",
+    AnchorPoint = Vector2.new(0.5, 0.5),
+    Position = UDim2.fromScale(0.5, 0.5),
+    Size = UDim2.fromOffset(WIDTH, HEIGHT),
+    BackgroundColor3 = Scheme.Ground,
+    BorderSizePixel = 0,
+}, {
+    Corner(16),
+    Stroke(Scheme.Pink, 2),
+})
+
+--// Title bar \\--
+
+local TitleBar = New("Frame", {
+    Parent = Window,
+    Name = "TitleBar",
+    Size = UDim2.new(1, 0, 0, BAR),
+    BackgroundColor3 = Scheme.Deep,
+    BorderSizePixel = 0,
+}, {
+    Corner(16),
+    New("Frame", { -- square the bottom corners so the bar meets the body flat
+        Size = UDim2.new(1, 0, 0, 16),
+        Position = UDim2.new(0, 0, 1, -16),
+        BackgroundColor3 = Scheme.Deep,
+        BorderSizePixel = 0,
+    }),
+})
+
+-- A bow, drawn: two tilted rounded petals with a knot over the seam.
+local Bow = New("Frame", {
+    Parent = TitleBar,
+    Name = "Bow",
+    Position = UDim2.new(0, 16, 0.5, -11),
+    Size = UDim2.fromOffset(34, 22),
+    BackgroundTransparency = 1,
+    ZIndex = 2,
+})
+
+for Index, Rotation in ipairs({ -18, 18 }) do
+    New("Frame", {
+        Parent = Bow,
+        Name = "Petal" .. Index,
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        Position = UDim2.new(Index == 1 and 0.28 or 0.72, 0, 0.5, 0),
+        Size = UDim2.fromOffset(17, 18),
+        Rotation = Rotation,
+        BackgroundColor3 = Scheme.Bow,
+        BorderSizePixel = 0,
+        ZIndex = 2,
+    }, { Corner(7), Stroke(Color3.fromRGB(255, 255, 255), 1) })
+end
+
+New("Frame", {
+    Parent = Bow,
+    Name = "Knot",
+    AnchorPoint = Vector2.new(0.5, 0.5),
+    Position = UDim2.fromScale(0.5, 0.5),
+    Size = UDim2.fromOffset(9, 9),
+    BackgroundColor3 = Scheme.Gold,
+    BorderSizePixel = 0,
+    ZIndex = 3,
+}, { Corner(5) })
+
+New("TextLabel", {
+    Parent = TitleBar,
+    Name = "Title",
+    Position = UDim2.new(0, 60, 0, 0),
+    Size = UDim2.new(1, -140, 1, 0),
+    BackgroundTransparency = 1,
+    Font = HEAD,
+    Text = Project .. "  ·  Donate",
+    TextSize = 19,
+    TextColor3 = Color3.new(1, 1, 1),
+    TextXAlignment = Enum.TextXAlignment.Left,
+    ZIndex = 2,
+})
+
+New("TextLabel", {
+    Parent = TitleBar,
+    Name = "Tagline",
+    AnchorPoint = Vector2.new(1, 0.5),
+    Position = UDim2.new(1, -48, 0.5, 0),
+    Size = UDim2.fromOffset(220, 20),
+    BackgroundTransparency = 1,
+    Font = BODY,
+    Text = "consider supporting ouroboros",
+    TextSize = 13,
+    TextColor3 = Color3.fromRGB(255, 214, 232),
+    TextXAlignment = Enum.TextXAlignment.Right,
+    ZIndex = 2,
+})
+
+local Close = New("TextButton", {
+    Parent = TitleBar,
+    Name = "Close",
+    AnchorPoint = Vector2.new(1, 0.5),
+    Position = UDim2.new(1, -14, 0.5, 0),
+    Size = UDim2.fromOffset(24, 24),
+    BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+    BackgroundTransparency = 0.75,
+    BorderSizePixel = 0,
+    AutoButtonColor = false,
+    Font = BOLD,
+    Text = "×",
+    TextSize = 16,
+    TextColor3 = Color3.new(1, 1, 1),
+    ZIndex = 2,
+}, { Corner(12) })
+
+Close.MouseEnter:Connect(function()
+    TweenService:Create(Close, TweenInfo.new(0.12), { BackgroundTransparency = 0.35 }):Play()
+end)
+Close.MouseLeave:Connect(function()
+    TweenService:Create(Close, TweenInfo.new(0.12), { BackgroundTransparency = 0.75 }):Play()
+end)
+Close.MouseButton1Click:Connect(function()
+    Gui:Destroy()
 end)
 
-local TopSection = Instance.new("Frame")
-TopSection.Name = "TopSection"
-TopSection.Size = UDim2.new(1, -50, 0, 52)
-TopSection.Position = UDim2.new(0, 25, 0, 20)
-TopSection.BackgroundTransparency = 1
-TopSection.Parent = MainFrame
+--// Dragging \\--
 
-local TitleLabel = Instance.new("TextLabel")
-TitleLabel.Size = UDim2.new(1, -35, 0, 26)
-TitleLabel.Position = UDim2.new(0, 0, 0, 0)
-TitleLabel.BackgroundTransparency = 1
-TitleLabel.Font = Enum.Font.GothamBold
-TitleLabel.Text = "Support " .. CONFIG.GameName
-TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TitleLabel.TextSize = 22
-TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
-TitleLabel.Parent = TopSection
+do
+    local Dragging, Start, Origin = false, nil, nil
 
-local TaglineLabel = Instance.new("TextLabel")
-TaglineLabel.Size = UDim2.new(1, -35, 0, 18)
-TaglineLabel.Position = UDim2.new(0, 0, 0, 28)
-TaglineLabel.BackgroundTransparency = 1
-TaglineLabel.Font = Enum.Font.GothamMedium
-TaglineLabel.Text = string.format(CONFIG.Tagline, CONFIG.GameName)
-TaglineLabel.TextColor3 = CONFIG.TextMuted
-TaglineLabel.TextSize = 12
-TaglineLabel.TextXAlignment = Enum.TextXAlignment.Left
-TaglineLabel.Parent = TopSection
-
-local Grid = Instance.new("Frame")
-Grid.Name = "Grid"
-Grid.Size = UDim2.new(1, -50, 0, 218)
-Grid.Position = UDim2.new(0, 25, 0, 84)
-Grid.BackgroundTransparency = 1
-Grid.Parent = MainFrame
-
-local UIGridLayout = Instance.new("UIGridLayout")
-UIGridLayout.CellSize = UDim2.new(0.234, 0, 0.46, 0)
-UIGridLayout.CellPadding = UDim2.new(0.021, 0, 0.08, 0)
-UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIGridLayout.Parent = Grid
-
-local Toast = Instance.new("Frame")
-Toast.Name = "Toast"
-Toast.Size = UDim2.new(0, 260, 0, 36)
-Toast.Position = UDim2.new(0.5, 0, 1, -25)
-Toast.AnchorPoint = Vector2.new(0.5, 1)
-Toast.BackgroundColor3 = Color3.fromRGB(17, 20, 27)
-Toast.BorderSizePixel = 0
-Toast.Visible = false
-Toast.Parent = ScreenGui
-createStroke(Toast, Color3.fromRGB(60, 68, 88), 1)
-
-local ToastText = Instance.new("TextLabel")
-ToastText.Size = UDim2.new(1, -20, 1, 0)
-ToastText.Position = UDim2.new(0, 10, 0, 0)
-ToastText.BackgroundTransparency = 1
-ToastText.Font = Enum.Font.GothamBold
-ToastText.Text = "COPIED TO CLIPBOARD"
-ToastText.TextColor3 = Color3.fromRGB(255, 255, 255)
-ToastText.TextSize = 11
-ToastText.Parent = Toast
-
-local toastDebounce = 0
-local function showToast(methodName: string)
-    ToastText.Text = "COPIED " .. string.upper(methodName) .. " TO CLIPBOARD"
-    Toast.Visible = true
-    Toast.Position = UDim2.new(0.5, 0, 1, -15)
-    Toast.BackgroundTransparency = 0.5
-
-    local anim = TweenService:Create(Toast, TweenInfo.new(0.16, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-        Position = UDim2.new(0.5, 0, 1, -30),
-        BackgroundTransparency = 0
-    })
-    anim:Play()
-
-    local currentDebounce = tick()
-    toastDebounce = currentDebounce
-    task.delay(1.8, function()
-        if toastDebounce == currentDebounce then
-            local hideAnim = TweenService:Create(Toast, TweenInfo.new(0.16, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
-                Position = UDim2.new(0.5, 0, 1, -15),
-                BackgroundTransparency = 1
-            })
-            hideAnim:Play()
-            hideAnim.Completed:Connect(function()
-                if toastDebounce == currentDebounce then
-                    Toast.Visible = false
-                end
-            end)
+    TitleBar.InputBegan:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+            Dragging, Start, Origin = true, Input.Position, Window.Position
         end
     end)
+
+    TitleBar.InputEnded:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+            Dragging = false
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(Input)
+        if not Dragging then
+            return
+        end
+        if Input.UserInputType ~= Enum.UserInputType.MouseMovement and Input.UserInputType ~= Enum.UserInputType.Touch then
+            return
+        end
+        local Delta = Input.Position - Start
+        Window.Position = UDim2.new(
+            Origin.X.Scale,
+            Origin.X.Offset + Delta.X,
+            Origin.Y.Scale,
+            Origin.Y.Offset + Delta.Y
+        )
+    end)
 end
 
-for i, method in ipairs(CONFIG.Methods) do
-    local Card = Instance.new("TextButton")
-    Card.Name = "Card_" .. method.Tag .. "_" .. i
-    Card.BackgroundColor3 = CONFIG.CardBg
-    Card.BorderSizePixel = 0
-    Card.AutoButtonColor = false
-    Card.Text = ""
-    Card.LayoutOrder = i
-    Card.Parent = Grid
+--// Columns (fixed sizes — nothing scrolls) \\--
 
-    local stroke = createStroke(Card, CONFIG.BorderColor, 1)
+local PADDING, GAP = 16, 12
+local COLUMN = (WIDTH - PADDING * 2 - GAP) / 2
 
-    local TagLabel = Instance.new("TextLabel")
-    TagLabel.Size = UDim2.new(0.5, 0, 0, 18)
-    TagLabel.Position = UDim2.new(0, 10, 0, 10)
-    TagLabel.BackgroundTransparency = 1
-    TagLabel.Font = Enum.Font.GothamBold
-    TagLabel.Text = method.Tag
-    TagLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TagLabel.TextSize = 13
-    TagLabel.TextXAlignment = Enum.TextXAlignment.Left
-    TagLabel.Parent = Card
+local Body = New("Frame", {
+    Parent = Window,
+    Name = "Body",
+    Position = UDim2.new(0, 0, 0, BAR),
+    Size = UDim2.new(1, 0, 1, -BAR),
+    BackgroundTransparency = 1,
+}, {
+    Pad(PADDING),
+    List(GAP, true),
+})
 
-    local SubLabel = Instance.new("TextLabel")
-    SubLabel.Size = UDim2.new(0.5, -10, 0, 18)
-    SubLabel.Position = UDim2.new(0.5, 0, 0, 10)
-    SubLabel.BackgroundTransparency = 1
-    SubLabel.Font = Enum.Font.GothamMedium
-    SubLabel.Text = string.upper(method.Name)
-    SubLabel.TextColor3 = Color3.fromRGB(95, 103, 122)
-    SubLabel.TextSize = 9
-    SubLabel.TextXAlignment = Enum.TextXAlignment.Right
-    SubLabel.Parent = Card
+local function Column(Order: number): Instance
+    return New("Frame", {
+        Parent = Body,
+        Name = "Column" .. Order,
+        LayoutOrder = Order,
+        Size = UDim2.new(0, COLUMN, 1, 0),
+        BackgroundTransparency = 1,
+    }, { List(GAP) })
+end
 
-    local AddressLabel = Instance.new("TextLabel")
-    AddressLabel.Size = UDim2.new(1, -20, 0, 16)
-    AddressLabel.Position = UDim2.new(0, 10, 0, 36)
-    AddressLabel.BackgroundTransparency = 1
-    AddressLabel.Font = Enum.Font.GothamMedium
-    AddressLabel.Text = method.Display
-    AddressLabel.TextColor3 = Color3.fromRGB(80, 87, 105)
-    AddressLabel.TextSize = 10
-    AddressLabel.TextTruncate = Enum.TextTruncate.AtEnd
-    AddressLabel.TextXAlignment = Enum.TextXAlignment.Left
-    AddressLabel.Parent = Card
+local Left, Right = Column(1), Column(2)
 
-    local ActionLabel = Instance.new("TextLabel")
-    ActionLabel.Size = UDim2.new(1, -20, 0, 16)
-    ActionLabel.Position = UDim2.new(0, 10, 1, -24)
-    ActionLabel.BackgroundTransparency = 1
-    ActionLabel.Font = Enum.Font.GothamBold
-    ActionLabel.Text = "COPY →"
-    ActionLabel.TextColor3 = Color3.fromRGB(122, 131, 152)
-    ActionLabel.TextSize = 10
-    ActionLabel.TextXAlignment = Enum.TextXAlignment.Left
-    ActionLabel.Parent = Card
+local function Card(Parent: Instance, TitleText: string, Height: number, Order: number): Instance
+    local Box = New("Frame", {
+        Parent = Parent,
+        Name = TitleText,
+        LayoutOrder = Order,
+        Size = UDim2.new(1, 0, 0, Height),
+        BackgroundColor3 = Scheme.Card,
+        BorderSizePixel = 0,
+    }, {
+        Corner(12),
+        Stroke(),
+        Pad(12),
+        List(8),
+    })
 
-    Card.MouseEnter:Connect(function()
-        TweenService:Create(Card, TweenInfo.new(0.12), { BackgroundColor3 = CONFIG.CardHoverBg }):Play()
-        TweenService:Create(stroke, TweenInfo.new(0.12), { Color = CONFIG.BorderHoverColor }):Play()
-        TweenService:Create(TagLabel, TweenInfo.new(0.12), { TextColor3 = method.TagColor }):Play()
-        TweenService:Create(ActionLabel, TweenInfo.new(0.12), { TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
-    end)
+    New("TextLabel", {
+        Parent = Box,
+        Name = "Header",
+        LayoutOrder = -1,
+        Size = UDim2.new(1, 0, 0, 18),
+        BackgroundTransparency = 1,
+        Font = HEAD,
+        Text = TitleText,
+        TextSize = 15,
+        TextColor3 = Scheme.Deep,
+        TextXAlignment = Enum.TextXAlignment.Left,
+    })
 
-    Card.MouseLeave:Connect(function()
-        TweenService:Create(Card, TweenInfo.new(0.12), { BackgroundColor3 = CONFIG.CardBg }):Play()
-        TweenService:Create(stroke, TweenInfo.new(0.12), { Color = CONFIG.BorderColor }):Play()
-        TweenService:Create(TagLabel, TweenInfo.new(0.12), { TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
-        TweenService:Create(ActionLabel, TweenInfo.new(0.12), { TextColor3 = Color3.fromRGB(122, 131, 152) }):Play()
-    end)
+    return Box
+end
 
-    Card.MouseButton1Click:Connect(function()
-        copyToClipboard(method.Value)
-        showToast(method.Tag)
+--// Left column: tiers \\--
 
-        ActionLabel.Text = "COPIED ✓"
-        ActionLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-        TweenService:Create(Card, TweenInfo.new(0.08), { BackgroundColor3 = Color3.fromRGB(26, 30, 42) }):Play()
-        TweenService:Create(stroke, TweenInfo.new(0.08), { Color = CONFIG.BorderActiveColor }):Play()
+local Selected = Tiers[1]
+local TierButtons = {}
 
-        task.delay(1.1, function()
-            ActionLabel.Text = "COPY →"
-            TweenService:Create(Card, TweenInfo.new(0.12), { BackgroundColor3 = CONFIG.CardBg }):Play()
-            TweenService:Create(stroke, TweenInfo.new(0.12), { Color = CONFIG.BorderColor }):Play()
-            TweenService:Create(ActionLabel, TweenInfo.new(0.12), { TextColor3 = Color3.fromRGB(122, 131, 152) }):Play()
+local function PaintTiers()
+    for _, Entry in ipairs(TierButtons) do
+        local Active = Entry.Tier == Selected
+        Entry.Button.BackgroundColor3 = Active and Scheme.Sunk or Scheme.Card
+        Entry.Heart.TextTransparency = Active and 0 or 1
+        Entry.Price.TextColor3 = Active and Scheme.Deep or Scheme.Ink
+        local Line = Entry.Button:FindFirstChildOfClass("UIStroke")
+        if Line then
+            Line.Color = Active and Scheme.Pink or Scheme.Line
+            Line.Thickness = Active and 2 or 1
+        end
+    end
+end
+
+do
+    local Box = Card(Left, "Pick a tier", 224, 1)
+    Box:FindFirstChildOfClass("UIListLayout").Padding = UDim.new(0, 9)
+
+    for Index, Tier in ipairs(Tiers) do
+        local Button = New("TextButton", {
+            Parent = Box,
+            Name = Tier.Name,
+            LayoutOrder = Index,
+            Size = UDim2.new(1, 0, 0, 52),
+            BackgroundColor3 = Scheme.Card,
+            BorderSizePixel = 0,
+            AutoButtonColor = false,
+            Text = "",
+        }, { Corner(10), Stroke() })
+
+        local Heart = Text({
+            Parent = Button,
+            AnchorPoint = Vector2.new(0, 0.5),
+            Position = UDim2.new(0, 14, 0.5, 0),
+            Size = UDim2.fromOffset(18, 18),
+            Font = BOLD,
+            Text = "♥",
+            TextSize = 16,
+            TextColor3 = Scheme.Pink,
+            TextTransparency = 1,
+        })
+
+        Text({
+            Parent = Button,
+            AnchorPoint = Vector2.new(0, 0.5),
+            Position = UDim2.new(0, 36, 0.5, 0),
+            Size = UDim2.new(1, -120, 0, 20),
+            Font = BOLD,
+            Text = Tier.Name,
+            TextSize = 16,
+        })
+
+        local Price = New("TextLabel", {
+            Parent = Button,
+            AnchorPoint = Vector2.new(1, 0.5),
+            Position = UDim2.new(1, -12, 0.5, 0),
+            Size = UDim2.fromOffset(72, 28),
+            BackgroundTransparency = 1,
+            Font = HEAD,
+            Text = Tier.Price,
+            TextSize = 22,
+            TextColor3 = Scheme.Ink,
+            TextXAlignment = Enum.TextXAlignment.Right,
+        })
+
+        table.insert(TierButtons, { Tier = Tier, Button = Button, Heart = Heart, Price = Price })
+
+        Button.MouseButton1Click:Connect(function()
+            Selected = Tier
+            PaintTiers()
         end)
-    end)
+    end
+
+    PaintTiers()
 end
 
-MainFrame.Size = UDim2.new(0, 550, 0, 310)
-MainFrame.BackgroundTransparency = 0.4
-TweenService:Create(MainFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-    Size = UDim2.new(0, 580, 0, 330),
-    BackgroundTransparency = 0
+--// Left column: side note \--
+
+do
+    local Box = Card(Left, "Another way to pay?", 96, 2)
+
+    Text({
+        Parent = Box,
+        LayoutOrder = 1,
+        Size = UDim2.new(1, 0, 0, 46),
+        Text = "If you'd like to support Ouroboros through another payment option, join the Discord and DM the owner.",
+        TextSize = 12,
+        TextColor3 = Scheme.Muted,
+        TextWrapped = true,
+        TextYAlignment = Enum.TextYAlignment.Top,
+    })
+end
+
+--// Rainbow driver \--
+-- One RenderStepped loop scrolls every hovered row's gradient, so hovering
+-- ten rows costs the same as hovering one.
+
+local Rainbow = ColorSequence.new({
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 64, 96)),
+    ColorSequenceKeypoint.new(0.17, Color3.fromRGB(255, 156, 46)),
+    ColorSequenceKeypoint.new(0.34, Color3.fromRGB(240, 214, 40)),
+    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(74, 208, 116)),
+    ColorSequenceKeypoint.new(0.67, Color3.fromRGB(64, 168, 255)),
+    ColorSequenceKeypoint.new(0.84, Color3.fromRGB(150, 96, 255)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 64, 96)),
+})
+
+local Glowing: { [UIGradient]: true } = {}
+
+RunService.RenderStepped:Connect(function()
+    if not next(Glowing) then
+        return
+    end
+    local Offset = Vector2.new((tick() * 0.45) % 2 - 1, 0)
+    for Gradient in pairs(Glowing) do
+        Gradient.Offset = Offset
+    end
+end)
+
+--// Right column: click to copy \--
+
+do
+    local Box = Card(Right, "Click to copy", 332, 1)
+    Box:FindFirstChildOfClass("UIListLayout").Padding = UDim.new(0, 6)
+
+    for Index, Method in ipairs(Methods) do
+        local Row = New("Frame", {
+            Parent = Box,
+            Name = Method.Name,
+            LayoutOrder = Index,
+            Size = UDim2.new(1, 0, 0, 30),
+            BackgroundTransparency = 1,
+        })
+
+        local Scale = New("UIScale", { Parent = Row, Scale = 1 })
+
+        local Button = New("TextButton", {
+            Parent = Row,
+            Name = "Hit",
+            Size = UDim2.fromScale(1, 1),
+            BackgroundColor3 = Scheme.Sunk,
+            BackgroundTransparency = 0.35,
+            BorderSizePixel = 0,
+            AutoButtonColor = false,
+            Text = "",
+        }, { Corner(9), Stroke(Scheme.Line, 1), Pad(0, { PaddingLeft = 10, PaddingRight = 10 }) })
+
+        local Line = Button:FindFirstChildOfClass("UIStroke")
+
+        -- The rainbow rides the outline, not the fill: the address stays
+        -- readable on white while the row still lights up.
+        local Glow = New("UIGradient", {
+            Parent = Line,
+            Color = Rainbow,
+            Enabled = false,
+        }) :: UIGradient
+
+        -- Coin dot: a tiny colour-coded marker so the list scans by chain.
+        New("Frame", {
+            Parent = Button,
+            Name = "Dot",
+            AnchorPoint = Vector2.new(0, 0.5),
+            Position = UDim2.new(0, 0, 0.5, 0),
+            Size = UDim2.fromOffset(8, 8),
+            BackgroundColor3 = Method.Color,
+            BorderSizePixel = 0,
+        }, { Corner(4) })
+
+        local Name = Text({
+            Parent = Button,
+            Position = UDim2.new(0, 16, 0, 0),
+            Size = UDim2.new(0, 96, 1, 0),
+            Font = BOLD,
+            Text = Method.Name,
+            TextSize = 12,
+            TextColor3 = Scheme.Ink,
+        })
+
+        local Value = Text({
+            Parent = Button,
+            Position = UDim2.new(0, 116, 0, 0),
+            Size = UDim2.new(1, -116, 1, 0),
+            Font = Enum.Font.Code,
+            Text = Short(Method.Address),
+            TextSize = 12,
+            TextColor3 = Scheme.Muted,
+            TextXAlignment = Enum.TextXAlignment.Right,
+            TextTruncate = Enum.TextTruncate.AtEnd,
+        })
+
+        local Quick = TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        local Bounce = TweenInfo.new(0.26, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+
+        local Hovered, Copied = false, false
+
+        local function Rest()
+            if Copied then
+                return
+            end
+            TweenService:Create(Button, Quick, {
+                BackgroundTransparency = Hovered and 0 or 0.35,
+            }):Play()
+            if Hovered then
+                Line.Color = Color3.new(1, 1, 1)
+            else
+                TweenService:Create(Line, Quick, { Color = Scheme.Line }):Play()
+            end
+            TweenService:Create(Line, Quick, { Thickness = Hovered and 2 or 1 }):Play()
+            TweenService:Create(Name, Quick, {
+                TextColor3 = Hovered and Scheme.Deep or Scheme.Ink,
+            }):Play()
+            TweenService:Create(Scale, Quick, { Scale = Hovered and 1.012 or 1 }):Play()
+        end
+
+        Button.MouseEnter:Connect(function()
+            Hovered = true
+            if not Copied then
+                Line.Color = Color3.new(1, 1, 1) -- let the gradient show pure
+                Glow.Enabled = true
+                Glowing[Glow] = true
+            end
+            Rest()
+        end)
+
+        Button.MouseLeave:Connect(function()
+            Hovered = false
+            Glowing[Glow] = nil
+            Glow.Enabled = false
+            Rest()
+        end)
+
+        Button.MouseButton1Down:Connect(function()
+            TweenService:Create(Scale, Quick, { Scale = 0.975 }):Play()
+        end)
+
+        Button.MouseButton1Click:Connect(function()
+            Copied = true
+
+            -- Squash, then spring back: the whole feedback is one gesture.
+            TweenService:Create(Scale, Bounce, { Scale = 1 }):Play()
+            TweenService:Create(Button, Quick, { BackgroundColor3 = Scheme.Pink, BackgroundTransparency = 0 }):Play()
+            Glowing[Glow] = nil
+            Glow.Enabled = false
+            Line.Color = Scheme.Deep
+            TweenService:Create(Line, Quick, { Thickness = 2 }):Play()
+            TweenService:Create(Name, Quick, { TextColor3 = Color3.new(1, 1, 1) }):Play()
+
+            copyToClipboard(Method.Address)
+            Value.Text = "copied ♥"
+
+            Value.Font = BOLD
+            Value.TextColor3 = Color3.new(1, 1, 1)
+            Value.TextTransparency = 1
+            TweenService:Create(Value, TweenInfo.new(0.18), { TextTransparency = 0 }):Play()
+
+            task.delay(1.4, function()
+                if not Button.Parent then
+                    return
+                end
+                Copied = false
+                if Hovered then
+                    Glow.Enabled = true
+                    Glowing[Glow] = true
+                end
+                Value.Text = Short(Method.Address)
+                Value.Font = Enum.Font.Code
+                Value.TextColor3 = Scheme.Muted
+                TweenService:Create(Button, Quick, { BackgroundColor3 = Scheme.Sunk }):Play()
+                Rest()
+            end)
+        end)
+    end
+end
+--// Entrance \\--
+
+local Scale = New("UIScale", { Parent = Window, Scale = 0.94 })
+Window.BackgroundTransparency = 1
+
+TweenService:Create(Window, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+    BackgroundTransparency = 0,
+}):Play()
+TweenService:Create(Scale, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+    Scale = 1,
 }):Play()
