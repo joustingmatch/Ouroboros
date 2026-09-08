@@ -210,6 +210,24 @@ local Gui = New("ScreenGui", {
     DisplayOrder = 100,
 })
 
+-- Tapping outside the window closes it. On a phone this is the escape hatch:
+-- even if a viewport is so small the panel fills it, the backdrop is reachable.
+local Backdrop = New("TextButton", {
+    Parent = Gui,
+    Name = "Backdrop",
+    Size = UDim2.fromScale(1, 1),
+    BackgroundColor3 = Color3.fromRGB(24, 8, 16),
+    BackgroundTransparency = 0.55,
+    BorderSizePixel = 0,
+    AutoButtonColor = false,
+    Text = "",
+    ZIndex = 0,
+})
+
+Backdrop.MouseButton1Click:Connect(function()
+    Gui:Destroy()
+end)
+
 --// Window \\--
 
 local WIDTH, HEIGHT, BAR = 760, 430, 46
@@ -218,14 +236,56 @@ local Window = New("Frame", {
     Parent = Gui,
     Name = "Window",
     AnchorPoint = Vector2.new(0.5, 0.5),
-    Position = UDim2.fromScale(0.5, 0.5),
     Size = UDim2.fromOffset(WIDTH, HEIGHT),
+    ZIndex = 1,
     BackgroundColor3 = Scheme.Ground,
     BorderSizePixel = 0,
 }, {
     Corner(16),
     Stroke(Scheme.Pink, 2),
 })
+
+--// Fit to the screen \--
+-- The panel is authored at 760x430. Phones are smaller than that, so it is
+-- scaled down to whatever the viewport can hold and kept fully on screen —
+-- otherwise the window overflows and the close button sits off the edge.
+
+local Touch = UserInputService.TouchEnabled and not UserInputService.MouseEnabled
+
+local Scale = New("UIScale", { Parent = Window, Scale = 1 })
+
+local Centre = Vector2.new()
+local Entered = false
+
+local function FitScale(): number
+    local Viewport = Gui.AbsoluteSize
+    if Viewport.X <= 0 or Viewport.Y <= 0 then
+        return 1
+    end
+    local Margin = Touch and 16 or 32
+    return math.min(1, (Viewport.X - Margin) / WIDTH, (Viewport.Y - Margin) / HEIGHT)
+end
+
+local function Place(Wanted: Vector2)
+    local Viewport = Gui.AbsoluteSize
+    local Half = Vector2.new(WIDTH, HEIGHT) * (Scale.Scale / 2)
+
+    local X = Viewport.X > Half.X * 2 and math.clamp(Wanted.X, Half.X, Viewport.X - Half.X) or Viewport.X / 2
+    local Y = Viewport.Y > Half.Y * 2 and math.clamp(Wanted.Y, Half.Y, Viewport.Y - Half.Y) or Viewport.Y / 2
+
+    Centre = Vector2.new(X, Y)
+    Window.Position = UDim2.fromOffset(X, Y)
+end
+
+local function Fit()
+    local Target = FitScale()
+    Scale.Scale = Entered and Target or Target * 0.94
+    Place(Centre.Magnitude > 0 and Centre or Gui.AbsoluteSize / 2)
+    return Target
+end
+
+Fit()
+Gui:GetPropertyChangedSignal("AbsoluteSize"):Connect(Fit)
 
 --// Title bar \\--
 
@@ -298,7 +358,7 @@ New("TextLabel", {
     Parent = TitleBar,
     Name = "Tagline",
     AnchorPoint = Vector2.new(1, 0.5),
-    Position = UDim2.new(1, -48, 0.5, 0),
+    Position = UDim2.new(1, -56, 0.5, 0),
     Size = UDim2.fromOffset(220, 20),
     BackgroundTransparency = 1,
     Font = BODY,
@@ -313,15 +373,17 @@ local Close = New("TextButton", {
     Parent = TitleBar,
     Name = "Close",
     AnchorPoint = Vector2.new(1, 0.5),
-    Position = UDim2.new(1, -14, 0.5, 0),
-    Size = UDim2.fromOffset(24, 24),
+    Position = UDim2.new(1, -12, 0.5, 0),
+    -- Bigger on touch: the panel is scaled down on a phone, so the button has
+    -- to start large enough to still be a thumb target afterwards.
+    Size = UDim2.fromOffset(Touch and 42 or 34, Touch and 42 or 34),
     BackgroundColor3 = Color3.fromRGB(255, 255, 255),
     BackgroundTransparency = 0.75,
     BorderSizePixel = 0,
     AutoButtonColor = false,
     Font = BOLD,
     Text = "×",
-    TextSize = 16,
+    TextSize = Touch and 26 or 22,
     TextColor3 = Color3.new(1, 1, 1),
     ZIndex = 2,
 }, { Corner(12) })
@@ -336,14 +398,14 @@ Close.MouseButton1Click:Connect(function()
     Gui:Destroy()
 end)
 
---// Dragging \\--
+--// Dragging \--
 
 do
     local Dragging, Start, Origin = false, nil, nil
 
     TitleBar.InputBegan:Connect(function(Input)
         if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-            Dragging, Start, Origin = true, Input.Position, Window.Position
+            Dragging, Start, Origin = true, Input.Position, Centre
         end
     end)
 
@@ -361,12 +423,8 @@ do
             return
         end
         local Delta = Input.Position - Start
-        Window.Position = UDim2.new(
-            Origin.X.Scale,
-            Origin.X.Offset + Delta.X,
-            Origin.Y.Scale,
-            Origin.Y.Offset + Delta.Y
-        )
+        -- Place() clamps, so a drag can never carry the window off screen.
+        Place(Origin + Vector2.new(Delta.X, Delta.Y))
     end)
 end
 
@@ -707,14 +765,15 @@ do
         end)
     end
 end
---// Entrance \\--
 
-local Scale = New("UIScale", { Parent = Window, Scale = 0.94 })
+--// Entrance \--
+
 Window.BackgroundTransparency = 1
+Entered = true
 
 TweenService:Create(Window, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
     BackgroundTransparency = 0,
 }):Play()
 TweenService:Create(Scale, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-    Scale = 1,
+    Scale = FitScale(),
 }):Play()
