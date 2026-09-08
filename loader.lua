@@ -15,6 +15,7 @@ local games = {
     [899260384] = 'mergescp.luau',
     [446405201]  = 'merge-a-nuke.lua',
     [290340269] = 'dinogame.luau',
+    [44742013] = 'slashperclick.luau,
     [5028964]    = 'saber-simulator.lua',
     [143238687] = 'horseanime.luau',
     [3796913] = 'analgunzombies.luau',
