@@ -12,6 +12,7 @@ local games = {
     [973045631]  = 'anime-card-farm.lua',
     [104489519]  = 'defend-ur-base-with-anime.lua',
     [32744161] = 'projectaurarng.luau',
+    [899260384] = 'mergescp.luau',
     [446405201]  = 'merge-a-nuke.lua',
     [290340269] = 'dinogame.luau',
     [5028964]    = 'saber-simulator.lua',
