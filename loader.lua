@@ -24,6 +24,7 @@ local games = {
     [900737444] = 'samuraislut.luau',
     [3796913] = 'analgunzombies.luau',
     [15203288] = 'nuttinginsidebrainrots.luau',
+    [984941738] = 'fisheggs.luau',
     [5086436] = 'huntingseason.luau',
     [200588528] = 'spiderboypussy.luau',
     [36025827] = 'dirtycmuwhore.luau',
