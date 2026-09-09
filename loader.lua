@@ -21,6 +21,7 @@ local games = {
     [980319952] = 'fuckacube.luau',
     [5028964]    = 'saber-simulator.lua',
     [143238687] = 'horseanime.luau',
+    [900737444] = 'samuraislut.luau,
     [3796913] = 'analgunzombies.luau',
     [15203288] = 'nuttinginsidebrainrots.luau',
     [5086436] = 'huntingseason.luau',
