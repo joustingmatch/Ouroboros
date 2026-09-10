@@ -17,6 +17,7 @@ local games = {
     [290340269] = 'dinogame.luau',
     [1040745973] = 'laststop.luau',
     [7020486356] = 'endlesstower.luau',
+    [874625030] = 'choptrees.luau',
     [44742013] = 'slashperclick.luau',
     [42321785] = 'slopturret.luau',
     [296197995] = 'stealcumseed.luau',
