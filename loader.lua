@@ -22,6 +22,7 @@ local games = {
     [820014558] = 'stealanimeegg.luau',
     [874625030] = 'choptrees.luau',
     [543135249] = 'animemine.luau',
+    [783008896] = 'furryporn.luau',
     [44742013] = 'slashperclick.luau',
     [88347112] = 'unfreeze.luau',
     [42321785] = 'slopturret.luau',
