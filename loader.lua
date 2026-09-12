@@ -18,6 +18,7 @@ local games = {
     [1040745973] = 'laststop.luau',
     [828376264] = 'lootforge.luau',
     [7020486356] = 'endlesstower.luau',
+    [604593435] = 'cummingdrivethru.luau',
     [773411069] = 'csim.luau',
     [820014558] = 'stealanimeegg.luau',
     [434582823] = 'hirepostalkingfaggot.luau',
