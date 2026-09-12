@@ -29,6 +29,7 @@ local games = {
     [42321785] = 'slopturret.luau',
     [296197995] = 'stealcumseed.luau',
     [35247239] = 'fruitsex.luau',
+    [34288349] = 'buildslavegolems.luau',
     [980319952] = 'fuckacube.luau',
     [5028964]    = 'saber-simulator.lua',
     [143238687] = 'horseanime.luau',
