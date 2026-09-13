@@ -106,6 +106,7 @@ local games = {
     [657759819]  = 'rollanimetofight.lua',
     [35929511]   = 'animeexpeditions.lua',
     [383912360]  = 'zombieturretfarm.lua',
+    [602332660] = 'tonguepussy.luau',
     [618329596] = 'dinomerge.luau',
     [73354146]   = 'beafishbait.lua',
     [878417107]  = 'mergeablackhole.lua',
