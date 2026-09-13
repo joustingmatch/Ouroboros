@@ -119,6 +119,7 @@ local games = {
     [490911723]  = 'swingerspickaxe.lua',
     [1056817463] = 'bidforanime.lua',
     [645675002]  = 'pullaluckyfish.lua',
+    [1111024134] = 'niggaman.luau',
     [10627495]   = 'somethingsexywillhappen.lua',
     [4843918]    = 'farmafish.lua',
     [1057255034] = 'cutagem.lua',
