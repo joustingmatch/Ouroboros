@@ -100,6 +100,7 @@ local games = {
     [33896179]   = 'missilesvscities.lua',
     [380415714]  = 'throwacoin.lua',
     [177870152]  = 'buildakeyboard.lua',
+    [426881025] = 'mogevo.luau',
     [35666413]   = 'beeremasters.lua',
     [532484073]  = 'mydinofarm.lua',
     [9640154]    = 'storagehunters.lua',
