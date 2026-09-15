@@ -24,6 +24,7 @@ local games = {
     [820014558] = 'stealanimeegg.luau',
     [434582823] = 'hirepostalkingfaggot.luau',
     [546012924] = 'stealgiantegg.luau',
+    [227788519] = 'jerkingofflmfao.luau',
     [874625030] = 'choptrees.luau',
     [543135249] = 'animemine.luau',
     [783008896] = 'furryporn.luau',
