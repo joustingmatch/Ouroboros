@@ -94,6 +94,7 @@ local games = {
     [1000628384] = 'makeadrillfarm.lua',
     [330064258]  = 'growitrng.lua',
     [625498370]  = 'animeshitseer.lua',
+    [36091156] = 'thisisbad.luau',
     [33896179]   = 'missilesvscities.lua',
     [380415714]  = 'throwacoin.lua',
     [177870152]  = 'buildakeyboard.lua',
