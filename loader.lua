@@ -115,6 +115,7 @@ local games = {
     [383912360]  = 'zombieturretfarm.lua',
     [602332660] = 'tonguepussy.luau',
     [618329596] = 'dinomerge.luau',
+    [126757004] = 'stealcumegg.luau',
     [73354146]   = 'beafishbait.lua',
     [878417107]  = 'mergeablackhole.lua',
     [13511151]   = 'finalswarm.lua',
