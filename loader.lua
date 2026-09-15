@@ -21,6 +21,7 @@ local games = {
     [7020486356] = 'endlesstower.luau',
     [604593435] = 'cummingdrivethru.luau',
     [980199281] = 'tntmining.luau',
+    [448072805] = 'anaomlygarden.luau',
     [773411069] = 'csim.luau',
     [820014558] = 'stealanimeegg.luau',
     [434582823] = 'hirepostalkingfaggot.luau',
