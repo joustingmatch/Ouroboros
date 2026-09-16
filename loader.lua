@@ -17,6 +17,7 @@ local games = {
     [290340269] = 'dinogame.luau',
     [429377976] = 'evertmortal.luau',
     [1040745973] = 'laststop.luau',
+    [826943058] = 'heymyman.luau',
     [705496325] = 'aislop.luau',
     [1015860650] = 'wingsforgays.luau',
     [828376264] = 'lootforge.luau',
