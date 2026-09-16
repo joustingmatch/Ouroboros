@@ -18,6 +18,7 @@ local games = {
     [429377976] = 'evertmortal.luau',
     [1040745973] = 'laststop.luau',
     [705496325] = 'aislop.luau',
+    [1015860650] = 'wingsforgays.luau',
     [828376264] = 'lootforge.luau',
     [220484596] = 'fpsgame.luau',
     [7020486356] = 'endlesstower.luau',
