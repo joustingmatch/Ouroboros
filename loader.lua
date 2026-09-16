@@ -21,6 +21,7 @@ local games = {
     [705496325] = 'aislop.luau',
     [1015860650] = 'wingsforgays.luau',
     [828376264] = 'lootforge.luau',
+    [1000094029] = 'veritypanels.luau',
     [220484596] = 'fpsgame.luau',
     [7020486356] = 'endlesstower.luau',
     [604593435] = 'cummingdrivethru.luau',
