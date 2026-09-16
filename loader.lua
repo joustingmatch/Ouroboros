@@ -23,6 +23,7 @@ local games = {
     [220484596] = 'fpsgame.luau',
     [7020486356] = 'endlesstower.luau',
     [604593435] = 'cummingdrivethru.luau',
+    [266869263] = 'nega.luau',
     [980199281] = 'tntmining.luau',
     [448072805] = 'anaomlygarden.luau',
     [773411069] = 'csim.luau',
