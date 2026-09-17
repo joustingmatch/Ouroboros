@@ -377,9 +377,6 @@ if identifyexecutor then
     end
 end
 
--- CreatorId is per creator, not per game, so a creator with more than one
--- supported game collides and the last entry in `games` silently wins. Places
--- listed here are matched first and win over the CreatorId mapping.
 local places = {
     [122278212262864] = 'raceforverity.luau', -- Race for Eggs
 }
