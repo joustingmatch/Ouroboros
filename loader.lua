@@ -17,6 +17,7 @@ local games = {
     [290340269] = 'dinogame.luau',
     [719390069] = 'raceforverity.luau',
     [471174313] = 'drillforverity.luau',
+    [580684246] = 'fuckveritysasshole.luau',
     [429377976] = 'evertmortal.luau',
     [1040745973] = 'laststop.luau',
     [826943058] = 'heymyman.luau',
