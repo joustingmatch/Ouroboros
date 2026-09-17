@@ -13,6 +13,7 @@ local games = {
     [104489519]  = 'defend-ur-base-with-anime.lua',
     [32744161] = 'projectaurarng.luau',
     [899260384] = 'mergescp.luau',
+    [8204913] = 'utd.luau',
     [446405201]  = 'merge-a-nuke.lua',
     [290340269] = 'dinogame.luau',
     [719390069] = 'raceforverity.luau',
