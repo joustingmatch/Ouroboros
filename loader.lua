@@ -18,6 +18,7 @@ local games = {
     [8204913] = 'utd.luau',
     [800845434] = 'horseforverity.luau',
     [1070440119] = 'breakverity.luau',
+    [619265276] = 'surfforanimals.luau',
     [723357763] = 'verityplane.luau',
     [446405201]  = 'merge-a-nuke.lua',
     [290340269] = 'dinogame.luau',
