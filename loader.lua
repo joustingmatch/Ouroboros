@@ -17,6 +17,7 @@ local games = {
     [899260384] = 'mergescp.luau',
     [907940218] = 'veritypyramid.luau',
     [8204913] = 'utd.luau',
+    [960163386] = 'weightforverity.luau',
     [800845434] = 'horseforverity.luau',
     [1070440119] = 'breakverity.luau',
     [619265276] = 'surfforanimals.luau',
