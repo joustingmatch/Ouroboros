@@ -13,6 +13,7 @@ local games = {
     [973045631]  = 'anime-card-farm.lua',
     [104489519]  = 'defend-ur-base-with-anime.lua',
     [32744161] = 'projectaurarng.luau',
+    [656960909] = 'veritylava.luau',
     [882466945] = 'rollforverity.luau',
     [899260384] = 'mergescp.luau',
     [797650200] = 'animeverity.luau',
