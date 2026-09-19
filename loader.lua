@@ -15,6 +15,7 @@ local games = {
     [32744161] = 'projectaurarng.luau',
     [882466945] = 'rollforverity.luau',
     [899260384] = 'mergescp.luau',
+    [797650200] = 'animeverity.luau',
     [907940218] = 'veritypyramid.luau',
     [8204913] = 'utd.luau',
     [960163386] = 'weightforverity.luau',
