@@ -16,6 +16,7 @@ local games = {
     [88638261] = 'robverity.luau',
     [656960909] = 'veritylava.luau',
     [882466945] = 'rollforverity.luau',
+    [89503633] = 'raiseaverity.luau',
     [1006560817] = 'verityhorse.luau',
     [899260384] = 'mergescp.luau',
     [797650200] = 'animeverity.luau',
