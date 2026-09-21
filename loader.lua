@@ -14,6 +14,7 @@ local games = {
     [104489519]  = 'defend-ur-base-with-anime.lua',
     [32744161] = 'projectaurarng.luau',
     [88638261] = 'robverity.luau',
+    [354756623] = 'shitass.luau',
     [656960909] = 'veritylava.luau',
     [882466945] = 'rollforverity.luau',
     [89503633] = 'raiseaverity.luau',
