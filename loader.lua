@@ -376,6 +376,16 @@ local games = {
     [1041268469] = 'pussyfishing.luau',
 }
 
+if identifyexecutor then
+    local execName = tostring(identifyexecutor()):lower()
+    for _, name in ipairs({ "Solara", "Xeno" }) do
+        if execName:find(name:lower(), 1, true) then
+            game.Players.LocalPlayer:Kick("Ouroboros does not support " .. name .. ". Use a supported executor. discord.gg/ehKVq7pf7v")
+            return
+        end
+    end
+end
+
 local places = {
     [122278212262864] = 'raceforverity.luau', -- Race for Eggs
 }
