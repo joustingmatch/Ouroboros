@@ -376,26 +376,6 @@ local games = {
     [1041268469] = 'pussyfishing.luau',
 }
 
-if identifyexecutor then
-    local execName = tostring(identifyexecutor()):lower()
-    local UNSUPPORTED = { "Solara", "Xeno" }
-    for _, name in ipairs(UNSUPPORTED) do
-        if execName:find(name:lower(), 1, true) then
-            local ok, Library = pcall(function()
-                return loadstring(game:HttpGet("https://raw.githubusercontent.com/joustingmatch/ObsidianUltra/main/Library.lua"))()
-            end)
-            if ok and Library then
-                Library:CreateUnsupportedScreen({
-                    Title = "Ouroboros",
-                    Unsupported = UNSUPPORTED,
-                    Footer = { { Text = "discord.gg/ehKVq7pf7v", Copyable = true } },
-                })
-            end
-            return
-        end
-    end
-end
-
 local places = {
     [122278212262864] = 'raceforverity.luau', -- Race for Eggs
 }
