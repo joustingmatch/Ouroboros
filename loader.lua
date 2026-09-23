@@ -15,6 +15,7 @@ local games = {
     [424082979] = 'fuckingbitchegg.luau',
     [104489519]  = 'defend-ur-base-with-anime.lua',
     [473699786] = 'cupverity.luau',
+    [473699786] = 'richverity.luau',
     [32744161] = 'projectaurarng.luau',
     [948557217] = 'animerngx.luau',
     [202162692] = 'cumnigga.luau',
