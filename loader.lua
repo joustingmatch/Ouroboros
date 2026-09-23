@@ -304,6 +304,7 @@ local games = {
     [5019929] = 'penthouse.lua',
     [976904614] = 'animegirlpaint.lua',
     [33017480] = 'animedice.lua',
+    [35939768] = 'petsuniverse.luau',
     [697359830] = 'reeled.lua',
     [32032540] = 'heavyweightfishing.lua',
     [605521299] = 'drillblocks.lua',
