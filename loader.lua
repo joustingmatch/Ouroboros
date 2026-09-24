@@ -7,6 +7,7 @@ local BASE = 'https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/gam
 local games = {
     [9190691]    = 'anime-squadron.lua',
     [896806231]  = 'axe-rng.lua',
+    [187288153] = 'breakverityasshole.luau',
     [479094425] = 'suck.luau',
     [719390069] = 'cloneverityballs.luau',
     [374427578] = 'hitagolfball.luau',
