@@ -11,6 +11,7 @@ local games = {
     [479094425] = 'suck.luau',
     [719390069] = 'cloneverityballs.luau',
     [374427578] = 'hitagolfball.luau',
+    [719390069] = 'seaforverity.luau',
     [759293173]  = 'reign-piece.lua',
     [604931455] = 'ewjob.luau',
     [973045631]  = 'anime-card-farm.lua',
@@ -399,6 +400,7 @@ end
 local places = {
     [122278212262864] = 'raceforverity.luau', -- Race for Eggs
     [76943966208523] = 'cloneverityballs.luau',
+    [88047783411976] = 'seaforverity.luau',
 }
 
 local file = places[game.PlaceId] or games[game.CreatorId]
