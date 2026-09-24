@@ -13,6 +13,7 @@ local games = {
     [759293173]  = 'reign-piece.lua',
     [604931455] = 'ewjob.luau',
     [973045631]  = 'anime-card-farm.lua',
+    [846226343] = 'surfverity.luau',
     [424082979] = 'fuckingbitchegg.luau',
     [104489519]  = 'defend-ur-base-with-anime.lua',
     [473699786] = 'cupverity.luau',
