@@ -395,6 +395,7 @@ end
 
 local places = {
     [122278212262864] = 'raceforverity.luau', -- Race for Eggs
+    [76943966208523] = 'cloneverityballs.luau',
 }
 
 local file = places[game.PlaceId] or games[game.CreatorId]
