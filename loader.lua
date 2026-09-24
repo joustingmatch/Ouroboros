@@ -8,6 +8,7 @@ local games = {
     [9190691]    = 'anime-squadron.lua',
     [896806231]  = 'axe-rng.lua',
     [479094425] = 'suck.luau',
+    [719390069] = 'cloneverityballs.luau',
     [374427578] = 'hitagolfball.luau',
     [759293173]  = 'reign-piece.lua',
     [604931455] = 'ewjob.luau',
