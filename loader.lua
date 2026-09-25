@@ -18,6 +18,7 @@ local games = {
     [207366578] = 'skiphoe.luau',
     [973045631]  = 'anime-card-farm.lua',
     [846226343] = 'surfverity.luau',
+    [32680696] = 'cumcum.luau',
     [424082979] = 'fuckingbitchegg.luau',
     [104489519]  = 'defend-ur-base-with-anime.lua',
     [473699786] = 'cupverity.luau',
