@@ -15,6 +15,7 @@ local games = {
     [759293173]  = 'reign-piece.lua',
     [33493701] = 'assscript.luau',
     [604931455] = 'ewjob.luau',
+    [877561232] = 'garbagefodder.luau',
     [207366578] = 'skiphoe.luau',
     [973045631]  = 'anime-card-farm.lua',
     [846226343] = 'surfverity.luau',
