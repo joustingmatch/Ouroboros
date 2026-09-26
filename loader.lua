@@ -13,6 +13,7 @@ local games = {
     [374427578] = 'hitagolfball.luau',
     [719390069] = 'seaforverity.luau',
     [74174827] = '1342adrfwd.luau',
+    [1012176127] = 'sadasdasd.luau',
     [759293173]  = 'reign-piece.lua',
     [805910705] = 'badcode.luau',
     [473571603] = 'asdjsad.luau',
