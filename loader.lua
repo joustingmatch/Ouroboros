@@ -10,6 +10,7 @@ local games = {
     [187288153] = 'breakverityasshole.luau',
     [479094425] = 'suck.luau',
     [719390069] = 'cloneverityballs.luau',
+    [425964032] = 'fuckyobitch.luau',
     [374427578] = 'hitagolfball.luau',
     [719390069] = 'seaforverity.luau',
     [74174827] = '1342adrfwd.luau',
