@@ -18,6 +18,7 @@ local games = {
     [415288814] = 'dreamcar.luau',
     [1012176127] = 'sadasdasd.luau',
     [452622736] = 'mergenoob.luau',
+    [852292832] = 'shieldrope.luau',
     [424792181] = 'tapbuttons.luau',
     [228719500] = 'swimslop.luau',
     [759293173]  = 'reign-piece.lua',
