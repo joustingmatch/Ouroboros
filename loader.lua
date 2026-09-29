@@ -15,6 +15,7 @@ local games = {
     [719390069] = 'seaforverity.luau',
     [74174827] = '1342adrfwd.luau',
     [1012176127] = 'sadasdasd.luau',
+    [424792181] = 'tapbuttons.luau',
     [228719500] = 'swimslop.luau',
     [759293173]  = 'reign-piece.lua',
     [805910705] = 'badcode.luau',
