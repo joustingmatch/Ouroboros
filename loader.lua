@@ -18,6 +18,7 @@ local games = {
     [67033518] = 'buttsex.luau',
     [1043475079] = 'vaulttank.luau',
     [565217838] = 'chargemyphonenigga.luau',
+    [34512094] = 'snc.luau',
     [215886677] = 'cookananimal.luau',
     [415288814] = 'dreamcar.luau',
     [1012176127] = 'sadasdasd.luau',
