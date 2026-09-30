@@ -16,6 +16,7 @@ local games = {
     [74174827] = '1342adrfwd.luau',
     [640592386] = 'ropemyself.luau',
     [1043475079] = 'vaulttank.luau',
+    [565217838] = 'chargemyphonenigga.luau',
     [215886677] = 'cookananimal.luau',
     [415288814] = 'dreamcar.luau',
     [1012176127] = 'sadasdasd.luau',
