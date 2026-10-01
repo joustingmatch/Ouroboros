@@ -15,6 +15,7 @@ local games = {
     [374427578] = 'hitagolfball.luau',
     [719390069] = 'seaforverity.luau',
     [74174827] = '1342adrfwd.luau',
+    [861404864] = 'zerohuzz.luau',
     [640592386] = 'ropemyself.luau',
     [67033518] = 'buttsex.luau',
     [1043475079] = 'vaulttank.luau',
