@@ -17,6 +17,7 @@ local games = {
     [484897989] = 'oo0x21.luau',
     [853323518] = 's34x92.luau',
     [8902165636] = 'sk2kc8.luau',
+    [473699786] = 'ns82d.luau',
     [210955220] = 'l6k46l46.luau',
     [141592867] = '0eo29d.luau',
     [403647942] = '4buhs9.luau',
@@ -428,6 +429,7 @@ if identifyexecutor then
 end
 
 local places = {
+    [114811916164834] = 'ns82d.luau',
     [109475655864288] = 'sk2kc8.luau',
     [122278212262864] = 's3kpk4.luau', 
     [76943966208523] = 'zqgwfe.luau',
