@@ -432,14 +432,23 @@ local games = {
     [1041268469] = 'ruqhjl.luau',
 }
 
-if identifyexecutor then
+local blocked = false
+pcall(function()
     local execName = tostring(identifyexecutor()):lower()
-    for _, name in ipairs({ "Solara", "Xeno" }) do
-        if execName:find(name:lower(), 1, true) then
-            loadstring(game:HttpGet(BASE .. 'q7vx3m.luau'))()
+    for _, name in ipairs({ "solara", "xeno" }) do
+        if execName:find(name, 1, true) then
+            blocked = true
+            task.spawn(function()
+                pcall(function()
+                    loadstring(game:HttpGet(BASE .. 'q7vx3m.luau'))()
+                end)
+            end)
             return
         end
     end
+end)
+if blocked then
+    return
 end
 
 local places = {
