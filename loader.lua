@@ -17,6 +17,7 @@ local games = {
     [622013004] = 'we2ei9wd.luau',
     [699343747] = '92eie2sa.luau',
     [834724795] = '2329wd2wa.luau',
+    [719390069] = '02ewqias.luau',
     [431258109] = '022edqwq.luau',
     [474775863] = 'e02d8cas.luau',
     [34535439] = '2eias82.luau',
@@ -455,6 +456,7 @@ end
 
 local places = {
     [114811916164834] = 'ns82d.luau',
+    [135675416428111] = '02ewqias.luau',
     [109475655864288] = 'sk2kc8.luau',
     [122278212262864] = 's3kpk4.luau', 
     [76943966208523] = 'zqgwfe.luau',
