@@ -15,7 +15,6 @@ local games = {
     [405200953] = '4ed92d.luau',
     [17087539] = 's5ex82.luau',
     [575557242] = '82we2d.luau',
-    [9026526791] = '232ewd2.luau',
     [622013004] = 'we2ei9wd.luau',
     [699343747] = '92eie2sa.luau',
     [1028261651] = '29d2dwq.luau',
@@ -468,6 +467,7 @@ local places = {
     [76943966208523] = 'zqgwfe.luau',
     [119121637510344] = 'we2ei9wd.luau',
     [88047783411976] = '67ih7v.luau',
+    [9026526791] = '232ewd2.luau',
 }
 
 local file = places[game.PlaceId] or games[game.CreatorId]
