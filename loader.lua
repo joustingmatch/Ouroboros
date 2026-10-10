@@ -12,6 +12,7 @@ local games = {
     [479094425] = 'ea8fxc.luau',
     [719390069] = 'zqgwfe.luau',
     [425964032] = 'k6i3u9.luau',
+    [759078673] = 'e29e2a.luau',
     [405200953] = '4ed92d.luau',
     [362755399] = '3e2wer43.luau',
     [17087539] = 's5ex82.luau',
